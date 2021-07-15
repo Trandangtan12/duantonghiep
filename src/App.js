@@ -10,6 +10,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <h2>hello quyet ne</h2>
+        <i class="fas fa-h2    ">Hi Cụt nè </i>
       </header>
     </div>
   );
