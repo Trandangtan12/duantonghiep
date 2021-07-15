@@ -12,6 +12,7 @@ function App() {
         <h2>hello quyet ne</h2>
         <i class="fas fa-h2">Hi Cụt nè </i>
         <h2>quyet tap pull code</h2>
+        <h2>chi béo</h2>
       </header>
     </div>
   );
