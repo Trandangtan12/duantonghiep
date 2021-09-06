@@ -17,6 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "tailwind": "tailwindcss -i ./src/tailwind.css -o ./src/asset/style.css -w --verbose",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -38,5 +39,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.3.4",
+    "postcss": "^8.3.6",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.2.9"
   }
 }
