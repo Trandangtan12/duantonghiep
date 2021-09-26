@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
+    "npx": "^10.2.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -18,7 +19,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "tailwind": "tailwindcss -i ./src/tailwind.css -o ./src/asset/style.css -w --verbose",
+    "tailwind": "tailwindcss -i ./src/tailwind.css -o ./src/asset/style.css -w",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -42,9 +43,9 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^10.3.4",
-    "postcss": "^8.3.6",
+    "autoprefixer": "^10.3.5",
+    "postcss": "^8.3.8",
     "postcss-cli": "^8.3.1",
-    "tailwindcss": "^2.2.9"
+    "tailwindcss": "^2.2.15"
   }
 }

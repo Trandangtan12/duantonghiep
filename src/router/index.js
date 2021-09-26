@@ -1,20 +1,37 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import HomePages from "../pages/homepages";
-import Contracts from "../pages/contacts";
-import Products from "../pages/products";
+import PrivateRouterAdmin from "../auth/privateRouterAdmin";
+import Footer from "../compornent/footer";
+import Header from "../compornent/header";
+import LayoutAdmin from "../layout/layoutAdmin";
+import LayoutWebsite from "../layout/layoutWebsite";
+import DashBoard from "../pages/private/dashboard";
+import Contracts from "../pages/public/contacts";
+import HomePages from "../pages/public/homepages";
 const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact>
-          <HomePages />
+        <Route exact path="/admin/:path?">
+          <LayoutAdmin>
+            <Route path="/admin/">
+              <DashBoard />
+            </Route>
+          </LayoutAdmin>
         </Route>
-        <Route path="/contact">
-          <Contracts></Contracts>
-        </Route>
-        <Route path="/products">
-          <Products/>
+        <Route>
+          <Header/>
+          <LayoutWebsite>
+            <Switch>
+              <Route exact path="/">
+                <HomePages></HomePages>
+              </Route>
+              <Route exact path="/contact">
+                <Contracts />
+              </Route>
+            </Switch>
+          </LayoutWebsite>
+          <Footer/>
         </Route>
       </Switch>
     </Router>

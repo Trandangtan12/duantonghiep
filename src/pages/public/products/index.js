@@ -2,7 +2,7 @@ import React from 'react'
 
 const Products = () => {
     return (
-        <div className="tw-container"> 
+        <div> 
             trang product
         </div>
     )
