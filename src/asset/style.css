@@ -597,43 +597,6 @@ video {
 *, ::before, ::after {
   --tw-border-opacity: 1;
   border-color: rgba(229, 231, 235, var(--tw-border-opacity));
-  --tw-ring-offset-shadow: 0 0 #0000;
-  --tw-ring-shadow: 0 0 #0000;
-  --tw-shadow: 0 0 #0000;
-}
-
-.tw-container {
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .tw-container {
-    max-width: 640px;
-  }
-}
-
-@media (min-width: 768px) {
-  .tw-container {
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .tw-container {
-    max-width: 1024px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .tw-container {
-    max-width: 1280px;
-  }
-}
-
-@media (min-width: 1536px) {
-  .tw-container {
-    max-width: 1536px;
-  }
 }
 
 .tw-fixed {
@@ -641,6 +604,10 @@ video {
 }
 
 .tw-top-0 {
+  top: 0px;
+}
+
+.tw--top-0 {
   top: 0px;
 }
 
@@ -655,14 +622,6 @@ video {
 .tw-mx-auto {
   margin-left: auto;
   margin-right: auto;
-}
-
-.tw-mt-4 {
-  margin-top: 1rem;
-}
-
-.tw-mt-7 {
-  margin-top: 1.75rem;
 }
 
 .tw-mt-0 {
@@ -697,84 +656,20 @@ video {
   display: none;
 }
 
-.tw-h-\[100px\] {
-  height: 100px;
-}
-
-.tw-h-\[30px\] {
-  height: 30px;
-}
-
-.tw-h-\[50px\] {
-  height: 50px;
-}
-
-.tw-h-\[80px\] {
-  height: 80px;
-}
-
 .tw-h-1 {
   height: 0.25rem;
-}
-
-.tw-h-3 {
-  height: 0.75rem;
 }
 
 .tw-h-full {
   height: 100%;
 }
 
-.tw-h-\[5000px\] {
-  height: 5000px;
-}
-
-.tw-h-\[1000px\] {
-  height: 1000px;
-}
-
-.tw-h-\[300px\] {
-  height: 300px;
-}
-
-.tw-max-h-full {
-  max-height: 100%;
-}
-
-.tw-w-\[20px\] {
-  width: 20px;
-}
-
-.tw-w-\[200px\] {
-  width: 200px;
-}
-
-.tw-w-\[100px\] {
-  width: 100px;
-}
-
-.tw-w-\[80px\] {
-  width: 80px;
-}
-
 .tw-w-full {
   width: 100%;
 }
 
-.tw-w-3 {
-  width: 0.75rem;
-}
-
-.tw-w-\[70\%\] {
-  width: 70%;
-}
-
 .tw-w-\[60\%\] {
   width: 60%;
-}
-
-.tw-max-w-4xl {
-  max-width: 56rem;
 }
 
 .tw-flex-1 {
@@ -785,25 +680,13 @@ video {
   flex-grow: 1;
 }
 
-.tw-cursor-pointer {
-  cursor: pointer;
-}
-
 .tw-appearance-none {
   -webkit-appearance: none;
           appearance: none;
 }
 
-.tw-grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
 .tw-grid-cols-\[20\%\,80\%\] {
   grid-template-columns: 20% 80%;
-}
-
-.tw-grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .tw-flex-wrap {
@@ -822,22 +705,6 @@ video {
   justify-content: space-between;
 }
 
-.tw-justify-items-center {
-  justify-items: center;
-}
-
-.tw-gap-6 {
-  gap: 1.5rem;
-}
-
-.tw-gap-20 {
-  gap: 5rem;
-}
-
-.tw-gap-10 {
-  gap: 2.5rem;
-}
-
 .tw-rounded {
   border-radius: 0.25rem;
 }
@@ -850,33 +717,19 @@ video {
   border-width: 1px;
 }
 
-.tw-border-t {
-  border-top-width: 1px;
-}
-
-.tw-border-gray-400 {
-  --tw-border-opacity: 1;
-  border-color: rgba(156, 163, 175, var(--tw-border-opacity));
-}
-
 .tw-border-gray-600 {
   --tw-border-opacity: 1;
   border-color: rgba(75, 85, 99, var(--tw-border-opacity));
 }
 
-.tw-bg-gray-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(75, 85, 99, var(--tw-bg-opacity));
-}
-
-.tw-bg-green-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(5, 150, 105, var(--tw-bg-opacity));
-}
-
 .tw-bg-white {
   --tw-bg-opacity: 1;
   background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+}
+
+.tw-bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
 }
 
 .tw-bg-gray-100 {
@@ -889,45 +742,8 @@ video {
   background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
 }
 
-.tw-fill-current {
-  fill: currentColor;
-}
-
-.tw-p-12 {
-  padding: 3rem;
-}
-
-.tw-p-2 {
-  padding: 0.5rem;
-}
-
 .tw-p-3 {
   padding: 0.75rem;
-}
-
-.tw-p-5 {
-  padding: 1.25rem;
-}
-
-.tw-p-6 {
-  padding: 1.5rem;
-}
-
-.tw-p-4 {
-  padding: 1rem;
-}
-
-.tw-p-1 {
-  padding: 0.25rem;
-}
-
-.tw-p-10 {
-  padding: 2.5rem;
-}
-
-.tw-py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 }
 
 .tw-px-8 {
@@ -977,18 +793,6 @@ video {
   padding-right: 1rem;
 }
 
-.tw-pt-20 {
-  padding-top: 5rem;
-}
-
-.tw-align-middle {
-  vertical-align: middle;
-}
-
-.tw-align-bottom {
-  vertical-align: bottom;
-}
-
 .tw-font-sans {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
@@ -1020,20 +824,6 @@ video {
   line-height: 1.5;
 }
 
-.tw-tracking-normal {
-  letter-spacing: 0em;
-}
-
-.tw-text-red-600 {
-  --tw-text-opacity: 1;
-  color: rgba(220, 38, 38, var(--tw-text-opacity));
-}
-
-.tw-text-white {
-  --tw-text-opacity: 1;
-  color: rgba(255, 255, 255, var(--tw-text-opacity));
-}
-
 .tw-text-gray-900 {
   --tw-text-opacity: 1;
   color: rgba(17, 24, 39, var(--tw-text-opacity));
@@ -1049,36 +839,22 @@ video {
   color: rgba(107, 114, 128, var(--tw-text-opacity));
 }
 
-.tw-no-underline {
-  text-decoration: none;
+.tw-text-white {
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 
-.tw-opacity-5 {
-  opacity: 0.05;
+.tw-no-underline {
+  text-decoration: none;
 }
 
 .tw-opacity-80 {
   opacity: 0.8;
 }
 
-.tw-shadow {
-  --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .hover\:tw-border-green-500:hover {
   --tw-border-opacity: 1;
   border-color: rgba(16, 185, 129, var(--tw-border-opacity));
-}
-
-.hover\:tw-bg-red-500:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(239, 68, 68, var(--tw-bg-opacity));
-}
-
-.hover\:tw-text-blue-500:hover {
-  --tw-text-opacity: 1;
-  color: rgba(59, 130, 246, var(--tw-text-opacity));
 }
 
 .hover\:tw-text-gray-900:hover {
@@ -1100,24 +876,12 @@ video {
     width: 50%;
   }
 
-  .md\:tw-max-w-4xl {
-    max-width: 56rem;
-  }
-
-  .md\:tw-max-w-3xl {
-    max-width: 48rem;
-  }
-
   .md\:tw-max-w-full {
     max-width: 100%;
   }
 
   .md\:tw-bg-transparent {
     background-color: transparent;
-  }
-
-  .md\:tw-p-2 {
-    padding: 0.5rem;
   }
 }
 
@@ -1144,13 +908,5 @@ video {
 
   .lg\:tw-items-center {
     align-items: center;
-  }
-
-  .lg\:tw-p-2 {
-    padding: 0.5rem;
-  }
-
-  .lg\:tw-pr-4 {
-    padding-right: 1rem;
   }
 }

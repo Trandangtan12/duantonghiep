@@ -1,39 +1,36 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import PrivateRouterAdmin from "../auth/privateRouterAdmin";
-import Footer from "../compornent/footer";
-import Header from "../compornent/header";
-import LayoutAdmin from "../layout/layoutAdmin";
-import LayoutWebsite from "../layout/layoutWebsite";
-import DashBoard from "../pages/private/dashboard";
-import Contracts from "../pages/public/contacts";
-import HomePages from "../pages/public/homepages";
+import Loading from '../asset/images/loading.gif'
 const Routes = () => {
+  const PrivateRouterAdmin = lazy(()=>lazy("../auth/privateRouterAdmin"))
+  const LayoutAdmin = lazy(() => import('../layout/layoutAdmin'))
+  const LayoutWebsite = lazy(()=> import("../layout/layoutWebsite"))
+  const HomePages = lazy(() => import("../pages/public/homepages"));
+  const Footer = lazy(() => import("../compornent/footer"));
+  const Header = lazy(() => import("../compornent/header"));
+  const DashBoard = lazy(()=>import("../pages/private/dashboard"))
+  const Contracts = lazy(()=> import("../pages/public/contacts"))
   return (
     <Router>
-      <Switch>
-        <Route exact path="/admin/:path?">
-          <LayoutAdmin>
-            <Route path="/admin/">
-              <DashBoard />
-            </Route>
-          </LayoutAdmin>
-        </Route>
-        <Route>
-          <Header/>
-          <LayoutWebsite>
-            <Switch>
-              <Route exact path="/">
-                <HomePages></HomePages>
-              </Route>
-              <Route exact path="/contact">
-                <Contracts />
-              </Route>
-            </Switch>
-          </LayoutWebsite>
-          <Footer/>
-        </Route>
-      </Switch>
+      <Suspense fallback={<div><img src={Loading} alt="loading" className="tw-fixed tw-top-0"/></div>}>
+        <Switch>
+          <Route exact path="/admin/:path?">
+            <LayoutAdmin>
+              <Route path="/admin/" component={DashBoard} />
+            </LayoutAdmin>
+          </Route>
+          <Route>
+            <Header />
+            <LayoutWebsite>
+              <Switch>
+                <Route exact path="/" component={HomePages} />
+                <Route exact path="/contact" component={Contracts} />
+              </Switch>
+            </LayoutWebsite>
+            <Footer />
+          </Route>
+        </Switch>
+      </Suspense>
     </Router>
   );
 };

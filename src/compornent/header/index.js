@@ -13,7 +13,7 @@ const Header = () => {
     }
   };
   return (
-    <header className="bg-gray-100 tw-font-sans tw-leading-normal tw-tracking-normal">
+    <header className="tw-bg-green-500 tw-font-sans tw-leading-normal tw-tracking-norma">
       <nav id="header" className="tw-block tw-w-full tw-z-10 tw-top-0">
         <div
           id="progress"
@@ -53,10 +53,10 @@ const Header = () => {
           >
             <ul className="list-reset lg:tw-flex tw-justify-end tw-flex-1 tw-items-center">
               {NAV_LINK_LIST.map((item) => (
-                <li className="tw-mr-3">
+                <li className="tw-mr-3 ">
                   <Link
                     to={item.link}
-                    className="tw-inline-block tw-py-2 tw-px-4 tw-text-gray-900 tw-font-bold tw-no-underline"
+                    className="tw-inline-block tw-py-2 tw-px-4 tw-font-bold tw-no-underline tw-text-white"
                     href="#"
                   >
                     {item.label}
