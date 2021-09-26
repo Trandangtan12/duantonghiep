@@ -7,8 +7,7 @@ const NavMobile = ({ isOpen }) => {
         isOpen ? "tw-block" : "tw-hidden"
       } tw-fixed tw-bg-black tw-w-[60%] tw-opacity-80 tw-h-full tw-top-0 lg:tw-hidden tw-rounded-md `}
     >
-
-        
+    
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import axios from "axios";
-const axiosClient = axios.create({
+const HttpClient = axios.create({
   baseURL: "https://headphoneapi.herokuapp.com/api",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-export default axiosClient;
+export default HttpClient;

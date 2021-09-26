@@ -1,7 +1,5 @@
 //tất cả đường dẫn api ở đây
-
-
-
+export const API_GET_PROVINCE = "/?depth=2"
 
 export const NAV_LINK_LIST = [
     {
@@ -17,7 +15,7 @@ export const NAV_LINK_LIST = [
         link : "/new"
     },
     {
-        label : "Tin tức",
+        label : "Xe 16 chỗ",
         link : "/new"
     },
     {
