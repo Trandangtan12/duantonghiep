@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { NAV_LINK_LIST } from "../../config";
+import Icon from "../Icon";
+import NavMobile from "../navMobile";
 const Header = () => {
-    const handleShowMenu = () =>{
-        console.log("show");
+  const [navMobileStatus, setNavMobileStatus] = useState(false);
+  const handleShowMenu = () => {
+    if (navMobileStatus) {
+      setNavMobileStatus(false);
+    } else {
+      setNavMobileStatus(true);
     }
+  };
   return (
     <header className="bg-gray-100 tw-font-sans tw-leading-normal tw-tracking-normal">
       <nav id="header" className="tw-block tw-w-full tw-z-10 tw-top-0">
@@ -29,16 +36,15 @@ const Header = () => {
             <button
               id="nav-toggle"
               className="tw-flex tw-items-center tw-px-3 tw-py-2 tw-border tw-rounded tw-text-gray-500 tw-border-gray-600 hover:tw-text-gray-900 hover:tw-border-green-500 tw-appearance-none focus:tw-outline-none"
-              onClick={()=>{handleShowMenu()}}
+              onClick={() => {
+                handleShowMenu();
+              }}
             >
-              <svg
-                className="tw-fill-current tw-h-3 tw-w-3"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>Menu</title>
-                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-              </svg>
+              {navMobileStatus ? (
+                <Icon.Close width="10px" />
+              ) : (
+                <Icon.Menu width="10px" />
+              )}
             </button>
           </div>
           <div
@@ -59,6 +65,7 @@ const Header = () => {
               ))}
             </ul>
           </div>
+          <NavMobile isOpen={navMobileStatus} />
         </div>
       </nav>
     </header>
