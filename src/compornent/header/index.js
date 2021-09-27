@@ -26,7 +26,7 @@ const Header = () => {
         <div className="tw-w-full tw-mx-auto tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-mt-0 tw-py-3">
           <div className="tw-pl-4">
             <a
-              className="tw-text-gray-900 tw-text-base tw-no-underline hover:tw-no-underline tw-font-extrabold tw-text-xl"
+              className="tw-text-gray-900 tw-no-underline hover:tw-no-underline tw-font-extrabold tw-text-xl"
               href="#"
             >
               nha xe sixleaf
@@ -48,7 +48,7 @@ const Header = () => {
             </button>
           </div>
           <div
-            className="tw-w-full tw-flex-grow lg:tw-flex lg:tw-items-center lg:tw-w-auto tw-hidden lg:tw-block tw-mt-2 lg:tw-mt-0 tw-bg-gray-100 md:tw-bg-transparent tw-z-20"
+            className="tw-w-full tw-flex-grow lg/:tw-flex lg:tw-items-center lg:tw-w-auto tw-hidden lg:tw-block tw-mt-2 lg:tw-mt-0 tw-bg-gray-100 md:tw-bg-transparent tw-z-20"
             id="nav-content"
           >
             <ul className="list-reset lg:tw-flex tw-justify-end tw-flex-1 tw-items-center">
