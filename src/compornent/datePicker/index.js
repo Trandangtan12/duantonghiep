@@ -4,7 +4,9 @@ import "react-datepicker/dist/react-datepicker.css";
 const DatePickerForm = () => {
     const [startDate, setStartDate] = useState(new Date());
     return (
-        <DatePicker selected={startDate} />
+        <DatePicker selected={startDate} onChange={(date)=>{
+            console.log(date)
+        }}/>
     )
 }
 
