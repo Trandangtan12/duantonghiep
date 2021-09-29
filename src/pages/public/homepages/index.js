@@ -1,16 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import DatePickerForm from "../../../compornent/datePicker";
+import SelectForm from "../../../compornent/selectForm";
 import { getAllProvince } from "../../../redux/actions/province";
-import { ProvinceService } from "../../../service/provinceService";
 
 const HomePages = () => {
   const dispatch = useDispatch();
   const {province} = useSelector(state => state.province)
-  console.log(province);
+  const provinceFilter = province.map((city)=>{
+    return {
+      value : city.code,
+      label : city.name
+    }
+  })
   useEffect(() => {
     dispatch(getAllProvince());
   }, []);
-  return <div>trang chur</div>;
+  return (
+    <>
+     <DatePickerForm/>
+     <SelectForm options={provinceFilter}/>
+    </>
+  )
 };
 
 export default HomePages;
