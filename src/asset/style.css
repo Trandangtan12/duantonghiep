@@ -680,6 +680,10 @@ video {
   height: 100%;
 }
 
+.tw-h-screen {
+  height: 100vh;
+}
+
 .tw-w-full {
   width: 100%;
 }
@@ -707,6 +711,10 @@ video {
 
 .tw-grid-cols-\[20\%\,80\%\] {
   grid-template-columns: 20% 80%;
+}
+
+.tw-flex-col {
+  flex-direction: column;
 }
 
 .tw-flex-wrap {
