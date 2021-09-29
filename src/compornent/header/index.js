@@ -48,7 +48,7 @@ const Header = () => {
             </button>
           </div>
           <div
-            className="tw-w-full tw-flex-grow lg:tw-flex lg:tw-items-center lg:tw-w-auto tw-hidden lg:tw-block tw-mt-2 lg:tw-mt-0 tw-bg-gray-100 md:tw-bg-transparent tw-z-20"
+            className="tw-w-full tw-flex-grow lg/:tw-flex lg:tw-items-center lg:tw-w-auto tw-hidden lg:tw-block tw-mt-2 lg:tw-mt-0 tw-bg-gray-100 md:tw-bg-transparent tw-z-20"
             id="nav-content"
           >
             <ul className="list-reset lg:tw-flex tw-justify-end tw-flex-1 tw-items-center">

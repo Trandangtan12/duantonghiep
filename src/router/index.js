@@ -20,14 +20,18 @@ const Routes = () => {
             </LayoutAdmin>
           </Route>
           <Route>
+            <div className="tw-flex tw-flex-col tw-h-screen">
             <Header />
+            <div className="tw-flex tw-flex-grow">
             <LayoutWebsite>
               <Switch>
                 <Route exact path="/" component={HomePages} />
                 <Route exact path="/contact" component={Contracts} />
               </Switch>
             </LayoutWebsite>
+            </div>
             <Footer />
+            </div>
           </Route>
         </Switch>
       </Suspense>
