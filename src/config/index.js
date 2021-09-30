@@ -1,29 +1,33 @@
 //tất cả đường dẫn api ở đây
 export const API_GET_PROVINCE = "/?depth=2"
+//================API=================
+export const API_GET_BUSES = '/products'
 
+
+//==============href NAV MENU=============
 export const NAV_LINK_LIST = [
     {
         label : "Trang chủ",
-        link : "/",
+        href : "/",
     },
     {
         label : "Xe limousin",
-        link : "/new"
+        href : "/new"
     },
     {
         label : "Xe 4 chỗ",
-        link : "/new"
+        href : "/new"
     },
     {
         label : "Xe 16 chỗ",
-        link : "/new"
+        href : "/new"
     },
     {
         label : "Liên hệ",
-        link : "/contact",
+        href : "/contact",
     },
     {
         label : "Tin tức",
-        link : "/new"
+        href : "/new"
     }
 ]

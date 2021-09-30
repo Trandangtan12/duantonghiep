@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { NAV_LINK_LIST } from "../../config";
+import logo from "../../asset/images/logo.png";
 import Icon from "../Icon";
 import NavMobile from "../navMobile";
 const Header = () => {
@@ -25,12 +26,12 @@ const Header = () => {
         />
         <div className="tw-w-full tw-mx-auto tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-mt-0 tw-py-3">
           <div className="tw-pl-4">
-            <a
+            <Link
+              to="/"
               className="tw-text-gray-900 tw-no-underline hover:tw-no-underline tw-font-extrabold tw-text-xl"
-              href="#"
             >
-              nha xe sixleaf
-            </a>
+              <img src={logo} alt="" className="tw-w-[150px] tw-p-2" />
+            </Link>
           </div>
           <div className="tw-block lg:tw-hidden tw-pr-4">
             <button
@@ -55,7 +56,7 @@ const Header = () => {
               {NAV_LINK_LIST.map((item) => (
                 <li className="tw-mr-3 ">
                   <Link
-                    to={item.link}
+                    to={item.href}
                     className="tw-inline-block tw-py-2 tw-px-4 tw-font-bold tw-no-underline tw-text-white"
                     href="#"
                   >
