@@ -24,7 +24,7 @@ const Header = () => {
           }}
         />
         <div className="tw-w-full tw-mx-auto tw-flex tw-items-center tw-justify-between lg:tw-justify-start tw-mt-0 tw-py-3">
-          <div className="tw-w-[8rem]">
+          <div className="tw-w-[9rem]">
             <a
               className="tw-text-gray-900 tw-no-underline hover:tw-no-underline tw-font-extrabold tw-text-xl"
               href="#"

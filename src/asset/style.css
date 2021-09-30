@@ -784,6 +784,14 @@ video {
   width: 8rem;
 }
 
+.tw-w-\[rem\] {
+  width: rem;
+}
+
+.tw-w-\[9rem\] {
+  width: 9rem;
+}
+
 .tw-flex-1 {
   flex: 1 1 0%;
 }
