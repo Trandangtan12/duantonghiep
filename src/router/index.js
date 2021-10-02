@@ -12,7 +12,7 @@ const Routes = () => {
   const Contracts = lazy(()=> import("../pages/public/contacts"))
   return (
     <Router>
-      <Suspense fallback={<div><img src={Loading} alt="loading" className="tw-fixed tw-top-0"/></div>}>
+      <Suspense fallback={<div>loading .....</div>}>
         <Switch>
           <Route exact path="/admin/:path?">
             <LayoutAdmin>

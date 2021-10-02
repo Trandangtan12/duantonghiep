@@ -31,3 +31,18 @@ export const NAV_LINK_LIST = [
         href : "/new"
     }
 ]
+
+export const NAV_LINK_LIST_ADMIN = [
+    {
+        label : "Dashboard",
+        href : "/",
+    },
+    {
+        label : "Quản lý chuyến xe",
+        href : "/product",
+    },
+    {
+        label : "Quản lý chuyến xe",
+        href : "/contact",
+    },
+]
