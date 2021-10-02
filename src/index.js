@@ -9,9 +9,11 @@ import { applyMiddleware, compose, createStore } from "redux";
 import { combineReducers } from "redux";
 import thunk from "redux-thunk";
 import provinceReducers from "./redux/reducers/province";
+import busesReducers from "./redux/reducers/busesReducer";
 
 const rootReducer = combineReducers({
-  province : provinceReducers
+  province : provinceReducers,
+  buses : busesReducers
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancer(applyMiddleware(thunk)));

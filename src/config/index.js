@@ -2,7 +2,11 @@ import Icon from "../compornent/Icon"
 
 //tất cả đường dẫn api ở đây
 export const API_GET_PROVINCE = "/?depth=2"
+//================API=================
+export const API_GET_BUSES = '/products'
 
+
+//==============href NAV MENU=============
 export const NAV_LINK_LIST = [
     {
         label : "Xe Limousin",
@@ -16,15 +20,15 @@ export const NAV_LINK_LIST = [
     },
     {
         label : "Xe 16 chỗ",
-        link : "/new"
+        href : "/new"
     },
     {
         label : "Liên hệ",
-        link : "/contact",
+        href : "/contact",
     },
     {
         label : "Tin tức",
-        link : "/new"
+        href : "/new"
     }
 ]
 

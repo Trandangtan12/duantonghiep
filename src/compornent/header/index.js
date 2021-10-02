@@ -60,9 +60,23 @@ const Header = () => {
             background:
               "linear-gradient(to right, #4dc0b5 var(--scroll), transparent 0)",
           }}
+<<<<<<< HEAD
         /> */}
         <div className="">
           {/* <div className="tw-block lg:tw-hidden tw-pr-4">
+=======
+        />
+        <div className="tw-w-full tw-mx-auto tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-mt-0 tw-py-3">
+          <div className="tw-pl-4">
+            <Link
+              to="/"
+              className="tw-text-gray-900 tw-no-underline hover:tw-no-underline tw-font-extrabold tw-text-xl"
+            >
+              <img src={logo} alt="" className="tw-w-[150px] tw-p-2" />
+            </Link>
+          </div>
+          <div className="tw-block lg:tw-hidden tw-pr-4">
+>>>>>>> frontend
             <button
               id="nav-toggle"
               className="tw-flex tw-items-center tw-px-3 tw-py-2 tw-border tw-rounded tw-text-gray-500 tw-border-gray-600 hover:tw-text-gray-900 hover:tw-border-green-500 tw-appearance-none focus:tw-outline-none"
