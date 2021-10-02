@@ -18,7 +18,7 @@ const HomePages = () => {
   }, []);
   return (
   <div className="tw-h-60">
-    <div className="tw-w-full lg:tw-w-3/4 tw-mx-auto ">
+    <div className="tw-w-11/12 lg:tw-w-3/4 tw-mx-auto ">
      <DatePickerForm/>
      <SelectForm options={provinceFilter}/>
     </div>
