@@ -1407,6 +1407,11 @@ video {
 .tw-opacity-\[0\.\] {
   opacity: 0.;
 }
+
+.tw-opacity-\[\] {
+  opacity: ;
+}
+
 .tw-opacity-\[1\] {
   opacity: 1;
 }
