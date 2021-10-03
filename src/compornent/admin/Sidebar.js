@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation , Redirect } from "react-router-dom";
 import { NAV_LINK_LIST_ADMIN } from "../../config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
@@ -7,7 +7,6 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
   const { pathname } = location;
   const page = pathname.split('/')[2];
-  console.log(page);
   return (
     <div className="lg:tw-w-64">
       {/* Sidebar backdrop (mobile only) */}
@@ -98,6 +97,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
               <li
                 className={`px-3 tw-py-2 tw-rounded-sm tw-mb-0.5 last:tw-mb-0 ${page === href && 'tw-bg-gray-900 tw-rounded-2xl'}`}
                 key={label}
+                onClick={() => setSidebarOpen(!sidebarOpen)}
               >
                 <NavLink
                   to={`/admin/${href}`}

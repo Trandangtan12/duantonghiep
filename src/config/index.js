@@ -6,6 +6,8 @@ export const API_GET_PROVINCE = "/?depth=2"
 //================API=================
 export const API_GET_BUSES = '/products'
 
+export const API_GET_IMAGE = '/image'
+
 const  {faChartArea , faCar , faCertificate} = icon
 const {faAddressBook} = iconRegular
 //==============href NAV MENU=============
@@ -51,7 +53,7 @@ export const MENU_BOTTOM_LIST = [
 export const NAV_LINK_LIST_ADMIN = [
     {
         label : "Dashboard",
-        href : "",
+        href : "dashboard",
         icon : faCertificate
         
     },
