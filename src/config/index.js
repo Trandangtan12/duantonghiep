@@ -6,7 +6,7 @@ export const API_GET_PROVINCE = "/?depth=2"
 //================API=================
 export const API_GET_BUSES = '/products'
 
-const  {faCoffee ,faCertificate ,faChartArea} = icon
+const  {faChartArea , faCar , faCertificate} = icon
 const {faAddressBook} = iconRegular
 //==============href NAV MENU=============
 export const NAV_LINK_LIST = [
@@ -51,23 +51,23 @@ export const MENU_BOTTOM_LIST = [
 export const NAV_LINK_LIST_ADMIN = [
     {
         label : "Dashboard",
-        href : "/admin/",
-        icon : faCoffee
+        href : "",
+        icon : faCertificate
         
     },
     {
         label : "Quản lý chuyến xe",
-        href : "/product",
-        icon : faCertificate
+        href : "buses",
+        icon : faCar
     },
     {
         label : "Thống kê",
-        href : "/contact",
+        href : "analytics",
         icon : faChartArea
     },
     {
         label : "Đơn hàng",
-        href : "/contact",
+        href : "order",
         icon : faAddressBook
     },
 ]
