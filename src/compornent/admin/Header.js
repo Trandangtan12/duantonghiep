@@ -3,6 +3,8 @@ import React from "react";
 import Notifications from "./header/Notifications";
 import UserMenu from "./header/UserMenu";
 import { SearchBox } from "./header/SearchBox";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHandPeace } from "@fortawesome/fontawesome-free-solid";
 const HeaderAdmin = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <header className="tw-sticky tw-top-0 tw-bg-white tw-border-b  tw-border-gray-200 tw-z-30 tw-shadow-md">
@@ -28,7 +30,9 @@ const HeaderAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                 <rect x="4" y="17" width="16" height="2" />
               </svg>
             </button>
-           
+            <span>
+              Xin chào Admin <FontAwesomeIcon  icon={faHandPeace} className="tw-text-green-500"/>
+            </span>
           </div>
 
           {/* Header: Right side */}
