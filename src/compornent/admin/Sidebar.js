@@ -1,41 +1,13 @@
 import React, { useEffect, useRef } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { NAV_LINK_LIST_ADMIN } from "../../config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
+  //check router
   const location = useLocation();
   const { pathname } = location;
-  const page = pathname.split("/")[1];
-
-  const trigger = useRef(null);
-  const sidebar = useRef(null);
-
-  // close on click outside
-  useEffect(() => {
-    const clickHandler = ({ target }) => {
-      if (!sidebar.current || !trigger.current) return;
-      if (
-        !sidebarOpen ||
-        sidebar.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
-      setSidebarOpen(false);
-    };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
-  });
-
-  // close if the esc key is pressed
-  useEffect(() => {
-    const keyHandler = ({ keyCode }) => {
-      if (!sidebarOpen || keyCode !== 27) return;
-      setSidebarOpen(false);
-    };
-    document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
-  });
-
+  const page = pathname.split('/')[2];
+  console.log(page);
   return (
     <div className="lg:tw-w-64">
       {/* Sidebar backdrop (mobile only) */}
@@ -49,7 +21,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
       {/* Sidebar */}
       <div
         id="sidebar"
-        ref={sidebar}
+        // ref={sidebar}
         className={`tw-absolute tw-z-40 tw-left-0 tw-top-0 lg:tw-static lg:tw-left-auto lg:tw-top-auto lg:tw-translate-x-0 tw-transform tw-h-screen tw-overflow-y-scroll lg:tw-overflow-y-auto no-scrollbar tw-w-64 tw-flex-shrink-0 tw-bg-gray-800 tw-p-4 tw-transition-transform tw-duration-200 tw-ease-in-out ${
           sidebarOpen ? "tw-translate-x-0" : "tw--translate-x-64"
         }`}
@@ -58,7 +30,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
         <div className="tw-flex tw-justify-between tw-mb-10 tw-pr-3 sm:tw-px-2">
           {/* Close button */}
           <button
-            ref={trigger}
+            // ref={trigger}
             className="lg:tw-hidden tw-text-gray-500 hover:tw-text-gray-400"
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-controls="sidebar"
@@ -124,16 +96,14 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
             {/* Dashboard */}
             {NAV_LINK_LIST_ADMIN.map(({ label, href, icon }) => (
               <li
-                className={`px-3 tw-py-2 tw-rounded-sm tw-mb-0.5 last:tw-mb-0`}
+                className={`px-3 tw-py-2 tw-rounded-sm tw-mb-0.5 last:tw-mb-0 ${page === href && 'tw-bg-gray-900 tw-rounded-2xl'}`}
                 key={label}
               >
                 <NavLink
-                  exact
-                  to={href}
-                  className={`block tw-text-gray-200 hover:tw-text-white tw-transition tw-duration-150 ${
-                    page === "" && "hover:tw-text-gray-200"
-                  }`}
-                  activeClassName="text-gray-800 dark:text-gray-100"
+                  to={`/admin/${href}`}
+                  className={`tw-block tw-text-gray-200 hover:tw-text-white tw-transition tw-duration-150 tw-p-2
+                  `}
+                  key={label}
                 >
                   <div>
                     <FontAwesomeIcon icon={icon} />

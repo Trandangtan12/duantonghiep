@@ -11,11 +11,9 @@ const LayoutAdmin = ({ children }) => {
 
       {/* Content area */}
       <div className="tw-relative tw-flex tw-flex-col tw-flex-1 tw-overflow-y-auto tw-overflow-x-hidden">
-
         {/*  Site header */}
         <HeaderAdmin sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-        <main>
+        <main className="tw-container tw-p-4">
          {children}
         </main>
       </div>

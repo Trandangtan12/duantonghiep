@@ -1,49 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
-
+import {faBell} from '@fortawesome/fontawesome-free-solid'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Menu, Transition } from '@headlessui/react'
 const Notifications = () => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const trigger = useRef(null);
-  const dropdown = useRef(null);
-
-  // close on click outside
-  useEffect(() => {
-    const clickHandler = ({ target }) => {
-      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
-  });
-
-  // close if the esc key is pressed
-  useEffect(() => {
-    const keyHandler = ({ keyCode }) => {
-      if (!dropdownOpen || keyCode !== 27) return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
-  });
-
   return (
-    <div className="tw-relative tw-inline-flex tw-ml-3">
-      <button
-        ref={trigger}
-        className={`w-8 tw-h-8 tw-flex tw-items-center tw-justify-center tw-bg-gray-100 hover:tw-bg-gray-200 tw-transition tw-duration-150 tw-rounded-full ${dropdownOpen && 'tw-bg-gray-200'}`}
-        aria-haspopup="true"
-        onClick={() => setDropdownOpen(!dropdownOpen)}
-        aria-expanded={dropdownOpen}
+    <>
+    <Menu as="div" className="tw-relative tw-inline-block tw-text-left tw-mr-7">
+      <div>
+        <Menu.Button className="tw-inline-flex tw-justify-center tw-rounded-md  tw-align-middle">
+        <FontAwesomeIcon icon={faBell} size="lg" className={'tw-text-green-500 tw-mr-5'}/>
+        </Menu.Button>
+      </div>
+      <Transition
+        enter="tw-transition tw-ease-out tw-duration-100"
+        enterFrom="tw-transform tw-opacity-0 tw-scale-95"
+        enterTo="tw-transform tw-opacity-100 tw-scale-100"
+        leave="tw-transition tw-ease-in tw-duration-75"
+        leaveFrom="tw-transform tw-opacity-100 tw-scale-100"
+        leaveTo="tw-transform tw-opacity-0 tw-scale-95"
       >
-        <span className="tw-sr-only">Notifications</span>
-        <svg className="tw-w-4 tw-h-4" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-          <path className="tw-fill-current tw-text-gray-500" d="M6.5 0C2.91 0 0 2.462 0 5.5c0 1.075.37 2.074 1 2.922V12l2.699-1.542A7.454 7.454 0 006.5 11c3.59 0 6.5-2.462 6.5-5.5S10.09 0 6.5 0z" />
-          <path className="tw-fill-current tw-text-gray-400" d="M16 9.5c0-.987-.429-1.897-1.147-2.639C14.124 10.348 10.66 13 6.5 13c-.103 0-.202-.018-.305-.021C7.231 13.617 8.556 14 10 14c.449 0 .886-.04 1.307-.11L15 16v-4h-.012C15.627 11.285 16 10.425 16 9.5z" />
-        </svg>
-        <div className="tw-absolute tw-top-0 tw-right-0 tw-w-2.5 tw-h-2.5 tw-bg-red-500 tw-border-2 tw-border-white tw-rounded-full"></div>
-      </button>
-    </div>
+        <Menu.Items className="tw-origin-top-right tw-absolute tw-right-0 tw-mt-2 tw-w-56 tw-rounded-md tw-shadow-lg tw-bg-white tw-ring-1 tw-ring-black tw-ring-opacity-5 focus:tw-outline-none tw-min-h-[200px]">
+          <div className="tw-py-1">
+            <ul>
+              <li className="tw-p-2 hover:tw-bg-gray-200">THONG BAO</li>
+            </ul>
+          </div>
+        </Menu.Items>
+      </Transition>
+    </Menu>
+    </>
   )
 }
 
