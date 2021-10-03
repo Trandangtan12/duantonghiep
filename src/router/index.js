@@ -1,11 +1,14 @@
 import { faCar } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch , Redirect } from "react-router-dom";
 const Loading = () => {
   return (
     <div className="tw-fixed tw-top-2/4 tw-left-2/4">
-      <FontAwesomeIcon icon={faCar} className="tw-animate-spin tw-w-[200px] tw-h-[200px]"/>
+      <FontAwesomeIcon
+        icon={faCar}
+        className="tw-animate-spin tw-w-[200px] tw-h-[200px]"
+      />
     </div>
   );
 };
@@ -22,7 +25,6 @@ const Routes = () => {
   const Analytics = lazy(() => import("../pages/private/analytics"));
   const Order = lazy(() => import("../pages/private/order"));
 
-  
   return (
     <Router>
       <Suspense fallback={<Loading />}>
@@ -30,10 +32,13 @@ const Routes = () => {
           <Route exact path="/admin/:path?">
             <LayoutAdmin>
               <Switch>
-                <Route exact path="/admin/dashboard" component={Dashboard}/>
-                <Route exact path="/admin/buses" component={Buses}/>
-                <Route exact path="/admin/analytics" component={Analytics}/>
-                <Route exact path="/admin/order" component={Order}/>
+                <Route exact path="/admin">
+                  <Redirect to="/admin/dashboard" />
+                </Route>
+                <Route exact path="/admin/dashboard" component={Dashboard} />
+                <Route exact path="/admin/buses" component={Buses} />
+                <Route exact path="/admin/analytics" component={Analytics} />
+                <Route exact path="/admin/order" component={Order} />
               </Switch>
             </LayoutAdmin>
           </Route>
