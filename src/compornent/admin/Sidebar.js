@@ -125,6 +125,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
             {NAV_LINK_LIST_ADMIN.map(({ label, href, icon }) => (
               <li
                 className={`px-3 tw-py-2 tw-rounded-sm tw-mb-0.5 last:tw-mb-0`}
+                key={label}
               >
                 <NavLink
                   exact
