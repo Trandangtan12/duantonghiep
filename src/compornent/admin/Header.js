@@ -28,11 +28,12 @@ const HeaderAdmin = ({ sidebarOpen, setSidebarOpen }) => {
                 <rect x="4" y="17" width="16" height="2" />
               </svg>
             </button>
-            <SearchBox/>
+           
           </div>
 
           {/* Header: Right side */}
           <div className="tw-flex tw-items-center">
+          <SearchBox/>
             <Notifications/>
             <UserMenu/>
           </div>
