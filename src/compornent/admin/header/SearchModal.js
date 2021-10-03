@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Transition from '../../utils/Transition.js';
 
-function SearchModal() {
+const SearchModal = () => {
 
   const [searchOpen, setSearchOpen] = useState(false);
   
@@ -45,17 +44,6 @@ function SearchModal() {
         </svg>
       </button>
       {/* Modal backdrop */}
-      <Transition
-        className="tw-fixed tw-inset-0 tw-bg-gray-900 tw-bg-opacity-30 tw-z-50 tw-transition-opacity"
-        show={searchOpen}
-        enter="tw-transition tw-ease-out tw-duration-200"
-        enterStart="tw-opacity-0"
-        enterEnd="tw-opacity-100"
-        leave="tw-transition tw-ease-out tw-duration-100"
-        leaveStart="tw-opacity-100"
-        leaveEnd="tw-opacity-0"
-        aria-hidden="true"
-      />
       {/* Modal dialog */}
     </div>
   )

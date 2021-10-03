@@ -854,6 +854,11 @@ select {
   margin-right: auto;
 }
 
+.tw-mx-3 {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+
 .tw--mb-px {
   margin-bottom: -1px;
 }
@@ -996,6 +1001,10 @@ select {
 
 .tw-w-3 {
   width: 0.75rem;
+}
+
+.tw-w-px {
+  width: 1px;
 }
 
 .tw-flex-1 {

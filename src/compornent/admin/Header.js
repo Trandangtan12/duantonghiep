@@ -1,4 +1,8 @@
 import React from 'react';
+import Help from './header/Help';
+import Notifications from './header/Notifications';
+import SearchModal from './header/SearchModal';
+import UserMenu from './header/UserMenu';
 const HeaderAdmin = ({
   sidebarOpen,
   setSidebarOpen
@@ -30,7 +34,11 @@ const HeaderAdmin = ({
 
           {/* Header: Right side */}
           <div className="tw-flex tw-items-center">
-
+          <Help/>
+          <Notifications/>
+          <SearchModal/>
+          <hr className="tw-w-px tw-h-6 tw-bg-gray-200 tw-mx-3" />
+          <UserMenu/>
           </div>
 
         </div>
