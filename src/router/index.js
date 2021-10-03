@@ -1,10 +1,12 @@
+import { faCar } from "@fortawesome/fontawesome-free-solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import loading from "../asset/images/loading.gif";
 const Loading = () => {
   return (
     <div className="tw-fixed tw-top-2/4 tw-left-2/4">
-      <img src={loading} className="tw-w-[100px]" alt="" />
+      <FontAwesomeIcon icon={faCar} className="tw-animate-spin tw-w-[200px] tw-h-[200px]"/>
     </div>
   );
 };
