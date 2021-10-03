@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-function Notifications() {
+const Notifications = () => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -43,8 +43,6 @@ function Notifications() {
         </svg>
         <div className="tw-absolute tw-top-0 tw-right-0 tw-w-2.5 tw-h-2.5 tw-bg-red-500 tw-border-2 tw-border-white tw-rounded-full"></div>
       </button>
-
-    
     </div>
   )
 }

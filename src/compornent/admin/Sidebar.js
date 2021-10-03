@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { NAV_LINK_LIST_ADMIN } from '../../config';
+import Icon from '../Icon';
 
 function SidebarAdmin({
   sidebarOpen,
@@ -87,18 +89,19 @@ function SidebarAdmin({
           <h3 className="tw-text-xs tw-uppercase tw-text-gray-500 tw-font-semibold tw-pl-3">Pages</h3>
           <ul className="tw-mt-3">
             {/* Dashboard */}
-            <li className={`px-3 tw-py-2 tw-rounded-sm tw-mb-0.5 last:tw-mb-0 ${page === '' && 'tw-bg-gray-900'}`}>
-              <NavLink exact to="/" className={`block tw-text-gray-200 hover:tw-text-white tw-transition tw-duration-150 ${page === '' && 'hover:tw-text-gray-200'}`}>
+            {NAV_LINK_LIST_ADMIN.map(({label , href , icon})=>(
+            
+              <li className={`px-3 tw-py-2 tw-rounded-sm tw-mb-0.5 last:tw-mb-0 ${page === '' && 'tw-bg-gray-900'}`}>
+              <NavLink exact to={href} className={`block tw-text-gray-200 hover:tw-text-white tw-transition tw-duration-150 ${page === '' && 'hover:tw-text-gray-200'}`}>
+              {console.log(icon)}
                 <div className="tw-flex tw-flex-grow">
-                  <svg className="tw-flex-shrink-0 tw-h-6 tw-w-6 tw-mr-3" viewBox="0 0 24 24">
-                    <path className={`fill-current tw-text-gray-400 ${page === '' && 'tw-text-indigo-500'}`} d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
-                    <path className={`fill-current tw-text-gray-600 ${page === '' && 'tw-text-indigo-600'}`} d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z" />
-                    <path className={`fill-current tw-text-gray-400 ${page === '' && 'tw-text-indigo-200'}`} d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z" />
-                  </svg>
-                  <span className="tw-text-sm tw-font-medium">Dashboard</span>
+                
+                  <span className="tw-text-sm tw-font-medium">{label}</span>
                 </div>
               </NavLink>
             </li>
+            ))}
+           
            
           </ul>
         </div>
