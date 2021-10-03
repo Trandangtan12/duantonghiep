@@ -1,6 +1,11 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Loading from '../asset/images/loading.gif'
+import loading from '../asset/images/loading.gif';
+const Loading = () =>{
+  return <div className="tw-fixed tw-top-2/4 tw-left-2/4">
+    <img src={loading} className="tw-w-[100px]" alt=""/>
+  </div>
+}
 const Routes = () => {
   const PrivateRouterAdmin = lazy(()=>lazy("../auth/privateRouterAdmin"))
   const LayoutAdmin = lazy(() => import('../layout/layoutAdmin'))
@@ -12,7 +17,7 @@ const Routes = () => {
   const Contracts = lazy(()=> import("../pages/public/contacts"))
   return (
     <Router>
-      <Suspense fallback={<div>loading .....</div>}>
+      <Suspense fallback={<Loading/>}>
         <Switch>
           <Route exact path="/admin/:path?">
             <LayoutAdmin>

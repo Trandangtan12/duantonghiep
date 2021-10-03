@@ -669,6 +669,14 @@ video {
   right: 0px;
 }
 
+.tw-top-2\/4 {
+  top: 50%;
+}
+
+.tw-left-2\/4 {
+  left: 50%;
+}
+
 .tw-z-30 {
   z-index: 30;
 }
@@ -865,6 +873,18 @@ video {
 
 .tw-w-3 {
   width: 0.75rem;
+}
+
+.tw-w-7 {
+  width: 1.75rem;
+}
+
+.tw-w-\[500px\] {
+  width: 500px;
+}
+
+.tw-w-\[300px\] {
+  width: 300px;
 }
 
 .tw-flex-1 {
