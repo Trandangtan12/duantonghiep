@@ -15,7 +15,7 @@ export const NAV_LINK_LIST = [
     {
         label : "Xe Limousin",
         link : "/new",
-        //icon: "https://static.thenounproject.com/png/511377-200.png"
+        icon: faCar
     },
     {
         label : "Xe 4 chỗ",
