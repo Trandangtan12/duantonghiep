@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer class="tw-bg-white">
       <div class="container tw-mx-auto tw-flex">
-        <div class="tw-w-full tw-mx-auto tw-flex tw-flex-wrap">
+        <div class="tw-w-11/12 lg:tw-w-3/4 tw-mx-auto tw-h-96 md:tw-h-auto tw-flex tw-flex-wrap">
           <div class="tw-flex tw-w-full md:tw-w-1/2 ">
             <div class="tw-px-8">
               <h3 class="tw-font-bold tw-text-gray-900">About</h3>

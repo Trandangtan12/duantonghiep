@@ -20,10 +20,12 @@ const HomePages = () => {
     dispatch(actionGetBuses())
   }, []);
   return (
-    <>
+  <div className="tw-h-60">
+    <div className="tw-w-11/12 lg:tw-w-3/4 tw-mx-auto ">
      <DatePickerForm/>
      <SelectForm options={provinceFilter}/>
-    </>
+    </div>
+    </div>
   )
 };
 
