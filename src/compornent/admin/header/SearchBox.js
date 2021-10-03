@@ -3,9 +3,9 @@ import {faSearch} from '@fortawesome/fontawesome-free-solid'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const SearchBox = () => {
     return (
-        <div className="tw-shadow tw-flex">
+        <div className="tw-shadow tw-flex tw-ml-5">
         <input
-          className="md:tw-w-full lg:tw-w-[700px] tw-rounded tw-p-2 tw-outline-none tw-border-none"
+          className="tw-w-full tw-rounded tw-p-2 tw-outline-none tw-border-none"
           type="text"
           placeholder="Tìm kiếm ..."
         />

@@ -830,6 +830,18 @@ video {
   margin-right: 1.75rem;
 }
 
+.tw-ml-10 {
+  margin-left: 2.5rem;
+}
+
+.tw-ml-5 {
+  margin-left: 1.25rem;
+}
+
+.tw-ml-7 {
+  margin-left: 1.75rem;
+}
+
 .tw-box-border {
   box-sizing: border-box;
 }
