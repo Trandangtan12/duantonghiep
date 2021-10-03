@@ -9,7 +9,7 @@ const UserMenu = () => {
     <>
     <Menu as="div" className="tw-relative tw-inline-block tw-text-left">
       <div>
-        <Menu.Button className="tw-inline-flex tw-justify-center tw-w-full tw-rounded-md tw-border tw-border-gray-300 tw-shadow-lg tw-px-4 tw-py-2 tw-bg-white tw-text-sm tw-font-medium tw-text-gray-700">
+        <Menu.Button className="tw-inline-flex tw-justify-center tw-w-full tw-rounded-md tw-border tw-border-gray-300 tw-shadow-sm tw-px-4 tw-py-2 tw-bg-white tw-text-sm tw-font-medium tw-text-gray-700">
         <FontAwesomeIcon icon={faUser} size="lg" className={'tw-text-green-500 tw-mr-4'}/>
         <p>ADMIN</p>
         </Menu.Button>

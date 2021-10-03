@@ -2,7 +2,6 @@ import { faCar } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import loading from "../asset/images/loading.gif";
 const Loading = () => {
   return (
     <div className="tw-fixed tw-top-2/4 tw-left-2/4">
@@ -31,7 +30,7 @@ const Routes = () => {
           <Route exact path="/admin/:path?">
             <LayoutAdmin>
               <Switch>
-                <Route exact path="/admin" component={Dashboard}/>
+                <Route exact path="/admin/dashboard" component={Dashboard}/>
                 <Route exact path="/admin/buses" component={Buses}/>
                 <Route exact path="/admin/analytics" component={Analytics}/>
                 <Route exact path="/admin/order" component={Order}/>

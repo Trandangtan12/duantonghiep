@@ -5,7 +5,7 @@ import UserMenu from "./header/UserMenu";
 import { SearchBox } from "./header/SearchBox";
 const HeaderAdmin = ({ sidebarOpen, setSidebarOpen }) => {
   return (
-    <header className="tw-sticky tw-top-0 tw-bg-white tw-border-b  tw-border-gray-200 tw-z-30">
+    <header className="tw-sticky tw-top-0 tw-bg-white tw-border-b  tw-border-gray-200 tw-z-30 tw-shadow-md">
       <div className="tw-px-4 sm:tw-px-6 lg:tw-px-8">
         <div className="tw-flex tw-items-center tw-justify-between tw-h-16 tw--mb-px">
           {/* Header: Left side */}
@@ -33,7 +33,7 @@ const HeaderAdmin = ({ sidebarOpen, setSidebarOpen }) => {
 
           {/* Header: Right side */}
           <div className="tw-flex tw-items-center">
-          <SearchBox/>
+          {/* <SearchBox/> */}
             <Notifications/>
             <UserMenu/>
           </div>
