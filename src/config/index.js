@@ -6,7 +6,7 @@ export const API_GET_PROVINCE = "/?depth=2"
 //================API=================
 export const API_GET_BUSES = '/products'
 
-const  {faCoffee ,faCertificate ,faChartArea , faDashcube} = icon
+const  {faCoffee ,faCertificate ,faChartArea} = icon
 const {faAddressBook} = iconRegular
 //==============href NAV MENU=============
 export const NAV_LINK_LIST = [
