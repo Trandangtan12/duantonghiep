@@ -10,7 +10,6 @@ import { combineReducers } from "redux";
 import thunk from "redux-thunk";
 import provinceReducers from "./redux/reducers/province";
 import busesReducers from "./redux/reducers/busesReducer";
-
 const rootReducer = combineReducers({
   province : provinceReducers,
   buses : busesReducers

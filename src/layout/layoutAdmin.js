@@ -16,8 +16,7 @@ const LayoutAdmin = ({ children }) => {
         <HeaderAdmin sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main>
-          <div className="tw-px-4 sm:tw-px-6 lg:tw-px-8 tw-py-8 tw-w-full max-w-9xl tw-mx-auto">
-          </div>
+         {children}
         </main>
       </div>
     </div>
