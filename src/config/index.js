@@ -4,7 +4,7 @@ import * as iconRegular from  '@fortawesome/fontawesome-free-regular'
 //tất cả đường dẫn api ở đây
 export const API_GET_PROVINCE = "/?depth=2"
 //================API=================
-export const API_GET_BUSES = '/products'
+export const API_GET_BUSES = '/demos'
 
 export const API_GET_IMAGE = '/image'
 
