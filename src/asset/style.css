@@ -1545,6 +1545,10 @@ video {
   margin-bottom: 0px;
 }
 
+.hover\:tw-ml-2:hover {
+  margin-left: 0.5rem;
+}
+
 .hover\:tw-scale-110:hover {
   --tw-scale-x: 1.1;
   --tw-scale-y: 1.1;
