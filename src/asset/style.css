@@ -837,10 +837,6 @@ video {
   height: 100vh;
 }
 
-.tw-h-\[200px\] {
-  height: 200px;
-}
-
 .tw-h-16 {
   height: 4rem;
 }
@@ -887,10 +883,6 @@ video {
 
 .tw-w-full {
   width: 100%;
-}
-
-.tw-w-\[200px\] {
-  width: 200px;
 }
 
 .tw-w-6 {
@@ -1308,6 +1300,12 @@ video {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+.tw-text-lg {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
 .tw-text-xs {
   font-size: 0.75rem;
   line-height: 1.5;
@@ -1324,16 +1322,16 @@ video {
   letter-spacing: -0.01em;
 }
 
-.tw-text-lg {
-  font-size: 1.125rem;
-  line-height: 1.5;
-  letter-spacing: -0.01em;
-}
-
 .tw-text-base {
   font-size: 1rem;
   line-height: 1.5;
   letter-spacing: -0.01em;
+}
+
+.tw-text-5xl {
+  font-size: 3rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 
 .tw-font-semibold {
@@ -1547,8 +1545,11 @@ video {
   margin-bottom: 0px;
 }
 
-.hover\:tw-ml-2:hover {
-  margin-left: 0.5rem;
+.hover\:tw-scale-110:hover {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  -webkit-transform: var(--tw-transform);
+          transform: var(--tw-transform);
 }
 
 .hover\:tw-rounded-2xl:hover {

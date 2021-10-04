@@ -7,7 +7,7 @@ const Loading = () => {
     <div className="tw-fixed tw-top-2/4 tw-left-2/4">
       <FontAwesomeIcon
         icon={faCar}
-        className="tw-animate-spin tw-w-[200px] tw-h-[200px]"
+        className="tw-animate-spin tw-text-5xl tw-text-green-500"
       />
     </div>
   );
