@@ -23,7 +23,15 @@ const Table = ({data}) => {
     <div>
     <ReactTable
       data={data}
+      pageSize={10}
       columns={columns}
+      previousText={'Trang trước'}
+      nextText={"Trang tiếp "}
+      rowsText={"Dòng"}
+      pageText={"Trang"}
+      ofText={'trên'}
+      loadingText={"Đang tải bản ghi"}
+      noDataText={"Không có bản ghi"}
     />
     <div>
     </div>
