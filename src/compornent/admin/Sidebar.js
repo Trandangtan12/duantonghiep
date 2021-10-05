@@ -102,11 +102,11 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
               >
                 <NavLink
                   to={`/admin/${href}`}
-                  className={`tw-block tw-text-gray-200 hover:tw-text-white tw-transition tw-duration-150 tw-p-2
+                  className={`tw-block tw-text-gray-200 tw-p-2 tw-transition tw-duration-500 hover:tw-ml-2"
                   `}
                   key={label}
                 >
-                  <div className="tw-transform tw-transition tw-duration-500 hover:tw-scale-110">
+                  <div className="tw-transform tw-transition tw-duration-500 hover:tw-ml-2">
                     <FontAwesomeIcon icon={icon} />
                     <span className="tw-text-sm tw-font-medium tw-ml-2">{label}</span>
                   </div>
