@@ -1,13 +1,21 @@
-import Icon from "../compornent/Icon"
 
+import * as icon from '@fortawesome/fontawesome-free-solid'
+import * as iconRegular from  '@fortawesome/fontawesome-free-regular'
 //tất cả đường dẫn api ở đây
 export const API_GET_PROVINCE = "/?depth=2"
+//================API=================
+export const API_GET_BUSES = '/demos'
 
+export const API_GET_IMAGE = '/image'
+
+const  {faChartArea , faCar , faCertificate} = icon
+const {faAddressBook} = iconRegular
+//==============href NAV MENU=============
 export const NAV_LINK_LIST = [
     {
         label : "Xe Limousin",
         link : "/new",
-        // icon: "https://static.thenounproject.com/png/511377-200.png"
+        icon: faCar
     },
     {
         label : "Xe 4 chỗ",
@@ -16,15 +24,15 @@ export const NAV_LINK_LIST = [
     },
     {
         label : "Xe 16 chỗ",
-        link : "/new"
+        href : "/new"
     },
     {
         label : "Liên hệ",
-        link : "/contact",
+        href : "/contact",
     },
     {
         label : "Tin tức",
-        link : "/new"
+        href : "/new"
     }
 ]
 
@@ -41,4 +49,27 @@ export const MENU_BOTTOM_LIST = [
     {
         label: "Hồ sơ"
     }
+]
+export const NAV_LINK_LIST_ADMIN = [
+    {
+        label : "Dashboard",
+        href : "dashboard",
+        icon : faCertificate
+        
+    },
+    {
+        label : "Quản lý chuyến xe",
+        href : "buses",
+        icon : faCar
+    },
+    {
+        label : "Thống kê",
+        href : "analytics",
+        icon : faChartArea
+    },
+    {
+        label : "Đơn hàng",
+        href : "order",
+        icon : faAddressBook
+    },
 ]

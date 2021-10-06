@@ -1,3 +1,5 @@
+import { icon } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MENU_BOTTOM_LIST, NAV_LINK_LIST } from "../../config";
@@ -88,6 +90,7 @@ const Header = () => {
                     md:tw-text-base tw-text-[#777777] tw-transition tw-duration-500 tw-ease-in-out hover:tw-bg-green-100"
                     href="#"
                   >
+                  <FontAwesomeIcon icon={item.icon}/>
                     {item.label}
                   </Link>
                 </li>
