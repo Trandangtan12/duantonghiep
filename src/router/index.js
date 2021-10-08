@@ -1,12 +1,21 @@
-import { faCar } from "@fortawesome/fontawesome-free-solid";
+import {
+  faCar,
+  faDotCircle,
+  faTruckLoading,
+} from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Route, Switch , Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 const Loading = () => {
   return (
     <div className="tw-fixed tw-top-2/4 tw-left-2/4">
       <FontAwesomeIcon
-        icon={faCar}
+        icon={faTruckLoading}
         className="tw-animate-spin tw-text-5xl tw-text-green-500"
       />
     </div>
@@ -24,6 +33,7 @@ const Routes = () => {
   const Buses = lazy(() => import("../pages/private/buses"));
   const Analytics = lazy(() => import("../pages/private/analytics"));
   const Order = lazy(() => import("../pages/private/order"));
+  const LoginAdmin = lazy(() => import("../pages/private/login"));
 
   return (
     <Router>
@@ -48,6 +58,7 @@ const Routes = () => {
               <div className="tw-flex tw-flex-grow">
                 <LayoutWebsite>
                   <Switch>
+                    <Route exact path="/ticket-admin" component={LoginAdmin}/>
                     <Route exact path="/" component={HomePages} />
                     <Route exact path="/contact" component={Contracts} />
                   </Switch>

@@ -6,7 +6,8 @@ const Table = ({data , columns}) => {
     <div>
     <ReactTable
       data={data}
-      pageSize={10}
+      defaultPageSize={10}
+      // loading={true}
       columns={columns}
       previousText={'Trang trước'}
       nextText={"Trang tiếp "}
