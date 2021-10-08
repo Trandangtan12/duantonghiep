@@ -1,5 +1,4 @@
 import React from "react";
-
 import Notifications from "./header/Notifications";
 import UserMenu from "./header/UserMenu";
 import { SearchBox } from "./header/SearchBox";
