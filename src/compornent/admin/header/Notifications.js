@@ -11,7 +11,7 @@ const Notifications = () => {
     <Menu as="div" className="tw-relative tw-inline-block tw-text-left tw-mr-7 tw-ml-7">
       <div>
         <Menu.Button className="tw-inline-flex tw-justify-center tw-rounded-md  tw-align-middle tw-relative">
-        <FontAwesomeIcon icon={faBell} size="lg" className={'tw-text-green-500 tw-mr-5'}/>
+        <FontAwesomeIcon icon={faBell} size="lg" className={'tw-text-gray-800 tw-mr-5'}/>
         </Menu.Button>
       </div>
       <Transition

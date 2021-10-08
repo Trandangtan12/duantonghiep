@@ -10,7 +10,7 @@ const UserMenu = () => {
     <Menu as="div" className="tw-relative tw-inline-block tw-text-left">
       <div>
         <Menu.Button className="tw-inline-flex tw-justify-center tw-w-full tw-rounded-md tw-border tw-border-gray-300 tw-shadow-sm tw-px-4 tw-py-2 tw-bg-white tw-text-sm tw-font-medium tw-text-gray-700">
-        <FontAwesomeIcon icon={faUser} size="lg" className={'tw-text-green-500 tw-mr-4'}/>
+        <FontAwesomeIcon icon={faUser} size="lg" className={'tw-text-gray-800 tw-mr-4'}/>
         <p>ADMIN</p>
         </Menu.Button>
       </div>
@@ -42,7 +42,7 @@ const UserMenu = () => {
                       active ? 'tw-bg-gray-800 tw-text-white' : 'tw-text-gray-900'
                     } group tw-flex tw-rounded-md tw-items-center tw-w-full tw-px-2 tw-py-2 tw-text-sm`}
                   >
-                  Thông tin tài khoản                   
+                  Đổi mật khẩu                 
                   </button>
                 )}
               </Menu.Item>
@@ -53,7 +53,7 @@ const UserMenu = () => {
                       active ? 'tw-bg-gray-800 tw-text-white' : 'tw-text-gray-900'
                     } group tw-flex tw-rounded-md tw-items-center tw-w-full tw-px-2 tw-py-2 tw-text-sm`}
                   >
-                  Thông tin tài khoản                   
+                  Đăng xuất             
                   </button>
                 )}
               </Menu.Item>
