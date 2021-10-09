@@ -8,46 +8,53 @@ export const API_GET_BUSES = '/demos'
 
 export const API_GET_IMAGE = '/image'
 
-const  {faChartArea , faCar , faCertificate} = icon
+const  {faChartArea , faCar , faCertificate, faNewspaper, faBus, faHome, faTicketAlt, faPercent, faAddressCard, faPhone} = icon
 const {faAddressBook} = iconRegular
 //==============href NAV MENU=============
 export const NAV_LINK_LIST = [
     {
-        label : "Xe Limousin",
+        label : "Limousin",
         link : "/new",
         icon: faCar
     },
     {
         label : "Xe 4 chỗ",
         link : "/new",
-        // icon: "https://i.pinimg.com/originals/95/69/69/956969895c373bd435ccaf2c2e1de4f2.jpg"
+        icon: faCar
     },
     {
         label : "Xe 16 chỗ",
-        href : "/new"
+        href : "/new",
+        icon: faBus
     },
     {
         label : "Liên hệ",
         href : "/contact",
+        icon: faPhone
     },
     {
         label : "Tin tức",
-        href : "/new"
+        href : "/new",
+        icon: faNewspaper
     }
 ]
 
 export const MENU_BOTTOM_LIST = [
     {
-        label: "Trang chủ"
+        label: "Trang chủ",
+        icon: faHome
     },
     {
-        label: "Vé của bạn"
+        label: "Vé của bạn",
+        icon: faTicketAlt
     },
     {
-        label: "Ưu đãi"
+        label: "Ưu đãi",
+        icon: faPercent
     },
     {
-        label: "Hồ sơ"
+        label: "Hồ sơ",
+        icon: faAddressCard
     }
 ]
 export const NAV_LINK_LIST_ADMIN = [
