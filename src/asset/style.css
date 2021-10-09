@@ -778,10 +778,6 @@ video {
   margin-top: 0px;
 }
 
-.tw-mr-1 {
-  margin-right: 0.25rem;
-}
-
 .tw-mr-7 {
   margin-right: 1.75rem;
 }
@@ -806,8 +802,36 @@ video {
   margin-right: 1rem;
 }
 
+.tw-mb-4 {
+  margin-bottom: 1rem;
+}
+
+.tw-mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.tw-mb-3 {
+  margin-bottom: 0.75rem;
+}
+
 .tw-mr-2 {
   margin-right: 0.5rem;
+}
+
+.tw-mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.tw-mb-5 {
+  margin-bottom: 1.25rem;
+}
+
+.tw-mt-6 {
+  margin-top: 1.5rem;
+}
+
+.tw-mr-1 {
+  margin-right: 0.25rem;
 }
 
 .tw-box-border {
@@ -930,24 +954,8 @@ video {
   width: 1rem;
 }
 
-.tw-w-\[8rem\] {
-  width: 8rem;
-}
-
-.tw-w-\[7rem\] {
-  width: 7rem;
-}
-
-.tw-w-\[5rem\] {
-  width: 5rem;
-}
-
-.tw-w-60 {
-  width: 15rem;
-}
-
-.tw-w-5 {
-  width: 1.25rem;
+.tw-min-w-0 {
+  min-width: 0px;
 }
 
 .tw-flex-1 {
@@ -1080,10 +1088,6 @@ video {
 
 .tw-items-center {
   align-items: center;
-}
-
-.tw-justify-start {
-  justify-content: flex-start;
 }
 
 .tw-justify-end {
@@ -1391,19 +1395,19 @@ video {
   padding-bottom: 0.75rem;
 }
 
-.tw-px-5 {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+.tw-px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
-.tw-py-5 {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+.tw-py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
-.tw-px-0 {
-  padding-left: 0px;
-  padding-right: 0px;
+.tw-py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .tw-pr-3 {
@@ -1438,12 +1442,24 @@ video {
   padding-bottom: 1rem;
 }
 
-.tw-pl-1 {
-  padding-left: 0.25rem;
+.tw-pt-6 {
+  padding-top: 1.5rem;
 }
 
-.tw-pr-1 {
-  padding-right: 0.25rem;
+.tw-pb-8 {
+  padding-bottom: 2rem;
+}
+
+.tw-pt-0 {
+  padding-top: 0px;
+}
+
+.tw-pt-8 {
+  padding-top: 2rem;
+}
+
+.tw-pb-6 {
+  padding-bottom: 1.5rem;
 }
 
 .tw-text-left {
@@ -1468,12 +1484,6 @@ video {
 
 .tw-font-sans {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-.tw-text-5xl {
-  font-size: 3rem;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
 }
 
 .tw-text-xs {
@@ -1508,26 +1518,6 @@ video {
   font-size: 1.5rem;
   line-height: 1.33;
   letter-spacing: -0.01em;
-}
-
-.tw-text-4xl {
-  font-size: 2.25rem;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-}
-
-.tw-text-3xl {
-  font-size: 1.88rem;
-  line-height: 1.33;
-  letter-spacing: -0.01em;
-}
-
-.tw-text-\[1rem\] {
-  font-size: 1rem;
-}
-
-.tw-text-\[0\.5rem\] {
-  font-size: 0.5rem;
 }
 
 .tw-text-\[10px\] {
@@ -1566,14 +1556,18 @@ video {
   line-height: 1.5rem;
 }
 
-.tw-text-green-500 {
-  --tw-text-opacity: 1;
-  color: rgba(16, 185, 129, var(--tw-text-opacity));
+.tw-leading-tight {
+  line-height: 1.25;
 }
 
 .tw-text-gray-500 {
   --tw-text-opacity: 1;
   color: rgba(100, 116, 139, var(--tw-text-opacity));
+}
+
+.tw-text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgba(30, 41, 59, var(--tw-text-opacity));
 }
 
 .tw-text-gray-200 {
@@ -1777,6 +1771,27 @@ video {
   margin-left: 0.5rem;
 }
 
+@keyframes tw-bounce {
+  0%, 100% {
+    -webkit-transform: translateY(-25%);
+            transform: translateY(-25%);
+    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);
+            animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    -webkit-transform: none;
+            transform: none;
+    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
+            animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+
+.hover\:tw-animate-bounce:hover {
+  -webkit-animation: tw-bounce 1s infinite;
+          animation: tw-bounce 1s infinite;
+}
+
 .hover\:tw-rounded-2xl:hover {
   border-radius: 1rem;
 }
@@ -1832,6 +1847,11 @@ video {
 }
 
 .hover\:tw-text-gray-900:hover {
+  --tw-text-opacity: 1;
+  color: rgba(15, 23, 42, var(--tw-text-opacity));
+}
+
+.hover\:tw-text-blue-800:hover {
   --tw-text-opacity: 1;
   color: rgba(30, 64, 175, var(--tw-text-opacity));
 }
@@ -2030,10 +2050,6 @@ video {
     display: block;
   }
 
-  .md\:tw-flex {
-    display: flex;
-  }
-
   .md\:tw-hidden {
     display: none;
   }
@@ -2046,8 +2062,24 @@ video {
     width: 50%;
   }
 
-  .md\:tw-flex-col {
-    flex-direction: column;
+  .md\:tw-w-6\/12 {
+    width: 50%;
+  }
+
+  .md\:tw-w-\[300px\] {
+    width: 300px;
+  }
+
+  .md\:tw-w-full {
+    width: 100%;
+  }
+
+  .md\:tw-w-\[200px\] {
+    width: 200px;
+  }
+
+  .md\:tw-justify-end {
+    justify-content: flex-end;
   }
 
   .md\:tw-justify-between {
@@ -2072,19 +2104,10 @@ video {
     padding-bottom: 0.75rem;
   }
 
-  .md\:tw-py-5 {
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-  }
-
   .md\:tw-text-base {
     font-size: 1rem;
     line-height: 1.5;
     letter-spacing: -0.01em;
-  }
-
-  .md\:tw-font-bold {
-    font-weight: 700;
   }
 }
 
@@ -2129,6 +2152,42 @@ video {
     width: 91.666667%;
   }
 
+  .lg\:tw-w-1\/2 {
+    width: 50%;
+  }
+
+  .lg\:tw-w-8\/12 {
+    width: 66.666667%;
+  }
+
+  .lg\:tw-w-6\/12 {
+    width: 50%;
+  }
+
+  .lg\:tw-w-4\/12 {
+    width: 33.333333%;
+  }
+
+  .lg\:tw-w-full {
+    width: 100%;
+  }
+
+  .lg\:tw-w-\[20px\] {
+    width: 20px;
+  }
+
+  .lg\:tw-w-\[100px\] {
+    width: 100px;
+  }
+
+  .lg\:tw-w-\[200px\] {
+    width: 200px;
+  }
+
+  .lg\:tw-w-\[500px\] {
+    width: 500px;
+  }
+
   .lg\:tw-translate-x-0 {
     --tw-translate-x: 0px;
     -webkit-transform: var(--tw-transform);
@@ -2137,10 +2196,6 @@ video {
 
   .lg\:tw-flex-row {
     flex-direction: row;
-  }
-
-  .lg\:tw-justify-center {
-    justify-content: center;
   }
 
   .lg\:tw-justify-between {
@@ -2165,16 +2220,19 @@ video {
     padding-right: 2rem;
   }
 
-  .lg\:tw-text-2xl {
-    font-size: 1.5rem;
-    line-height: 1.33;
-    letter-spacing: -0.01em;
+  .lg\:tw-px-10 {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
 
-  .lg\:tw-text-xl {
-    font-size: 1.25rem;
-    line-height: 1.5;
-    letter-spacing: -0.01em;
+  .lg\:tw-px-2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .lg\:tw-px-3 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
   .lg\:hover\:tw-bg-green-100:hover {
@@ -2190,6 +2248,10 @@ video {
 
   .xl\:tw-hidden {
     display: none;
+  }
+
+  .xl\:tw-w-3\/4 {
+    width: 75%;
   }
 
   .xl\:tw-flex-row {
