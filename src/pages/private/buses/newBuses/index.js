@@ -116,7 +116,7 @@ const NewBuses = () => {
                       className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
                       htmlfor="grid-password"
                     >
-                      About me
+                      Mô tả
                     </label>
                     <textarea
                       type="text"
