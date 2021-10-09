@@ -35,21 +35,23 @@ const Routes = () => {
   const Analytics = lazy(() => import("../pages/private/analytics"));
   const Order = lazy(() => import("../pages/private/order"));
   const LoginAdmin = lazy(() => import("../pages/private/login"));
+  const NewBuses = lazy(() => import("../pages/private/buses/newBuses"));
 
   return (
     <Router>
       <Suspense fallback={<Loading />}>
         <Switch>
-          <Route exact path="/admin/:path?">
+          <Route path="/admin/:path?">
             <LayoutAdmin>
               <Switch>
-                <Route exact path="/admin">
+                <Route exact  path="/admin">
                   <Redirect to="/admin/dashboard" />
                 </Route>
-                <Route exact path="/admin/dashboard" component={Dashboard} />
-                <Route exact path="/admin/buses" component={Buses} />
-                <Route exact path="/admin/analytics" component={Analytics} />
-                <Route exact path="/admin/order" component={Order} />
+                <Route exact  path="/admin/dashboard" component={Dashboard} />
+                <Route exact  path="/admin/buses" component={Buses} />
+                <Route exact  path="/admin/buses/create" component={NewBuses}/>
+                <Route exact  path="/admin/analytics" component={Analytics} />
+                <Route exact  path="/admin/order" component={Order} />
               </Switch>
             </LayoutAdmin>
           </Route>
@@ -59,7 +61,7 @@ const Routes = () => {
               <div className="tw-flex tw-flex-grow">
                 <LayoutWebsite>
                   <Switch>
-                    <Route exact path="/ticket-admin" component={LoginAdmin} />
+                    <Route exact path="/ticket-admin/login" component={LoginAdmin} />
                     <Route exact path="/" component={HomePages} />
                     <Route exact path="/contact" component={Contracts} />
                   </Switch>

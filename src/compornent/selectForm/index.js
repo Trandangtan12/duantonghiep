@@ -1,8 +1,8 @@
 import React from 'react'
 import Select from 'react-select'
-const SelectForm = ({options}) => {
+const SelectForm = ({options , placeholder , className}) => {
     return (
-        <Select options={options} />
+        <Select options={options} placeholder={placeholder} className={className}/>
     )
 }
 
