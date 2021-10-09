@@ -1,14 +1,24 @@
-import { faCar } from "@fortawesome/fontawesome-free-solid";
+import {
+  faCar,
+  faDotCircle,
+  faTruckLoading,
+  faWheelchair,
+} from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Route, Switch , Redirect } from "react-router-dom";
+import loading from '../asset/images/loading.gif';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 const Loading = () => {
   return (
-    <div className="tw-fixed tw-top-2/4 tw-left-2/4">
-      <FontAwesomeIcon
-        icon={faCar}
-        className="tw-animate-spin tw-text-5xl tw-text-green-500"
-      />
+    <div className="tw-flex tw-h-screen tw-justify-center tw-items-center">
+      <div className="tw-text-center">
+        <img src={loading} alt=""/>
+      </div>
     </div>
   );
 };
@@ -24,21 +34,24 @@ const Routes = () => {
   const Buses = lazy(() => import("../pages/private/buses"));
   const Analytics = lazy(() => import("../pages/private/analytics"));
   const Order = lazy(() => import("../pages/private/order"));
+  const LoginAdmin = lazy(() => import("../pages/private/login"));
+  const NewBuses = lazy(() => import("../pages/private/buses/newBuses"));
 
   return (
     <Router>
       <Suspense fallback={<Loading />}>
         <Switch>
-          <Route exact path="/admin/:path?">
+          <Route path="/admin/:path?">
             <LayoutAdmin>
               <Switch>
-                <Route exact path="/admin">
+                <Route exact  path="/admin">
                   <Redirect to="/admin/dashboard" />
                 </Route>
-                <Route exact path="/admin/dashboard" component={Dashboard} />
-                <Route exact path="/admin/buses" component={Buses} />
-                <Route exact path="/admin/analytics" component={Analytics} />
-                <Route exact path="/admin/order" component={Order} />
+                <Route exact  path="/admin/dashboard" component={Dashboard} />
+                <Route exact  path="/admin/buses" component={Buses} />
+                <Route exact  path="/admin/buses/create" component={NewBuses}/>
+                <Route exact  path="/admin/analytics" component={Analytics} />
+                <Route exact  path="/admin/order" component={Order} />
               </Switch>
             </LayoutAdmin>
           </Route>
@@ -48,6 +61,7 @@ const Routes = () => {
               <div className="tw-flex tw-flex-grow">
                 <LayoutWebsite>
                   <Switch>
+                    <Route exact path="/ticket-admin/login" component={LoginAdmin} />
                     <Route exact path="/" component={HomePages} />
                     <Route exact path="/contact" component={Contracts} />
                   </Switch>

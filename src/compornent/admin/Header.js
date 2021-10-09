@@ -1,5 +1,4 @@
 import React from "react";
-
 import Notifications from "./header/Notifications";
 import UserMenu from "./header/UserMenu";
 import { SearchBox } from "./header/SearchBox";
@@ -31,7 +30,7 @@ const HeaderAdmin = ({ sidebarOpen, setSidebarOpen }) => {
               </svg>
             </button>
             <span>
-              Xin chào Admin <FontAwesomeIcon  icon={faHandPeace} className="tw-text-green-500"/>
+              Xin chào Admin <FontAwesomeIcon  icon={faHandPeace} className="tw-text-gray-800"/>
             </span>
           </div>
 
