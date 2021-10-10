@@ -1,12 +1,15 @@
+import alertify from "alertifyjs";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import SelectForm from "../../../../compornent/selectForm";
 import { getAllProvince } from "../../../../redux/actions/province";
+import { BusesService } from "../../../../service/productService";
 import { InputNumberStyle } from "./utility";
 
 const NewBuses = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { province } = useSelector((state) => state.province);
   const provinceFilter = province.map((city) => {
@@ -15,14 +18,20 @@ const NewBuses = () => {
       label: city.name,
     };
   });
-  const history = useHistory();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const handleSubmitForm = () => {
-    console.log("show hello");
+  const handleSubmitForm = (data) => {
+    alertify.confirm("Thêm chuyến xe", async function () {
+      const res = await BusesService.addBuses(data)
+      if (res) {
+        alertify.success("Thêm thành công !");
+        history.push('/admin/buses')
+      }
+    })
   };
   useEffect(() => {
     dispatch(getAllProvince());
@@ -60,8 +69,9 @@ const NewBuses = () => {
                     </label>
                     <input
                       type="text"
-                      className="tw-border-0 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
-                      defaultValue="lucky.jesse"
+                      className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
+                      defaultValue=""
+                      {...register('title')}
                     />
                   </div>
                 </div>
@@ -76,8 +86,9 @@ const NewBuses = () => {
                     <InputNumberStyle>
                       <input
                         type="number"
-                        className="tw-border-0 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
+                        className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
                         defaultValue="giá"
+                        {...register('body')}
                       />
                     </InputNumberStyle>
                   </div>
@@ -120,7 +131,7 @@ const NewBuses = () => {
                     </label>
                     <textarea
                       type="text"
-                      className="tw-border-0 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
+                      className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
                       rows={4}
                       defaultValue={"Mô tả"}
                     />
