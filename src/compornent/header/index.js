@@ -14,7 +14,8 @@ const Header = () => {
     }
   };
   return (
-    <header className="tw-box-border tw-font-sans tw-z-10 tw-leading-normal tw-rounded-2xl md:tw-rounded-none
+    <header className="header tw-relative tw-box-border tw-font-sans 
+    tw-z-50 tw-leading-normal tw-rounded-2xl md:tw-rounded-none tw-bg-white
     tw-shadow-md tw-tracking-norma">
       <div className="tw-bg-green-100">
        <div className="tw-w-11/12 tw-mx-auto tw-block xl:tw-hidden tw-py-2">
@@ -46,11 +47,11 @@ const Header = () => {
       <div className="tw-flex tw-justify-center lg:tw-justify-between tw-items-center tw-w-full lg:tw-w-11/12 tw-mx-auto">
       <div className="tw-flex tw-flex-col xl:tw-flex-row tw-items-center tw-mt-0 tw-py-0 md:tw-py-3">
       <div className="tw-w-[9rem] tw-hidden xl:tw-block">
-        <a
+        <Link to="/"
           className="tw-text-gray-900 tw-no-underline hover:tw-no-underline tw-font-extrabold tw-text-xl"
         >
           <span className="tw-text-red-700">SIX</span><span className="tw-text-green-600">LEAF</span> 
-        </a>
+        </Link>
       </div>
 
       <nav id="header">
@@ -85,7 +86,7 @@ const Header = () => {
                   <Link
                     to={item.link}
                     className="tw-flex tw-flex-col lg:tw-flex-row tw-alignt-center tw-border-0 
-                    lg:tw-border tw-border-[#777777] tw-rounded-full tw-py-2 tw-px-1 md:tw-px-4 tw-no-underline 
+                    lg:tw-border-2 tw-border-gray-300 tw-rounded-full tw-py-2 tw-px-1 md:tw-px-4 tw-no-underline 
                      tw-text-[#777777] tw-transition tw-duration-500 tw-ease-in-out lg:hover:tw-bg-green-100">
                     <div className="tw-text-center lg:tw-mr-2">
                       <FontAwesomeIcon icon={item.icon} className="tw-text-green-600 tw-text-xl"/>
