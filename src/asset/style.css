@@ -569,7 +569,7 @@ embed,
 object {
   display: block;
   /* 1 */
-  /* vertical-align: middle; */
+  vertical-align: middle;
   /* 2 */
 }
 
@@ -930,6 +930,14 @@ video {
   margin-bottom: 1.5rem;
 }
 
+.tw-mt-10 {
+  margin-top: 2.5rem;
+}
+
+.tw-mt-5 {
+  margin-top: 1.25rem;
+}
+
 .tw-box-border {
   box-sizing: border-box;
 }
@@ -1243,9 +1251,14 @@ video {
           transform: var(--tw-transform);
 }
 
-.tw-scale-95 {
-  --tw-scale-x: .95;
-  --tw-scale-y: .95;
+.tw-translate-x-\[\] {
+  --tw-translate-x: ;
+  -webkit-transform: var(--tw-transform);
+          transform: var(--tw-transform);
+}
+
+.tw-translate-x-\[50\%\] {
+  --tw-translate-x: 50%;
   -webkit-transform: var(--tw-transform);
           transform: var(--tw-transform);
 }
@@ -1258,6 +1271,31 @@ video {
 
 .tw-translate-x-4 {
   --tw-translate-x: 1rem;
+  -webkit-transform: var(--tw-transform);
+          transform: var(--tw-transform);
+}
+
+.tw-translate-x-\[50\] {
+  --tw-translate-x: 50;
+  -webkit-transform: var(--tw-transform);
+          transform: var(--tw-transform);
+}
+
+.tw-scale-95 {
+  --tw-scale-x: .95;
+  --tw-scale-y: .95;
+  -webkit-transform: var(--tw-transform);
+          transform: var(--tw-transform);
+}
+
+.tw-scale-100 {
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  -webkit-transform: var(--tw-transform);
+          transform: var(--tw-transform);
+}
+
+.tw-transform {
   -webkit-transform: var(--tw-transform);
           transform: var(--tw-transform);
 }
@@ -1366,6 +1404,10 @@ video {
   border-radius: 0.5rem;
 }
 
+.tw-rounded-\[50\%\] {
+  border-radius: 50%;
+}
+
 .tw-rounded-l-lg {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
@@ -1442,14 +1484,9 @@ video {
   border-color: rgba(244, 63, 94, var(--tw-border-opacity));
 }
 
-.tw-border-black {
+.tw-border-gray-400 {
   --tw-border-opacity: 1;
-  border-color: rgba(0, 0, 0, var(--tw-border-opacity));
-}
-
-.tw-border-gray-500 {
-  --tw-border-opacity: 1;
-  border-color: rgba(100, 116, 139, var(--tw-border-opacity));
+  border-color: rgba(148, 163, 184, var(--tw-border-opacity));
 }
 
 .tw-bg-\[\#f4f5f4\] {
