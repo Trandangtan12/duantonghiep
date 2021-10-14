@@ -28,6 +28,7 @@ const NewBuses = () => {
     alertify.confirm("Thêm chuyến xe", async function () {
       const res = await BusesService.addBuses(data)
       if (res) {
+        alertify.set('notifier','position', 'bottom-right');
         alertify.success("Thêm thành công !");
         history.push('/admin/buses')
       }
