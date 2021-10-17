@@ -95,7 +95,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
             {/* Dashboard */}
             {NAV_LINK_LIST_ADMIN.map(({ label, href, icon }) => (
               <li
-                className={`px-3 tw-py-2 tw-rounded-sm tw-mb-0.5 hover:tw-bg-gray-900
+                className={`px-3 tw-py-2 tw-rounded-sm tw-mb-0.5 tw-font-bold hover:tw-bg-gray-900
                 hover:tw-rounded-2xl last:tw-mb-0 ${page === href && 'tw-bg-gray-900 tw-rounded-2xl tw-border tw-border-white tw-ml-2'}`}
                 key={label}
                 onClick={() => setSidebarOpen(!sidebarOpen)}
