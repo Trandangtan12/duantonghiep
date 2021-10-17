@@ -40,7 +40,9 @@ const Buses = () => {
       Header: "Số thứ tự",
       accessor: "id",
       show: true,
-      filterMethod: (value) => {},
+      Cell : ({original}) => {
+        return <span>{original.id}</span>
+      }
     },
     {
       Header: "Nội dung",
