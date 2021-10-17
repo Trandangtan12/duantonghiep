@@ -1,11 +1,12 @@
-import React from 'react'
-
+import React, { useState } from "react";
+import Modal from "./Modal";
+import TabList from "./TabListt";
 const Analytics = () => {
-    return (
-        <div>
-            thong ke
-        </div>
-    )
-}
+  return (
+    <div>
+      <TabList />
+    </div>
+  );
+};
 
-export default Analytics
+export default Analytics;
