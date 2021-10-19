@@ -22,8 +22,8 @@ const Login = () => {
               </div>
               <div className="tw-mt-10">
                 <button
-                  className="tw-bg-indigo-500 tw-text-gray-100 tw-p-4 tw-w-full tw-rounded-full tw-tracking-wide
-                  tw-font-semibold font-display focus:tw-outline-n focus:tw-shadow-outline hover:tw-bg-indigo-600
+                  className="tw-bg-green-500 tw-text-gray-100 tw-p-4 tw-w-full tw-rounded-full tw-tracking-wide
+                  tw-font-semibold font-display focus:tw-outline-n focus:tw-shadow-outline hover:tw-bg-green-600
                   tw-shadow-lg"
                 >
                   Đăng nhập
@@ -32,7 +32,7 @@ const Login = () => {
             </form>
             <div className="tw-mt-12 tw-text-sm font-display tw-font-semibold tw-text-gray-700 tw-text-center">
               Bạn chưa có tài khoản ?{" "}
-              <a className="tw-cursor-pointer tw-text-indigo-600 hover:tw-text-indigo-800">
+              <a className="tw-cursor-pointer tw-text-green-600 hover:tw-text-green-700">
                 Đăng kí ngay
               </a>
             </div>
