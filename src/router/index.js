@@ -36,6 +36,8 @@ const Routes = () => {
   const Order = lazy(() => import("../pages/private/order"));
   const LoginAdmin = lazy(() => import("../pages/private/login"));
   const NewBuses = lazy(() => import("../pages/private/buses/newBuses"));
+  const Login = lazy(() => import("../pages/public/login"));
+  
 
   return (
     <Router>
@@ -64,6 +66,7 @@ const Routes = () => {
                     <Route exact path="/ticket-admin/login" component={LoginAdmin} />
                     <Route exact path="/" component={HomePages} />
                     <Route exact path="/contact" component={Contracts} />
+                    <Route exact path="/login" component={Login} />
                   </Switch>
                 </LayoutWebsite>
               </div>
