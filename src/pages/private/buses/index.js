@@ -47,13 +47,13 @@ const Buses = () => {
       },
     },
     {
-      Header: "Nội dung",
-      accessor: "body",
+      Header: "Tên chuyên xe",
+      accessor: "name",
       show: true,
     },
     {
-      Header: "Tiêu đề",
-      accessor: "title",
+      Header: "Ghi chú",
+      accessor: "description",
       show: true,
     },
     {
