@@ -1,40 +1,50 @@
 import {
-  faCheck,
   faEdit,
-  faInfoCircle,
-  faTimes,
-  faTrash,
+  faInfoCircle, faTrash
 } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import alertify from "alertifyjs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Table from "../../../compornent/admin/table";
 import { actionGetBuses } from "../../../redux/actions/buses";
-import alertify from "alertifyjs";
-import { Link } from "react-router-dom";
+import { BusesService } from "../../../service/productService";
+import Modal from "./Modal";
 
 const Buses = () => {
   const dispatch = useDispatch();
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const handleOpenModal = () =>{
+      setIsOpenModal(true)
+  }
   const { availableBuses } = useSelector((state) => state.buses);
-  const [isOpen, setIsOpen] = useState(false);
-  console.log(isOpen);
-  const handleOpenModal = () => {
+  const [dispatchDependency, setDispatchAcitive] = useState(0);
+  const handleDeleteBuses = (id) => {
     alertify
-      .confirm("Bạn có chắc chắn muốn xoá sản phẩm ?", function () {
-        alertify.success("Xoá thành công");
+      .confirm("Bạn có chắc chắn muốn xoá sản phẩm ?", async function () {
+        const res = await BusesService.deleteBuses(id);
+        if (res.status === 200) {
+          reloadActiveAPI();
+          alertify.success("Xoá thành công");
+        } else {
+          alertify.warning("Có lỗi xảy ra");
+        }
       })
-      .set(
-        { title: "Update" },
-        { labels: { ok: "Forward", cancel: "Backward" } }
-      )
-      .set("movable", false);
+      .set({ title: "Xoá sản phẩm ?" })
+      .set("movable", false)
+      .set("ok", "Alright!")
+      .set("notifier", "position", "top-right");
   };
+  const dependencies = [availableBuses.length, dispatchDependency];
   const [columns, setColumns] = useState([
     {
       Header: "Số thứ tự",
       accessor: "id",
       show: true,
-      filterMethod: (value) => {},
+      Cell: ({ original }) => {
+        return <span>{original.id}</span>;
+      },
     },
     {
       Header: "Nội dung",
@@ -48,23 +58,17 @@ const Buses = () => {
     },
     {
       Header: "Hành động",
-      Cell: ({ data }) => {
+      Cell: ({ original }) => {
         return (
           <div className="tw-flex tw-justify-center tw-gap-[20px]">
-            <button onClick={handleOpenModal}>
-              <FontAwesomeIcon icon={faCheck} color="green" />
-            </button>
-            <button>
-              <FontAwesomeIcon icon={faTimes} color="red" />
-            </button>
-            <button>
-              <FontAwesomeIcon icon={faTrash} color="red" />
-            </button>
-            <button>
+            <button onClick={()=>setIsOpenModal(true)}>
               <FontAwesomeIcon icon={faInfoCircle} color="blue" />
             </button>
             <button>
               <FontAwesomeIcon icon={faEdit} color="blue" />
+            </button>
+            <button onClick={() => handleDeleteBuses(original.id)}>
+              <FontAwesomeIcon icon={faTrash} color="red" />
             </button>
           </div>
         );
@@ -73,7 +77,10 @@ const Buses = () => {
   ]);
   useEffect(() => {
     dispatch(actionGetBuses());
-  }, []);
+  }, [...dependencies]);
+  const reloadActiveAPI = () => {
+    setDispatchAcitive((pre) => ++pre);
+  };
   return (
     <>
       <div className="tw-flex tw-justify-between tw-align-middle tw-mb-5">
@@ -85,9 +92,11 @@ const Buses = () => {
             </button>
           </Link>
         </div>
+        
       </div>
       <Table data={availableBuses} columns={columns} />
-    </>
+      <Modal isOpen={isOpenModal} setIsOpenModal={setIsOpenModal}/>
+      </>
   );
 };
 
