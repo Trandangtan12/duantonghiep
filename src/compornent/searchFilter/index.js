@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import InpRange from '../InpRange'
 
 const SearchFilter = () => {
     return (
@@ -8,7 +9,8 @@ const SearchFilter = () => {
                 <span className="tw-text-sm tw-text-green-500">Xóa lọc</span>
             </div>
             <div>
-            <input type="range" min="0" max="100" id="" step="5"/>
+            {/* <input type="range" min="0" max="100" id="" step="5"/> */}
+            <InpRange/>
             </div>
             
         </div>
