@@ -8,17 +8,12 @@ const PickerStyle = styled.div`
   }
 `;
 const DatePickerForm = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  return (
-    <PickerStyle>
-      <DatePicker
-        selected={startDate}
-        onChange={(date) => {
-          console.log(date);
-        }}
-      />
-    </PickerStyle>
-  );
-};
+    const [startDate, setStartDate] = useState(new Date());
+    return (
+        <DatePicker className="tw-w-full tw-py-2 tw-border-b-2 tw-border-gray-100 tw-text-black tw-font-bold" selected={startDate} onChange={(date)=>{
+            console.log(date)
+        }}/>
+    )
+}
 
 export default DatePickerForm;
