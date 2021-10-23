@@ -97,7 +97,7 @@ const NewBuses = () => {
                           type="text"
                           className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
                           defaultValue=""
-                          {...register("title")}
+                          {...register("name")}
                         />
                       </div>
                     </div>
@@ -114,7 +114,7 @@ const NewBuses = () => {
                             type="number"
                             className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
                             defaultValue="giá"
-                            {...register("body")}
+                            {...register("description")}
                           />
                         </InputNumberStyle>
                       </div>
