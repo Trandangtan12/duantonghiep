@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import BannerRow from "../../../compornent/BannerRow";
-import SearchCars from '../../../compornent/searchCars'
+import QuestionTicker from "../../../compornent/questionTicker";
+import SearchCars from '../../../compornent/searchCars';
+import Introduce from '../../../compornent/introduce';
 
 
 const HomePages = () => {
@@ -16,8 +18,10 @@ const HomePages = () => {
         <div className="tw-flex">
          <SearchCars />
           <BannerRow />
+          
         </div>
-
+        <Introduce />
+        <QuestionTicker />
       </section>
 
     </section>
