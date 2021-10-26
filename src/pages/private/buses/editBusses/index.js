@@ -1,21 +1,17 @@
+import { faUpload } from "@fortawesome/fontawesome-free-solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router";
 import SelectForm from "../../../../compornent/selectForm";
-import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
 import { InputNumberStyle } from "./utility";
-import imageProduct from "../../../../asset/images/image fake.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload } from "@fortawesome/fontawesome-free-solid";
-import firebase from "../../../../firebase";
 
-const NewBuses = () => {
-  const [urlImage, setUrlImage] = useState("");
+const EditBusses = () => {
+  const { id } = useParams();
   const history = useHistory();
-  const dispatch = useDispatch();
   const { province } = useSelector((state) => state.province);
   const provinceFilter = province.map((city) => {
     return {
@@ -23,34 +19,16 @@ const NewBuses = () => {
       label: city.name,
     };
   });
-  const handleChangeImage = (e) => {
-    console.log("show");
-    const file = e.target.files[0];
-    let storeRef = firebase.storage().ref(`images/${file.name}`);
-    storeRef.put(file).then((e) => {
-      storeRef.getDownloadURL().then(async (url, e) => {
-        console.log(url);
-        setUrlImage(url);
-      });
-    });
-  };
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const handleSubmitForm = (data) => {
     alertify.confirm("Thêm chuyến xe", async function () {
-      const newData = {
-        ...data,
-        image: urlImage,
-        cartype_id: 2,
-        route_id: 1,
-        start_time: "8h",
-        status: 1,
-        description: "121328",
-      };
-      const res = await BusesService.addBuses(newData);
+      const res = await BusesService.updateBusses(id,data);
       if (res) {
         alertify.set("notifier", "position", "bottom-right");
         alertify.success("Thêm thành công !");
@@ -58,8 +36,17 @@ const NewBuses = () => {
       }
     });
   };
+  const [infoBusses, setInfoBusses] = useState({});
+  const  {name , cartype_id, route_id , image , seat , price , status , start_time , description} = infoBusses
   useEffect(() => {
-    dispatch(getAllProvince());
+    const getInfoBusses = async () => {
+      const res = await BusesService.getInfoBuses(id);
+      if (res) {
+        setInfoBusses(res.data);
+        reset(res.data)
+      }
+    };
+    getInfoBusses();
   }, []);
   return (
     <>
@@ -87,22 +74,12 @@ const NewBuses = () => {
                 <form onSubmit={handleSubmit(handleSubmitForm)}>
                   <div className="tw-mb-2 tw-flex tw-flex-wrap lg:tw-px-3 tw-px-3">
                     <div className="sm:tw-w-full lg:tw-w-6/12">
-                      <div>
-                        <img src={urlImage} alt="" />
-                      </div>
-                    </div>
-                    <div className="sm:tw-w-full lg:tw-w-6/12">
                       <label class="tw-w-64 tw-flex tw-flex-col tw-items-center tw-py-2 tw-bg-white tw-rounded-md tw-shadow-md tw-tracking-wide tw-uppercase tw-border tw-border-blue tw-cursor-pointer hover:tw-bg-purple-600 hover:tw-text-white tw-text-purple-600 tw-ease-linear tw-transition-all tw-duration-150">
                         <FontAwesomeIcon icon={faUpload} />
                         <span class="tw-mt-2 tw-text-base tw-leading-normal">
                           Chọn ảnh đại diên
                         </span>
-                        <input
-                          type="file"
-                          id="photo-upload"
-                          onChange={handleChangeImage}
-                          className="tw-hidden"
-                        />
+                        <input type="file" class="tw-hidden" />
                       </label>
                     </div>
                     <div className="lg:tw-w-6/12">
@@ -127,7 +104,7 @@ const NewBuses = () => {
                         <input
                           type="text"
                           className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
-                          defaultValue=""
+                          defaultValue={name}
                           {...register("name")}
                         />
                       </div>
@@ -144,8 +121,8 @@ const NewBuses = () => {
                           <input
                             type="number"
                             className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
-                            defaultValue="giá"
-                            {...register("description")}
+                            defaultValue={price}
+                            {...register("price")}
                           />
                         </InputNumberStyle>
                       </div>
@@ -196,7 +173,8 @@ const NewBuses = () => {
                           type="text"
                           className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
                           rows={4}
-                          defaultValue={"Mô tả"}
+                          defaultValue={description}
+                          {...register('description')}
                         />
                       </div>
                     </div>
@@ -223,4 +201,4 @@ const NewBuses = () => {
   );
 };
 
-export default NewBuses;
+export default EditBusses;

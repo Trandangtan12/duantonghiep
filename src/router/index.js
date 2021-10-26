@@ -37,6 +37,7 @@ const Routes = () => {
   const LoginAdmin = lazy(() => import("../pages/private/login"));
   const NewBuses = lazy(() => import("../pages/private/buses/newBuses"));
   const Products = lazy(() => import("../pages/public/products"))
+  const EditBusses = lazy(() => import("../pages/private/buses/editBusses"))
 
   return (
     <Router>
@@ -51,6 +52,7 @@ const Routes = () => {
                 <Route exact  path="/admin/dashboard" component={Dashboard} />
                 <Route exact  path="/admin/buses" component={Buses} />
                 <Route exact  path="/admin/buses/create" component={NewBuses}/>
+                <Route exact  path="/admin/buses/edit/:id" component={EditBusses}/>
                 <Route exact  path="/admin/analytics" component={Analytics} />
                 <Route exact  path="/admin/order" component={Order} />
               </Switch>
