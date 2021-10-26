@@ -24,7 +24,6 @@ const NewBuses = () => {
     };
   });
   const handleChangeImage = (e) => {
-    console.log("show");
     const file = e.target.files[0];
     let storeRef = firebase.storage().ref(`images/${file.name}`);
     storeRef.put(file).then((e) => {
@@ -46,6 +45,8 @@ const NewBuses = () => {
         image: urlImage,
         cartype_id: 2,
         route_id: 1,
+        seat: 21,
+        date_active: "2021-10-21",
         start_time: "8h",
         status: 1,
         description: "121328",
