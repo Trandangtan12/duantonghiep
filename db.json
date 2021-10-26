@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "phoneNumber": "0869843483"
+    },
+    {
+      "id": 12,
+      "phoneNumber": "0869843483"
+    },
+    {
+      "email": "lequye12@gmail.com",
+      "password": "$2a$10$luxb8wfDuW/hV3tJ7gySPOKDftKiQPfFw9nU3q33OSUI1f1Pwvc9y",
+      "id": 13
+    }
+  ]
+}
