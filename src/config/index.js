@@ -10,6 +10,7 @@ export const API_GET_IMAGE = '/image'
 
 const { faChartArea, faCar, faCertificate, faNewspaper, faBus, faHome, faTicketAlt, faPercent, faAddressCard, faPhone } = icon
 const { faAddressBook } = iconRegular
+/////
 //==============href NAV MENU=============
 export const NAV_LINK_LIST = [
     {

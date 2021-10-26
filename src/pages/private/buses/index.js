@@ -1,6 +1,5 @@
 import {
-  faEdit,
-  faInfoCircle, faTrash
+  faEdit, faTrash
 } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
@@ -10,14 +9,15 @@ import { Link } from "react-router-dom";
 import Table from "../../../compornent/admin/table";
 import { actionGetBuses } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
+import { useHistory } from "react-router";
 import Modal from "./Modal";
-
 const Buses = () => {
   const dispatch = useDispatch();
+  const history = useHistory()
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const handleOpenModal = () =>{
-      setIsOpenModal(true)
-  }
+  const handleOpenModal = () => {
+    setIsOpenModal(true);
+  };
   const { availableBuses } = useSelector((state) => state.buses);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
   const handleDeleteBuses = (id) => {
@@ -41,6 +41,7 @@ const Buses = () => {
     {
       Header: "Số thứ tự",
       accessor: "id",
+      maxWidth: 100,
       show: true,
       Cell: ({ original }) => {
         return <span>{original.id}</span>;
@@ -61,10 +62,7 @@ const Buses = () => {
       Cell: ({ original }) => {
         return (
           <div className="tw-flex tw-justify-center tw-gap-[20px]">
-            <button onClick={()=>setIsOpenModal(true)}>
-              <FontAwesomeIcon icon={faInfoCircle} color="blue" />
-            </button>
-            <button>
+            <button onClick={() => history.push(`/admin/buses/edit/${original.id}`)}>
               <FontAwesomeIcon icon={faEdit} color="blue" />
             </button>
             <button onClick={() => handleDeleteBuses(original.id)}>
@@ -92,11 +90,10 @@ const Buses = () => {
             </button>
           </Link>
         </div>
-        
       </div>
       <Table data={availableBuses} columns={columns} />
-      <Modal isOpen={isOpenModal} setIsOpenModal={setIsOpenModal}/>
-      </>
+      <Modal isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} />
+    </>
   );
 };
 
