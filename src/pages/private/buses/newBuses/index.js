@@ -1,23 +1,26 @@
+import { faUpload } from "@fortawesome/fontawesome-free-solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import Select from "react-select";
 import SelectForm from "../../../../compornent/selectForm";
-import { getAllProvince } from "../../../../redux/actions/province";
-import { BusesService } from "../../../../service/productService";
-import { InputNumberStyle } from "./utility";
-import imageProduct from "../../../../asset/images/image fake.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload } from "@fortawesome/fontawesome-free-solid";
 import firebase from "../../../../firebase";
-
+import { BusesService } from "../../../../service/productService";
+import { ProvinceService } from "../../../../service/provinceService";
+import Destination from "./components/Destination";
+import { InputNumberStyle } from "./utility";
+import Input from '../../../../compornent/admin/input/Input';
 const NewBuses = () => {
   const [urlImage, setUrlImage] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
-  const { province } = useSelector((state) => state.province);
-  const provinceFilter = province.map((city) => {
+  const [cityValue, setVityValue] = useState([]);
+  const [districtValue, setdistrictValue] = useState([]);
+  const [wardValue, setWardValue] = useState([]);
+  const provinceFilter = cityValue.map((city) => {
     return {
       value: city.code,
       label: city.name,
@@ -28,7 +31,6 @@ const NewBuses = () => {
     let storeRef = firebase.storage().ref(`images/${file.name}`);
     storeRef.put(file).then((e) => {
       storeRef.getDownloadURL().then(async (url, e) => {
-        console.log(url);
         setUrlImage(url);
       });
     });
@@ -38,6 +40,32 @@ const NewBuses = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const onChangeCity = async (id) => {
+    setdistrictValue([]);
+    const districtRes = await ProvinceService.getDistrict(id);
+    if (districtRes.status === 200) {
+      const districtFilter = districtRes.data.districts.map((districts) => {
+        return {
+          value: districts.code,
+          label: districts.name,
+        };
+      });
+      setdistrictValue(districtFilter);
+    }
+  };
+  const onChangeWard = async (id) => {
+    const wardRes = await ProvinceService.getWard(id);
+    if (wardRes.status === 200) {
+      console.log(wardRes.data);
+      const wardFilter = wardRes.data.wards.map((ward) => {
+        return {
+          value: ward.code,
+          label: ward.name,
+        };
+      });
+      setWardValue(wardFilter);
+    }
+  };
   const handleSubmitForm = (data) => {
     alertify.confirm("Thêm chuyến xe", async function () {
       const newData = {
@@ -60,7 +88,13 @@ const NewBuses = () => {
     });
   };
   useEffect(() => {
-    dispatch(getAllProvince());
+    const getCity = async () => {
+      const resCity = await ProvinceService.getAllCity();
+      if (resCity.status === 200) {
+        await setVityValue(resCity.data);
+      }
+    };
+    getCity();
   }, []);
   return (
     <>
@@ -125,11 +159,11 @@ const NewBuses = () => {
                         >
                           Tên chuyến xe
                         </label>
-                        <input
+                        <Input
                           type="text"
-                          className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
                           defaultValue=""
-                          {...register("name")}
+                          register={register}
+                         fieldName={'name'}
                         />
                       </div>
                     </div>
@@ -142,48 +176,17 @@ const NewBuses = () => {
                           Giá
                         </label>
                         <InputNumberStyle>
-                          <input
+                          <Input
                             type="number"
-                            className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
-                            defaultValue="giá"
-                            {...register("description")}
+                            register={register}
+                            fieldName={'price'}
                           />
                         </InputNumberStyle>
                       </div>
                     </div>
                   </div>
-                  <div className="tw-flex tw-flex-wrap">
-                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
-                      <div className="tw-relative tw-w-full tw-mb-3">
-                        <label
-                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
-                          htmlfor="grid-password"
-                        >
-                          Tỉnh/thành phố
-                        </label>
-                        <div>
-                          <SelectForm
-                            options={provinceFilter}
-                            placeholder={"Thành phố"}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
-                      <div className="tw-relative tw-w-full tw-mb-3">
-                        <label
-                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
-                          htmlfor="grid-password"
-                        >
-                          Huyện
-                        </label>
-                        <SelectForm
-                          options={provinceFilter}
-                          placeholder={"Huyện"}
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  <Destination provinceFilter ={provinceFilter} onChangeCity={onChangeCity} onChangeWard={onChangeWard} setdistrictValue={setdistrictValue} districtValue={districtValue}  wardValue={wardValue} title="Điểm đi"/>
+                  <Destination provinceFilter ={provinceFilter} onChangeCity={onChangeCity} onChangeWard={onChangeWard} setdistrictValue={setdistrictValue} districtValue={districtValue}  wardValue={wardValue} title="Điểm đến"/>
                   <div className="tw-flex tw-flex-wrap">
                     <div className="tw-w-full lg:tw-w-12/12 tw-px-4">
                       <div className="tw-relative tw-w-full tw-mb-3">
