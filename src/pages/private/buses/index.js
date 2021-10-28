@@ -44,10 +44,22 @@ const Buses = () => {
       Header: "Số thứ tự",
       accessor: "id",
       maxWidth: 100,
+      maxHeight : 500,
       show: true,
       Cell: ({ original }) => {
         return <span>{original.id}</span>;
       },
+    },
+    {
+      Header: "Hình ảnh",
+      accessor: "image",
+      show: true,
+      maxHeight : 500,
+      Cell : ({original}) =>{
+       return <div className="tw-flex tw-justify-center">
+         <img src={original.image} height="10" width="50"/>
+       </div>
+      }
     },
     {
       Header: "Tên chuyên xe",
@@ -57,6 +69,7 @@ const Buses = () => {
     {
       Header: "Ghi chú",
       accessor: "description",
+      maxHeight : 500,
       show: true,
     },
     {
