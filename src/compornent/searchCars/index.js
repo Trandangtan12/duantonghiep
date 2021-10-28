@@ -3,7 +3,6 @@ import DatePickerForm from "../datePicker";
 import { Tab } from '@headlessui/react'
 import SelectForm from '../selectForm';
 import { actionGetBuses } from "../../redux/actions/buses";
-import { getAllProvince } from "../../redux/actions/province";
 import { useDispatch, useSelector } from "react-redux";
 
 const SearchCars = () => {
@@ -17,7 +16,6 @@ const SearchCars = () => {
       }
     })
     useEffect(() => {
-      dispatch(getAllProvince());
       dispatch(actionGetBuses())
     }, []);
     return (

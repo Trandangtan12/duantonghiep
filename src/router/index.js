@@ -34,9 +34,9 @@ const Routes = () => {
   const Buses = lazy(() => import("../pages/private/buses"));
   const Analytics = lazy(() => import("../pages/private/analytics"));
   const Order = lazy(() => import("../pages/private/order"));
-  const LoginAdmin = lazy(() => import("../pages/private/login"));
   const NewBuses = lazy(() => import("../pages/private/buses/newBuses"));
   const Products = lazy(() => import("../pages/public/products"))
+  const Login = lazy(() => import("../pages/public/login"))
   const EditBusses = lazy(() => import("../pages/private/buses/editBusses"))
 
   return (
@@ -64,10 +64,10 @@ const Routes = () => {
               <div className="tw-flex tw-flex-grow">
                 <LayoutWebsite>
                   <Switch>
-                    <Route exact path="/ticket-admin/login" component={LoginAdmin} />
                     <Route exact path="/" component={HomePages} />
                     <Route exact path="/contact" component={Contracts} />
                     <Route exact path="/products" component={Products}/>
+                    <Route exact path="/login" component={Login} />
                   </Switch>
                 </LayoutWebsite>
               </div>

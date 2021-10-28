@@ -2,15 +2,34 @@
 import * as icon from '@fortawesome/fontawesome-free-solid'
 import * as iconRegular from '@fortawesome/fontawesome-free-regular'
 //tất cả đường dẫn api ở đây
-export const API_GET_PROVINCE = "/?depth=2"
+export const API_GET_ALL_CITY = "/"
+export const API_GET_DISTRICTS = "/p"
+export const API_GET_WARD = "/d"
 //================API=================
 export const API_GET_BUSES = '/buses'
 
 export const API_GET_IMAGE = '/image'
 
+
+export const isArrayEmpty = (arr) =>{
+    return arr.length === 0
+}
+
+
+
+
+
+
+
+
 const { faChartArea, faCar, faCertificate, faNewspaper, faBus, faHome, faTicketAlt, faPercent, faAddressCard, faPhone } = icon
 const { faAddressBook } = iconRegular
 /////
+
+
+
+
+
 //==============href NAV MENU=============
 export const NAV_LINK_LIST = [
     {

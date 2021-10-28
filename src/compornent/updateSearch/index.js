@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import SelectForm from '../selectForm';
 import { actionGetBuses } from "../../redux/actions/buses";
-import { getAllProvince } from "../../redux/actions/province";
 import { useDispatch, useSelector } from "react-redux";
 import DatePickerProduct from '../datePicker/DatePickerProduct';
 
@@ -16,7 +15,6 @@ const UpdateSearch = () => {
       }
     })
     useEffect(() => {
-      dispatch(getAllProvince());
       dispatch(actionGetBuses())
     }, []);
     return (
