@@ -12,7 +12,11 @@ import { BusesService } from "../../../../service/productService";
 import { ProvinceService } from "../../../../service/provinceService";
 import Destination from "./components/Destination";
 import { InputNumberStyle } from "./utility";
-import Input from '../../../../compornent/admin/input/Input';
+import Input from "../../../../compornent/admin/input/Input";
+import LocationSelect from "./components/Destination";
+import CarTypeSelecect from "./components/CarTypeSelecect";
+import UploadFile from "../../../../compornent/uploadFile";
+import TextArea from "../../../../compornent/textarea";
 const NewBuses = () => {
   const [urlImage, setUrlImage] = useState("");
   const history = useHistory();
@@ -26,15 +30,26 @@ const NewBuses = () => {
       label: city.name,
     };
   });
-  const handleChangeImage = (e) => {
-    const file = e.target.files[0];
+  const handleUploadImageToFirebase = (file , setUrl) =>{
     let storeRef = firebase.storage().ref(`images/${file.name}`);
     storeRef.put(file).then((e) => {
       storeRef.getDownloadURL().then(async (url, e) => {
-        setUrlImage(url);
+        setUrl(url);
+        console.log(url);
       });
     });
+  } 
+  const handleChangeImage = (e) => {
+    const file = e.target.files[0];
+    handleUploadImageToFirebase(file , setUrlImage)
   };
+  const handleChangeDescriptionImage = (e) =>{
+    for (var i = 0; i < e.target.files.length; i++) {
+      var imageFile = e.target.files[i];
+      console.log(handleUploadImageToFirebase(imageFile));
+      handleUploadImageToFirebase(imageFile)
+  }
+  }
   const {
     register,
     handleSubmit,
@@ -87,6 +102,9 @@ const NewBuses = () => {
       }
     });
   };
+  const handlechangeTypeCar = (type) => {
+    console.log(type);
+  };
   useEffect(() => {
     const getCity = async () => {
       const resCity = await ProvinceService.getAllCity();
@@ -120,91 +138,97 @@ const NewBuses = () => {
               </div>
               <div className=" tw-flex-auto lg:tw-px-3">
                 <form onSubmit={handleSubmit(handleSubmitForm)}>
-                  <div className="tw-mb-2 tw-flex tw-flex-wrap lg:tw-px-3 tw-px-3">
+                  <div className="tw-mb-2 tw-flex tw-justify-between lg:tw-px-3 tw-px-3 tw-gap-2">
                     <div className="sm:tw-w-full lg:tw-w-6/12">
-                      <div>
                         <img src={urlImage} alt="" />
-                      </div>
-                    </div>
-                    <div className="sm:tw-w-full lg:tw-w-6/12">
-                      <label class="tw-w-64 tw-flex tw-flex-col tw-items-center tw-py-2 tw-bg-white tw-rounded-md tw-shadow-md tw-tracking-wide tw-uppercase tw-border tw-border-blue tw-cursor-pointer hover:tw-bg-purple-600 hover:tw-text-white tw-text-purple-600 tw-ease-linear tw-transition-all tw-duration-150">
-                        <FontAwesomeIcon icon={faUpload} />
-                        <span class="tw-mt-2 tw-text-base tw-leading-normal">
-                          Chọn ảnh đại diên
-                        </span>
-                        <input
-                          type="file"
-                          id="photo-upload"
-                          onChange={handleChangeImage}
-                          className="tw-hidden"
-                        />
-                      </label>
+                      <UploadFile
+                        label={"Ảnh đại diện"}
+                        onChange={handleChangeImage}
+                        type="file"
+                      />
                     </div>
                     <div className="lg:tw-w-6/12">
-                      <label class="tw-w-64 tw-flex tw-flex-col tw-items-center tw-py-2 tw-bg-white tw-rounded-md tw-shadow-md tw-tracking-wide tw-uppercase tw-border tw-border-blue tw-cursor-pointer hover:tw-bg-purple-600 hover:tw-text-white tw-text-purple-600 tw-ease-linear tw-transition-all tw-duration-150">
-                        <FontAwesomeIcon icon={faUpload} />
-                        <span class="tw-mt-2 tw-text-base tw-leading-normal">
-                          Chọn ảnh mô tả
-                        </span>
-                        <input type="file" class="tw-hidden" />
-                      </label>
+                   
+                      <UploadFile
+                        label={"Ảnh mô tả"}
+                        onChange={handleChangeDescriptionImage}
+                        type="file"
+                        multiple={true}
+                      />
                     </div>
                   </div>
                   <div className="tw-flex tw-flex-wrap">
                     <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
                       <div className="tw-relative tw-w-full tw-mb-3">
-                        <label
-                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
-                          htmlfor="grid-password"
-                        >
-                          Tên chuyến xe
-                        </label>
                         <Input
+                          lable="Tên chuyến xe"
+                          placeholder="Tên chuyến xe"
                           type="text"
                           defaultValue=""
                           register={register}
-                         fieldName={'name'}
+                          fieldName={"name"}
                         />
                       </div>
                     </div>
                     <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
                       <div className="tw-relative tw-w-full tw-mb-3">
-                        <label
-                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
-                          htmlfor="grid-password"
-                        >
-                          Giá
-                        </label>
                         <InputNumberStyle>
                           <Input
+                            lable="Giá"
+                            placeholder="Giá"
                             type="number"
                             register={register}
-                            fieldName={'price'}
+                            fieldName={"price"}
                           />
                         </InputNumberStyle>
                       </div>
                     </div>
                   </div>
-                  <Destination provinceFilter ={provinceFilter} onChangeCity={onChangeCity} onChangeWard={onChangeWard} setdistrictValue={setdistrictValue} districtValue={districtValue}  wardValue={wardValue} title="Điểm đi"/>
-                  <Destination provinceFilter ={provinceFilter} onChangeCity={onChangeCity} onChangeWard={onChangeWard} setdistrictValue={setdistrictValue} districtValue={districtValue}  wardValue={wardValue} title="Điểm đến"/>
                   <div className="tw-flex tw-flex-wrap">
-                    <div className="tw-w-full lg:tw-w-12/12 tw-px-4">
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
                       <div className="tw-relative tw-w-full tw-mb-3">
-                        <label
-                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
-                          htmlfor="grid-password"
-                        >
-                          Mô tả
-                        </label>
-                        <textarea
-                          type="text"
-                          className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
-                          rows={4}
-                          defaultValue={"Mô tả"}
+                        <CarTypeSelecect
+                          title="Loại xe"
+                          options={provinceFilter}
+                          placeholder={"loại xe"}
+                          handleChange={handlechangeTypeCar}
+                        />
+                      </div>
+                    </div>
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <CarTypeSelecect
+                          title="Loại xe"
+                          options={provinceFilter}
+                          placeholder={"loại xe"}
+                          handleChange={handlechangeTypeCar}
                         />
                       </div>
                     </div>
                   </div>
+                  <LocationSelect
+                    provinceFilter={provinceFilter}
+                    onChangeCity={onChangeCity}
+                    onChangeWard={onChangeWard}
+                    setdistrictValue={setdistrictValue}
+                    districtValue={districtValue}
+                    wardValue={wardValue}
+                    title="Điểm đi"
+                  />
+                  <LocationSelect
+                    provinceFilter={provinceFilter}
+                    onChangeCity={onChangeCity}
+                    onChangeWard={onChangeWard}
+                    setdistrictValue={setdistrictValue}
+                    districtValue={districtValue}
+                    wardValue={wardValue}
+                    title="Điểm đến"
+                  />
+                  <TextArea
+                    title="Ghi chú"
+                    placeholder="Nhập mô tả"
+                    register={register}
+                  />
                   <footer className="">
                     <div className="container tw-mx-auto tw-px-4">
                       <div className="tw-flex tw-flex-wrap tw-items-center md:tw-justify-end tw-justify-center tw-mb-10 tw-gap-5">

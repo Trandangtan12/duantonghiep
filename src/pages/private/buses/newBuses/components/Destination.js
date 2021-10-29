@@ -1,7 +1,6 @@
 import React from "react";
 import SelectForm from "../../../../../compornent/selectForm";
-
-const Destination = ({provinceFilter , onChangeCity, onChangeWard , setdistrictValue , districtValue , wardValue , title }) => {
+const LocationSelect = ({provinceFilter , onChangeCity, onChangeWard , setdistrictValue , districtValue , wardValue , title }) => {
   return (
     <div>
     <div className="tw-w-full tw-px-4 tw-mb-3 tw-uppercase tw-text-lg">
@@ -20,7 +19,6 @@ const Destination = ({provinceFilter , onChangeCity, onChangeWard , setdistrictV
                 <SelectForm
                   options={provinceFilter}
                   onChange={(original) => {
-                      console.log(original)
                     setdistrictValue([]);
                     onChangeCity(original.value);
                   }}
@@ -68,4 +66,4 @@ const Destination = ({provinceFilter , onChangeCity, onChangeWard , setdistrictV
   );
 };
 
-export default Destination;
+export default LocationSelect;
