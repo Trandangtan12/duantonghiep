@@ -5,14 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import Table from "../../../compornent/admin/table";
 import { actionGetBuses } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
-import { useHistory } from "react-router";
 import Modal from "./Modal";
-import ProvinceAPI from "../../../api/provinceAPI";
-import { ProvinceService } from "../../../service/provinceService";
 const Buses = () => {
   const dispatch = useDispatch();
   const history = useHistory()
@@ -21,6 +19,7 @@ const Buses = () => {
     setIsOpenModal(true);
   };
   const { availableBuses } = useSelector((state) => state.buses);
+  console.log(availableBuses);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
   const handleDeleteBuses = (id) => {
     alertify
