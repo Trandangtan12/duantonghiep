@@ -10,13 +10,16 @@ import SelectForm from "../../../../compornent/selectForm";
 import firebase from "../../../../firebase";
 import { BusesService } from "../../../../service/productService";
 import { ProvinceService } from "../../../../service/provinceService";
-import Destination from "./components/Destination";
+import Destination from "./components/LocationSelect";
 import { InputNumberStyle } from "./utility";
 import Input from "../../../../compornent/admin/input/Input";
-import LocationSelect from "./components/Destination";
+import LocationSelect from "./components/LocationSelect";
 import CarTypeSelecect from "./components/CarTypeSelecect";
 import UploadFile from "../../../../compornent/uploadFile";
 import TextArea from "../../../../compornent/textarea";
+import { initialValues } from "./hookFormConfig";
+import DatePickerForm from "../../../../compornent/datePicker";
+import moment from "moment";
 const NewBuses = () => {
   const [urlImage, setUrlImage] = useState("");
   const history = useHistory();
@@ -24,40 +27,47 @@ const NewBuses = () => {
   const [cityValue, setVityValue] = useState([]);
   const [districtValue, setdistrictValue] = useState([]);
   const [wardValue, setWardValue] = useState([]);
+  const [startDate, setStartDate] = useState(new Date());
   const provinceFilter = cityValue.map((city) => {
     return {
       value: city.code,
       label: city.name,
     };
   });
-  const handleUploadImageToFirebase = (file , setUrl) =>{
+  const handleUploadImageToFirebase = (file, setUrl) => {
     let storeRef = firebase.storage().ref(`images/${file.name}`);
     storeRef.put(file).then((e) => {
       storeRef.getDownloadURL().then(async (url, e) => {
         setUrl(url);
-        console.log(url);
       });
     });
-  } 
+  };
+
   const handleChangeImage = (e) => {
     const file = e.target.files[0];
-    handleUploadImageToFirebase(file , setUrlImage)
+    handleUploadImageToFirebase(file, setUrlImage);
   };
-  const handleChangeDescriptionImage = (e) =>{
+  const handleChangeDescriptionImage = (e) => {
     for (var i = 0; i < e.target.files.length; i++) {
       var imageFile = e.target.files[i];
       console.log(handleUploadImageToFirebase(imageFile));
-      handleUploadImageToFirebase(imageFile)
-  }
-  }
+      handleUploadImageToFirebase(imageFile);
+    }
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onChangeCity = async (id) => {
+    setValue,
+  } = useForm({
+    defaultValues: initialValues,
+  });
+  const onChangeCity = async (pointName, pointId, original) => {
+    setValue(pointId, original.value);
+    setValue(pointName, original.label);
+    console.log(original);
     setdistrictValue([]);
-    const districtRes = await ProvinceService.getDistrict(id);
+    const districtRes = await ProvinceService.getDistrict(original.value);
     if (districtRes.status === 200) {
       const districtFilter = districtRes.data.districts.map((districts) => {
         return {
@@ -83,18 +93,7 @@ const NewBuses = () => {
   };
   const handleSubmitForm = (data) => {
     alertify.confirm("Thêm chuyến xe", async function () {
-      const newData = {
-        ...data,
-        image: urlImage,
-        cartype_id: 2,
-        route_id: 1,
-        seat: 21,
-        date_active: "2021-10-21",
-        start_time: "8h",
-        status: 1,
-        description: "121328",
-      };
-      const res = await BusesService.addBuses(newData);
+      const res = await BusesService.addBuses(data);
       if (res) {
         alertify.set("notifier", "position", "bottom-right");
         alertify.success("Thêm thành công !");
@@ -102,9 +101,17 @@ const NewBuses = () => {
       }
     });
   };
+  const handleChangeStartTime = (date) => {
+    const startDateConvert = moment(date).format("YYYY-MM-DD");
+    const startTime = moment(date).format('H:mm')
+    setStartDate(date);
+    setValue("date_active", startDateConvert);
+    setValue('start_time', startTime)
+  };
   const handlechangeTypeCar = (type) => {
     console.log(type);
   };
+
   useEffect(() => {
     const getCity = async () => {
       const resCity = await ProvinceService.getAllCity();
@@ -140,7 +147,7 @@ const NewBuses = () => {
                 <form onSubmit={handleSubmit(handleSubmitForm)}>
                   <div className="tw-mb-2 tw-flex tw-justify-between lg:tw-px-3 tw-px-3 tw-gap-2">
                     <div className="sm:tw-w-full lg:tw-w-6/12">
-                        <img src={urlImage} alt="" />
+                      <img src={urlImage} alt="" />
                       <UploadFile
                         label={"Ảnh đại diện"}
                         onChange={handleChangeImage}
@@ -148,7 +155,6 @@ const NewBuses = () => {
                       />
                     </div>
                     <div className="lg:tw-w-6/12">
-                   
                       <UploadFile
                         label={"Ảnh mô tả"}
                         onChange={handleChangeDescriptionImage}
@@ -187,6 +193,37 @@ const NewBuses = () => {
                   <div className="tw-flex tw-flex-wrap">
                     <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
                       <div className="tw-relative tw-w-full tw-mb-3">
+                        <InputNumberStyle>
+                          <Input
+                            lable="Số ghế"
+                            placeholder="Số ghế"
+                            type="number"
+                            register={register}
+                            fieldName={"seat"}
+                          />
+                        </InputNumberStyle>
+                      </div>
+                    </div>
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <label
+                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+                          htmlfor="grid-password"
+                        >
+                          Thời gian xuất phát
+                        </label>
+                        <DatePickerForm
+                          startDate={startDate}
+                          onChange={(date) => {
+                            handleChangeStartTime(date);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="tw-flex tw-flex-wrap">
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
+                      <div className="tw-relative tw-w-full tw-mb-3">
                         <CarTypeSelecect
                           title="Loại xe"
                           options={provinceFilter}
@@ -198,9 +235,9 @@ const NewBuses = () => {
                     <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
                       <div className="tw-relative tw-w-full tw-mb-3">
                         <CarTypeSelecect
-                          title="Loại xe"
+                          title="Loại dịch vụ "
                           options={provinceFilter}
-                          placeholder={"loại xe"}
+                          placeholder={"Loại dịch vụ"}
                           handleChange={handlechangeTypeCar}
                         />
                       </div>
@@ -213,6 +250,9 @@ const NewBuses = () => {
                     setdistrictValue={setdistrictValue}
                     districtValue={districtValue}
                     wardValue={wardValue}
+                    register={register}
+                    pointName={"startPointName"}
+                    pointId={"startPointId"}
                     title="Điểm đi"
                   />
                   <LocationSelect
@@ -222,7 +262,10 @@ const NewBuses = () => {
                     setdistrictValue={setdistrictValue}
                     districtValue={districtValue}
                     wardValue={wardValue}
+                    register={register}
                     title="Điểm đến"
+                    pointName={"endPointName"}
+                    pointId={"endPointId"}
                   />
                   <TextArea
                     title="Ghi chú"
