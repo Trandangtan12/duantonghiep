@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import BannerRow from "../../../compornent/BannerRow";
 import QuestionTicker from "../../../compornent/questionTicker";
 import SearchCars from '../../../compornent/searchCars';
-import Introduce from '../../../compornent/introduce';
+import Introduce from '../../../compornent/HomePage/introduce';
 
 
 const HomePages = () => {

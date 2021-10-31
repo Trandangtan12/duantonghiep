@@ -37,7 +37,7 @@ const Routes = () => {
   const LoginAdmin = lazy(() => import("../pages/private/login"));
   const NewBuses = lazy(() => import("../pages/private/buses/newBuses"));
   const Products = lazy(() => import("../pages/public/products"))
-
+  const ProductDetail = lazy(() => import("../pages/public/productDetail"))
   return (
     <Router>
       <Suspense fallback={<Loading />}>
@@ -66,6 +66,7 @@ const Routes = () => {
                     <Route exact path="/" component={HomePages} />
                     <Route exact path="/contact" component={Contracts} />
                     <Route exact path="/products" component={Products}/>
+                    <Route exact path="/product/:id" component={ProductDetail} />
                   </Switch>
                 </LayoutWebsite>
               </div>
