@@ -99,7 +99,7 @@ const Buses = () => {
         <span className="tw-uppercase tw-text-2xl">Quản lý chuyến xe</span>
         <div>
           <Link to="/admin/buses/create">
-            <button className="tw-bg-gray-800 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150">
+            <button className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150">
               Thêm chuyến xe
             </button>
           </Link>

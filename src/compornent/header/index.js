@@ -120,7 +120,9 @@ const Header = () => {
         <div className="tw-hidden xl:tw-block tw-w-64">
           <div className="tw-flex tw-items-center tw-justify-between">
             <div className="tw-text-[#777777] tw-font-bold ">
-              <FontAwesomeIcon icon={faSuitcase} /> Vé của bạn
+              <Link to="/ticket">
+                <FontAwesomeIcon icon={faSuitcase} /> Vé của bạn
+              </Link>
             </div>
             <Link
             to="/login"

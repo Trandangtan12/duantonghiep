@@ -38,6 +38,8 @@ const Routes = () => {
   const Products = lazy(() => import("../pages/public/products"))
   const Login = lazy(() => import("../pages/public/login"))
   const EditBusses = lazy(() => import("../pages/private/buses/editBusses"))
+  const PageNotFound = lazy(() => import("../pages/PageNotFound"))
+  const Ticket = lazy(() => import("../pages/public/ticketPage"))
 
   return (
     <Router>
@@ -55,6 +57,7 @@ const Routes = () => {
                 <Route exact  path="/admin/buses/edit/:id" component={EditBusses}/>
                 <Route exact  path="/admin/analytics" component={Analytics} />
                 <Route exact  path="/admin/order" component={Order} />
+                <Route exact path="*" component={PageNotFound} />
               </Switch>
             </LayoutAdmin>
           </Route>
@@ -68,6 +71,8 @@ const Routes = () => {
                     <Route exact path="/contact" component={Contracts} />
                     <Route exact path="/products" component={Products}/>
                     <Route exact path="/login" component={Login} />
+                    <Route exact path="/ticket" component={Ticket} />
+                    <Route exact path="*" component={PageNotFound} />
                   </Switch>
                 </LayoutWebsite>
               </div>

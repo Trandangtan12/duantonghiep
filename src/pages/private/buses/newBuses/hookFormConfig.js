@@ -1,7 +1,7 @@
 export const initialValues = {
     name : '',
     price : '',
-    cartype_id: '',
+    cartype_id: '1',
     route_id: '',
     seat: '',
     date_active: '',

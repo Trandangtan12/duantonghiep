@@ -59,7 +59,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
             {/* Dashboard */}
             {NAV_LINK_LIST_ADMIN.map(({ label, href, icon }) => (
               <li
-                className={`px-3 tw-py-2 tw-rounded-lg tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
+                className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
                 hover:tw-rounded-lg last:tw-mb-0 ${page === href && 'tw-bg-green-600 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
                 key={label}
                 onClick={() => setSidebarOpen(!sidebarOpen)}
