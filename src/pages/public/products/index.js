@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ProductList from "../../../compornent/ProductList";
-import SearchFilter from "../../../compornent/searchFilter";
+import ProductList from "../../../compornent/productPage/ProductList";
+import SearchFilter from "../../../compornent/productPage/searchFilter";
 
 import UpdateSearch from "../../../compornent/updateSearch";
 

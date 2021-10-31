@@ -36,6 +36,7 @@ const Routes = () => {
   const Order = lazy(() => import("../pages/private/order"));
   const NewBuses = lazy(() => import("../pages/private/buses/newBuses"));
   const Products = lazy(() => import("../pages/public/products"))
+  const ProductDetail = lazy(() => import("../pages/public/productDetail"))
   const Login = lazy(() => import("../pages/public/login"))
   const EditBusses = lazy(() => import("../pages/private/buses/editBusses"))
   const PageNotFound = lazy(() => import("../pages/PageNotFound"))
@@ -70,6 +71,7 @@ const Routes = () => {
                     <Route exact path="/" component={HomePages} />
                     <Route exact path="/contact" component={Contracts} />
                     <Route exact path="/products" component={Products}/>
+                    <Route exact path="/product/:id" component={ProductDetail} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/ticket" component={Ticket} />
                     <Route exact path="*" component={PageNotFound} />
