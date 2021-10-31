@@ -2,13 +2,20 @@
 import * as icon from '@fortawesome/fontawesome-free-solid'
 import * as iconRegular from '@fortawesome/fontawesome-free-regular'
 //tất cả đường dẫn api ở đây
-export const API_GET_PROVINCE = "/?depth=2"
+export const API_GET_ALL_CITY = "/"
+export const API_GET_DISTRICTS = "/p"
+export const API_GET_WARD = "/d"
 //================API=================
 export const API_GET_BUSES = '/buses'
 
 export const API_GET_IMAGE = '/image'
 
-const { faChartArea, faCar, faCertificate, faNewspaper, faBus, faHome, faTicketAlt, faPercent, faAddressCard, faPhone } = icon
+
+export const isArrayEmpty = (arr) =>{
+    return arr.length === 0
+}
+
+const { faChartArea, faCar, faBus  , faCertificate, faNewspaper, faStar ,faHome, faTicketAlt, faPercent, faAddressCard, faPhone , faHandshake } = icon
 const { faAddressBook } = iconRegular
 //==============href NAV MENU=============
 export const NAV_LINK_LIST = [
@@ -65,9 +72,29 @@ export const NAV_LINK_LIST_ADMIN = [
 
     },
     {
-        label: "Quản lý chuyến xe",
+        label: "Chuyến xe",
         href: "buses",
+        icon: faBus
+    },
+    {
+        label: "Loại xe",
+        href: "vehicle-type",
         icon: faCar
+    },
+    {
+        label: "Dịch vụ",
+        href: "service",
+        icon: faHandshake
+    },
+    {
+        label: "Đánh giá",
+        href: "review",
+        icon: faStar
+    },
+    {
+        label: "Tin tức",
+        href: "new",
+        icon: faNewspaper
     },
     {
         label: "Thống kê",
@@ -75,9 +102,9 @@ export const NAV_LINK_LIST_ADMIN = [
         icon: faChartArea
     },
     {
-        label: "Đơn hàng",
+        label: "Vé xe",
         href: "order",
-        icon: faAddressBook
+        icon: faTicketAlt
     },
 ]
 

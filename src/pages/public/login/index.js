@@ -3,48 +3,46 @@ import InputNumber from "../../../compornent/InputNumber";
 
 const Login = () => {
   return (
-    <div className="lg:tw-flex">
-      <div className="lg:tw-w-1/2 xl:tw-max-w-screen-sm">
-        <div className="tw-mt-10 tw-px-12 sm:tw-px-24 md:tw-px-48 lg:tw-px-12 lg:tw-mt-16 xl:tw-px-24 xl:tw-max-w-2xl">
-          <h2
-            className="tw-text-center tw-text-4xl tw-text-green-600 font-display tw-font-semibold lg:tw-text-left xl:tw-text-5xl
-                    xl:text-bold"
-          >
-            Đăng nhập{" "}
-          </h2>
-          <div className="tw-mt-12">
-            <form>
-              <div>
-                <div className="tw-text-sm tw-font-bold tw-text-gray-700 tw-tracking-wide">
-                  Số điện thoại
-                </div>
-               <InputNumber/>
-              </div>
-              <div className="tw-mt-10">
-                <button
-                  className="tw-bg-green-500 tw-text-gray-100 tw-p-4 tw-w-full tw-rounded-full tw-tracking-wide
-                  tw-font-semibold font-display focus:tw-outline-n focus:tw-shadow-outline hover:tw-bg-green-600
-                  tw-shadow-lg"
+    <div>
+      <div className="tw-flex tw-justify-center tw-bg-gray-100">
+        <div className="container sm:tw-mt-10 sm:tw-mb-10 tw-my-auto tw-max-w-md tw-border-2 tw-border-gray-200 tw-p-3 tw-bg-white tw-rounded-lg tw-shadow-2xl">
+          {/* header */}
+          <div className="tw-text-center tw-m-6">
+            <h1 className="tw-text-3xl tw-font-semibold tw-text-gray-700 tw-mb-2">
+            Đăng nhập
+            </h1>
+            <p className="tw-text-gray-500">
+              Nhập số điện thoại để tiếp tục truy cập website
+            </p>
+          </div>
+          {/* sign-in */}
+          <div className="tw-m-6">
+            <form className="tw-mb-4">
+              <div className="tw-mb-6">
+                <label
+                  htmlFor="email"
+                  className="tw-block tw-mb-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400"
                 >
-                  Đăng nhập
+                  Số điện thoại
+                </label>
+                <InputNumber
+                  type="number"
+                  name="phomeNumber"
+                  id="phomeNumber"
+                  placeholder="Nhập số điện thoại"
+                  className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500"
+                />
+              </div>
+              <div className="tw-mb-6">
+                <button
+                  type="button"
+                  className="tw-w-full tw-px-3 tw-py-4 tw-text-white tw-bg-green-600 tw-rounded-md hover:tw-bg-green-700 focus:tw-outline-none tw-duration-100 tw-ease-in-out"
+                >
+                  Nhận mã xác thực
                 </button>
               </div>
             </form>
-            <div className="tw-mt-12 tw-text-sm font-display tw-font-semibold tw-text-gray-700 tw-text-center">
-              Bạn chưa có tài khoản ?{" "}
-              <a className="tw-cursor-pointer tw-text-green-600 hover:tw-text-green-700">
-                Đăng kí ngay
-              </a>
-            </div>
           </div>
-        </div>
-      </div>
-      <div className="tw-hidden lg:tw-flex tw-items-center tw-justify-center tw-bg-indigo-100 tw-flex-1 tw-h-screen">
-        <div className="">
-          <img
-            src="https://cdn.pixabay.com/photo/2017/08/19/19/17/athens-2659589_960_720.jpg"
-            className="tw-max-h-full"
-          />
         </div>
       </div>
     </div>

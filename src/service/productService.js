@@ -14,5 +14,11 @@ export const BusesService = {
    },
    addBuses(buses){
        return HttpClient.post(API_GET_BUSES , buses)
+   },
+   getInfoBuses(id){
+       return HttpClient.get(`${API_GET_BUSES}/${id}`)
+   },
+   updateBusses(id,busses){
+       return HttpClient.put(`${API_GET_BUSES}/${id}` , busses)
    }
 }

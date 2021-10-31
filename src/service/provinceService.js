@@ -1,12 +1,18 @@
-import ProvinceAPI from "../api/provinceAPI"
-import { API_GET_PROVINCE } from "../config"
-import { v4 as uuidv4 } from 'uuid';
+import ProvinceAPI from "../api/provinceAPI";
+import { API_GET_ALL_CITY, API_GET_DISTRICTS, API_GET_PROVINCE, API_GET_WARD } from "../config";
+import { v4 as uuidv4 } from "uuid";
 export const ProvinceService = {
-    getAllProvince() {
-        return ProvinceAPI.get(API_GET_PROVINCE,{
-            params : {
-                uuid : uuidv4()
-            }
-        })
-    }
-}
+  getAllCity() {
+    return ProvinceAPI.get(API_GET_ALL_CITY, {
+      params: {
+        uuid: uuidv4(),
+      },
+    });
+  },
+  getDistrict(id) {
+    return ProvinceAPI.get(`${API_GET_DISTRICTS}/${id}?depth=2`);
+  },
+  getWard(id){
+    return ProvinceAPI.get(`${API_GET_WARD}/${id}?depth=2`);
+  }
+};
