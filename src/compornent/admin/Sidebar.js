@@ -21,7 +21,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
       <div
         id="sidebar"
         // ref={sidebar}
-        className={`tw-absolute tw-z-40 tw-left-0 tw-top-0 lg:tw-static lg:tw-left-auto lg:tw-top-auto lg:tw-translate-x-0 tw-transform tw-h-screen tw-overflow-y-scroll lg:tw-overflow-y-auto no-scrollbar tw-w-64 tw-flex-shrink-0 tw-bg-gray-800 tw-p-4 tw-transition-transform tw-duration-200 tw-ease-in-out ${
+        className={`tw-absolute tw-z-40 tw-left-0 tw-top-0 lg:tw-static lg:tw-left-auto lg:tw-top-auto lg:tw-translate-x-0 tw-transform tw-h-screen tw-overflow-y-scroll lg:tw-overflow-y-auto no-scrollbar tw-w-64 tw-flex-shrink-0 tw-bg-green-600 tw-p-4 tw-transition-transform tw-duration-200 tw-ease-in-out ${
           sidebarOpen ? "tw-translate-x-0" : "tw--translate-x-64"
         }`}
       >
@@ -30,7 +30,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
           {/* Close button */}
           <button
             // ref={trigger}
-            className="lg:tw-hidden tw-text-gray-500 hover:tw-text-gray-400"
+            className="lg:tw-hidden tw-text-white hover:tw-text-gray-400"
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-controls="sidebar"
             aria-expanded={sidebarOpen}
@@ -45,34 +45,34 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
             </svg>
           </button>
           {/* Logo */}
-          <NavLink exact to="/" className="tw-w-full tw-h-[30px] tw-flex lg:tw-justify-center sm:tw-justify-end tw-leading-[10px] ">
-           <button className="tw-text-gray-800 tw-bg-white tw-p-2 lg:tw-w-full tw-rounded-lg hover:tw-bg-gray-800 hover:tw-text-white hover:tw-border-2  tw-transition tw-ease-in duration-700">Website</button>
+          <NavLink exact to="/" className="tw-w-full tw-h-[30px] tw-flex lg:tw-justify-center md:tw-justify-end sm:tw-justify-end tw-leading-[10px] ">
+           <button className="tw-text-gray-800 tw-bg-white tw-p-2 lg:tw-w-full tw-rounded-lg hover:tw-bg-green-600 hover:tw-text-white hover:tw-border-2  tw-transition tw-ease-in duration-700">Website</button>
           </NavLink>
         </div>
 
         {/* Links */}
         <div>
-          <h3 className="tw-text-xs tw-uppercase tw-text-white tw-font-semibold tw-pl-3">
+          <h2 className="tw-text-xs tw-uppercase tw-text-white tw-font-semibold tw-pl-3 tw-text-center">
             Danh mục quản lý
-          </h3>
+          </h2>
           <ul className="tw-mt-3">
             {/* Dashboard */}
             {NAV_LINK_LIST_ADMIN.map(({ label, href, icon }) => (
               <li
-                className={`px-3 tw-py-2 tw-rounded-lg tw-mb-0.5 tw-font-bold hover:tw-bg-gray-900
-                hover:tw-rounded-lg last:tw-mb-0 ${page === href && 'tw-bg-gray-900 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
+                className={`px-3 tw-py-2 tw-rounded-lg tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
+                hover:tw-rounded-lg last:tw-mb-0 ${page === href && 'tw-bg-green-600 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
                 key={label}
                 onClick={() => setSidebarOpen(!sidebarOpen)}
               >
                 <NavLink
                   to={`/admin/${href}`}
-                  className={`tw-block tw-text-gray-200 tw-p-2 hover:tw-transition hover:tw-duration-500  tw-ease-in hover:tw-ml-2"
+                  className={`tw-block tw-text-white tw-font-extrabold tw-p-2 hover:tw-transition hover:tw-duration-500  tw-ease-in hover:tw-ml-2 hover:tw-translate-x-2 tw-transform tw-transition tw-duration-500"
                   `}
                   key={label}
                 >
-                  <div className="tw-transform tw-transition tw-duration-500 hover:tw-translate-x-3">
+                  <div className="">
                     <FontAwesomeIcon icon={icon} />
-                    <span className="tw-text-sm tw-font-medium tw-ml-2">{label}</span>
+                    <span className="tw-text-sm tw-font-black tw-ml-2">{label}</span>
                   </div>
                 </NavLink>
               </li>

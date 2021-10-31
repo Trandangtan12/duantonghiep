@@ -28,7 +28,7 @@ const UserMenu = () => {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'tw-bg-gray-800 tw-text-white' : 'tw-text-gray-900'
+                      active ? 'tw-bg-green-600 tw-text-white' : 'tw-text-gray-900'
                     } group tw-flex tw-rounded-md tw-items-center tw-w-full tw-px-2 tw-py-2 tw-text-sm`}
                   >
                   Thông tin tài khoản                   
@@ -39,7 +39,7 @@ const UserMenu = () => {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'tw-bg-gray-800 tw-text-white' : 'tw-text-gray-900'
+                      active ? 'tw-bg-green-600 tw-text-white' : 'tw-text-gray-900'
                     } group tw-flex tw-rounded-md tw-items-center tw-w-full tw-px-2 tw-py-2 tw-text-sm`}
                   >
                   Đổi mật khẩu                 
@@ -50,7 +50,7 @@ const UserMenu = () => {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'tw-bg-gray-800 tw-text-white' : 'tw-text-gray-900'
+                      active ? 'tw-bg-green-600 tw-text-white' : 'tw-text-gray-900'
                     } group tw-flex tw-rounded-md tw-items-center tw-w-full tw-px-2 tw-py-2 tw-text-sm`}
                   >
                   Đăng xuất             
