@@ -34,9 +34,13 @@ const Routes = () => {
   const Buses = lazy(() => import("../pages/private/buses"));
   const Analytics = lazy(() => import("../pages/private/analytics"));
   const Order = lazy(() => import("../pages/private/order"));
-  const LoginAdmin = lazy(() => import("../pages/private/login"));
   const NewBuses = lazy(() => import("../pages/private/buses/newBuses"));
   const Products = lazy(() => import("../pages/public/products"))
+  const ProductDetail = lazy(() => import("../pages/public/productDetail"))
+  const Login = lazy(() => import("../pages/public/login"))
+  const EditBusses = lazy(() => import("../pages/private/buses/editBusses"))
+  const PageNotFound = lazy(() => import("../pages/PageNotFound"))
+  const Ticket = lazy(() => import("../pages/public/ticketPage"))
 
   return (
     <Router>
@@ -51,8 +55,10 @@ const Routes = () => {
                 <Route exact  path="/admin/dashboard" component={Dashboard} />
                 <Route exact  path="/admin/buses" component={Buses} />
                 <Route exact  path="/admin/buses/create" component={NewBuses}/>
+                <Route exact  path="/admin/buses/edit/:id" component={EditBusses}/>
                 <Route exact  path="/admin/analytics" component={Analytics} />
                 <Route exact  path="/admin/order" component={Order} />
+                <Route exact path="*" component={PageNotFound} />
               </Switch>
             </LayoutAdmin>
           </Route>
@@ -62,10 +68,13 @@ const Routes = () => {
               <div className="tw-flex tw-flex-grow">
                 <LayoutWebsite>
                   <Switch>
-                    <Route exact path="/ticket-admin/login" component={LoginAdmin} />
                     <Route exact path="/" component={HomePages} />
                     <Route exact path="/contact" component={Contracts} />
                     <Route exact path="/products" component={Products}/>
+                    <Route exact path="/product/:id" component={ProductDetail} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/ticket" component={Ticket} />
+                    <Route exact path="*" component={PageNotFound} />
                   </Switch>
                 </LayoutWebsite>
               </div>

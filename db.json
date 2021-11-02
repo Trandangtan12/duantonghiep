@@ -1,17 +1,69 @@
 {
   "users": [
     {
+      "email": "lquyt123@gmail.com",
+      "password": "$2a$10$qNGlA5EdyKmAs.I9jIET/.HFZYPr4nw5r8AvEdaQykoAtIkvQIkGa",
+      "role": 1,
+      "id": 1
+    }
+  ],
+  "buses": [
+    {
       "id": 1,
-      "phoneNumber": "0869843483"
+      "name": "Xe 01 Hà Nội - Ninh Bình",
+      "price": 200,
+      "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
+      "start_time": "09:00",
+      "end_time": "16:00",
+      "from": "Phố Trần Duy Hưng",
+      "to": "Quất Lâm",
+      "seats": 30,
+      "date": "12/02/2022"
     },
     {
-      "id": 12,
-      "phoneNumber": "0869843483"
+      "id": 2,
+      "name": "Xe 01 Hà Nội - Ninh Bình",
+      "price": 200,
+      "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
+      "start_time": "09:00",
+      "end_time": "16:00",
+      "from": "Phố Trần Duy Hưng",
+      "to": "Quất Lâm",
+      "seats": 30
     },
     {
-      "email": "lequye12@gmail.com",
-      "password": "$2a$10$luxb8wfDuW/hV3tJ7gySPOKDftKiQPfFw9nU3q33OSUI1f1Pwvc9y",
-      "id": 13
+      "id": 3,
+      "name": "Xe 01 Hà Nội - Ninh Bình",
+      "price": 200,
+      "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
+      "start_time": "09:00",
+      "end_time": "16:00",
+      "from": "Phố Trần Duy Hưng",
+      "to": "Quất Lâm",
+      "seats": 30
+    },
+    {
+      "id": 1,
+      "name": "Xe 01 Hà Nội - Ninh Bình",
+      "price": 200,
+      "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
+      "start_time": "09:00",
+      "end_time": "16:00",
+      "from": "Phố Trần Duy Hưng",
+      "to": "Quất Lâm",
+      "seats": 30,
+      "date": "12/02/2022"
+    },
+    {
+      "id": 1,
+      "name": "Xe 01 Hà Nội - Ninh Bình",
+      "price": 200,
+      "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
+      "start_time": "09:00",
+      "end_time": "16:00",
+      "from": "Phố Trần Duy Hưng",
+      "to": "Quất Lâm",
+      "seats": 30
     }
   ]
 }

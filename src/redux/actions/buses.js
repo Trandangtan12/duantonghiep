@@ -12,7 +12,7 @@ export const actionGetBuses = () =>{
         else{
             dispatch({
                 type : ACTION_GET_ALL_BUSES,
-                payload : res.data
+                payload : res.data.product
             })
         }
     }

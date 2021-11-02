@@ -6,10 +6,19 @@ export const BusesService = {
    getAllBuses(){
        return HttpClient.get(`${API_GET_BUSES}`)
    },
+   getIdBuses(id) {
+       return HttpClient.get(`${API_GET_BUSES}/${id}`)
+   },
    deleteBuses(id){
        return HttpClient.delete(`${API_GET_BUSES}/${id}`)
    },
    addBuses(buses){
        return HttpClient.post(API_GET_BUSES , buses)
+   },
+   getInfoBuses(id){
+       return HttpClient.get(`${API_GET_BUSES}/${id}`)
+   },
+   updateBusses(id,busses){
+       return HttpClient.put(`${API_GET_BUSES}/${id}` , busses)
    }
 }

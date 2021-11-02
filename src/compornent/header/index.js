@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <header
       className="header tw-relative tw-box-border tw-font-sans 
-    tw-z-50 tw-leading-normal tw-rounded-2xl md:tw-rounded-none tw-bg-white
+    tw-z-10 tw-leading-normal tw-rounded-2xl md:tw-rounded-none tw-bg-white
     tw-shadow-md tw-tracking-norma"
     >
       <div className="tw-bg-green-100">
@@ -120,7 +120,9 @@ const Header = () => {
         <div className="tw-hidden xl:tw-block tw-w-64">
           <div className="tw-flex tw-items-center tw-justify-between">
             <div className="tw-text-[#777777] tw-font-bold ">
-              <FontAwesomeIcon icon={faSuitcase} /> Vé của bạn
+              <Link to="/ticket">
+                <FontAwesomeIcon icon={faSuitcase} /> Vé của bạn
+              </Link>
             </div>
             <Link
             to="/login"

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { IntroduceList } from '../../config'
+import { IntroduceList } from '../../../config'
 
 const Introduce = () => {
     const [isReadMore, setIsReadMore] = useState(true);

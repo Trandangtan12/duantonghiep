@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import BannerRow from "../../../compornent/BannerRow";
-import QuestionTicker from "../../../compornent/questionTicker";
+import DatePickerForm from "../../../compornent/datePicker";
+import Introduce from '../../../compornent/HomePage/introduce';
 import SearchCars from '../../../compornent/searchCars';
-import Introduce from '../../../compornent/introduce';
 
 
 const HomePages = () => {
@@ -21,7 +21,7 @@ const HomePages = () => {
           
         </div>
         <Introduce />
-        <QuestionTicker />
+        <DatePickerForm />
       </section>
 
     </section>

@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import ReactTable from "react-table-6";  
 import "react-table-6/react-table.css" 
+import styled from 'styled-components';
+const ReactTableStyled = styled.div`
+  .rt-td {
+    text-align: center;
+    height : 60px;
+    line-height : 50px;
+  }
+`;
 const Table = ({data , columns}) => {
   return(
-    <div>
+    <ReactTableStyled>
     <ReactTable
       data={data}
       defaultPageSize={10}
@@ -19,7 +27,7 @@ const Table = ({data , columns}) => {
     />
     <div>
     </div>
-  </div>
+  </ReactTableStyled>
   ) 
 }
 export default Table
