@@ -11,7 +11,7 @@ import firebase from "../../../../firebase";
 import { BusesService } from "../../../../service/productService";
 import { ProvinceService } from "../../../../service/provinceService";
 import Destination from "./components/LocationSelect";
-import { InputNumberStyle } from "./utility";
+import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
 import Input from "../../../../compornent/admin/input/Input";
 import LocationSelect from "./components/LocationSelect";
 import CarTypeSelecect from "./components/CarTypeSelecect";
@@ -39,6 +39,7 @@ const NewBuses = () => {
     storeRef.put(file).then((e) => {
       storeRef.getDownloadURL().then(async (url, e) => {
         setUrl(url);
+        setValue('image' , url)
       });
     });
   };
@@ -50,7 +51,6 @@ const NewBuses = () => {
   const handleChangeDescriptionImage = (e) => {
     for (var i = 0; i < e.target.files.length; i++) {
       var imageFile = e.target.files[i];
-      console.log(handleUploadImageToFirebase(imageFile));
       handleUploadImageToFirebase(imageFile);
     }
   };
@@ -65,7 +65,6 @@ const NewBuses = () => {
   const onChangeCity = async (pointName, pointId, original) => {
     setValue(pointId, original.value);
     setValue(pointName, original.label);
-    console.log(original);
     setdistrictValue([]);
     const districtRes = await ProvinceService.getDistrict(original.value);
     if (districtRes.status === 200) {
@@ -81,7 +80,6 @@ const NewBuses = () => {
   const onChangeWard = async (id) => {
     const wardRes = await ProvinceService.getWard(id);
     if (wardRes.status === 200) {
-      console.log(wardRes.data);
       const wardFilter = wardRes.data.wards.map((ward) => {
         return {
           value: ward.code,
@@ -109,7 +107,6 @@ const NewBuses = () => {
     setValue('start_time', startTime)
   };
   const handlechangeTypeCar = (type) => {
-    console.log(type);
   };
 
   useEffect(() => {
@@ -117,6 +114,8 @@ const NewBuses = () => {
       const resCity = await ProvinceService.getAllCity();
       if (resCity.status === 200) {
         await setVityValue(resCity.data);
+        setValue('date_active' , TODAY)
+        setValue('start_time' , TIME_TODAY)
       }
     };
     getCity();
@@ -133,7 +132,7 @@ const NewBuses = () => {
                     Tạo mới chuyến xe
                   </h6>
                   <button
-                    className="tw-bg-gray-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
+                    className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
                     type="button"
                     onClick={() => {
                       history.push("/admin/buses");
@@ -270,6 +269,7 @@ const NewBuses = () => {
                   <TextArea
                     title="Ghi chú"
                     placeholder="Nhập mô tả"
+                    fieldName="description"
                     register={register}
                   />
                   <footer className="">
@@ -277,7 +277,7 @@ const NewBuses = () => {
                       <div className="tw-flex tw-flex-wrap tw-items-center md:tw-justify-end tw-justify-center tw-mb-10 tw-gap-5">
                         <button
                           type="submit"
-                          className="sm:tw-w-full md:tw-w-full lg:tw-w-[200px] tw-bg-gray-600 tw-transform tw-p-3 tw-text-white tw-text-md hover:tw-bg-gray-800 tw-font-bold tw-rounded-lg"
+                          className="sm:tw-w-full md:tw-w-full lg:tw-w-[200px] tw-bg-green-600 tw-transform tw-p-3 tw-text-white tw-text-md hover:tw-bg-gray-800 tw-font-bold tw-rounded-lg"
                         >
                           Tạo mới
                         </button>
