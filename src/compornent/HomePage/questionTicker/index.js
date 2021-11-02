@@ -1,5 +1,5 @@
 import React from "react";
-import { QuestionList } from "../../config";
+import { QuestionList } from "../../../config";
 
 const QuestionTicker = () => {
   return (

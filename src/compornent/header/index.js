@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <header
       className="header tw-relative tw-box-border tw-font-sans 
-    tw-z-10 tw-leading-normal tw-rounded-2xl md:tw-rounded-none tw-bg-white
+    tw-z-20 tw-leading-normal tw-rounded-2xl md:tw-rounded-none tw-bg-white
     tw-shadow-md tw-tracking-norma"
     >
       <div className="tw-bg-green-100">
