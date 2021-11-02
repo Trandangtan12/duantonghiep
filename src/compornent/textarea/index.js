@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TextArea = ({title , placeholder , register}) => {
+const TextArea = ({title , placeholder , register , fieldName}) => {
     return (
         <div className="tw-flex tw-flex-wrap">
         <div className="tw-w-full lg:tw-w-12/12 tw-px-4">
@@ -16,6 +16,7 @@ const TextArea = ({title , placeholder , register}) => {
               className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
               rows={4}
               placeholder={placeholder}
+              {...register(fieldName)}
               
             />
           </div>
