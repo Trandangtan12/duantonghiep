@@ -15,7 +15,7 @@ export const isArrayEmpty = (arr) =>{
     return arr.length === 0
 }
 
-const { faChartArea, faCar, faBus  , faCertificate, faNewspaper, faStar ,faHome, faTicketAlt, faPercent, faAddressCard, faPhone , faHandshake } = icon
+const { faChartArea, faCar, faBus  , faCertificate, faNewspaper, faStar ,faHome, faTicketAlt, faPercent, faAddressCard, faPhone , faHandshake , faUserAlt , faSignOutAlt  } = icon
 const { faAddressBook } = iconRegular
 //==============href NAV MENU=============
 export const NAV_LINK_LIST = [
@@ -105,6 +105,26 @@ export const NAV_LINK_LIST_ADMIN = [
         label: "Vé xe",
         href: "order",
         icon: faTicketAlt
+    },
+]
+
+
+export const NAV_LINK_LIST_MY_TICKET = [
+    {
+        label: "Dashboard",
+        href: "Thông tin tài khoản",
+        icon: faUserAlt
+
+    },
+    {
+        label: "Vé của tôi",
+        href: "buses",
+        icon: faTicketAlt
+    },
+    {
+        label: "Đăng xuất",
+        href: "vehicle-type",
+        icon: faSignOutAlt
     },
 ]
 

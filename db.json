@@ -1,17 +1,10 @@
 {
   "users": [
     {
-      "id": 1,
-      "phoneNumber": "0869843483"
-    },
-    {
-      "id": 12,
-      "phoneNumber": "0869843483"
-    },
-    {
-      "email": "lequye12@gmail.com",
-      "password": "$2a$10$luxb8wfDuW/hV3tJ7gySPOKDftKiQPfFw9nU3q33OSUI1f1Pwvc9y",
-      "id": 13
+      "email": "lquyt123@gmail.com",
+      "password": "$2a$10$qNGlA5EdyKmAs.I9jIET/.HFZYPr4nw5r8AvEdaQykoAtIkvQIkGa",
+      "role": 1,
+      "id": 1
     }
   ],
   "buses": [
