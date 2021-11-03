@@ -14,6 +14,7 @@ import { BusesService } from "../../../../service/productService";
 import { ProvinceService } from "../../../../service/provinceService";
 import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
+import ServiceSelect from "./components/ServiceSelect";
 import { initialValues } from "./hookFormConfig";
 import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
 const NewBuses = () => {
@@ -22,6 +23,8 @@ const NewBuses = () => {
   const dispatch = useDispatch();
   const [cityValue, setVityValue] = useState([]);
   const {availableService , availableBusesTypes} = useSelector(state => state.buses)
+  const [serviceValues, setServiceValues] = useState([]);
+  console.log(serviceValues);
   const serviceFilter = availableService.map((service) =>{
     return {
       label : service.name,
@@ -116,7 +119,15 @@ const NewBuses = () => {
     setValue('start_time', startTime)
   };
   const handlechangeTypeCar = (type) => {
+    setValue('cartype_id',type.value)
   };
+  const handleChangeService = (services) =>{
+    const serviceFilter = services.map(service =>{
+      return service.value
+    })
+    setServiceValues(services)
+    setValue('service_id' , serviceFilter)
+  }
 
   useEffect(() => {
     dispatch(actionGetService())
@@ -244,11 +255,12 @@ const NewBuses = () => {
                     </div>
                     <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
                       <div className="tw-relative tw-w-full tw-mb-3">
-                        <CarTypeSelecect
+                        <ServiceSelect
                           title="Loại dịch vụ "
                           options={serviceFilter}
                           placeholder={"Loại dịch vụ"}
-                          handleChange={handlechangeTypeCar}
+                          handleChange={handleChangeService}
+                          values={serviceValues}
                         />
                       </div>
                     </div>
