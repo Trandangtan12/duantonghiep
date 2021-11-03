@@ -1,10 +1,12 @@
 import React from 'react'
+import { Redirect, Route } from 'react-router'
+import { UserApi } from '../service/userService'
 
-const PrivateRouterPublic = () => {
+const PrivateRouterPublic = ({children}) => {
     return (
-        <div>
-            
-        </div>
+       <Route render={() => {
+           return UserApi.isAuthenticated() ? children : <Redirect to={{pathname: "/signin"}} />
+       }}/>
     )
 }
 
