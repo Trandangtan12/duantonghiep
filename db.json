@@ -21,6 +21,12 @@
       "email": "tantd@mail.com",
       "password": "$2a$10$L5k2u/YFmHP6gcPwvJJWYONAd6t2QfaAPEWnDcABXUMt3LR1xnZ.6",
       "id": 4
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$VR9/dQ.w5ZHNs4V4rALYyu6/CFN89ijzPhdG9ebVGfSuJCLZE79/u",
+      "id": 5,
+      "role": 1
     }
   ],
   "buses": [
