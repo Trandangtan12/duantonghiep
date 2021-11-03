@@ -5,6 +5,22 @@
       "password": "$2a$10$qNGlA5EdyKmAs.I9jIET/.HFZYPr4nw5r8AvEdaQykoAtIkvQIkGa",
       "role": 1,
       "id": 1
+    },
+    {
+      "email": "tan@mail.com",
+      "password": "$2a$10$VyyRjqqrqJedh5v1ZyE/p.9OlOufuspJFcjTPiKethyYUQ3TK2BR6",
+      "role": 1,
+      "id": 2
+    },
+    {
+      "email": "tantd@fpt.edu.vn",
+      "password": "$2a$10$/49PjUQ7BhdnGnPlIwALWeSbI.N/3ZopWIYKK.5Zb0r8jL6NhMiuC",
+      "id": 3
+    },
+    {
+      "email": "tantd@mail.com",
+      "password": "$2a$10$L5k2u/YFmHP6gcPwvJJWYONAd6t2QfaAPEWnDcABXUMt3LR1xnZ.6",
+      "id": 4
     }
   ],
   "buses": [

@@ -13,6 +13,8 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+import PrivateRouterAdmin from "../auth/privateRouterAdmin";
+import PrivateRouterPublic from "../auth/privateRouterPublic";
 const Loading = () => {
   return (
     <div className="tw-flex tw-h-screen tw-justify-center tw-items-center">
@@ -23,7 +25,7 @@ const Loading = () => {
   );
 };
 const Routes = () => {
-  const PrivateRouterAdmin = lazy(() => lazy("../auth/privateRouterAdmin"));
+  // const PrivateRouterAdmin = lazy(() => lazy("../auth/privateRouterAdmin"));
   const LayoutAdmin = lazy(() => import("../layout/layoutAdmin"));
   const LayoutWebsite = lazy(() => import("../layout/layoutWebsite"));
   const HomePages = lazy(() => import("../pages/public/homepages"));
@@ -37,7 +39,9 @@ const Routes = () => {
   const NewBuses = lazy(() => import("../pages/private/buses/newBuses"));
   const Products = lazy(() => import("../pages/public/products"))
   const ProductDetail = lazy(() => import("../pages/public/productDetail"))
-  const Login = lazy(() => import("../pages/public/login"))
+  const SignIn = lazy(() => import("../pages/public/User/signin"))
+  const SignUp = lazy(() => import("../pages/public/User/signup"))
+  const UserDashBoard = lazy(()=> import("../pages/public/User/UserDashboard"))
   const EditBusses = lazy(() => import("../pages/private/buses/editBusses"))
   const PageNotFound = lazy(() => import("../pages/PageNotFound"))
   const Ticket = lazy(() => import("../pages/public/ticketPage"))
@@ -46,10 +50,10 @@ const Routes = () => {
     <Router>
       <Suspense fallback={<Loading />}>
         <Switch>
-          <Route path="/admin/:path?">
+          <PrivateRouterAdmin path="/admin/:path?">
             <LayoutAdmin>
               <Switch>
-                <Route exact  path="/admin">
+                <Route exact path="/admin">
                   <Redirect to="/admin/dashboard" />
                 </Route>
                 <Route exact  path="/admin/dashboard" component={Dashboard} />
@@ -61,7 +65,7 @@ const Routes = () => {
                 <Route exact path="*" component={PageNotFound} />
               </Switch>
             </LayoutAdmin>
-          </Route>
+          </PrivateRouterAdmin>
           <Route>
             <div className="tw-flex tw-flex-col tw-h-screen">
               <Header />
@@ -72,7 +76,11 @@ const Routes = () => {
                     <Route exact path="/contact" component={Contracts} />
                     <Route exact path="/products" component={Products}/>
                     <Route exact path="/product/:id" component={ProductDetail} />
-                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/signin" component={SignIn} />
+                    <Route exact path="/signup" component={SignUp} />
+                    <PrivateRouterPublic exact path="/user/dashboard">
+                      <UserDashBoard/>
+                    </PrivateRouterPublic>
                     <Route exact path="/ticket" component={Ticket} />
                     <Route exact path="*" component={PageNotFound} />
                   </Switch>
