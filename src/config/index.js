@@ -10,6 +10,10 @@ export const API_GET_BUSES = '/buses'
 
 export const API_GET_IMAGE = '/image'
 
+export const API_GET_SERVICE = "/services"
+
+export const API_GET_BUSES_TYPE = '/cartypes'
+
 
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0

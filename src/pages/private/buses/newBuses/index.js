@@ -1,30 +1,39 @@
-import { faUpload } from "@fortawesome/fontawesome-free-solid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import Select from "react-select";
-import SelectForm from "../../../../compornent/selectForm";
+import Input from "../../../../compornent/admin/input/Input";
+import DatePickerForm from "../../../../compornent/datePicker";
+import TextArea from "../../../../compornent/textarea";
+import UploadFile from "../../../../compornent/uploadFile";
 import firebase from "../../../../firebase";
+import { actionGetAllBusesTypes, actionGetService } from "../../../../redux/actions/buses";
 import { BusesService } from "../../../../service/productService";
 import { ProvinceService } from "../../../../service/provinceService";
-import Destination from "./components/LocationSelect";
-import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
-import Input from "../../../../compornent/admin/input/Input";
-import LocationSelect from "./components/LocationSelect";
 import CarTypeSelecect from "./components/CarTypeSelecect";
-import UploadFile from "../../../../compornent/uploadFile";
-import TextArea from "../../../../compornent/textarea";
+import LocationSelect from "./components/LocationSelect";
 import { initialValues } from "./hookFormConfig";
-import DatePickerForm from "../../../../compornent/datePicker";
-import moment from "moment";
+import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
 const NewBuses = () => {
   const [urlImage, setUrlImage] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
   const [cityValue, setVityValue] = useState([]);
+  const {availableService , availableBusesTypes} = useSelector(state => state.buses)
+  const serviceFilter = availableService.map((service) =>{
+    return {
+      label : service.name,
+      value : service.id
+    }
+  })
+  const busesTypeFilter = availableBusesTypes.map((type) =>{
+    return {
+      label : type.name,
+      value : type.id
+    }
+  })
   const [districtValue, setdistrictValue] = useState([]);
   const [wardValue, setWardValue] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
@@ -110,6 +119,8 @@ const NewBuses = () => {
   };
 
   useEffect(() => {
+    dispatch(actionGetService())
+    dispatch(actionGetAllBusesTypes())
     const getCity = async () => {
       const resCity = await ProvinceService.getAllCity();
       if (resCity.status === 200) {
@@ -225,7 +236,7 @@ const NewBuses = () => {
                       <div className="tw-relative tw-w-full tw-mb-3">
                         <CarTypeSelecect
                           title="Loại xe"
-                          options={provinceFilter}
+                          options={busesTypeFilter}
                           placeholder={"loại xe"}
                           handleChange={handlechangeTypeCar}
                         />
@@ -235,7 +246,7 @@ const NewBuses = () => {
                       <div className="tw-relative tw-w-full tw-mb-3">
                         <CarTypeSelecect
                           title="Loại dịch vụ "
-                          options={provinceFilter}
+                          options={serviceFilter}
                           placeholder={"Loại dịch vụ"}
                           handleChange={handlechangeTypeCar}
                         />

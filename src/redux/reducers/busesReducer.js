@@ -1,17 +1,33 @@
-import { ACTION_GET_ALL_BUSES } from "../actions/buses";
+import {
+  ACTION_GET_ALL_BUSES,
+  ACTION_GET_ALL_BUSES_TYPE,
+  ACTION_GET_ALL_SERVICE,
+} from "../actions/buses";
 const initialState = {
-      availableBuses : []
-}
- const busesReducers = (state = initialState , action) =>{
-    switch (action.type) {
-        case ACTION_GET_ALL_BUSES:
-            return {
-                ...state , 
-                availableBuses : action.payload
-            }    
-        default:
-            return state
-    }
-}
+  availableBuses: [],
+  availableService: [],
+  availableBusesTypes: [],
+};
+const busesReducers = (state = initialState, action) => {
+  switch (action.type) {
+    case ACTION_GET_ALL_BUSES:
+      return {
+        ...state,
+        availableBuses: action.payload,
+      };
+    case ACTION_GET_ALL_SERVICE:
+      return {
+        ...state,
+        availableService: action.payload,
+      };
+    case ACTION_GET_ALL_BUSES_TYPE:
+      return {
+        ...state,
+        availableBusesTypes: action.payload,
+      };
+    default:
+      return state;
+  }
+};
 
-export default busesReducers
+export default busesReducers;

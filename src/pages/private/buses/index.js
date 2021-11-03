@@ -19,7 +19,6 @@ const Buses = () => {
     setIsOpenModal(true);
   };
   const { availableBuses } = useSelector((state) => state.buses);
-  console.log(availableBuses);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
   const handleDeleteBuses = (id) => {
     alertify
