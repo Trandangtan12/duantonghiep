@@ -1,5 +1,7 @@
+import { useSelector } from "react-redux"
 import HttpClient from "../api/authUser"
-
+import { API_UPDATE_USER } from "../config"
+const token = localStorage.getItem('user')
 export const UserApi = {
     signup(user){
         const url = "/users"
@@ -31,5 +33,12 @@ export const UserApi = {
         }else {
             return false
         }
+    },
+    updateUser(id , user){
+        return HttpClient.put(`${API_UPDATE_USER}/${id}`, user , {
+            headers : {
+                Authorization : 'Bearer' + token.accessToken
+            }
+        })
     }
 }

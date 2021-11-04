@@ -3,11 +3,7 @@ import { API_GET_ALL_CITY, API_GET_DISTRICTS, API_GET_PROVINCE, API_GET_WARD } f
 import { v4 as uuidv4 } from "uuid";
 export const ProvinceService = {
   getAllCity() {
-    return ProvinceAPI.get(API_GET_ALL_CITY, {
-      params: {
-        uuid: uuidv4(),
-      },
-    });
+    return ProvinceAPI.get(API_GET_ALL_CITY);
   },
   getDistrict(id) {
     return ProvinceAPI.get(`${API_GET_DISTRICTS}/${id}?depth=2`);

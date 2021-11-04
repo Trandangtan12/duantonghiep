@@ -2,11 +2,9 @@
 import HttpClient from "../api/axiosClient";
 import {
   API_GET_BUSES,
-  API_GET_BUSES_TYPE,
-  API_GET_IMAGE,
-  API_GET_SERVICE,
+  API_GET_BUSES_TYPE, API_GET_SERVICE,
+  API_SEARCH
 } from "../config";
-import { v4 as uuidv4 } from "uuid";
 export const BusesService = {
   getAllBuses() {
     return HttpClient.get(`${API_GET_BUSES}`);
@@ -32,4 +30,7 @@ export const BusesService = {
   getALlBusesType() {
     return HttpClient.get(`${API_GET_BUSES_TYPE}`);
   },
+  searchBuses(start , end){
+    return HttpClient.get(`${API_SEARCH}?startPointId=${start}&endPointId=${end}`)
+  }
 };

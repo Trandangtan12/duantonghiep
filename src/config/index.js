@@ -14,6 +14,10 @@ export const API_GET_SERVICE = "/services"
 
 export const API_GET_BUSES_TYPE = '/cartypes'
 
+export const API_UPDATE_USER = "/users"
+
+export const API_SEARCH = '/search'
+
 
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0
@@ -49,6 +53,10 @@ export const NAV_LINK_LIST = [
         icon: faNewspaper
     }
 ]
+
+export const isEmptyObject = () =>{
+
+}
 
 export const MENU_BOTTOM_LIST = [
     {

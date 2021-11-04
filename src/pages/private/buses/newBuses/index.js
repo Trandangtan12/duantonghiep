@@ -24,7 +24,6 @@ const NewBuses = () => {
   const [cityValue, setVityValue] = useState([]);
   const {availableService , availableBusesTypes} = useSelector(state => state.buses)
   const [serviceValues, setServiceValues] = useState([]);
-  console.log(serviceValues);
   const serviceFilter = availableService.map((service) =>{
     return {
       label : service.name,
