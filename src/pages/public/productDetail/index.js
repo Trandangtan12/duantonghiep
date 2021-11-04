@@ -3,38 +3,22 @@ import { useParams } from "react-router";
 import { BusesService } from "../../../service/productService";
 import ModalGetInfoTicket from "./ModalGetInfoTicket";
 
+
 const ProductDetail = () => {
   const { id } = useParams();
   const [isOpenModal, setIsOpenModal] = useState(false);
-  // const [product, setProduct] = useState([]);
-  const user = {
-    numberPhone: "0869840500",
-  };
+  const [product, setProduct] = useState({});
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data: products } = await BusesService.getIdBuses(id);
-        // setProduct(products);
+        const { data: product } = await BusesService.getIdBuses(id);
+        setProduct(product);
       } catch (error) {
         console.log(error);
       }
     };
     fetchProduct();
   }, []);
-  const product = {
-    ...user,
-    name: "chuyen xe 1",
-    price: 1323234,
-    seats: 20,
-    image:
-      "https://image-us.24h.com.vn/upload/2-2021/images/2021-04-04//1617522080-1bc4fd6d5cb7b4f4a079c3dddc24cbcd.jpg",
-    start_time: "08:30",
-    from: "Quảng ninh",
-    to: "Hà Nội",
-  };
-  const handleCheckoutTicket = () => {
-    console.log(product);
-  };
   const handleOpenModal = () => {
       setIsOpenModal(true)
   };
@@ -97,7 +81,6 @@ const ProductDetail = () => {
                 <button
                   className="tw-w-full tw-p-2 tw-rounded-md tw-bg-red-600 tw-text-white"
                   onClick={() => {
-                    handleCheckoutTicket();
                     handleOpenModal()
                   }}
                 >
@@ -108,7 +91,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-      <ModalGetInfoTicket isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} product={product} user={user}/>
+      <ModalGetInfoTicket isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} product={product}/>
     </div>
   );
 };

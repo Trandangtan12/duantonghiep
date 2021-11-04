@@ -1,20 +1,46 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Products from "../products";
+import Input from "../../../compornent/admin/input/Input";
+import { UserApi } from "../../../service/userService";
 const ModalStyled = styled.div`
-z-index : 1000
 `
-const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product , user }) => {
+export const InputNumberStyle = styled.div`
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { 
+	-webkit-appearance: none;
+}
+`
+const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
+  const {user} = useSelector(state => state.auth)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+
+  });
   function closeModal() {
     setIsOpenModal(false);
+  }
+  const handlePayTicket = async (data) => { 
+    const order = {
+      ...data , 
+      products : [ 
+        product
+      ]
+    }
+    // const resUser = await UserApi.updateUser( user.user.id , order)
   }
   return (
     <ModalStyled className="tw-z-50">
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="tw-fixed tw-inset-0 tw-z-10 tw-overflow-y-auto"
+          className="tw-fixed tw-inset-0 tw-z-40 tw-overflow-y-auto"
           onClose={closeModal}
         >
           <div className="tw-min-h-screen tw-px-4 tw-text-center">
@@ -29,8 +55,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product , user }) => {
             >
               <Dialog.Overlay className="tw-fixed tw-inset-0" />
             </Transition.Child>
-
-            {/* This element is to trick the browser into centering the modal tw-contents. */}
             <span
               className="tw-inline-block tw-h-screen tw-align-middle"
               aria-hidden="true"
@@ -53,7 +77,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product , user }) => {
                 >
                   Thông tin thanh toán
                 </Dialog.Title>
-                <form className="tw-w-full tw-max-w-lg">
+                <form className="tw-w-full tw-max-w-lg" onSubmit={handleSubmit(handlePayTicket)}>
                   <div className="tw-flex tw-flex-wrap tw--mx-3 tw-mb-6">
                     <div className="tw-w-full tw-px-3 tw-mb-6 md:tw-mb-0">
                       <label
@@ -63,10 +87,29 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product , user }) => {
                         Họ và tên
                       </label>
                       <input
-                        className="tw-appearance-none tw-block tw-w-full tw-bg-gray-200 tw-text-gray-700 tw-border tw-border-red-500 tw-rounded tw-py-3 tw-px-4 tw-mb-3 tw-leading-tight focus:tw-outline-none focus:tw-bg-white"
+                        className="tw-appearance-none tw-block tw-w-full tw-bg-gray-200 tw-text-gray-700 tw-border tw-rounded tw-py-3 tw-px-4 tw-mb-3 tw-leading-tight focus:tw-outline-none focus:tw-bg-white"
                         id="grid-first-name"
                         type="text"
                         placeholder="Tên hành khách"
+                        {...register('name')}
+                        
+                      />
+                    </div>
+                    <div className="tw-w-full tw-px-3 tw-mb-6 md:tw-mb-0">
+                      <label
+                        className="tw-block tw-uppercase tw-tracking-wide tw-text-gray-700 tw-text-xs tw-font-bold tw-mb-2"
+                        htmlFor="grid-first-name"
+                      >
+                        Email
+                      </label>
+                      <input
+                        className="tw-appearance-none tw-block tw-w-full tw-bg-gray-200 tw-text-gray-700 tw-border  tw-rounded tw-py-3 tw-px-4 tw-mb-3 tw-leading-tight focus:tw-outline-none focus:tw-bg-white"
+                        id="grid-first-name"
+                        type="text"
+                        placeholder="Tên hành khách"
+                        {...register('name')}
+                        // defaultValue={user.user.email}
+                        {...register('email')}
                       />
                     </div>
                     <div className="tw-w-full  tw-px-3">
@@ -81,10 +124,12 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product , user }) => {
                         id="grid-last-name"
                         type="text"
                         placeholder="Số điện thoại"
-                        defaultValue={user.numberPhone}
+                        // defaultValue={user.user.phoneNumber}
+                        {...register('phoneNumber')}
                       />
                     </div>
                   </div>
+                  
                   <div className="tw-flex tw-flex-wrap tw--mx-3 tw-mb-6">
                     <div className="tw-w-full tw-px-3">
                       <label
@@ -93,12 +138,16 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product , user }) => {
                       >
                         Số CMND/CCDD
                       </label>
-                      <input
+                      <InputNumberStyle>
+                      <Input
                         className="tw-appearance-none tw-block tw-w-full tw-bg-gray-200 tw-text-gray-700 tw-border tw-border-gray-200 tw-rounded tw-py-3 tw-px-4 tw-mb-3 tw-leading-tight focus:tw-outline-none focus:tw-bg-white focus:tw-border-gray-500"
-                        id="grid-password"
-                        type="password"
+                      
                         placeholder=""
+                        type="number"
+                        register={register}
+                        fieldName="icNo"
                       />
+                      </InputNumberStyle>
                     </div>
                   </div>
                   <div>
@@ -108,7 +157,11 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product , user }) => {
                       >
                         Ghi chú
                       </label>
-                      <textarea name="" id="" cols="38" rows="5"></textarea>
+                      <textarea name="" id="" cols="38" rows="5"  {...register('description')}></textarea>
+                  </div>
+                  <div className="tw-flex tw-justify-between tw-align-middle tw-mt-2">
+                  <div className="tw-text-xl">Tổng tiền</div>
+                  <div>250.000 đ</div>
                   </div>
                   <button className="tw-w-full tw-mt-2 tw-bg-green-500 tw-p-3 tw-rounded-md tw-text-white">Đặt vé</button>
                 </form>

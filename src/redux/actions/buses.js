@@ -5,6 +5,7 @@ import { BusesService } from "../../service/productService"
 export const ACTION_GET_ALL_BUSES = "ACTION_GET_ALL_BUSES"
 export const ACTION_GET_ALL_SERVICE = "ACTION_GET_ALL_SERVICE"
 export const ACTION_GET_ALL_BUSES_TYPE = "ACTION_GET_ALL_BUSES_TYPE"
+export const ACTION_SEARCH_BUSES = 'ACTION_SEARCH_BUSES'
 export const actionGetBuses = () =>{
     return async (dispatch) =>{
         const res = await BusesService.getAllBuses()
@@ -45,6 +46,22 @@ export const actionGetAllBusesTypes = () =>{
         else{
             dispatch({
                 type : ACTION_GET_ALL_BUSES_TYPE,
+                payload : res.data
+            })
+        }
+    }
+}
+
+
+export const actionSearchBuses = (start , end) =>{
+    return async (dispatch) =>{
+        const res = await BusesService.searchBuses(start , end)
+        if (res.status !== 200 || res.data === []) {
+            return
+        }
+        else{
+            dispatch({
+                type : ACTION_SEARCH_BUSES,
                 payload : res.data
             })
         }

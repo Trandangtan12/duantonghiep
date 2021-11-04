@@ -9,24 +9,13 @@ import { Link } from 'react-router-dom';
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const { availableBuses } = useSelector(state => state.buses);
+  const { availableSearch } = useSelector(state => state.buses);
   useEffect(() => {
     dispatch(actionGetBuses())
   }, [])
-  const products = [
-    {
-      name : "chuyen xe 1",
-      price : 1323234 ,
-      seats : 20, 
-      image : "https://image-us.24h.com.vn/upload/2-2021/images/2021-04-04//1617522080-1bc4fd6d5cb7b4f4a079c3dddc24cbcd.jpg",
-      start_time : "08:30",
-      from : "Quảng ninh",
-      to : "Hà Nội"
-    }
-  ]
   return (
     <div className="tw-flex-grow tw-w-full">
-      {products.map((item) =>{ 
+      {availableSearch.map((item) =>{ 
         return (
         <div className="tw-rounded-lg tw-bg-white tw-p-3 tw-mb-3">
           <div className="tw-flex">

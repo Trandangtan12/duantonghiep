@@ -23,10 +23,14 @@
       "id": 4
     },
     {
+      "name" : "",
+      "phoneNumber" : "0869840500",
       "email": "admin@gmail.com",
       "password": "$2a$10$VR9/dQ.w5ZHNs4V4rALYyu6/CFN89ijzPhdG9ebVGfSuJCLZE79/u",
       "id": 5,
-      "role": 1
+      "role": 1, 
+      "icNo" : "",
+      "products" : [] 
     }
   ],
   "buses": [
@@ -87,5 +91,8 @@
       "to": "Quất Lâm",
       "seats": 30
     }
+  ],
+  "order" : [
+
   ]
 }

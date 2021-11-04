@@ -50,7 +50,7 @@ const Routes = () => {
     <Router>
       <Suspense fallback={<Loading />}>
         <Switch>
-          <Route path="/admin/:path?">
+          <PrivateRouterAdmin path="/admin/:path?">
             <LayoutAdmin>
               <Switch>
                 <Route exact path="/admin">
@@ -65,7 +65,7 @@ const Routes = () => {
                 <Route exact path="*" component={PageNotFound} />
               </Switch>
             </LayoutAdmin>
-          </Route>
+          </PrivateRouterAdmin>
           <Route>
             <div className="tw-flex tw-flex-col tw-h-screen">
               <Header />

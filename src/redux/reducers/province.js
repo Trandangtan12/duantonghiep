@@ -1,7 +1,7 @@
 import { ACTION_GET_ALL_PROVINCE } from "../actions/province";
 
 const initialState = {
-    province : []
+    city : []
 }
 
  const provinceReducers = (state = initialState , action) =>{
@@ -9,7 +9,7 @@ const initialState = {
         case ACTION_GET_ALL_PROVINCE:
             return {
                 ...state , 
-                province : action.payload
+                city : action.payload
             }    
         default:
             return state
