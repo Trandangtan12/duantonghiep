@@ -16,7 +16,6 @@ const SignIn = () => {
   const [error, setError] = useState("");
   const [redirectToRef, setRedirectToRef] = useState(false);
   const { user } = UserApi.isAuthenticated();
-  console.log(user);
   const onHandleSubmit = async (data, e) => {
     try {
       e.target.reset();

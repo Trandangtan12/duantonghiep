@@ -1261,12 +1261,12 @@ video {
   gap: 20px;
 }
 
-.tw-gap-5 {
-  gap: 1.25rem;
-}
-
 .tw-gap-2 {
   gap: 0.5rem;
+}
+
+.tw-gap-5 {
+  gap: 1.25rem;
 }
 
 .tw-space-x-1 > :not([hidden]) ~ :not([hidden]) {
@@ -1519,11 +1519,6 @@ video {
 .tw-bg-green-300 {
   --tw-bg-opacity: 1;
   background-color: rgba(110, 231, 183, var(--tw-bg-opacity));
-}
-
-.tw-bg-gray-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(71, 85, 105, var(--tw-bg-opacity));
 }
 
 .tw-bg-red-200 {

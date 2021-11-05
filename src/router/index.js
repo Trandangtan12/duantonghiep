@@ -45,7 +45,12 @@ const Routes = () => {
   const EditBusses = lazy(() => import("../pages/private/buses/editBusses"))
   const PageNotFound = lazy(() => import("../pages/PageNotFound"))
   const Ticket = lazy(() => import("../pages/public/ticketPage"))
-
+  const Service = lazy(() => import("../pages/private/service"))
+  const BusesType = lazy(() => import("../pages/private/vehicleType"))
+  const CretaeService = lazy(() => import("../pages/private/service/CreateSevice"))
+  const EditService = lazy(() => import("../pages/private/service/EditService/EditService"))
+  const CretaeVehicel = lazy(() => import("../pages/private/vehicleType/CreateVehicel/CreateVehicel"))
+  const EditeVehicel = lazy(() => import("../pages/private/vehicleType/EditVehicel/EditVehical"))
   return (
     <Router>
       <Suspense fallback={<Loading />}>
@@ -62,6 +67,12 @@ const Routes = () => {
                 <Route exact  path="/admin/buses/edit/:id" component={EditBusses}/>
                 <Route exact  path="/admin/analytics" component={Analytics} />
                 <Route exact  path="/admin/order" component={Order} />
+                <Route exact path="/admin/service" component={Service} />
+                <Route exact  path="/admin/service/create" component={CretaeService}/>
+                <Route exact  path="/admin/service/edit/:id" component={EditService}/>
+                <Route exact path="/admin/vehicel-type" component={BusesType} />
+                <Route exact  path="/admin/vehicel-type/create" component={CretaeVehicel}/>
+                <Route exact  path="/admin/vehicel-type/edit/:id" component={EditeVehicel}/>
                 <Route exact path="*" component={PageNotFound} />
               </Switch>
             </LayoutAdmin>

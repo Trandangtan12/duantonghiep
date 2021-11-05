@@ -32,5 +32,29 @@ export const BusesService = {
   },
   searchBuses(start , end){
     return HttpClient.get(`${API_SEARCH}?startPointId=${start}&endPointId=${end}`)
+  },
+  createVehicel(data){
+    return HttpClient.post(`${API_GET_BUSES_TYPE}`,data);
+  },
+  deleteVehicel(id){
+    return HttpClient.delete(`${API_GET_BUSES_TYPE}/${id}`);
+  },
+  updateVehicel(id,vehicel){
+    return HttpClient.put(`${API_GET_BUSES_TYPE}/${id}`,vehicel);
+  },
+  deleteService(id){
+    return HttpClient.delete(`${API_GET_SERVICE}/${id}`);
+  },
+  updateService(id,service){
+    return HttpClient.put(`${API_GET_SERVICE}/${id}`,service);
+  },
+  createService(data){
+    return HttpClient.post(`${API_GET_SERVICE}`,data);
+  },
+  getService(id){
+    return HttpClient.get(`${API_GET_SERVICE}/${id}`);
+  },
+  getVehicel(id){
+    return HttpClient.get(`${API_GET_BUSES_TYPE}/${id}`);
   }
 };
