@@ -11,7 +11,6 @@ const SignUp = () => {
     } = useForm();
     const [error, setError] = useState("")
     const onHandleSubmit = async (data, e) => {
-        console.log(data);
         try {
             e.target.reset()
             await UserApi.signup(data)

@@ -10,6 +10,7 @@ import TextArea from "../../../../compornent/textarea";
 import UploadFile from "../../../../compornent/uploadFile";
 import firebase from "../../../../firebase";
 import { actionGetAllBusesTypes, actionGetService } from "../../../../redux/actions/buses";
+import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
 import { ProvinceService } from "../../../../service/provinceService";
 import CarTypeSelecect from "./components/CarTypeSelecect";
@@ -140,6 +141,7 @@ const NewBuses = () => {
       }
     };
     getCity();
+    dispatch(getAllProvince());
   }, []);
   return (
     <>
