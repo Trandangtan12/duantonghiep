@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { BusesService } from "../../../service/productService";
+import TabList from "./ListTab";
 import ModalGetInfoTicket from "./ModalGetInfoTicket";
 
 
@@ -90,6 +91,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
+      <TabList/>
       <ModalGetInfoTicket isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} product={product}/>
     </div>
   );
