@@ -152,7 +152,7 @@ const EditBusses = () => {
             <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-px-6 tw-py-6 ">
               <div className="tw-text-center tw-flex tw-justify-between">
                 <h6 className="text-blueGray-700 tw-text-xl tw-font-bold">
-                  Tạo mới chuyến xe
+                  Cập nhật chuyến xe
                 </h6>
                 <button
                   className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
