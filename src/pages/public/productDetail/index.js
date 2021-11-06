@@ -20,10 +20,7 @@ const ProductDetail = () => {
     fetchProduct();
   }, []);
   const handleOpenModal = () => {
-      setIsOpenModal(true)
-  };
-  const handleClosenModal = () => {
-      setIsOpenModal(false)
+    setIsOpenModal(true)
   };
   return (
     <div className="">
