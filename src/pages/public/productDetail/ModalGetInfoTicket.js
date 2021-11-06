@@ -35,11 +35,10 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
     if(exist) {
       setOrderItems(orderItems.map((x) => 
       x.user_id === data.user_id ? {...exist, qty: exist.qty + 1, products: [product]} : x))
-      orderItems.map(async (item) => await BusesService.addOder(item))
     }else {
       setOrderItems([...orderItems, {...data, qty: 1, products: [product]}])
-      orderItems.map(async (item) => await BusesService.addOder(item))
     }
+    orderItems.map(async (item) => await BusesService.addOder(item))
   }
   return (
     <ModalStyled className="tw-z-50">
