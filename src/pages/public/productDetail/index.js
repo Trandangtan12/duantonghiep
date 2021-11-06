@@ -21,12 +21,7 @@ const ProductDetail = () => {
     fetchProduct();
   }, []);
   const handleOpenModal = () => {
-    if(user == null) {
-      alert("Hay dang nhap")
-      setIsOpenModal(false)
-    }else{
-      setIsOpenModal(true)
-    }
+    setIsOpenModal(true)
   };
   return (
     <div className="">
