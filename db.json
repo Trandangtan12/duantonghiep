@@ -13,30 +13,28 @@
       "id": 2
     },
     {
-      "email": "tantd@fpt.edu.vn",
-      "password": "$2a$10$/49PjUQ7BhdnGnPlIwALWeSbI.N/3ZopWIYKK.5Zb0r8jL6NhMiuC",
-      "id": 3
-    },
-    {
-      "email": "tantd@mail.com",
-      "password": "$2a$10$L5k2u/YFmHP6gcPwvJJWYONAd6t2QfaAPEWnDcABXUMt3LR1xnZ.6",
-      "id": 4
-    },
-    {
-      "name" : "",
-      "phoneNumber" : "0869840500",
+      "name": "",
+      "phoneNumber": "0869840500",
       "email": "admin@gmail.com",
       "password": "$2a$10$VR9/dQ.w5ZHNs4V4rALYyu6/CFN89ijzPhdG9ebVGfSuJCLZE79/u",
       "id": 5,
-      "role": 1, 
-      "icNo" : "",
-      "products" : [] 
+      "role": 1,
+      "icNo": "",
+      "products": []
+    },
+    {
+      "email": "tantd@fpt.edu.vn",
+      "password": "$2a$10$ODzJ8WCVtQdHj5SfrypHP.shj/Vu3B5AG1tpMIupFjuzXEcq2IZn6",
+      "name": "Trần Đăng Tân",
+      "phoneNumber": "0378939431",
+      "icNo": "001201020909",
+      "id": 6
     }
   ],
   "buses": [
     {
       "id": 1,
-      "name": "Xe 01 Hà Nội - Ninh Bình",
+      "name": "Xe 01 Hà Nội - Nam Định",
       "price": 200,
       "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
       "start_time": "09:00",
@@ -45,54 +43,33 @@
       "to": "Quất Lâm",
       "seats": 30,
       "date": "12/02/2022"
-    },
-    {
-      "id": 2,
-      "name": "Xe 01 Hà Nội - Ninh Bình",
-      "price": 200,
-      "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
-      "start_time": "09:00",
-      "end_time": "16:00",
-      "from": "Phố Trần Duy Hưng",
-      "to": "Quất Lâm",
-      "seats": 30
-    },
-    {
-      "id": 3,
-      "name": "Xe 01 Hà Nội - Ninh Bình",
-      "price": 200,
-      "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
-      "start_time": "09:00",
-      "end_time": "16:00",
-      "from": "Phố Trần Duy Hưng",
-      "to": "Quất Lâm",
-      "seats": 30
-    },
-    {
-      "id": 1,
-      "name": "Xe 01 Hà Nội - Ninh Bình",
-      "price": 200,
-      "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
-      "start_time": "09:00",
-      "end_time": "16:00",
-      "from": "Phố Trần Duy Hưng",
-      "to": "Quất Lâm",
-      "seats": 30,
-      "date": "12/02/2022"
-    },
-    {
-      "id": 1,
-      "name": "Xe 01 Hà Nội - Ninh Bình",
-      "price": 200,
-      "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
-      "start_time": "09:00",
-      "end_time": "16:00",
-      "from": "Phố Trần Duy Hưng",
-      "to": "Quất Lâm",
-      "seats": 30
     }
+    
   ],
-  "order" : [
-
+  "order": [
+    {
+      "user_id": "6",
+      "name": "Trần Đăng Tân",
+      "email": "tantd@fpt.edu.vn",
+      "phoneNumber": "0378939431",
+      "description": "",
+      "icNo": "",
+      "products": [
+        {
+          "id": 1,
+          "name": "Xe 01 Hà Nội - Ninh Bình",
+          "price": 200,
+          "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
+          "start_time": "09:00",
+          "end_time": "16:00",
+          "from": "Phố Trần Duy Hưng",
+          "to": "Quất Lâm",
+          "seats": 30,
+          "date": "12/02/2022",
+          "qty": 10
+        }
+      ],
+      "id": 1
+    }
   ]
 }

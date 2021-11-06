@@ -35,10 +35,15 @@ export const UserApi = {
         }
     },
     updateUser(id , user){
+        console.log(this.isAuthenticated().accessToken);
         return HttpClient.put(`${API_UPDATE_USER}/${id}`, user , {
             headers : {
-                Authorization : 'Bearer' + token.accessToken
+                Authorization : 'Bearer' + this.isAuthenticated().accessToken
             }
+            
         })
+    },
+    getUser(){
+        return HttpClient.get("/users")
     }
 }

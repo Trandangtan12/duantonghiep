@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { BusesService } from "../../../service/productService";
+import { UserApi } from "../../../service/userService";
 import ModalGetInfoTicket from "./ModalGetInfoTicket";
 
 
@@ -8,6 +9,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [product, setProduct] = useState({});
+  const {user} = UserApi.isAuthenticated()
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -20,10 +22,12 @@ const ProductDetail = () => {
     fetchProduct();
   }, []);
   const handleOpenModal = () => {
-      setIsOpenModal(true)
-  };
-  const handleClosenModal = () => {
+    if(user == null) {
+      alert("Hay dang nhap")
       setIsOpenModal(false)
+    }else{
+      setIsOpenModal(true)
+    }
   };
   return (
     <div className="">
@@ -91,7 +95,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-      <ModalGetInfoTicket isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} product={product}/>
+      {user == null ? "" : <ModalGetInfoTicket id={id} isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} product={product}/>}
     </div>
   );
 };
