@@ -29,10 +29,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
     setIsOpenModal(false);
   }
   
-  const handlePayTicket = async (data) => { 
-    
-    
-   
+  const handlePayTicket = async (data) => {
       const order = {
         ...data , 
         products : [ {
@@ -42,12 +39,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
         ]
       }
       console.log(order);
-    
-    
-   
-
-    
-    // await BusesService.addOder(order)
+    await BusesService.addOder(order)
     // const resUser = await UserApi.updateUser( user.user.id , order)
   }
   return (
