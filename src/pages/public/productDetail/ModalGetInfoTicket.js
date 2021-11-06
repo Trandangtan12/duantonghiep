@@ -29,18 +29,17 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
     setIsOpenModal(false);
   }
   
-  const handlePayTicket = async (data) => {
-      const order = {
-        ...data , 
-        products : [ {
-          ...product,
-          qty: product.qty + 1
-          }
-        ]
-      }
-      console.log(order);
-    await BusesService.addOder(order)
-    // const resUser = await UserApi.updateUser( user.user.id , order)
+  const [orderItems, setOrderItems] = useState([])
+  const handlePayTicket = (data) => {
+    const exist = orderItems.find((x) => x.user_id === data.user_id)
+    if(exist) {
+      setOrderItems(orderItems.map((x) => 
+      x.user_id === data.user_id ? {...exist, qty: exist.qty + 1, products: [product]} : x))
+      orderItems.map(async (item) => await BusesService.addOder(item))
+    }else {
+      setOrderItems([...orderItems, {...data, qty: 1, products: [product]}])
+      orderItems.map(async (item) => await BusesService.addOder(item))
+    }
   }
   return (
     <ModalStyled className="tw-z-50">
@@ -87,6 +86,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
                 <form className="tw-w-full tw-max-w-lg" onSubmit={handleSubmit(handlePayTicket)}>
                   <div className="tw-flex tw-flex-wrap tw--mx-3 tw-mb-6">
                   <input id="grid-first-name" type="hidden" defaultValue={user.id} {...register('user_id')}/>
+                  <input id="grid-first-name" type="hidden" name="id" {...register('id')}/>
                     <div className="tw-w-full tw-px-3 tw-mb-6 md:tw-mb-0">
                       <label
                         className="tw-block tw-uppercase tw-tracking-wide tw-text-gray-700 tw-text-xs tw-font-bold tw-mb-2"

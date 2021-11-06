@@ -36,6 +36,9 @@ export const BusesService = {
   addOder(order){
     return HttpClient.post("/order", order)
   },
+  qtyOrder(id, order) {
+     return HttpClient.patch(`/order/${id}`, {order})
+  },
   addCart(id, cart) {
     return HttpClient.patch(`/users/${id}`, {cart})
   }
