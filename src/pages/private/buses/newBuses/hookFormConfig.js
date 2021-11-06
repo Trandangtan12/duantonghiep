@@ -12,5 +12,4 @@ export const initialValues = {
   endPointName: "",
   endPointId: "",
   service_id: [],
-  service_price: [134],
 };

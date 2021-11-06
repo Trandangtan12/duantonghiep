@@ -16,7 +16,6 @@ const ProductDetail = () => {
         const { data: product } = await BusesService.getIdBuses(id);
         setProduct(product);
       } catch (error) {
-        console.log(error);
       }
     };
     fetchProduct();

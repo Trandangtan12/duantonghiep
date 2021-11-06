@@ -90,7 +90,7 @@ export const NAV_LINK_LIST_ADMIN = [
     },
     {
         label: "Loại xe",
-        href: "vehicle-type",
+        href: "vehicel-type",
         icon: faCar
     },
     {

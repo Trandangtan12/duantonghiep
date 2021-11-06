@@ -53,32 +53,8 @@
       "email": "tantd@fpt.edu.vn",
       "phoneNumber": "0378939431",
       "description": "",
-      "icNo": "",
+      "icNo": "fdfdfdf",
       "qty": 1,
-      "products": [
-        {
-          "id": 1,
-          "name": "Xe 01 Hà Nội - Nam Định",
-          "price": 200,
-          "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
-          "start_time": "09:00",
-          "end_time": "16:00",
-          "from": "Phố Trần Duy Hưng",
-          "to": "Quất Lâm",
-          "seats": 30,
-          "date": "12/02/2022"
-        }
-      ]
-    },
-    {
-      "user_id": "6",
-      "id": 2,
-      "name": "Trần Đăng Tân",
-      "email": "tantd@fpt.edu.vn",
-      "phoneNumber": "0378939431",
-      "description": "",
-      "icNo": "",
-      "qty": 2,
       "products": [
         {
           "id": 1,

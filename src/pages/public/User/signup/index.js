@@ -11,8 +11,7 @@ const SignUp = () => {
     } = useForm();
     const history = useHistory()
     const [error, setError] = useState("")
-    const onHandleSubmit = async (data) => {
-        console.log(data);
+    const onHandleSubmit = async (data, e) => {
         try {
             await UserApi.signup(data)
             history.push("/signin")
