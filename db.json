@@ -29,6 +29,12 @@
       "phoneNumber": "0378939431",
       "icNo": "001201020909",
       "id": 6
+    },
+    {
+      "email": "tan12@mail.com",
+      "password": "$2a$10$DyeLqorIjRe4sNW6V9Etn.EO1POKo8C2dke8wG8loNSVgPwNl0Ujq",
+      "name": "Tân",
+      "id": 7
     }
   ],
   "buses": [
@@ -58,6 +64,18 @@
       "products": [
         {
           "id": 1,
+          "name": "Xe 01 Hà Nội - Nam Định",
+          "price": 200,
+          "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",
+          "start_time": "09:00",
+          "end_time": "16:00",
+          "from": "Phố Trần Duy Hưng",
+          "to": "Quất Lâm",
+          "seats": 30,
+          "date": "12/02/2022"
+        },
+        {
+          "id": 2,
           "name": "Xe 01 Hà Nội - Nam Định",
           "price": 200,
           "image": "https://viettravelo.com/wp-content/uploads/2019/08/xe-khach-di-ninh-binh-tu-my-dinh.jpg",

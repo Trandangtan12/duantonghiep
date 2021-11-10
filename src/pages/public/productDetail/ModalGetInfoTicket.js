@@ -16,7 +16,6 @@ input[type=number]::-webkit-outer-spin-button {
 `
 const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
   // const {user} = useSelector(state => state.auth)
-  const {user} = UserApi.isAuthenticated()
   const {
     register,
     handleSubmit,
@@ -84,8 +83,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
                 </Dialog.Title>
                 <form className="tw-w-full tw-max-w-lg" onSubmit={handleSubmit(handlePayTicket)}>
                   <div className="tw-flex tw-flex-wrap tw--mx-3 tw-mb-6">
-                  <input id="grid-first-name" type="hidden" defaultValue={user.id} {...register('user_id')}/>
-                  <input id="grid-first-name" type="hidden" name="id" {...register('id')}/>
                     <div className="tw-w-full tw-px-3 tw-mb-6 md:tw-mb-0">
                       <label
                         className="tw-block tw-uppercase tw-tracking-wide tw-text-gray-700 tw-text-xs tw-font-bold tw-mb-2"
@@ -97,7 +94,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
                         className="tw-appearance-none tw-block tw-w-full tw-bg-gray-200 tw-text-gray-700 tw-border tw-rounded tw-py-3 tw-px-4 tw-mb-3 tw-leading-tight focus:tw-outline-none focus:tw-bg-white"
                         id="grid-first-name"
                         type="text"
-                        defaultValue={user.name}
+                        // defaultValue={user.name}
                         placeholder="Tên hành khách"
                         {...register('name')}
                         
@@ -117,7 +114,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
                         id="grid-first-name"
                         type="text"
                         placeholder="Nhập email"
-                        defaultValue={user.email}
+                        // defaultValue={user.email}
                         {...register('email')}
                       />
                     </div>
@@ -134,7 +131,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
                         id="grid-last-name"
                         type="text"
                         placeholder="Số điện thoại"
-                        defaultValue={user.phoneNumber}
+                        // defaultValue={user.phoneNumber}
                         {...register('phoneNumber')}
                       />
                     </div>
@@ -155,7 +152,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
                         placeholder=""
                         type="text"
                         register={register}
-                        defaultValue={user.icNo}
+                        // defaultValue={user.icNo}
                         fieldName="icNo"
                       />
                       </InputNumberStyle>

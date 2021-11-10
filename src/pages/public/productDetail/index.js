@@ -20,7 +20,8 @@ const ProductDetail = () => {
     fetchProduct();
   }, []);
   const handleOpenModal = () => {
-    setIsOpenModal(true)
+   
+      setIsOpenModal(true)
   };
   return (
     <div className="">
@@ -88,8 +89,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-      <TabList/>
-      <ModalGetInfoTicket isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} product={product}/>
+      <ModalGetInfoTicket id={id} isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} product={product}/>
     </div>
   );
 };

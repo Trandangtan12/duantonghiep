@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux"
-import HttpClient from "../api/authUser"
+import HttpClient from "../api/axiosClient"
 import { API_UPDATE_USER } from "../config"
 const token = localStorage.getItem('user')
 export const UserApi = {
     signup(user){
-        const url = "/users"
+        const url = "/register"
         return HttpClient.post(url, user)
     },
     signin(user){
-        const url = "/signin"
+        const url = "/login"
         return HttpClient.post(url, user)
     },
     signout(next) {
