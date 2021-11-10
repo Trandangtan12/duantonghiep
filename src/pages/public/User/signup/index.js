@@ -16,7 +16,7 @@ const SignUp = () => {
             await UserApi.signup(data)
             history.push("/signin")
         } catch (err) {
-            setError(err.response.data);
+            setError(err.response.data.message);
         }
     }
     return (
@@ -58,6 +58,16 @@ const SignUp = () => {
                                 </label>
                                 <input {...register("name")} type="text" name="name" id="" className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500" />
                             </div>
+
+                            <div className="tw-mb-6">
+                                <label
+                                    htmlFor="email"
+                                    className="tw-block tw-mb-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400"
+                                >
+                                    Ảnh 
+                                </label>
+                                <input {...register("image")} name="image" type="text" id="" className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500" />
+                            </div>
                             <div className="tw-mb-6">
                                 <label
                                     htmlFor="email"
@@ -65,17 +75,23 @@ const SignUp = () => {
                                 >
                                     Số điện thoại
                                 </label>
-                                <input {...register("phoneNumber")} type="text" name="phoneNumber" id="" className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500" />
+                                <input {...register("phone_number")} type="text" name="phone_number" id="" className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500" />
                             </div>
+
                             <div className="tw-mb-6">
                                 <label
                                     htmlFor="email"
                                     className="tw-block tw-mb-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400"
                                 >
-                                    Số CMND/CCCD
+                                    Giới tính
                                 </label>
-                                <input {...register("icNo")} type="number" name="icNo" id="" className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500" />
+                               <select name="gender" {...register("gender")} id="">
+                                   <option value="Nam">Nam</option>
+                                   <option value="Nữ">Nữ</option>
+                                   <option value="Khác">Khác</option>
+                               </select>
                             </div>
+                          
                             <div className="tw-mb-6">
                                 <label
                                     htmlFor="password"
