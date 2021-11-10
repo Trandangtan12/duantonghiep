@@ -13,14 +13,16 @@ const NewService = () => {
         setValue,
       } = useForm();
       const handleSubmitForm = (data) => {
-        alertify.confirm("Thêm dịch vụ", async function () {
+        alertify.confirm("Bạn có chắc chắn muốn thêm dịch vụ ?", async function () {
           const res = await BusesService.createService(data);
-          if (res) {
+          if (res.status === 201) {
             alertify.set("notifier", "position", "bottom-right");
             alertify.success("Thêm thành công !");
             history.push("/admin/service");
+          }else{
+            alertify.errors("Có lỗi xảy ra , vui lòng thử lại sau !");
           }
-        });
+        }).set({ title: "Thêm dịch vụ" })
       };
     return (
         <>
@@ -56,6 +58,9 @@ const NewService = () => {
                             defaultValue=""
                             register={register}
                             fieldName={"name"}
+                            errors={errors}
+                            required={true}
+                            messageErrors={"Vui lòng nhập thông tin"}
                           />
                         </div>
                       </div>

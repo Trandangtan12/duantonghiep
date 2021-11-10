@@ -1,7 +1,7 @@
 import React from "react";
 import SelectForm from "../../../../../compornent/selectForm";
 
-const CarTypeSelecect = ({title , options , placeholder , handleChange }) => {
+const CarTypeSelecect = ({title , options , placeholder , handleChange , errors , fieldName }) => {
   return (
     <div>
       <label
@@ -10,7 +10,7 @@ const CarTypeSelecect = ({title , options , placeholder , handleChange }) => {
       >
         {title}
       </label>
-      <SelectForm options={options} placeholder={placeholder} onChange={handleChange}/>
+      <SelectForm options={options} placeholder={placeholder} onChange={handleChange} errors={errors}  fieldName={fieldName}/>
     </div>
   );
 };

@@ -266,7 +266,6 @@ const NewBuses = () => {
                             type="number"
                             register={register}
                             fieldName={"price"}
-                            register={register}
                             errors={errors}
                             required={true}
                             messageErrors={"Vui lòng nhập thông tin"}
@@ -285,7 +284,6 @@ const NewBuses = () => {
                             type="number"
                             register={register}
                             fieldName={"seat"}
-                            register={register}
                             errors={errors}
                             required={true}
                             messageErrors={"Vui lòng nhập thông tin"}
@@ -318,6 +316,8 @@ const NewBuses = () => {
                           options={busesTypeFilter}
                           placeholder={"loại xe"}
                           handleChange={handlechangeTypeCar}
+                          errors={errors}
+                          fieldName={'cartype_id'}
                         />
                       </div>
                     </div>

@@ -29,7 +29,7 @@ const SignIn = () => {
         });
       });
     } catch (err) {
-      setError(err.response.data);
+      setError(err.response.data.message);
     }
   };
   const redirectUser = () => {
@@ -81,7 +81,7 @@ const SignIn = () => {
                   htmlFor="password"
                   className="tw-block tw-mb-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400"
                 >
-                  password
+                  Mật khẩu
                 </label>
                 <input
                   {...register("password")}
