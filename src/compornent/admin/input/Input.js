@@ -8,7 +8,10 @@ const Input = ({
   id,
   register,
   fieldName,
-  placeholder
+  placeholder,
+  errors,
+  required,
+  messageErrors,
 }) => {
   return (
     <div>
@@ -23,11 +26,12 @@ const Input = ({
         id={id}
         onChange={onChange}
         placeholder={placeholder}
-        className={
-          "tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
-        }
-        {...register(fieldName)}
+        className={`tw-border-[1px] tw-border-green-600 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-border-green-600 focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150`}
+        {...register(fieldName, { required: required })}
       />
+      <span className="tw-text-red-600">
+        {errors[fieldName] && messageErrors}
+      </span>
     </div>
   );
 };
