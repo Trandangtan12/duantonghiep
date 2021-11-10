@@ -195,6 +195,9 @@ const EditBusses = () => {
                         defaultValue=""
                         register={register}
                         fieldName={"name"}
+                        errors={errors}
+                        required={true}
+                        messageErrors={"Vui lòng nhập thông tin"}
                       />
                     </div>
                   </div>
@@ -207,6 +210,9 @@ const EditBusses = () => {
                           type="number"
                           register={register}
                           fieldName={"price"}
+                          errors={errors}
+                          required={true}
+                          messageErrors={"Vui lòng nhập thông tin"}
                         />
                       </InputNumberStyle>
                     </div>
@@ -222,6 +228,9 @@ const EditBusses = () => {
                           type="number"
                           register={register}
                           fieldName={"seat"}
+                          errors={errors}
+                          required={true}
+                          messageErrors={"Vui lòng nhập thông tin"}
                         />
                       </InputNumberStyle>
                     </div>

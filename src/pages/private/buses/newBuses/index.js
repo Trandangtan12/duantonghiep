@@ -1,15 +1,22 @@
 import alertify from "alertifyjs";
+import { height } from "dom7";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import {Swiper , SwiperSlide} from "swiper/react";
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
 import Input from "../../../../compornent/admin/input/Input";
 import DatePickerForm from "../../../../compornent/datePicker";
 import TextArea from "../../../../compornent/textarea";
 import UploadFile from "../../../../compornent/uploadFile";
 import firebase from "../../../../firebase";
-import { actionGetAllBusesTypes, actionGetService } from "../../../../redux/actions/buses";
+import {
+  actionGetAllBusesTypes,
+  actionGetService,
+} from "../../../../redux/actions/buses";
 import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
 import { ProvinceService } from "../../../../service/provinceService";
@@ -19,24 +26,28 @@ import ServiceSelect from "./components/ServiceSelect";
 import { initialValues } from "./hookFormConfig";
 import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
 const NewBuses = () => {
+  const [fileName, setFileName] = useState("");
   const [urlImage, setUrlImage] = useState("");
+  const [urlImageDescription, setUrlImageDescription] = useState([]);
   const history = useHistory();
   const dispatch = useDispatch();
   const [cityValue, setVityValue] = useState([]);
-  const {availableService , availableBusesTypes} = useSelector(state => state.buses)
+  const { availableService, availableBusesTypes } = useSelector(
+    (state) => state.buses
+  );
   const [serviceValues, setServiceValues] = useState([]);
-  const serviceFilter = availableService.map((service) =>{
+  const serviceFilter = availableService.map((service) => {
     return {
-      label : service.name,
-      value : service.id
-    }
-  })
-  const busesTypeFilter = availableBusesTypes.map((type) =>{
+      label: service.name,
+      value: service.id,
+    };
+  });
+  const busesTypeFilter = availableBusesTypes.map((type) => {
     return {
-      label : type.name,
-      value : type.id
-    }
-  })
+      label: type.name,
+      value: type.id,
+    };
+  });
   const [districtValue, setdistrictValue] = useState([]);
   const [wardValue, setWardValue] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
@@ -47,18 +58,24 @@ const NewBuses = () => {
     };
   });
   const handleUploadImageToFirebase = (file, setUrl) => {
-    let storeRef = firebase.storage().ref(`images/${file.name}`);
+    let storeRef = firebase.storage().ref(`buses/${file.name}`);
     storeRef.put(file).then((e) => {
       storeRef.getDownloadURL().then(async (url, e) => {
-        setUrl(url);
-        setValue('image' , url)
+        let image = url;
+        setUrlImageDescription([...urlImageDescription, image]);
       });
     });
   };
 
   const handleChangeImage = (e) => {
     const file = e.target.files[0];
-    handleUploadImageToFirebase(file, setUrlImage);
+    setFileName(file.name);
+    let storeRef = firebase.storage().ref(`buses/${file.name}`);
+    storeRef.put(file).then((e) => {
+      storeRef.getDownloadURL().then(async (url, e) => {
+        setUrlImage(url);
+      });
+    });
   };
   const handleChangeDescriptionImage = (e) => {
     for (var i = 0; i < e.target.files.length; i++) {
@@ -102,6 +119,7 @@ const NewBuses = () => {
     }
   };
   const handleSubmitForm = (data) => {
+    console.log(urlImageDescription);
     alertify.confirm("Thêm chuyến xe", async function () {
       const res = await BusesService.addBuses(data);
       if (res) {
@@ -113,31 +131,31 @@ const NewBuses = () => {
   };
   const handleChangeStartTime = (date) => {
     const startDateConvert = moment(date).format("YYYY-MM-DD");
-    const startTime = moment(date).format('H:mm')
+    const startTime = moment(date).format("H:mm");
     setStartDate(date);
     setValue("date_active", startDateConvert);
-    setValue('start_time', startTime)
+    setValue("start_time", startTime);
   };
   const handlechangeTypeCar = (type) => {
-    setValue('cartype_id',type.value)
+    setValue("cartype_id", type.value);
   };
-  const handleChangeService = (services) =>{
-    const serviceFilter = services.map(service =>{
-      return service.value
-    })
-    setServiceValues(services)
-    setValue('service_id' , serviceFilter)
-  }
+  const handleChangeService = (services) => {
+    const serviceFilter = services.map((service) => {
+      return service.value;
+    });
+    setServiceValues(services);
+    setValue("service_id", serviceFilter);
+  };
 
   useEffect(() => {
-    dispatch(actionGetService())
-    dispatch(actionGetAllBusesTypes())
+    dispatch(actionGetService());
+    dispatch(actionGetAllBusesTypes());
     const getCity = async () => {
       const resCity = await ProvinceService.getAllCity();
       if (resCity.status === 200) {
         await setVityValue(resCity.data);
-        setValue('date_active' , TODAY)
-        setValue('start_time' , TIME_TODAY)
+        setValue("date_active", TODAY);
+        setValue("start_time", TIME_TODAY);
       }
     };
     getCity();
@@ -168,21 +186,60 @@ const NewBuses = () => {
               <div className=" tw-flex-auto lg:tw-px-3">
                 <form onSubmit={handleSubmit(handleSubmitForm)}>
                   <div className="tw-mb-2 tw-flex tw-justify-between lg:tw-px-3 tw-px-3 tw-gap-2">
-                    <div className="sm:tw-w-full lg:tw-w-6/12">
-                      <img src={urlImage} alt="" />
-                      <UploadFile
-                        label={"Ảnh đại diện"}
-                        onChange={handleChangeImage}
-                        type="file"
-                      />
-                    </div>
-                    <div className="lg:tw-w-6/12">
-                      <UploadFile
-                        label={"Ảnh mô tả"}
-                        onChange={handleChangeDescriptionImage}
-                        type="file"
-                        multiple={true}
-                      />
+                    <div className="tw-w-full tw-flex tw-flex-wrap">
+                      <div className="tw-w-full lg:tw-w-4/12">
+                        <img
+                          src={`${
+                            urlImage !== ""
+                              ? urlImage
+                              : "https://fakeimg.pl/370/"
+                          }`}
+                          className="tw-h-[339px]"
+                        />
+                      </div>
+                      <div className="lg:tw-w-8/12">
+                        <div className="tw-py-20 tw-h-[339px] tw-bg-gray-300 tw-px-2">
+                          <div className="tw-max-w-md tw-mx-auto tw-bg-white tw-rounded-lg tw-overflow-hidden md:tw-max-w-lg">
+                            <div className="md:tw-flex">
+                              <div className="tw-w-full">
+                                <div className="tw-p-3">
+                                  <div className="tw-mb-2">
+                                    {" "}
+                                    <div className="tw-relative tw-h-40 tw-rounded-lg tw-border-dashed tw-border-2 tw-border-gray-200 tw-bg-white tw-flex tw-justify-center tw-items-center hover:tw-cursor-pointer">
+                                      <div className="tw-absolute">
+                                        <div className="tw-flex tw-flex-col tw-items-center ">
+                                          {" "}
+                                          <span>{fileName}</span>
+                                          <i className="fa fa-cloud-upload fa-3x tw-text-gray-200" />{" "}
+                                          <span className="tw-block tw-text-blue-400 tw-font-normal">
+                                            Tải ảnh lên
+                                          </span>{" "}
+                                        </div>
+                                      </div>{" "}
+                                      <input
+                                        onChange={handleChangeImage}
+                                        type="file"
+                                        className="tw-h-full tw-w-full tw-opacity-0"
+                                        name
+                                      />
+                                    </div>
+                                    <div className="tw-flex tw-justify-between tw-items-center tw-text-gray-400">
+                                      {" "}
+                                      <span>
+                                        Accepted file type:.img only
+                                      </span>{" "}
+                                      <span className="tw-flex tw-items-center ">
+                                        <i className="fa fa-lock tw-mr-1" />{" "}
+                                        secure
+                                      </span>{" "}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="tw-flex tw-flex-wrap">
@@ -192,9 +249,11 @@ const NewBuses = () => {
                           lable="Tên chuyến xe"
                           placeholder="Tên chuyến xe"
                           type="text"
-                          defaultValue=""
                           register={register}
                           fieldName={"name"}
+                          errors={errors}
+                          required={true}
+                          messageErrors={"Vui lòng nhập thông tin"}
                         />
                       </div>
                     </div>
@@ -207,6 +266,9 @@ const NewBuses = () => {
                             type="number"
                             register={register}
                             fieldName={"price"}
+                            errors={errors}
+                            required={true}
+                            messageErrors={"Vui lòng nhập thông tin"}
                           />
                         </InputNumberStyle>
                       </div>
@@ -222,6 +284,9 @@ const NewBuses = () => {
                             type="number"
                             register={register}
                             fieldName={"seat"}
+                            errors={errors}
+                            required={true}
+                            messageErrors={"Vui lòng nhập thông tin"}
                           />
                         </InputNumberStyle>
                       </div>
@@ -251,6 +316,8 @@ const NewBuses = () => {
                           options={busesTypeFilter}
                           placeholder={"loại xe"}
                           handleChange={handlechangeTypeCar}
+                          errors={errors}
+                          fieldName={'cartype_id'}
                         />
                       </div>
                     </div>
@@ -296,6 +363,33 @@ const NewBuses = () => {
                     fieldName="description"
                     register={register}
                   />
+                  <div>
+                    <Swiper
+                      // onSwiper={setSwiperRef}
+                      slidesPerView={3}
+                      centeredSlides={true}
+                      spaceBetween={30}
+                      pagination={{
+                        type: "fraction",
+                      }}
+                      navigation={true}
+                      className="mySwiper"
+                    >
+                    {
+                      urlImageDescription.map((elt) =>{
+                          <div>show</div>
+                      })
+                    }                      
+                    </Swiper>
+                  </div>
+                  <div>
+                    <UploadFile
+                      label={"Ảnh mô tả"}
+                      onChange={handleChangeDescriptionImage}
+                      type="file"
+                      multiple={true}
+                    />
+                  </div>
                   <footer className="">
                     <div className="container tw-mx-auto tw-px-4">
                       <div className="tw-flex tw-flex-wrap tw-items-center md:tw-justify-end tw-justify-center tw-mb-10 tw-gap-5">
