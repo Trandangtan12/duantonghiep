@@ -23,12 +23,14 @@ import { ProvinceService } from "../../../../service/provinceService";
 import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
+import SlideImageDescription from "./components/SlideImageDescription";
 import { initialValues } from "./hookFormConfig";
 import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
   const [urlImage, setUrlImage] = useState("");
   const [urlImageDescription, setUrlImageDescription] = useState([]);
+  console.log(urlImageDescription);
   const history = useHistory();
   const dispatch = useDispatch();
   const [cityValue, setVityValue] = useState([]);
@@ -363,33 +365,6 @@ const NewBuses = () => {
                     fieldName="description"
                     register={register}
                   />
-                  <div>
-                    <Swiper
-                      // onSwiper={setSwiperRef}
-                      slidesPerView={3}
-                      centeredSlides={true}
-                      spaceBetween={30}
-                      pagination={{
-                        type: "fraction",
-                      }}
-                      navigation={true}
-                      className="mySwiper"
-                    >
-                    {
-                      urlImageDescription.map((elt) =>{
-                          <div>show</div>
-                      })
-                    }                      
-                    </Swiper>
-                  </div>
-                  <div>
-                    <UploadFile
-                      label={"Ảnh mô tả"}
-                      onChange={handleChangeDescriptionImage}
-                      type="file"
-                      multiple={true}
-                    />
-                  </div>
                   <footer className="">
                     <div className="container tw-mx-auto tw-px-4">
                       <div className="tw-flex tw-flex-wrap tw-items-center md:tw-justify-end tw-justify-center tw-mb-10 tw-gap-5">
