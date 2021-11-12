@@ -52,12 +52,36 @@ const Account = () => {
           show: true,
         },
       ]);
+      const ExpandableTable = ({ data }) => {
+        return (
+          <table size='sm' responsive bordered>
+            <tbody>
+              <tr className="tw-flex tw-flex-wrap">
+                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
+                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
+              </tr>
+              <tr className="tw-flex tw-flex-wrap">
+                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
+                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
+              </tr>
+              <tr className="tw-flex tw-flex-wrap">
+                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
+                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
+              </tr>
+              <tr className="tw-flex tw-flex-wrap">
+                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
+                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
+              </tr>
+            </tbody>
+          </table>
+        )
+      }
     useEffect(() => {
         dispatch(actionGetAllUsers())
     }, []);
     return (
         <div>
-            <Table data={avaibleUsers} columns={columns} />
+            <Table data={avaibleUsers} columns={columns} ExpandableTable={ExpandableTable}/>
         </div>
     )
 }
