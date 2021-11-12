@@ -1,13 +1,65 @@
 import { faCheck, faTimes, faTrash } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import alertify from "alertifyjs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../../../compornent/admin/table";
-import { actionGetBuses, actionGetTicket } from "../../../redux/actions/buses";
-import { ACTIVED, listFilterStatus, WAITING_ACTIVE } from "./utility";
+import { actionGetTicket } from "../../../redux/actions/buses";
+import { BusesService } from "../../../service/productService";
+import { ACTIVED, listFilterStatus, REJECTED, WAITING_ACTIVE } from "./utility";
 
 const Order = () => {
   const { availableOrder } = useSelector((state) => state.buses);
+  const [dispatchDependency, setDispatchAcitive] = useState(0);
+  const dependencies = [availableOrder.length, dispatchDependency];
+  const handleApprovalTicket = (id) =>{
+    alertify
+    .confirm("Bạn có chắc chắn muốn thay đổi trạng thái ?", async function () {
+      const res = await BusesService.approvalTicket(id);
+      if (res.status === 200) {
+        reloadActiveAPI();
+        alertify.success("Thay đôỉ thành công");
+      } else {
+        alertify.warning("Có lỗi xảy ra");
+      }
+    })
+    .set({ title: "Xoá sản phẩm ?" })
+    .set("movable", false)
+    .set("ok", "Alright!")
+    .set("notifier", "position", "top-right");
+  }
+  const handleRejectTicket = (id) =>{
+    alertify
+    .confirm("Bạn có chắc chắn muốn thay đổi trạng thái ?", async function () {
+      const res = await BusesService.rejectTicket(id);
+      if (res.status === 200) {
+        reloadActiveAPI();
+        alertify.success("Thay đôỉ thành công");
+      } else {
+        alertify.warning("Có lỗi xảy ra");
+      }
+    })
+    .set({ title: "Xoá sản phẩm ?" })
+    .set("movable", false)
+    .set("ok", "Alright!")
+    .set("notifier", "position", "top-right");
+  }
+  const handleDeleteTicket = async (id) =>{
+    alertify
+      .confirm("Bạn có chắc chắn muốn xoá sản phẩm ?", async function () {
+        const res = await BusesService.deleteTicket(id);
+        if (res.status === 200) {
+          reloadActiveAPI();
+          alertify.success("Xoá thành công");
+        } else {
+          alertify.warning("Có lỗi xảy ra");
+        }
+      })
+      .set({ title: "Xoá sản phẩm ?" })
+      .set("movable", false)
+      .set("ok", "Alright!")
+      .set("notifier", "position", "top-right");
+  }
   const ExpandableTable = ({ data }) => {
     return (
       <table size='sm' responsive bordered>
@@ -33,6 +85,7 @@ const Order = () => {
     )
   }
   const getStatus = (status) => {
+    console.log(status);
     switch (status) {
       case ACTIVED:
         return {
@@ -42,6 +95,10 @@ const Order = () => {
         return {
           render: <div>Chờ kích hoạt</div>,
         };
+      case REJECTED :
+        return {
+          render: <div>Từ chối</div>,
+        }
 
       default:
         return null;
@@ -105,7 +162,7 @@ const Order = () => {
       },
       Cell : ({original})=>{
         const status = original.status
-        return getStatus(status).render
+        return  getStatus(status).render
       }
     },
     {
@@ -115,13 +172,13 @@ const Order = () => {
       Cell: ({ original }) => {
         return <div className="tw-flex tw-justify-center tw-gap-3">
           <button><FontAwesomeIcon icon={faCheck} color="green"  onClick={() =>{
-            console.log(original.id)
+            handleApprovalTicket(original.id)
           }}/></button>
           <button><FontAwesomeIcon icon={faTimes} color="red" onClick={() =>{
-            console.log(original.id)
+           handleRejectTicket(original.id)
           }} /></button>
           <button><FontAwesomeIcon icon={faTrash} color="red"  onClick={() =>{
-            console.log(original.id)
+            handleDeleteTicket(original.id)
           }}/></button>
         </div>;
       },
@@ -131,7 +188,10 @@ const Order = () => {
   const { availableBuses } = useSelector((state) => state.buses);
   useEffect(() => {
     dispatch(actionGetTicket());
-  }, []);
+  }, [...dependencies]);
+  const reloadActiveAPI = () => {
+    setDispatchAcitive((pre) => ++pre);
+  };
   return (
     <div>
       <Table data={availableOrder} columns={columns} ExpandableTable={ExpandableTable} />

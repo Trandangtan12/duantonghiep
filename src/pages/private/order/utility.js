@@ -1,5 +1,6 @@
-export const ACTIVED = "ACTIVE"
+export const ACTIVED = "ACTIVED"
 export const WAITING_ACTIVE = "WAITING_ACTIVE"
+export const REJECTED = "REJECTED"
 
 
 export const listFilterStatus = [
@@ -10,5 +11,9 @@ export const listFilterStatus = [
     {
         type : WAITING_ACTIVE , 
         name : "Chờ kích hoạt"
+    },
+    {
+        type : REJECTED , 
+        name : "Từ chối"
     }
 ]

@@ -63,5 +63,14 @@ export const BusesService = {
   },
   getAllOder(){
     return HttpClient.get(`${API_TICKET}`)
+  },
+  approvalTicket(id){
+    return HttpClient.put(`${API_TICKET}/${id}`,{status : 'ACTIVED'})
+  },
+  rejectTicket(id){
+    return HttpClient.put(`${API_TICKET}/${id}`,{status : 'REJECTED'})
+  },
+  deleteTicket(id){
+    return HttpClient.delete(`${API_TICKET}/${id}`)
   }
 };
