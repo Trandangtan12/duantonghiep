@@ -5,7 +5,7 @@ const CarTypeSelecect = ({title , options , placeholder , handleChange , errors 
   return (
     <div>
       <label
-        className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+        className="tw-block tw-uppercase  text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
         htmlfor="grid-password"
       >
         {title}

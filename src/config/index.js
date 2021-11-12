@@ -18,6 +18,8 @@ export const API_UPDATE_USER = "/users"
 
 export const API_SEARCH = '/search'
 
+export const API_TICKET = "/ticket"
+
 
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0

@@ -16,6 +16,7 @@ const ServiceSelect = ({ options, handleChange, values  , title , placeholder })
         value={values}
         options={options}
         placeholder={placeholder}
+        className="tw-border-[1px] tw-rounded-md tw-border-green-600"
       />
     </div>
   );

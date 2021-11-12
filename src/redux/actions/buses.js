@@ -6,6 +6,7 @@ export const ACTION_GET_ALL_BUSES = "ACTION_GET_ALL_BUSES"
 export const ACTION_GET_ALL_SERVICE = "ACTION_GET_ALL_SERVICE"
 export const ACTION_GET_ALL_BUSES_TYPE = "ACTION_GET_ALL_BUSES_TYPE"
 export const ACTION_SEARCH_BUSES = 'ACTION_SEARCH_BUSES'
+export const ACTION_GET_ORDER = 'ACTION_GET_ORDER' 
 export const actionGetBuses = () =>{
     return async (dispatch) =>{
         const res = await BusesService.getAllBuses()
@@ -62,6 +63,22 @@ export const actionSearchBuses = (start , end) =>{
         else{
             dispatch({
                 type : ACTION_SEARCH_BUSES,
+                payload : res.data
+            })
+        }
+    }
+}
+
+export const actionGetTicket =() =>{
+    return async (dispatch) =>{
+        const res = await BusesService.getAllOder()
+        console.log(res);
+        if (res.status !== 200 || res.data === []) {
+            return
+        }
+        else{
+            dispatch({
+                type : ACTION_GET_ORDER,
                 payload : res.data
             })
         }

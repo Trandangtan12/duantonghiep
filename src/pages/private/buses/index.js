@@ -7,10 +7,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import Table from "../../../compornent/admin/table";
 import { actionGetBuses } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
 import Modal from "./Modal";
+const TdStyled = styled.td`
+`
 const Buses = () => {
   const dispatch = useDispatch();
   const history = useHistory()
@@ -37,6 +40,31 @@ const Buses = () => {
       .set("notifier", "position", "top-right");
   };
   const dependencies = [availableBuses.length, dispatchDependency];
+  const ExpandableTable = ({ data }) => {
+    return (
+      <table size='sm' responsive bordered>
+        <tbody>
+          <tr className="tw-flex tw-flex-wrap">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
+          </tr>
+        </tbody>
+      </table>
+    )
+  }
+
   const [columns, setColumns] = useState([
     {
       Header: "Số thứ tự",
@@ -104,7 +132,7 @@ const Buses = () => {
           </Link>
         </div>
       </div>
-      <Table data={availableBuses} columns={columns} />
+      <Table data={availableBuses} columns={columns} ExpandableTable={ExpandableTable}/>
       <Modal isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} />
     </>
   );

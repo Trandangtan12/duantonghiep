@@ -13,7 +13,7 @@ const TextArea = ({title , placeholder , register , fieldName}) => {
             </label>
             <textarea
               type="text"
-              className="tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
+              className="tw-border-[1px] tw-border-green-600 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-ring tw-w-full tw-ease-linear tw-transition-all tw-duration-150"
               rows={4}
               placeholder={placeholder}
               {...register(fieldName)}
