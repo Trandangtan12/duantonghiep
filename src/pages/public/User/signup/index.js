@@ -19,6 +19,14 @@ const SignUp = () => {
             setError(err.response.data.message);
         }
     }
+    const [showPassword, setShowPassword] = useState(false)
+    const onShowPassword = () => {
+        if(showPassword) {
+            setShowPassword(false)
+        }else{
+            setShowPassword(true)
+        }
+    }
     return (
         <div>
             <div className="tw-flex tw-justify-center tw-bg-gray-100">
@@ -99,7 +107,11 @@ const SignUp = () => {
                                 >
                                     Mật khẩu
                                 </label>
-                                <input {...register("password")} type="password" name="password" id="" className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500" />
+                                <input {...register("password")} type={showPassword ? "text" : "password"} name="password" id="" className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500" />
+                                <div className="tw-mt-3 tw-flex tw-items-center">
+                                <input onClick={onShowPassword} type="checkbox" className="tw-mr-1"/><span className="tw-text-sm tw-text-gray-600 dark:tw-text-gray-400">Show password</span>
+
+                                </div>
                             </div>
                             <div className="tw-mb-6">
                                 <button

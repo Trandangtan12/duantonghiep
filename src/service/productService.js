@@ -34,14 +34,8 @@ export const BusesService = {
   searchBuses(start , end){
     return HttpClient.get(`${API_SEARCH}?startPointId=${start}&endPointId=${end}`)
   },
-  addOder(order){
-    return HttpClient.post("/order", order)
-  },
-  qtyOrder(id, order) {
-     return HttpClient.patch(`/order/${id}`, {order})
-  },
-  addCart(id, cart) {
-    return HttpClient.patch(`/users/${id}`, {cart})
+  addTicket(data){
+    return HttpClient.post("/ticket", data)
   },
   createVehicel(data){
     return HttpClient.post(`${API_GET_BUSES_TYPE}`,data);

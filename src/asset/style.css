@@ -1248,6 +1248,10 @@ video {
   cursor: pointer;
 }
 
+.tw-cursor-default {
+  cursor: default;
+}
+
 .tw-list-none {
   list-style-type: none;
 }
