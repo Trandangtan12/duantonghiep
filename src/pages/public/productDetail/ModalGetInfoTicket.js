@@ -27,18 +27,29 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
   function closeModal() {
     setIsOpenModal(false);
   }
-  
-  const [orderItems, setOrderItems] = useState([])
-  const handlePayTicket = (data) => {
-    const exist = orderItems.find((x) => x.user_id === data.user_id)
-    if(exist) {
-      setOrderItems(orderItems.map((x) => 
-      x.user_id === data.user_id ? {...exist, qty: exist.qty + 1, products: [product]} : x))
-    }else {
-      setOrderItems([...orderItems, {...data, qty: 1, products: [product]}])
-    }
-    orderItems.map(async (item) => await BusesService.addOder(item))
+  const [qty, setQty] = useState(1)
+  const Increase = () => {
+    setQty(qty + 1)
   }
+  const Decrease = () => {
+    if(qty <= 1) {
+
+    }else {
+      setQty(qty - 1)
+    }
+  }
+  const totalPrice = product.price * qty
+  const handlePayTicket = async (data) => {
+    const ticket = {...data, quantity: qty, totalPrice: totalPrice}
+    console.log(ticket);
+    try {
+      await BusesService.addTicket(ticket)
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+    
+  }
+  
   return (
     <ModalStyled className="tw-z-50">
       <Transition appear show={isOpen} as={Fragment}>
@@ -82,6 +93,8 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
                   Thông tin thanh toán
                 </Dialog.Title>
                 <form className="tw-w-full tw-max-w-lg" onSubmit={handleSubmit(handlePayTicket)}>
+                  <input type="hidden" {...register("buses_id")} defaultValue={product.id}/>
+                  <input type="hidden" {...register("status")} defaultValue="WAITING_ACTIVE"/>
                   <div className="tw-flex tw-flex-wrap tw--mx-3 tw-mb-6">
                     <div className="tw-w-full tw-px-3 tw-mb-6 md:tw-mb-0">
                       <label
@@ -96,7 +109,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
                         type="text"
                         // defaultValue={user.name}
                         placeholder="Tên hành khách"
-                        {...register('name')}
+                        {...register('customer_name')}
                         
                       />
                     </div>
@@ -132,7 +145,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
                         type="text"
                         placeholder="Số điện thoại"
                         // defaultValue={user.phoneNumber}
-                        {...register('phoneNumber')}
+                        {...register('phone_number')}
                       />
                     </div>
                   </div>
@@ -145,17 +158,29 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
                       >
                         Số CMND/CCDD
                       </label>
-                      <InputNumberStyle>
-                      <Input
-                        className="tw-appearance-none tw-block tw-w-full tw-bg-gray-200 tw-text-gray-700 tw-border tw-border-gray-200 tw-rounded tw-py-3 tw-px-4 tw-mb-3 tw-leading-tight focus:tw-outline-none focus:tw-bg-white focus:tw-border-gray-500"
-                      
-                        placeholder=""
+                      <input
+                        className="tw-appearance-none tw-block tw-w-full tw-bg-gray-200 tw-text-gray-700 tw-border tw-border-gray-200 tw-rounded tw-py-3 tw-px-4 tw-leading-tight focus:tw-outline-none focus:tw-bg-white focus:tw-border-gray-500"
+                        id="grid-last-name"
                         type="text"
-                        register={register}
-                        // defaultValue={user.icNo}
-                        fieldName="icNo"
+                        placeholder="Nhập số cmnd"
+                        {...register('identity_card')}
                       />
-                      </InputNumberStyle>
+                    </div>
+                  </div>
+
+                  <div className="tw-flex tw-flex-wrap tw--mx-3 tw-mb-6">
+                    <div className="tw-w-full tw-px-3">
+                      <label
+                        className="tw-block tw-uppercase tw-tracking-wide tw-text-gray-700 tw-text-xs tw-font-bold tw-mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Số lượng vé
+                      </label>
+                      <div>
+                      <button type="button" className="tw-cursor-pointer tw-px-4 tw-py-1 tw-border tw-border-gray-300" onClick={() => Decrease()}>-</button>
+                      <button type="button" className="tw-cursor-default tw-px-4 tw-py-1 tw-border tw-border-gray-300">{qty}</button>
+                      <button type="button" className="tw-cursor-pointer tw-px-4 tw-py-1 tw-border tw-border-gray-300" onClick={() => Increase()}>+</button>
+                      </div>
                     </div>
                   </div>
                   
@@ -166,13 +191,13 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
                       >
                         Ghi chú
                       </label>
-                      <textarea name="" id="" cols="38" rows="5"  {...register('description')}></textarea>
+                      <textarea className="tw-appearance-none tw-block tw-w-full tw-bg-gray-200 tw-text-gray-700 tw-border tw-border-gray-200 tw-rounded tw-py-3 tw-px-4 tw-leading-tight focus:tw-outline-none focus:tw-bg-white focus:tw-border-gray-500" rows="5"  {...register('description')}></textarea>
                   </div>
                   <div className="tw-flex tw-justify-between tw-align-middle tw-mt-2">
                   <div className="tw-text-xl">Tổng tiền</div>
-                  <div>{product.price}đ</div>
+                  <div>{totalPrice}đ</div>
                   </div>
-                  <button className="tw-w-full tw-mt-2 tw-bg-green-500 tw-p-3 tw-rounded-md tw-text-white">Xác nhận</button>
+                  <button type="submit" className="tw-w-full tw-mt-2 tw-bg-green-500 tw-p-3 tw-rounded-md tw-text-white">Xác nhận</button>
                 </form>
               </div>
             </Transition.Child>
