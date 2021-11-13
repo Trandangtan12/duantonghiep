@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import Table from "../../../compornent/admin/table";
+import { IsoStringConvert } from "../../../config";
 import { actionGetAllBusesTypes, actionGetBuses, actionGetService } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
 const BusesType = () => {
@@ -34,6 +35,18 @@ const BusesType = () => {
         .set("notifier", "position", "top-right");
     };
     const dependencies = [availableBusesTypes.length, dispatchDependency];
+    const ExpandableTable = ({ data }) => {
+      return (
+        <table size='sm' responsive bordered className="tw-bg-green-100 tw-rounded-lg">
+        <tbody>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ngày tạo</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{IsoStringConvert(data.created_at)}</td>
+          </tr>
+        </tbody>
+      </table>
+      )
+    }
     const [columns, setColumns] = useState([
       {
         Header: "Số thứ tự",
@@ -105,7 +118,7 @@ const BusesType = () => {
             </Link>
           </div>
         </div>
-        <Table data={availableBusesTypes} columns={columns} />
+        <Table data={availableBusesTypes} columns={columns} ExpandableTable={ExpandableTable} />
       </>
     );
 }

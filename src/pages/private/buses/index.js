@@ -9,6 +9,7 @@ import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Table from "../../../compornent/admin/table";
+import { IsoStringConvert } from "../../../config";
 import { actionGetBuses } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
 import Modal from "./Modal";
@@ -42,26 +43,30 @@ const Buses = () => {
   const dependencies = [availableBuses.length, dispatchDependency];
   const ExpandableTable = ({ data }) => {
     return (
-      <table size='sm' responsive bordered>
-        <tbody>
-          <tr className="tw-flex tw-flex-wrap">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
-          </tr>
-          <tr className="tw-flex tw-flex-wrap">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
-          </tr>
-          <tr className="tw-flex tw-flex-wrap">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
-          </tr>
-          <tr className="tw-flex tw-flex-wrap">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
-          </tr>
-        </tbody>
-      </table>
+      <table size='sm' responsive bordered className="tw-bg-green-100 tw-rounded-lg">
+      <tbody>
+      <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ngày khởi hành</td>
+          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.date_active}</td>
+        </tr>
+        <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Số ghế</td>
+          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.seat}</td>
+        </tr>
+        <tr className="tw-flex tw-flex-wrap tw-mb-4">
+          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Điêm đi</td>
+          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.startPointName}</td>
+        </tr>
+        <tr className="tw-flex tw-flex-wrap tw-mb-4">
+          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Dịch vụ</td>
+          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.service !== null || data.service !== 0 ? data.service.map((elt)=> elt.name).join(", ")  :null}</td>
+        </tr>
+        <tr className="tw-flex tw-flex-wrap tw-mb-4">
+          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ngày tạo</td>
+          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{IsoStringConvert(data.created_at)}</td>
+        </tr>
+      </tbody>
+    </table>
     )
   }
 
@@ -93,8 +98,20 @@ const Buses = () => {
       show: true,
     },
     {
-      Header: "Ghi chú",
-      accessor: "description",
+      Header: "Điểm đi",
+      accessor: "startPointName",
+      maxHeight : 500,
+      show: true,
+    },
+    {
+      Header: "Điểm đến",
+      accessor: "endPointName",
+      maxHeight : 500,
+      show: true,
+    },
+    {
+      Header: "Giá",
+      accessor: "price",
       maxHeight : 500,
       show: true,
     },

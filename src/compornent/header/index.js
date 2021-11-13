@@ -6,16 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { MENU_BOTTOM_LIST, NAV_LINK_LIST } from "../../config";
-import { UserApi } from "../../service/userService";
 import NavMobile from "../navMobile";
+import UserMenuClient from "./UserMenuClient";
 const Header = () => {
   const [navMobileStatus, setNavMobileStatus] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
-  const {pathname} = useLocation()
-  useEffect(() => {
-    UserApi.isAuthenticated() && setIsLogged(true)
-  }, [pathname, isLogged])
-  const history = useHistory()
+  
   const handleShowMenu = () => {
     if (navMobileStatus) {
       setNavMobileStatus(false);
@@ -46,7 +41,7 @@ const Header = () => {
                 <div className="tw-text-[#777777] tw-font-bold ">
                   <FontAwesomeIcon icon={faSuitcase} /> Vé của bạn
                 </div>
-                {!isLogged && (
+                {/* {!isLogged && (
                   <Link
                   to="/signin"
                   className="tw-inline-block tw-border-0 md:tw-border tw-border-[#777777] tw-rounded-full tw-py-2 tw-px-1   
@@ -66,7 +61,9 @@ const Header = () => {
                 >
                   <FontAwesomeIcon icon={faUser} /> Đăng xuất
                 </Link>
-                )}
+                )} */}
+
+                <UserMenuClient/>
                 
               </div>
             </div>
@@ -145,7 +142,7 @@ const Header = () => {
                 <FontAwesomeIcon icon={faSuitcase} /> Vé của bạn
               </Link>
             </div>
-            {!isLogged && (
+            {/* {!isLogged && (
                   <Link
                   to="/signin"
                   className="tw-inline-block tw-border-0 md:tw-border tw-border-[#777777] tw-rounded-full tw-py-2 tw-px-1   
@@ -165,7 +162,8 @@ const Header = () => {
                 >
                   <FontAwesomeIcon icon={faUser} /> Đăng xuất
                 </Link>
-                )}
+                )} */}
+                <UserMenuClient/>
           </div>
         </div>
       </div>
