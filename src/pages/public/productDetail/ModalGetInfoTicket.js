@@ -1,10 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Input from "../../../compornent/admin/input/Input";
-import { UserApi } from "../../../service/userService";
 import { BusesService } from "../../../service/productService";
 const ModalStyled = styled.div`
 `
@@ -44,8 +41,10 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
     console.log(ticket);
     try {
       await BusesService.addTicket(ticket)
+      setIsOpenModal(false);
     } catch (error) {
       console.log(error.response.data.message);
+      setIsOpenModal(true);
     }
     
   }
