@@ -1,6 +1,7 @@
 
 import * as icon from '@fortawesome/fontawesome-free-solid'
 import * as iconRegular from '@fortawesome/fontawesome-free-regular'
+import moment from 'moment'
 //tất cả đường dẫn api ở đây
 export const API_GET_ALL_CITY = "/"
 export const API_GET_DISTRICTS = "/p"
@@ -58,6 +59,9 @@ export const NAV_LINK_LIST = [
 
 export const isEmptyObject = () =>{
 
+}
+export const IsoStringConvert = (date) =>{
+    return moment(date).utc(true).format("YYYY-MM-DD H:mm")
 }
 
 export const MENU_BOTTOM_LIST = [

@@ -9,7 +9,7 @@ const ReactTableStyled = styled.div`
     line-height: 50px;
   }
 `;
-const Table = ({ data, columns, ExpandableTable }) => {
+const Table = ({ data, columns, ExpandableTable , isSubComponent }) => {
   return (
     <ReactTableStyled>
       <ReactTable
@@ -24,6 +24,14 @@ const Table = ({ data, columns, ExpandableTable }) => {
         ofText={"trên"}
         loadingText={"Đang tải bản ghi"}
         noDataText={"Không có bản ghi"}
+        getTrProps={(state, rowInfo, column) => {
+            if (isSubComponent === false) {
+              return {};
+            }
+            return {
+              "data-qnt": isSubComponent === true ? 1 : 0
+            };
+          }}
         SubComponent={(row) => {
           return (
             <div style={{ padding: "10px" }}>
