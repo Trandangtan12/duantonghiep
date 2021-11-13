@@ -1,6 +1,7 @@
 
 import * as icon from '@fortawesome/fontawesome-free-solid'
 import * as iconRegular from '@fortawesome/fontawesome-free-regular'
+import moment from 'moment'
 //tất cả đường dẫn api ở đây
 export const API_GET_ALL_CITY = "/"
 export const API_GET_DISTRICTS = "/p"
@@ -18,12 +19,14 @@ export const API_UPDATE_USER = "/users"
 
 export const API_SEARCH = '/search'
 
+export const API_TICKET = "/ticket"
+
 
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0
 }
 
-const { faChartArea, faCar, faBus  , faCertificate, faNewspaper, faStar ,faHome, faTicketAlt, faPercent, faAddressCard, faPhone , faHandshake , faUserAlt , faSignOutAlt  } = icon
+const { faChartArea, faCar, faBus  , faCertificate, faNewspaper, faStar ,faHome, faTicketAlt, faPercent, faAddressCard, faPhone , faHandshake , faUserAlt , faSignOutAlt , faUser  } = icon
 const { faAddressBook } = iconRegular
 //==============href NAV MENU=============
 export const NAV_LINK_LIST = [
@@ -56,6 +59,9 @@ export const NAV_LINK_LIST = [
 
 export const isEmptyObject = () =>{
 
+}
+export const IsoStringConvert = (date) =>{
+    return moment(date).utc(true).format("YYYY-MM-DD H:mm")
 }
 
 export const MENU_BOTTOM_LIST = [
@@ -112,6 +118,11 @@ export const NAV_LINK_LIST_ADMIN = [
         label: "Thống kê",
         href: "analytics",
         icon: faChartArea
+    },
+    {
+        label: "Tài khoản",
+        href: "account",
+        icon: faUser
     },
     {
         label: "Vé xe",

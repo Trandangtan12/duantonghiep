@@ -1,9 +1,8 @@
 import React from 'react'
 import Select from 'react-select'
-import { selectErrorStyles, selectNormalStyles } from './utillity'
 const SelectForm = ({options , placeholder , className , onChange , errors , fieldName}) => {
     return (
-        <Select options={options} placeholder={placeholder} onChange={onChange} className={className}/>
+        <Select options={options} placeholder={placeholder} onChange={onChange} className={`${className} tw-border-[1px] tw-rounded-md tw-border-green-600` }/>
     )
 }
 

@@ -3,7 +3,8 @@ import HttpClient from "../api/axiosClient";
 import {
   API_GET_BUSES,
   API_GET_BUSES_TYPE, API_GET_SERVICE,
-  API_SEARCH
+  API_SEARCH,
+  API_TICKET
 } from "../config";
 export const BusesService = {
   getAllBuses() {
@@ -59,5 +60,17 @@ export const BusesService = {
   },
   getVehicel(id){
     return HttpClient.get(`${API_GET_BUSES_TYPE}/${id}`);
+  },
+  getAllOder(){
+    return HttpClient.get(`${API_TICKET}`)
+  },
+  approvalTicket(id){
+    return HttpClient.put(`${API_TICKET}/${id}`,{status : 'ACTIVED'})
+  },
+  rejectTicket(id){
+    return HttpClient.put(`${API_TICKET}/${id}`,{status : 'REJECTED'})
+  },
+  deleteTicket(id){
+    return HttpClient.delete(`${API_TICKET}/${id}`)
   }
 };

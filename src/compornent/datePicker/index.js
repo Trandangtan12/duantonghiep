@@ -10,7 +10,7 @@ const PickerStyle = styled.div`
 `;
 const DatePickerForm = ({onChange , minDate , startDate}) => {
     return (
-        <DatePicker className="tw-w-full tw-py-2 tw-border-b-2 tw-border-gray-100 tw-text-black tw-font-bold" dateFormat="yyyy-MM-dd H:mm" selected={startDate} showTimeSelect onChange={onChange}   minDate={startDate}/>
+        <DatePicker className="tw-w-full tw-py-2 tw-border-[1px] tw-rounded-sm tw-border-green-600 tw-font-bold tw-h-[47px] tw-pl-[10px]" dateFormat="yyyy-MM-dd H:mm" selected={startDate} showTimeSelect onChange={onChange}   minDate={startDate}/>
     )
 }
 
