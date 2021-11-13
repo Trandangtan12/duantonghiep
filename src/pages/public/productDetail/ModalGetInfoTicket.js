@@ -41,8 +41,10 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
     console.log(ticket);
     try {
       await BusesService.addTicket(ticket)
+      setIsOpenModal(false);
     } catch (error) {
       console.log(error.response.data.message);
+      setIsOpenModal(true);
     }
     
   }
