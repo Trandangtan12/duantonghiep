@@ -21,12 +21,13 @@ export const API_SEARCH = '/search'
 
 export const API_TICKET = "/ticket"
 
+export const API_PAYMENT = "/payment"
 
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0
 }
 
-const { faChartArea, faCar, faBus  , faCertificate, faNewspaper, faStar ,faHome, faTicketAlt, faPercent, faAddressCard, faPhone , faHandshake , faUserAlt , faSignOutAlt , faUser  } = icon
+const { faChartArea, faCar, faBus  , faCertificate, faNewspaper, faStar ,faHome, faTicketAlt, faPercent, faAddressCard, faPhone , faHandshake , faUserAlt , faSignOutAlt , faUser , faBroadcastTower  } = icon
 const { faAddressBook } = iconRegular
 //==============href NAV MENU=============
 export const NAV_LINK_LIST = [
@@ -86,7 +87,7 @@ export const NAV_LINK_LIST_ADMIN = [
     {
         label: "Dashboard",
         href: "dashboard",
-        icon: faCertificate
+        icon: faHome
 
     },
     {
@@ -113,11 +114,6 @@ export const NAV_LINK_LIST_ADMIN = [
         label: "Tin tức",
         href: "new",
         icon: faNewspaper
-    },
-    {
-        label: "Thống kê",
-        href: "analytics",
-        icon: faChartArea
     },
     {
         label: "Tài khoản",

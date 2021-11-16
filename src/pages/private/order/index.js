@@ -24,7 +24,7 @@ const Order = () => {
         alertify.warning("Có lỗi xảy ra");
       }
     })
-    .set({ title: "Xoá sản phẩm ?" })
+    .set({ title: "Cập nhật vé xe" })
     .set("movable", false)
     .set("ok", "Alright!")
     .set("notifier", "position", "top-right");
@@ -33,21 +33,21 @@ const Order = () => {
     alertify
     .confirm("Bạn có chắc chắn muốn thay đổi trạng thái ?", async function () {
       const res = await BusesService.rejectTicket(id);
-      if (res.status === 200) {
+      if (res.status === 200 || res.status === 201) {
         reloadActiveAPI();
         alertify.success("Thay đôỉ thành công");
       } else {
         alertify.warning("Có lỗi xảy ra");
       }
     })
-    .set({ title: "Xoá sản phẩm ?" })
+    .set({ title: "Cập nhật vé xe" })
     .set("movable", false)
     .set("ok", "Alright!")
     .set("notifier", "position", "top-right");
   }
   const handleDeleteTicket = async (id) =>{
     alertify
-      .confirm("Bạn có chắc chắn muốn xoá sản phẩm ?", async function () {
+      .confirm("Bạn có chắc chắn muốn cập nhật vé xe ?", async function () {
         const res = await BusesService.deleteTicket(id);
         if (res.status === 200) {
           reloadActiveAPI();
@@ -56,7 +56,7 @@ const Order = () => {
           alertify.warning("Có lỗi xảy ra");
         }
       })
-      .set({ title: "Xoá sản phẩm ?" })
+      .set({ title: "Cập nhật vé " })
       .set("movable", false)
       .set("ok", "Alright!")
       .set("notifier", "position", "top-right");

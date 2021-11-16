@@ -1,6 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 import { BusesService } from "../../../service/productService";
 const ModalStyled = styled.div`
@@ -12,6 +13,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 `
 const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
+  const history = useHistory()
   // const {user} = useSelector(state => state.auth)
   const {
     register,
@@ -40,7 +42,13 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal , product }) => {
     const ticket = {...data, quantity: qty, totalPrice: totalPrice}
     console.log(ticket);
     try {
-      await BusesService.addTicket(ticket)
+      const price = product.price
+      const res = await BusesService.paymentTicket(price)
+      console.log(res);
+      if(res.data.message === "success"){
+        window.location.href = res.data.data
+      }
+      
       setIsOpenModal(false);
     } catch (error) {
       console.log(error.response.data.message);

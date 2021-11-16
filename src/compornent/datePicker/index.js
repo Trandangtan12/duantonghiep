@@ -8,9 +8,9 @@ const PickerStyle = styled.div`
     background-color: #000;
   }
 `;
-const DatePickerForm = ({onChange , minDate , startDate}) => {
+const DatePickerForm = ({onChange , minDate , startDate , showTime = true}) => {
     return (
-        <DatePicker className="tw-w-full tw-py-2 tw-border-[1px] tw-rounded-sm tw-border-green-600 tw-font-bold tw-h-[47px] tw-pl-[10px]" dateFormat="yyyy-MM-dd H:mm" selected={startDate} showTimeSelect onChange={onChange}   minDate={startDate}/>
+        <DatePicker className="tw-w-full tw-py-2 tw-border-[1px] tw-rounded-sm tw-border-green-600 tw-font-bold tw-h-[47px] tw-pl-[10px]" dateFormat="yyyy-MM-dd H:mm" selected={startDate} showTimeSelect={showTime} onChange={onChange}   minDate={startDate}/>
     )
 }
 

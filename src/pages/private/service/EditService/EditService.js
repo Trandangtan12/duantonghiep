@@ -64,12 +64,14 @@ const EditService = () => {
                     <div className="tw-w-full tw-px-4">
                       <div className="tw-relative tw-w-full tw-mb-3">
                         <Input
-                          lable="Tên dịch vụ"
-                          placeholder="Tên dịch vụ"
-                          type="text"
-                          defaultValue={serviceInfo.name}
-                          register={register}
-                          fieldName={"name"}
+                           lable="Tên dịch vụ"
+                            placeholder="Tên dịch vụ"
+                            type="text"
+                            register={register}
+                            fieldName={"name"}
+                            errors={errors}
+                            required={true}
+                            messageErrors={"Vui lòng nhập thông tin"}
                         />
                       </div>
                     </div>

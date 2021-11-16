@@ -30,7 +30,7 @@ const Input = ({
         {...register(fieldName, { required: required })}
       />
       <span className="tw-text-red-600">
-        {/* {errors[fieldName] && messageErrors} */}
+        {errors !== undefined && errors[fieldName] && messageErrors}
       </span>
     </div>
   );

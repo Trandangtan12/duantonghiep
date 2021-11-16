@@ -30,7 +30,6 @@ const NewBuses = () => {
   const [fileName, setFileName] = useState("");
   const [urlImage, setUrlImage] = useState("");
   const [urlImageDescription, setUrlImageDescription] = useState([]);
-  console.log(urlImageDescription);
   const history = useHistory();
   const dispatch = useDispatch();
   const [cityValue, setVityValue] = useState([]);
@@ -318,8 +317,9 @@ const NewBuses = () => {
                           options={busesTypeFilter}
                           placeholder={"loại xe"}
                           handleChange={handlechangeTypeCar}
-                          errors={errors}
+                          errors={errors}                        
                           fieldName={'cartype_id'}
+                          // register={register}
                         />
                       </div>
                     </div>
@@ -331,6 +331,7 @@ const NewBuses = () => {
                           placeholder={"Loại dịch vụ"}
                           handleChange={handleChangeService}
                           values={serviceValues}
+                          // register={register}
                         />
                       </div>
                     </div>
@@ -346,6 +347,7 @@ const NewBuses = () => {
                     pointName={"startPointName"}
                     pointId={"startPointId"}
                     title="Điểm đi"
+                    // register={register}
                   />
                   <LocationSelect
                     provinceFilter={provinceFilter}

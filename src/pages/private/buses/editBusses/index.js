@@ -21,10 +21,12 @@ import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
 
 const EditBusses = () => {
   const { id } = useParams();
+  const [infoBusses, setInfoBusses] = useState({});
   const history = useHistory();
   const { city } = useSelector((state) => state.province);
   const [urlImage, setUrlImage] = useState("");
   const dispatch = useDispatch();
+  
   const [cityValue, setVityValue] = useState([]);
   const {availableService , availableBusesTypes} = useSelector(state => state.buses)
   const [serviceValues, setServiceValues] = useState([]);
@@ -38,6 +40,20 @@ const EditBusses = () => {
     return {
       label : type.name,
       value : type.id
+    }
+  })
+  const cartTypeFilter = availableBusesTypes.filter((elt)=>{
+     if (elt.id === infoBusses.cartype_id) {
+       return {
+         value : elt.id,
+         label : elt.name
+       }
+     }
+  })
+  const carTypeDefault = cartTypeFilter.map((elt)=>{
+    return {
+      value : elt.id,
+      label : elt.name
     }
   })
   const [districtValue, setdistrictValue] = useState([]);
@@ -74,11 +90,12 @@ const EditBusses = () => {
     setValue('cartype_id',type.value)
   };
   const handleChangeService = (services) =>{
-    const serviceFilter = services.map(service =>{
-      return service.value
-    })
-    setServiceValues(services)
-    setValue('service_id' , serviceFilter)
+    const serviceFilter = services.map((service) => {
+      return service.value;
+    });
+    console.log(serviceFilter);
+    setServiceValues(services);
+    setValue("service_id", serviceFilter);
   }
   const onChangeCity = async (pointName, pointId, original) => {
     setValue(pointId, original.value);
@@ -122,6 +139,7 @@ const EditBusses = () => {
     formState: { errors },
   } = useForm();
   const handleSubmitForm = (data) => {
+    delete data.service
     alertify.confirm("Thêm chuyến xe", async function () {
       const res = await BusesService.updateBusses(id,data);
       if (res) {
@@ -131,13 +149,18 @@ const EditBusses = () => {
       }
     });
   };
-  const [infoBusses, setInfoBusses] = useState({});
   const  {name , cartype_id, route_id , image , seat , price , status , start_time , description} = infoBusses
   useEffect(() => {
+    dispatch(actionGetService());
+    dispatch(actionGetAllBusesTypes());
     const getInfoBusses = async () => {
       const res = await BusesService.getInfoBuses(id);
       if (res) {
+        const serviceFiler = res.data.service.service !== 0 ? res.data.service.map(elt => {
+          return {value : elt.id , label : elt.name}
+        }) : []
         setInfoBusses(res.data);
+        setServiceValues(serviceFiler)
         reset(res.data)
       }
     };
@@ -260,6 +283,7 @@ const EditBusses = () => {
                         options={busesTypeFilter}
                         placeholder={"loại xe"}
                         handleChange={handlechangeTypeCar}
+                        defaultValues={carTypeDefault[0]}
                       />
                     </div>
                   </div>

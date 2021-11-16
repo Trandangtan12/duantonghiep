@@ -1,15 +1,15 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
-import DatePickerForm from "../datePicker";
-import { Tab } from "@headlessui/react";
-import SelectForm from "../selectForm";
-import { actionGetBuses , actionSearchBuses } from "../../redux/actions/buses";
+import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProvince } from "../../redux/actions/province";
-import { BusesService } from "../../service/productService";
 import { useHistory } from "react-router";
+import { actionGetBuses, actionSearchBuses } from "../../redux/actions/buses";
+import { getAllProvince } from "../../redux/actions/province";
+import SelectForm from "../selectForm";
 
 const SearchCars = () => {
   const [startPoint, setstartPoint] = useState();
+  const [startDate, setStartDate] = useState(new Date());
   const [endPoint, setEndPoint] = useState();
   const dispatch = useDispatch();
   const history = useHistory()
@@ -22,6 +22,10 @@ const SearchCars = () => {
   });
   const handleChangeStartPoint = (original) => {
     setstartPoint(original.value);
+  };
+  const handleChangeStartTime = (date) => {
+    const startDateConvert = moment(date).format("YYYY-MM-DD");
+    setStartDate(date);
   };
   const handleChangeEndPoint = (original) => {
     setEndPoint(original.value);
@@ -59,7 +63,7 @@ const SearchCars = () => {
             </div>
             <div className="tw-w-full">
               Chọn ngày đi
-              <DatePickerForm />
+              <DatePicker className="tw-w-full tw-py-2 tw-border-[1px] tw-rounded-sm tw-border-green-600 tw-font-bold tw-h-[47px] tw-pl-[10px]" dateFormat="yyyy-MM-dd" selected={startDate} onChange={handleChangeStartTime}/>
             </div>
           </div>
           <button
