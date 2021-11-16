@@ -15,7 +15,7 @@ const CreateVehicel = () => {
   const handleSubmitForm = (data) => {
     alertify.confirm("Bạn có chắc chắn muốn thêm loại xe ?", async function () {
       const res = await BusesService.createVehicel(data);
-      if (res.status === 201) {
+      if (res.status === 200 || res.status === 201) {
         alertify.set("notifier", "position", "bottom-right")
         alertify.success("Thêm thành công !");
         history.push("/admin/vehicel-type");

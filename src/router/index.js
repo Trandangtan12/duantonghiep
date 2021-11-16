@@ -1,19 +1,9 @@
-import {
-  faCar,
-  faDotCircle,
-  faTruckLoading,
-  faWheelchair,
-} from "@fortawesome/fontawesome-free-solid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { lazy, Suspense } from "react";
-import loading from '../asset/images/loading.gif';
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
+  BrowserRouter as Router, Redirect, Route,
+  Switch
 } from "react-router-dom";
-import PrivateRouterAdmin from "../auth/privateRouterAdmin";
+import loading from '../asset/images/loading-1.gif';
 import PrivateRouterPublic from "../auth/privateRouterPublic";
 const Loading = () => {
   return (
@@ -51,6 +41,7 @@ const Routes = () => {
   const EditService = lazy(() => import("../pages/private/service/EditService/EditService"))
   const CretaeVehicel = lazy(() => import("../pages/private/vehicleType/CreateVehicel/CreateVehicel"))
   const EditeVehicel = lazy(() => import("../pages/private/vehicleType/EditVehicel/EditVehical"))
+  const Profile = lazy(() => import("../pages/private/profile"))
   const Account = lazy(() => import("../pages/private/account"))
   return (
     <Router>
@@ -75,6 +66,7 @@ const Routes = () => {
                 <Route exact  path="/admin/vehicel-type/create" component={CretaeVehicel}/>
                 <Route exact  path="/admin/vehicel-type/edit/:id" component={EditeVehicel}/>
                 <Route exact  path="/admin/account" component={Account}/>
+                <Route exact  path="/admin/profile" component={Profile}/>
                 <Route exact path="*" component={PageNotFound} />
               </Switch>
             </LayoutAdmin>

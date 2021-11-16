@@ -3,6 +3,7 @@ import HttpClient from "../api/axiosClient";
 import {
   API_GET_BUSES,
   API_GET_BUSES_TYPE, API_GET_SERVICE,
+  API_PAYMENT,
   API_SEARCH,
   API_TICKET
 } from "../config";
@@ -72,5 +73,14 @@ export const BusesService = {
   },
   deleteTicket(id){
     return HttpClient.delete(`${API_TICKET}/${id}`)
+  },
+  paymentTicket(price){
+    return HttpClient.post(`${API_PAYMENT}`,{
+      amount : price,
+      order_desc : "Thanh toán hóa đơn phí dich vụ",
+      order_type  : "billpayment",
+      language : "vn",
+      bank_code : "NCB"
+    })
   }
 };

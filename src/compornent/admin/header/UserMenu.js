@@ -2,9 +2,11 @@ import { faUser } from '@fortawesome/fontawesome-free-solid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Menu, Transition } from '@headlessui/react'
+import { useHistory } from 'react-router';
 const UserMenu = () => {
   const account = JSON.parse(localStorage.getItem('user'))
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const history = useHistory()
   return (
     <>
     <Menu as="div" className="tw-relative tw-inline-block tw-text-left">
@@ -24,7 +26,7 @@ const UserMenu = () => {
       >
          <Menu.Items className="tw-absolute tw-right-0 tw-w-56 tw-mt-2 tw-origin-top-right tw-bg-white tw-divide-y tw-divide-gray-100 tw-rounded-md tw-shadow-lg tw-ring-1 tw-ring-black tw-ring-opacity-5 focus:tw-outline-none">
             <div className="tw-px-1 tw-py-1 ">
-              <Menu.Item>
+              <Menu.Item onClick={()=>{history.push("/admin/profile")}}>
                 {({ active }) => (
                   <button
                     className={`${
