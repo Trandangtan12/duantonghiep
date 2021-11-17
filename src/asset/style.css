@@ -1541,6 +1541,11 @@ video {
   border-color: rgba(16, 185, 129, var(--tw-border-opacity));
 }
 
+.tw-border-red-400 {
+  --tw-border-opacity: 1;
+  border-color: rgba(251, 113, 133, var(--tw-border-opacity));
+}
+
 .tw-bg-\[\#f4f5f4\] {
   --tw-bg-opacity: 1;
   background-color: rgba(244, 245, 244, var(--tw-bg-opacity));
@@ -2601,6 +2606,10 @@ video {
 
   .sm\:tw-inline-block {
     display: inline-block;
+  }
+
+  .sm\:tw-inline {
+    display: inline;
   }
 
   .sm\:tw-flex {
