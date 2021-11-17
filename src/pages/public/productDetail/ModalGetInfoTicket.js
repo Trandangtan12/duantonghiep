@@ -38,12 +38,11 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
     const ticket = { ...data, quantity: qty, totalPrice: totalPrice }
     console.log(ticket);
     try {
-      const price = product.price
-      const res = await BusesService.paymentTicket(price)
+      const res = await BusesService.paymentTicket(totalPrice)
       console.log(res);
-      if(res.data.message === "success"){
-        window.location.href = res.data.data
-      }
+      // if(res.data.message === "success"){
+      //   window.location.href = res.data.data
+      // }
       
       setIsOpenModal(false);
     } catch (error) {
