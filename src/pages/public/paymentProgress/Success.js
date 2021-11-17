@@ -1,6 +1,13 @@
-import React from "react";
-
-const Payment = () => {
+import React, { useEffect } from "react";
+import { BusesService } from "../../../service/productService";
+const SuccessPayment = () => {
+  const ticketId = localStorage.getItem("ticket")
+  useEffect(() => {
+   const updateTicket = async () => {
+     await BusesService.approvalTicket(ticketId)
+   }
+   updateTicket()
+  }, []);
   return (
     <div className="tw-relative tw-flex tw-flex-col sm:tw-flex-row sm:tw-items-center tw-bg-white tw-shadow tw-rounded-md tw-py-5 tw-pl-6 tw-pr-8 sm:tw-pr-6">
       <div className="tw-flex tw-flex-row tw-items-center tw-border-b sm:tw-border-b-0 tw-w-full sm:tw-w-auto tw-pb-4 sm:tw-pb-0">
@@ -47,4 +54,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default SuccessPayment;

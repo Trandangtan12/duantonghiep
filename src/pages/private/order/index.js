@@ -90,15 +90,15 @@ const Order = () => {
     switch (status) {
       case ACTIVED:
         return {
-          render: <div>Đã kích hoạt</div>,
+          render: <div>Đã thanh toán</div>,
         };
       case WAITING_ACTIVE:
         return {
-          render: <div>Chờ kích hoạt</div>,
+          render: <div>Chưa thanh toán</div>,
         };
       case REJECTED :
         return {
-          render: <div>Từ chối</div>,
+          render: <div>Huỷ vé</div>,
         }
 
       default:

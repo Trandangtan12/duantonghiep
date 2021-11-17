@@ -43,7 +43,8 @@ const Routes = () => {
   const EditeVehicel = lazy(() => import("../pages/private/vehicleType/EditVehicel/EditVehical"))
   const Profile = lazy(() => import("../pages/private/profile"))
   const Account = lazy(() => import("../pages/private/account"))
-  const Payment = lazy(() => import("../pages/public/paymentProgress/Success"))
+  const SuccessPayment = lazy(() => import("../pages/public/paymentProgress/Success"))
+  const FailPayment = lazy(() => import("../pages/public/paymentProgress/Fail"))
   return (
     <Router>
       <Suspense fallback={<Loading />}>
@@ -82,7 +83,8 @@ const Routes = () => {
                     <Route exact path="/contact" component={Contracts} />
                     <Route exact path="/products" component={Products}/>
                     <Route exact path="/product/:id" component={ProductDetail} />
-                    <Route exact path="/payment" component={Payment} />
+                    <Route exact path="/payment/success" component={SuccessPayment} />
+                    <Route exact path="/payment/fail" component={FailPayment} />
                     <Route exact path="/signin" component={SignIn} />
                     <Route exact path="/signup" component={SignUp} />
                     <PrivateRouterPublic exact path="/user/dashboard">
