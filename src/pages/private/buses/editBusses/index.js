@@ -20,14 +20,13 @@ import { initialValues } from "./hookFormConfig";
 import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
 
 const EditBusses = () => {
+  const [fileName, setFileName] = useState("");
   const { id } = useParams();
   const [infoBusses, setInfoBusses] = useState({});
   const history = useHistory();
   const { city } = useSelector((state) => state.province);
-  const [urlImage, setUrlImage] = useState("");
+  const [urlImage, setUrlImage] = useState(null);
   const dispatch = useDispatch();
-  
-  const [cityValue, setVityValue] = useState([]);
   const {availableService , availableBusesTypes} = useSelector(state => state.buses)
   const [serviceValues, setServiceValues] = useState([]);
   const serviceFilter = availableService.map((service) =>{
@@ -56,6 +55,24 @@ const EditBusses = () => {
       label : elt.name
     }
   })
+  const cityFilter = city.filter((elt) =>{
+   return elt.code === infoBusses.startPointId
+  })
+  const cityDefault = cityFilter.map(_elt =>{
+    return {
+      label : _elt.name,
+      value : _elt.code
+    }
+  })
+  const cityEndFilter = city.filter((elt) =>{
+    return elt.code === infoBusses.endPointId
+   })
+   const cityEndDefault = cityEndFilter.map(_elt =>{
+     return {
+       label : _elt.name,
+       value : _elt.code
+     }
+   })
   const [districtValue, setdistrictValue] = useState([]);
   const [wardValue, setWardValue] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
@@ -93,7 +110,6 @@ const EditBusses = () => {
     const serviceFilter = services.map((service) => {
       return service.value;
     });
-    console.log(serviceFilter);
     setServiceValues(services);
     setValue("service_id", serviceFilter);
   }
@@ -142,17 +158,17 @@ const EditBusses = () => {
     delete data.service
     alertify.confirm("Thêm chuyến xe", async function () {
       const res = await BusesService.updateBusses(id,data);
-      if (res) {
+      if (res.status === 200) {
         alertify.set("notifier", "position", "bottom-right");
         alertify.success("Thêm thành công !");
         history.push("/admin/buses");
       }
     });
   };
-  const  {name , cartype_id, route_id , image , seat , price , status , start_time , description} = infoBusses
   useEffect(() => {
     dispatch(actionGetService());
     dispatch(actionGetAllBusesTypes());
+    dispatch(getAllProvince());
     const getInfoBusses = async () => {
       const res = await BusesService.getInfoBuses(id);
       if (res) {
@@ -160,6 +176,7 @@ const EditBusses = () => {
           return {value : elt.id , label : elt.name}
         }) : []
         setInfoBusses(res.data);
+        setUrlImage(res.data.image)
         setServiceValues(serviceFiler)
         reset(res.data)
       }
@@ -190,157 +207,200 @@ const EditBusses = () => {
             </div>
             <div className=" tw-flex-auto lg:tw-px-3">
               <form onSubmit={handleSubmit(handleSubmitForm)}>
-                <div className="tw-mb-2 tw-flex tw-justify-between lg:tw-px-3 tw-px-3 tw-gap-2">
-                  <div className="sm:tw-w-full lg:tw-w-6/12">
-                    <img src={urlImage} alt="" />
-                    <UploadFile
-                      label={"Ảnh đại diện"}
-                      onChange={handleChangeImage}
-                      type="file"
-                    />
-                  </div>
-                  <div className="lg:tw-w-6/12">
-                    <UploadFile
-                      label={"Ảnh mô tả"}
-                      onChange={handleChangeDescriptionImage}
-                      type="file"
-                      multiple={true}
-                    />
-                  </div>
-                </div>
-                <div className="tw-flex tw-flex-wrap">
-                  <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
-                    <div className="tw-relative tw-w-full tw-mb-3">
-                      <Input
-                        lable="Tên chuyến xe"
-                        placeholder="Tên chuyến xe"
-                        type="text"
-                        defaultValue=""
-                        register={register}
-                        fieldName={"name"}
-                        errors={errors}
-                        required={true}
-                        messageErrors={"Vui lòng nhập thông tin"}
-                      />
+              <div className="tw-mb-2 tw-flex tw-justify-between lg:tw-px-3 tw-px-3 tw-gap-2">
+                    <div className="tw-w-full tw-flex tw-flex-wrap">
+                      <div className="tw-w-full lg:tw-w-4/12">
+                        <img
+                          src={`${
+                            urlImage !== ""
+                              ? urlImage
+                              : "https://fakeimg.pl/370/"
+                          }`}
+                          className="tw-h-[339px]"
+                        />
+                      </div>
+                      <div className="lg:tw-w-8/12">
+                        <div className="tw-py-20 tw-h-[339px] tw-bg-gray-300 tw-px-2">
+                          <div className="tw-max-w-md tw-mx-auto tw-bg-white tw-rounded-lg tw-overflow-hidden md:tw-max-w-lg">
+                            <div className="md:tw-flex">
+                              <div className="tw-w-full">
+                                <div className="tw-p-3">
+                                  <div className="tw-mb-2">
+                                    {" "}
+                                    <div className="tw-relative tw-h-40 tw-rounded-lg tw-border-dashed tw-border-2 tw-border-gray-200 tw-bg-white tw-flex tw-justify-center tw-items-center hover:tw-cursor-pointer">
+                                      <div className="tw-absolute">
+                                        <div className="tw-flex tw-flex-col tw-items-center ">
+                                          {" "}
+                                          <span>{fileName}</span>
+                                          <i className="fa fa-cloud-upload fa-3x tw-text-gray-200" />{" "}
+                                          <span className="tw-block tw-text-blue-400 tw-font-normal">
+                                            Tải ảnh lên
+                                          </span>{" "}
+                                        </div>
+                                      </div>{" "}
+                                      <input
+                                        onChange={handleChangeImage}
+                                        type="file"
+                                        className="tw-h-full tw-w-full tw-opacity-0"
+                                        name
+                                      />
+                                    </div>
+                                    <div className="tw-flex tw-justify-between tw-items-center tw-text-gray-400">
+                                      {" "}
+                                      <span>
+                                        Accepted file type:.img only
+                                      </span>{" "}
+                                      <span className="tw-flex tw-items-center ">
+                                        <i className="fa fa-lock tw-mr-1" />{" "}
+                                        secure
+                                      </span>{" "}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
-                    <div className="tw-relative tw-w-full tw-mb-3">
-                      <InputNumberStyle>
+                  <div className="tw-flex tw-flex-wrap">
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
+                      <div className="tw-relative tw-w-full tw-mb-3">
                         <Input
-                          lable="Giá"
-                          placeholder="Giá"
-                          type="number"
+                          lable="Tên chuyến xe"
+                          placeholder="Tên chuyến xe"
+                          type="text"
                           register={register}
-                          fieldName={"price"}
+                          fieldName={"name"}
                           errors={errors}
                           required={true}
                           messageErrors={"Vui lòng nhập thông tin"}
                         />
-                      </InputNumberStyle>
+                      </div>
+                    </div>
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <InputNumberStyle>
+                          <Input
+                            lable="Giá"
+                            placeholder="Giá"
+                            type="number"
+                            register={register}
+                            fieldName={"price"}
+                            errors={errors}
+                            required={true}
+                            messageErrors={"Vui lòng nhập thông tin"}
+                          />
+                        </InputNumberStyle>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="tw-flex tw-flex-wrap">
-                  <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
-                    <div className="tw-relative tw-w-full tw-mb-3">
-                      <InputNumberStyle>
-                        <Input
-                          lable="Số ghế"
-                          placeholder="Số ghế"
-                          type="number"
-                          register={register}
-                          fieldName={"seat"}
-                          errors={errors}
-                          required={true}
-                          messageErrors={"Vui lòng nhập thông tin"}
+                  <div className="tw-flex tw-flex-wrap">
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <InputNumberStyle>
+                          <Input
+                            lable="Số ghế"
+                            placeholder="Số ghế"
+                            type="number"
+                            register={register}
+                            fieldName={"seat"}
+                            errors={errors}
+                            required={true}
+                            messageErrors={"Vui lòng nhập thông tin"}
+                          />
+                        </InputNumberStyle>
+                      </div>
+                    </div>
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <label
+                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+                          htmlfor="grid-password"
+                        >
+                          Thời gian xuất phát
+                        </label>
+                        <DatePickerForm
+                          startDate={startDate}
+                          onChange={(date) => {
+                            handleChangeStartTime(date);
+                          }}
                         />
-                      </InputNumberStyle>
+                      </div>
                     </div>
                   </div>
-                  <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
-                    <div className="tw-relative tw-w-full tw-mb-3">
-                      <label
-                        className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
-                        htmlfor="grid-password"
-                      >
-                        Thời gian xuất phát
-                      </label>
-                      <DatePickerForm
-                        startDate={startDate}
-                        onChange={(date) => {
-                          handleChangeStartTime(date);
-                        }}
-                      />
+                  <div className="tw-flex tw-flex-wrap">
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <CarTypeSelecect
+                          title="Loại xe"
+                          options={busesTypeFilter}
+                          placeholder={"loại xe"}
+                          handleChange={handlechangeTypeCar}
+                          errors={errors}                        
+                          fieldName={'cartype_id'}
+                          defaultValues={carTypeDefault[0]}
+                        />
+                      </div>
+                    </div>
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <ServiceSelect
+                          title="Loại dịch vụ "
+                          options={serviceFilter}
+                          placeholder={"Loại dịch vụ"}
+                          handleChange={handleChangeService}
+                          values={serviceValues}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="tw-flex tw-flex-wrap">
-                  <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
-                    <div className="tw-relative tw-w-full tw-mb-3">
-                      <CarTypeSelecect
-                        title="Loại xe"
-                        options={busesTypeFilter}
-                        placeholder={"loại xe"}
-                        handleChange={handlechangeTypeCar}
-                        defaultValues={carTypeDefault[0]}
-                      />
+                  <LocationSelect
+                    provinceFilter={provinceFilter}
+                    onChangeCity={onChangeCity}
+                    onChangeWard={onChangeWard}
+                    setdistrictValue={setdistrictValue}
+                    districtValue={districtValue}
+                    wardValue={wardValue}
+                    register={register}
+                    pointName={"startPointName"}
+                    pointId={"startPointId"}
+                    title="Điểm đi"
+                    cityDefault={cityDefault[0]}
+                    // register={register}
+                  />
+                  <LocationSelect
+                    provinceFilter={provinceFilter}
+                    onChangeCity={onChangeCity}
+                    onChangeWard={onChangeWard}
+                    setdistrictValue={setdistrictValue}
+                    districtValue={districtValue}
+                    wardValue={wardValue}
+                    register={register}
+                    title="Điểm đến"
+                    pointName={"endPointName"}
+                    pointId={"endPointId"}
+                    cityDefault={cityEndDefault[0]}
+                  />
+                  <TextArea
+                    title="Ghi chú"
+                    placeholder="Nhập mô tả"
+                    fieldName="description"
+                    register={register}
+                  />
+                  <footer className="">
+                    <div className="container tw-mx-auto tw-px-4">
+                      <div className="tw-flex tw-flex-wrap tw-items-center md:tw-justify-end tw-justify-center tw-mb-10 tw-gap-5">
+                        <button
+                          type="submit"
+                          className="sm:tw-w-full md:tw-w-full lg:tw-w-[200px] tw-bg-green-600 tw-transform tw-p-3 tw-text-white tw-text-md hover:tw-bg-gray-800 tw-font-bold tw-rounded-lg"
+                        >
+                          Cập nhật
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
-                    <div className="tw-relative tw-w-full tw-mb-3">
-                      <ServiceSelect
-                        title="Loại dịch vụ "
-                        options={serviceFilter}
-                        placeholder={"Loại dịch vụ"}
-                        handleChange={handleChangeService}
-                        values={serviceValues}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <LocationSelect
-                  provinceFilter={provinceFilter}
-                  onChangeCity={onChangeCity}
-                  onChangeWard={onChangeWard}
-                  setdistrictValue={setdistrictValue}
-                  districtValue={districtValue}
-                  wardValue={wardValue}
-                  register={register}
-                  pointName={"startPointName"}
-                  pointId={"startPointId"}
-                  title="Điểm đi"
-                />
-                <LocationSelect
-                  provinceFilter={provinceFilter}
-                  onChangeCity={onChangeCity}
-                  onChangeWard={onChangeWard}
-                  setdistrictValue={setdistrictValue}
-                  districtValue={districtValue}
-                  wardValue={wardValue}
-                  register={register}
-                  title="Điểm đến"
-                  pointName={"endPointName"}
-                  pointId={"endPointId"}
-                />
-                <TextArea
-                  title="Ghi chú"
-                  placeholder="Nhập mô tả"
-                  fieldName="description"
-                  register={register}
-                />
-                <footer className="">
-                  <div className="container tw-mx-auto tw-px-4">
-                    <div className="tw-flex tw-flex-wrap tw-items-center md:tw-justify-end tw-justify-center tw-mb-10 tw-gap-5">
-                      <button
-                        type="submit"
-                        className="sm:tw-w-full md:tw-w-full lg:tw-w-[200px] tw-bg-green-600 tw-transform tw-p-3 tw-text-white tw-text-md hover:tw-bg-gray-800 tw-font-bold tw-rounded-lg"
-                      >
-                        Tạo mới
-                      </button>
-                    </div>
-                  </div>
-                </footer>
+                  </footer>
               </form>
             </div>
           </div>

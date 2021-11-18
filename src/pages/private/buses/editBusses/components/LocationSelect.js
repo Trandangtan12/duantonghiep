@@ -9,7 +9,8 @@ const LocationSelect = ({
   wardValue,
   title,
   pointName,
-  pointId
+  pointId,
+  cityDefault
 }) => {
   return (
     <div>
@@ -33,6 +34,7 @@ const LocationSelect = ({
                   onChangeCity(pointName,pointId,original);
                 }}
                 placeholder={"Thành phố"}
+                defaultValues={cityDefault}
                 // {...register(fieldName)}
               />
             </div>
