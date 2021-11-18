@@ -69,7 +69,7 @@ export const BusesService = {
     return HttpClient.put(`${API_TICKET}/${id}`,{status : 'ACTIVED'})
   },
   rejectTicket(id){
-    return HttpClient.put(`${API_TICKET}/${id}`,{status : 'WAITING_ACTIVE'})
+    return HttpClient.put(`${API_TICKET}/${id}`,{status : 'REJECTED'})
   },
   deleteTicket(id){
     return HttpClient.delete(`${API_TICKET}/${id}`)

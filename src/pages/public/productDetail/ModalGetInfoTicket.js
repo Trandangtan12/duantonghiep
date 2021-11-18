@@ -36,16 +36,11 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   const totalPrice = product.price * qty
   const handlePayTicket = async (data) => {
     const ticket = { ...data, quantity: qty, totalPrice: totalPrice }
-    console.log(ticket);
     try {
       const res = await BusesService.paymentTicket(totalPrice)
       const resTicket = await BusesService.addTicket(ticket)
-      console.log(resTicket);
-      console.log(resTicket);
-      localStorage.setItem('idPayment' , product.id)
-      console.log(res);
       if (resTicket.status === 201 || resTicket.status === 200) {
-        localStorage.setItem('ticket' , resTicket.data.id)
+        localStorage.setItem('ticket' , JSON.stringify(resTicket.data))
       }
       if(res.data.message === "success"){
         window.location.href = res.data.data

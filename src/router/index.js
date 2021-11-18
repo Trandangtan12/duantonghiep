@@ -45,6 +45,7 @@ const Routes = () => {
   const Account = lazy(() => import("../pages/private/account"))
   const SuccessPayment = lazy(() => import("../pages/public/paymentProgress/Success"))
   const FailPayment = lazy(() => import("../pages/public/paymentProgress/Fail"))
+  const CreateTicket = lazy(() => import("../pages/private/order/create"))
   return (
     <Router>
       <Suspense fallback={<Loading />}>
@@ -61,6 +62,7 @@ const Routes = () => {
                 <Route exact  path="/admin/buses/edit/:id" component={EditBusses}/>
                 <Route exact  path="/admin/analytics" component={Analytics} />
                 <Route exact  path="/admin/order" component={Order} />
+                <Route exact  path="/admin/order/create" component={CreateTicket} />
                 <Route exact path="/admin/service" component={Service} />
                 <Route exact  path="/admin/service/create" component={CretaeService}/>
                 <Route exact  path="/admin/service/edit/:id" component={EditService}/>
