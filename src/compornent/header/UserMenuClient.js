@@ -15,7 +15,7 @@ const UserMenuClient = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   return (
     <>
-    <Menu as="div" className="tw-relative tw-inline-block tw-text-left ">
+    <Menu as="div" className="tw-relative tw-inline-block tw-text-left tw-z-50">
       <div>
         <Menu.Button className="tw-inline-flex tw-justify-center tw-w-full tw-rounded-md tw-border tw-border-gray-300 tw-shadow-sm tw-px-4 tw-py-2 tw-bg-white tw-text-sm tw-font-medium tw-text-green-700">
         <FontAwesomeIcon icon={faUser} size="lg" color="" className={'tw-text-green-600 tw-mr-4'}/>
