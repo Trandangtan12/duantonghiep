@@ -63,7 +63,6 @@ const SignUp = () => {
                     },
                   })}
                   type="text"
-                  name="email"
                   id=""
                   className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500"
                 />
@@ -81,22 +80,13 @@ const SignUp = () => {
                     required: ("Bạn chưa điền Họ tên!!!")
                   })}
                   type="text"
-                  name="email"
                   id=""
                   className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500"
                 />
                 <span className="tw-text-red-500 tw-italic">{errors.name?.message}</span>
                             </div>
 
-                            <div className="tw-mb-6">
-                                <label
-                                    htmlFor="email"
-                                    className="tw-block tw-mb-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400"
-                                >
-                                    Ảnh 
-                                </label>
-                                <input {...register("image")} name="image" type="text" id="" className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500" />
-                            </div>
+                          
                             <div className="tw-mb-6">
                                 <label
                                     htmlFor="email"
@@ -115,19 +105,7 @@ const SignUp = () => {
                 <span className="tw-text-red-500 tw-italic">{errors.phone_number?.message}</span>
                             </div>
 
-                            <div className="tw-mb-6">
-                                <label
-                                    htmlFor="email"
-                                    className="tw-block tw-mb-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400"
-                                >
-                                    Giới tính
-                                </label>
-                               <select name="gender" {...register("gender")} id="">
-                                   <option value="Nam">Nam</option>
-                                   <option value="Nữ">Nữ</option>
-                                   <option value="Khác">Khác</option>
-                               </select>
-                            </div>
+                            
                           
                             <div className="tw-mb-6">
                                 <label
