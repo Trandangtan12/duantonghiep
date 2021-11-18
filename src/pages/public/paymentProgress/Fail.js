@@ -1,23 +1,50 @@
-import React, { useEffect } from 'react'
-import { BusesService } from '../../../service/productService';
+import React, { useEffect } from "react";
+import { BusesService } from "../../../service/productService";
+import failImage from "../../../asset/images/fail.png";
+import { useHistory } from "react-router";
 
 const FailPayment = () => {
-    const ticketId = localStorage.getItem("ticket")
-    useEffect(() => {
-     const updateTicket = async () => {
-       await BusesService.rejectTicket(ticketId)
-     }
-     updateTicket()
-    }, []);
-    return (
-        <div className="tw-bg-red-100 tw-border tw-border-red-400 tw-text-red-700 tw-px-4 tw-py-3 tw-rounded tw-relative" role="alert">
-        <strong className="tw-font-bold">Holy smokes!</strong>
-        <span className="tw-block sm:tw-inline">Something seriously bad happened.</span>
-        <span className="tw-absolute tw-top-0 tw-bottom-0 tw-right-0 tw-px-4 tw-py-3">
-          <svg className="tw-fill-current tw-h-6 tw-w-6 tw-text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" /></svg>
-        </span>
-      </div>      
-    )
-}
+  const ticket = JSON.parse(localStorage.getItem('ticket'))
+  const history = useHistory();
+  const handlePaymentAgain = async () =>{
+    const res = await BusesService.paymentTicket(ticket.totalPrice)
+    if (res.status === 200) {
+      window.location.href = res.data.data
+    }
+  }
+  useEffect(() => {
+    const updateTicket = async () => {
+      await BusesService.rejectTicket(ticket.id);
+    };
+    updateTicket();
+  }, []);
+  return (
+    <div>
+      <div className="tw-flex tw-justify-center tw-p-5">
+        <img src={failImage} alt="" className="tw-w-[200px]" />
+      </div>
+      <div className="tw-flex tw-justify-center">
+        <p className="tw-text-2xl">
+          Thanh toán thất bại ! Vui lòng thanh toán lại hoặc chọn phương thức
+          thanh toán khác
+        </p>
+      </div>
+      <div className="tw-flex tw-justify-center">
+        <button
+          className="tw-bg-green-600 tw-p-4 tw-mb-3 tw-rounded-md tw-text-white tw-mt-3"
+          onClick={() => history.push("/")}
+        >
+          Trở về trang chủ
+        </button>
+        <button
+          className="tw-bg-green-600 tw-p-4 tw-mb-3 tw-rounded-md tw-text-white tw-mt-3 tw-ml-2"
+          onClick={() => {handlePaymentAgain()}}
+        >
+          Thanh toán lại
+        </button>
+      </div>
+    </div>
+  );
+};
 
-export default FailPayment
+export default FailPayment;

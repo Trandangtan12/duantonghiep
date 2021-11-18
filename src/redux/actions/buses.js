@@ -72,14 +72,16 @@ export const actionSearchBuses = (start , end) =>{
 export const actionGetTicket =() =>{
     return async (dispatch) =>{
         const res = await BusesService.getAllOder()
-        console.log(res);
         if (res.status !== 200 || res.data === []) {
             return
         }
         else{
+            const dataFilter = res.data.filter(elt =>{
+                return elt.status === "ACTIVED" || elt.status === "WAITING_ACTIVE"
+            })
             dispatch({
                 type : ACTION_GET_ORDER,
-                payload : res.data
+                payload : dataFilter || []
             })
         }
     }
