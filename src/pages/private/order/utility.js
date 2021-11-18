@@ -6,14 +6,14 @@ export const REJECTED = "REJECTED"
 export const listFilterStatus = [
     {
         type : ACTIVED , 
-        name : "Đã kích hoạt",
+        name : "Đã thanh toán",
     },
     {
         type : WAITING_ACTIVE , 
-        name : "Chờ kích hoạt"
+        name : "Chưa kích hoạt"
     },
     {
         type : REJECTED , 
-        name : "Từ chối"
+        name : "Huỷ vé"
     }
 ]
