@@ -202,7 +202,6 @@ const Order = () => {
     },
   ]);
   const dispatch = useDispatch();
-  const { availableBuses } = useSelector((state) => state.buses);
   useEffect(() => {
     dispatch(actionGetTicket());
   }, [...dependencies]);

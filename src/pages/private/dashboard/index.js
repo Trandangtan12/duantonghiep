@@ -7,7 +7,11 @@ import { actionGetBuses } from "../../../redux/actions/buses";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBus, faCar, faHandshake, faTicketAlt } from "@fortawesome/fontawesome-free-solid";
 const DashBoard = () => {
+  const { availableOrder } = useSelector((state) => state.buses);
   const dispatch = useDispatch();
+  useEffect(() => {
+
+  }, []);
   return (
     <div>
       <div className="container tw-my-12 tw-mx-auto tw-px-4 md:tw-px-12">

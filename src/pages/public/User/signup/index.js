@@ -12,8 +12,12 @@ const SignUp = () => {
     const history = useHistory()
     const [error, setError] = useState("")
     const onHandleSubmit = async (data, e) => {
+        const newUser = {
+            ...data,
+            gender : "fale"
+        }
         try {
-            await UserApi.signup(data)
+            await UserApi.signup(newUser)
             history.push("/signin")
         } catch (err) {
             setError(err.response.data.message);
@@ -80,13 +84,12 @@ const SignUp = () => {
                     required: ("Bạn chưa điền Họ tên!!!")
                   })}
                   type="text"
+                  name="name"
                   id=""
                   className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500"
                 />
                 <span className="tw-text-red-500 tw-italic">{errors.name?.message}</span>
                             </div>
-
-                          
                             <div className="tw-mb-6">
                                 <label
                                     htmlFor="email"
@@ -103,10 +106,7 @@ const SignUp = () => {
                   className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500"
                 />
                 <span className="tw-text-red-500 tw-italic">{errors.phone_number?.message}</span>
-                            </div>
-
-                            
-                          
+                            </div>                          
                             <div className="tw-mb-6">
                                 <label
                                     htmlFor="password"
