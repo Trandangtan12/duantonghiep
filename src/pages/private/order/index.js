@@ -86,7 +86,6 @@ const Order = () => {
     )
   }
   const getStatus = (status) => {
-    console.log(status);
     switch (status) {
       case ACTIVED:
         return {
@@ -172,12 +171,6 @@ const Order = () => {
       show: true,
       Cell: ({ original }) => {
         return <div className="tw-flex tw-justify-center tw-gap-3">
-          <button><FontAwesomeIcon icon={faCheck} color="green"  onClick={() =>{
-            handleApprovalTicket(original.id)
-          }}/></button>
-          <button><FontAwesomeIcon icon={faTimes} color="red" onClick={() =>{
-           handleRejectTicket(original.id)
-          }} /></button>
           <button><FontAwesomeIcon icon={faTrash} color="red"  onClick={() =>{
             handleDeleteTicket(original.id)
           }}/></button>
