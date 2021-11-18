@@ -54,9 +54,9 @@ export const actionGetAllBusesTypes = () =>{
 }
 
 
-export const actionSearchBuses = (start , end) =>{
+export const actionSearchBuses = (start , end , date_active) =>{
     return async (dispatch) =>{
-        const res = await BusesService.searchBuses(start , end)
+        const res = await BusesService.searchBuses(start , end , date_active)
         if (res.status !== 200 || res.data === []) {
             return
         }

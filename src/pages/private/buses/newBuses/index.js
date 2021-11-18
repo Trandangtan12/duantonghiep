@@ -28,7 +28,7 @@ import { initialValues } from "./hookFormConfig";
 import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
-  const [urlImage, setUrlImage] = useState("");
+  const [urlImage, setUrlImage] = useState(null);
   const [urlImageDescription, setUrlImageDescription] = useState([]);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -120,9 +120,12 @@ const NewBuses = () => {
     }
   };
   const handleSubmitForm = (data) => {
-    console.log(urlImageDescription);
     alertify.confirm("Thêm chuyến xe", async function () {
-      const res = await BusesService.addBuses(data);
+      const newBuses = {
+        ...data , 
+        image : urlImage
+      }
+      const res = await BusesService.addBuses(newBuses);
       if (res) {
         alertify.set("notifier", "position", "bottom-right");
         alertify.success("Thêm thành công !");
@@ -191,7 +194,7 @@ const NewBuses = () => {
                       <div className="tw-w-full lg:tw-w-4/12">
                         <img
                           src={`${
-                            urlImage !== ""
+                            urlImage !== null
                               ? urlImage
                               : "https://fakeimg.pl/370/"
                           }`}

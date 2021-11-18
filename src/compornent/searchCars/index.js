@@ -8,6 +8,7 @@ import { getAllProvince } from "../../redux/actions/province";
 import SelectForm from "../selectForm";
 
 const SearchCars = () => {
+  const TODAY = new Date()
   const [startPoint, setstartPoint] = useState();
   const [startDate, setStartDate] = useState(new Date());
   const [endPoint, setEndPoint] = useState();
@@ -24,7 +25,6 @@ const SearchCars = () => {
     setstartPoint(original.value);
   };
   const handleChangeStartTime = (date) => {
-    const startDateConvert = moment(date).format("YYYY-MM-DD");
     setStartDate(date);
   };
   const handleChangeEndPoint = (original) => {
@@ -33,7 +33,7 @@ const SearchCars = () => {
   const handleSearch = async () =>{
     const date_active = moment(startDate).utc(true).format("YYYY-MM-DD")
     console.log(date_active);
-   dispatch(actionSearchBuses(startPoint , endPoint))
+   dispatch(actionSearchBuses(startPoint , endPoint, date_active))
    history.push('/products')
   }
   useEffect(() => {
@@ -65,7 +65,7 @@ const SearchCars = () => {
             </div>
             <div className="tw-w-full">
               Chọn ngày đi
-              <DatePicker className="tw-w-full tw-py-2 tw-border-[1px] tw-rounded-sm tw-border-green-600 tw-font-bold tw-h-[47px] tw-pl-[10px]" dateFormat="yyyy-MM-dd" selected={startDate} onChange={handleChangeStartTime}/>
+              <DatePicker className="tw-w-full tw-py-2 tw-border-[1px] tw-rounded-sm tw-border-green-600 tw-font-bold tw-h-[47px] tw-pl-[10px]" dateFormat="yyyy-MM-dd" selected={startDate} onChange={handleChangeStartTime} minDate={TODAY}/>
             </div>
           </div>
           <button
