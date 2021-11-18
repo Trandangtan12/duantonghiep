@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Menu, Transition } from '@headlessui/react'
 import { useHistory } from 'react-router';
 const UserMenu = () => {
-  const account = JSON.parse(localStorage.getItem('user'))
+  const account = localStorage.getItem('user') !== undefined ?  JSON.parse(localStorage.getItem('user')) : null
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const history = useHistory()
   return (
@@ -13,7 +13,7 @@ const UserMenu = () => {
       <div>
         <Menu.Button className="tw-inline-flex tw-justify-center tw-w-full tw-rounded-md tw-border tw-border-gray-300 tw-shadow-sm tw-px-4 tw-py-2 tw-bg-white tw-text-sm tw-font-medium tw-text-green-700">
         <FontAwesomeIcon icon={faUser} size="lg" color="" className={'tw-text-green-600 tw-mr-4'}/>
-        <p>{account.user.name}</p>
+        <p>{localStorage.getItem('user') !== undefined ? account?.user?.name : ''}</p>
         </Menu.Button>
       </div>
       <Transition
