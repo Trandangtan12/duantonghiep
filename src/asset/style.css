@@ -825,6 +825,11 @@ video {
   margin-right: 1.5rem;
 }
 
+.tw-my-6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
 .tw-my-auto {
   margin-top: auto;
   margin-bottom: auto;
@@ -1065,10 +1070,6 @@ video {
 .tw-h-\[max-content\] {
   height: -webkit-max-content;
   height: max-content;
-}
-
-.tw-h-24 {
-  height: 6rem;
 }
 
 .tw-h-auto {
@@ -1472,12 +1473,12 @@ video {
   border-bottom-width: 1px;
 }
 
-.tw-border-t {
-  border-top-width: 1px;
-}
-
 .tw-border-b-2 {
   border-bottom-width: 2px;
+}
+
+.tw-border-t {
+  border-top-width: 1px;
 }
 
 .tw-border-dashed {
@@ -1526,11 +1527,6 @@ video {
 .tw-border-black {
   --tw-border-opacity: 1;
   border-color: rgba(0, 0, 0, var(--tw-border-opacity));
-}
-
-.tw-border-gray-400 {
-  --tw-border-opacity: 1;
-  border-color: rgba(148, 163, 184, var(--tw-border-opacity));
 }
 
 .tw-bg-\[\#f4f5f4\] {
@@ -2433,23 +2429,13 @@ video {
   text-decoration: none;
 }
 
-.hover\:tw-shadow-md:hover {
-  --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.hover\:tw-shadow-lg:hover {
-  --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.01);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.hover\:tw-shadow-xl:hover {
-  --tw-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .hover\:tw-shadow-2xl:hover {
   --tw-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.hover\:tw-shadow-md:hover {
+  --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
