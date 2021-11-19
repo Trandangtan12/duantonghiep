@@ -1,21 +1,16 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { actionGetBuses } from '../../../redux/actions/buses';
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircle
 } from "@fortawesome/fontawesome-free-solid";
 import { Link } from 'react-router-dom';
 
-const ProductList = () => {
-  const dispatch = useDispatch();
-  const { availableSearch } = useSelector(state => state.buses);
-  useEffect(() => {
-    dispatch(actionGetBuses())
-  }, [])
+const ProductList = ({products, price}) => {
+  
   return (
     <div className="tw-flex-grow tw-w-full">
-      {availableSearch.map((item) =>{ 
+      {products.filter(item => item.price >= price.value.min && item.price <= price.value.max).map((item) =>{ 
         return (
         <div className="tw-rounded-lg tw-bg-white tw-p-3 tw-mb-3">
           <div className="tw-flex">
@@ -24,7 +19,7 @@ const ProductList = () => {
               <div className="tw-mb-3 tw-flex tw-justify-bet">
                 <div>
                 <h3 className="tw-font-bold">{item.name}</h3>
-                <p className="tw-text-sm tw-text-gray-500">{item.seats} ghế</p>
+                <p className="tw-text-sm tw-text-gray-500">{item.seat} ghế</p>
               </div>
               </div>
               <div>
@@ -57,8 +52,9 @@ const ProductList = () => {
                 </div>
               </div>
               <div>
-              <Link to={`product/${item.id}`}>Chi tiết</Link>
+              <Link to={`/productdetail/${item.id}`}>Chi tiết</Link>
               </div>
+              <div>{new Intl.NumberFormat('vi', {  currency: 'VND', style: 'currency',}).format(item.price)}</div>
             </div>
           </div>
         </div>

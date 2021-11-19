@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import { BusesService } from "../../../service/productService";
+import { UserApi } from "../../../service/userService";
 const ModalStyled = styled.div`
 `
 export const InputNumberStyle = styled.div`
@@ -13,7 +14,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 `
 const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
-  // const {user} = useSelector(state => state.auth)
+  const {user} = UserApi.isAuthenticated()
   const {
     register,
     handleSubmit,
@@ -24,7 +25,11 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   }
   const [qty, setQty] = useState(1)
   const Increase = () => {
+    if(qty >= product.seat) {
+
+    }else {
     setQty(qty + 1)
+    }
   }
   const Decrease = () => {
     if (qty <= 1) {
@@ -96,6 +101,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                   Thông tin thanh toán
                 </Dialog.Title>
                 <form className="tw-w-full tw-max-w-lg" onSubmit={handleSubmit(handlePayTicket)}>
+                  <input type="hidden" {...register("user_id")} defaultValue={user == null ? "" : user.id} />
                   <input type="hidden" {...register("buses_id")} defaultValue={product.id} />
                   <input type="hidden" {...register("status")} defaultValue="WAITING_ACTIVE" />
                   <div className="tw-flex tw-flex-wrap tw-mb-3">
@@ -110,7 +116,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                         className="tw-appearance-none tw-block tw-w-full tw-bg-gray-200 tw-text-gray-700 tw-border tw-rounded tw-py-3 tw-px-4 tw-leading-tight focus:tw-outline-none focus:tw-bg-white"
                         id="grid-first-name"
                         type="text"
-                        // defaultValue={user.name}
+                        defaultValue={user == null ? "" : user.name}
                         placeholder="Tên hành khách"
                         {...register('customer_name', { required: true })}
 
@@ -133,7 +139,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                         id="grid-first-name"
                         type="text"
                         placeholder="Nhập email"
-                        // defaultValue={user.email}
+                        defaultValue={user == null ? "" : user.email}
                         {...register('email', {
                           required: ("Bạn chưa điền email!!!"), pattern: {
                             value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -159,6 +165,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                           className="tw-appearance-none tw-block tw-w-full tw-bg-gray-200 tw-text-gray-700 tw-border tw-border-gray-200 tw-rounded tw-py-3 tw-px-4 tw-leading-tight focus:tw-outline-none focus:tw-bg-white focus:tw-border-gray-500"
                           id="grid-last-name"
                           type="text"
+                          defaultValue={user == null ? "" : user.phone_number}
                           placeholder="Số điện thoại"
                           {...register('phone_number', {
                             required: ("Bạn chưa điền số điện thoại!!!"), pattern: {
@@ -227,7 +234,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                   </div>
                   <div className="tw-flex tw-justify-between tw-align-middle tw-mt-2">
                     <div className="tw-text-xl">Tổng tiền</div>
-                    <div>{totalPrice}đ</div>
+                    <div> {new Intl.NumberFormat('vi', {  currency: 'VND', style: 'currency',}).format(totalPrice)}</div>
                   </div>
                   <button type="submit" className="tw-w-full tw-mt-2 tw-bg-green-500 tw-p-3 tw-rounded-md tw-text-white">Xác nhận</button>
                 </form>

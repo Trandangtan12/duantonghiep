@@ -54,7 +54,7 @@ const ProductDetail = () => {
                     <div>
                       <h3 className="tw-font-bold">{product.name}</h3>
                       <p className="tw-text-sm tw-text-gray-500">
-                        {product.seats} ghế
+                        {product.seat} ghế
                       </p>
                     </div>
                   </div>
@@ -71,7 +71,7 @@ const ProductDetail = () => {
                 <h1 className="tw-font-bold tw-text-xl">Tổng thanh toán</h1>
                 <div>
                   <span className="tw-font-bold tw-text-xl">
-                    {product.price}đ
+                  {new Intl.NumberFormat('vi', {  currency: 'VND', style: 'currency',}).format(product.price)}
                   </span>
                 </div>
               </div>
