@@ -1,107 +1,206 @@
 import React, { useEffect } from "react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import Chart from "../../../compornent/admin/chart";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { actionGetBuses } from "../../../redux/actions/buses";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBus, faCar, faHandshake, faTicketAlt } from "@fortawesome/fontawesome-free-solid";
+import { useDispatch, useSelector } from "react-redux";
+import { numberWithCommas } from "../../../config";
+import {
+  actionGetAllBusesTypes,
+  actionGetBuses,
+  actionGetService,
+  actionGetTicket
+} from "../../../redux/actions/buses";
+import { actionGetAllUsers } from "../../../redux/actions/user";
+import Money from '../../../asset/images/money.png'
+import User from '../../../asset/images/group.png'
+import Ticket from '../../../asset/images/tickets.png'
+import Buses from '../../../asset/images/tour-bus.png'
+import PaymentNotSuccess from '../../../asset/images/declined.png'
+import PaymentFail from '../../../asset/images/fail.png'
+import Succes from '../../../asset/images/payment.png'
 const DashBoard = () => {
+  const { avaibleUsers } = useSelector((state) => state.auth);
   const { availableOrder } = useSelector((state) => state.buses);
+  const { availableBuses } = useSelector((state) => state.buses);
+  const reducer = (previousValue, currentValue) =>
+    previousValue + currentValue.totalPrice;
+  const totalPrice = availableOrder.reduce(reducer, 0);
+  const filterTicketPaymentSuccess = availableOrder.filter((_elt) => {
+    return _elt.status === "ACTIVED";
+  });
+  const filterTicketRejected = availableOrder.filter((_elt) => {
+    return _elt.status === "REJECTED";
+  });
+  const filterTicketWaiting = availableOrder.filter((_elt) => {
+    return _elt.status === "WAITING_ACTIVE";
+  });
   const dispatch = useDispatch();
   useEffect(() => {
-
+    dispatch(actionGetBuses());
+    dispatch(actionGetService());
+    dispatch(actionGetAllBusesTypes());
+    dispatch(actionGetTicket());
+    dispatch(actionGetAllUsers());
   }, []);
   return (
     <div>
-      <div className="container tw-my-12 tw-mx-auto tw-px-4 md:tw-px-12">
-        <div className="tw-flex tw-flex-wrap tw--mx-1 lg:tw--mx-4">
-          {/* Column */}
-          <div className="tw-my-1 tw-px-1 tw-w-full md:tw-w-1/2 lg:tw-my-4 lg:tw-px-4 lg:tw-w-1/4">
-            {/* Article */}
-            <article className="tw-overflow-hidden tw-rounded-lg tw-shadow-lg">
-              <div className="tw-text-center">
-              <FontAwesomeIcon icon={faBus} className={"tw-text-[5rem] "} />
+      <div className="tw-flex tw-flex-wrap tw-justify-center">
+        <div className="tw-w-full md:tw-w-1/2 xl:tw-w-1/3 tw-p-3">
+          {/*Metric Card*/}
+          <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
+            <div className="tw-flex tw-flex-row tw-items-center">
+              <div className="tw-flex-shrink tw-pr-4">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-green-600">
+                  <img src={Money} width="50" />
+                </div>
               </div>
-              <header className="tw-flex tw-items-center tw-justify-between tw-leading-tight tw-p-2 md:tw-p-4">
-                <h1 className="tw-text-lg">
-                  <div
-                    className="tw-text-green-600 tw-cursor-pointer"
-                   
-                  >
-                    Chuyến xe
-                  </div>
-                </h1>
-                <p className="text-grey-darker tw-text-sm">20</p>
-              </header>
-            </article>
-            {/* END Article */}
-          </div>
-          <div className="tw-my-1 tw-px-1 tw-w-full md:tw-w-1/2 lg:tw-my-4 lg:tw-px-4 lg:tw-w-1/4">
-            {/* Article */}
-            <article className="tw-overflow-hidden tw-rounded-lg tw-shadow-lg">
-              <div className="tw-text-center">
-              <FontAwesomeIcon icon={faHandshake} className={"tw-text-[5rem] "} />
+              <div className="tw-flex-1 tw-text-right md:tw-text-center">
+                <h5 className="tw-font-bold tw-uppercase tw-text-white">
+                  Tổng số tiền đã giao dich
+                </h5>
+                <h3 className="tw-font-bold tw-text-3xl tw-text-white">
+                  {numberWithCommas(totalPrice)} Vnđ
+                  <span className="tw-text-green-500">
+                    <i className="fas fa-caret-up" />
+                  </span>
+                </h3>
               </div>
-              <header className="tw-flex tw-items-center tw-justify-between tw-leading-tight tw-p-2 md:tw-p-4">
-                <h1 className="tw-text-lg">
-                  <div
-                    className="tw-text-green-600 tw-cursor-pointer"
-                   
-                  >
-                    Dịch vụ
-                  </div>
-                </h1>
-                <p className="text-grey-darker tw-text-sm">20</p>
-              </header>
-            </article>
-            {/* END Article */}
+            </div>
           </div>
-          {/* END Column */}
-          {/* Column */}
-          <div className="tw-my-1 tw-px-1 tw-w-full md:tw-w-1/2 lg:tw-my-4 lg:tw-px-4 lg:tw-w-1/4">
-            {/* Article */}
-            <article className="tw-overflow-hidden tw-rounded-lg tw-shadow-lg">
-              <div className="tw-text-center">
-              <FontAwesomeIcon icon={faCar} className={"tw-text-[5rem] "} />
+          {/*/Metric Card*/}
+        </div>
+        <div className="tw-w-full md:tw-w-1/2 xl:tw-w-1/3 tw-p-3">
+          {/*Metric Card*/}
+          <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
+            <div className="tw-flex tw-flex-row tw-items-center">
+              <div className="tw-flex-shrink tw-pr-4">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-pink-600">
+                <img src={User} width="50" />
+                </div>
               </div>
-              <header className="tw-flex tw-items-center tw-justify-between tw-leading-tight tw-p-2 md:tw-p-4">
-                <h1 className="tw-text-lg">
-                  <div
-                    className="tw-text-green-600 tw-cursor-pointer"
-                   
-                  >
-                    Loại xe
-                  </div>
-                </h1>
-                <p className="text-grey-darker tw-text-sm">20</p>
-              </header>
-            </article>
-            {/* END Article */}
-          </div>
-          <div className="tw-my-1 tw-px-1 tw-w-full md:tw-w-1/2 lg:tw-my-4 lg:tw-px-4 lg:tw-w-1/4">
-            {/* Article */}
-            <article className="tw-overflow-hidden tw-rounded-lg tw-shadow-lg">
-              <div className="tw-text-center">
-              <FontAwesomeIcon icon={faTicketAlt} className={"tw-text-[5rem] "} />
+              <div className="tw-flex-1 tw-text-right md:tw-text-center">
+                <h5 className="tw-font-bold tw-uppercase tw-text-white">
+                  Tổng số tài khoản
+                </h5>
+                <h3 className="tw-font-bold tw-text-3xl tw-text-white">
+                  {avaibleUsers.length} Tài khoản
+                  <span className="tw-text-pink-500">
+                    <i className="fas fa-exchange-alt" />
+                  </span>
+                </h3>
               </div>
-              <header className="tw-flex tw-items-center tw-justify-between tw-leading-tight tw-p-2 md:tw-p-4">
-                <h1 className="tw-text-lg">
-                  <div
-                    className="tw-text-green-600 tw-cursor-pointer"
-                   
-                  >
-                    Vé xe
-                  </div>
-                </h1>
-                <p className="text-grey-darker tw-text-sm">20</p>
-              </header>
-            </article>
-            {/* END Article */}
+            </div>
           </div>
+          {/*/Metric Card*/}
+        </div>
+        <div className="tw-w-full md:tw-w-1/2 xl:tw-w-1/3 tw-p-3">
+          {/*Metric Card*/}
+          <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
+            <div className="tw-flex tw-flex-row tw-items-center">
+              <div className="tw-flex-shrink tw-pr-4">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-yellow-600">
+                <img src={Buses} width="50"/>
+                </div>
+              </div>
+              <div className="tw-flex-1 tw-text-right md:tw-text-center">
+                <h5 className="tw-font-bold tw-uppercase tw-text-white">
+                  Tổng số chuyến xe
+                </h5>
+                <h3 className="tw-font-bold tw-text-3xl tw-text-white">
+                  {availableBuses.length} Chuyến
+                  <span className="tw-text-yellow-600">
+                    <i className="fas fa-caret-up" />
+                  </span>
+                </h3>
+              </div>
+            </div>
+          </div>
+          {/*/Metric Card*/}
+        </div>
+        <div className="tw-w-full md:tw-w-1/2 xl:tw-w-1/3 tw-p-3">
+          {/*Metric Card*/}
+          <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
+            <div className="tw-flex tw-flex-row tw-items-center">
+              <div className="tw-flex-shrink tw-pr-4">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-blue-600">
+                  <img src={Ticket} width="50"/>
+                </div>
+              </div>
+              <div className="tw-flex-1 tw-text-right md:tw-text-center">
+                <h5 className="tw-font-bold tw-uppercase tw-text-white">
+                  Tổng số vé
+                </h5>
+                <h3 className="tw-font-bold tw-text-3xl tw-text-white">
+                  {availableOrder.length} Vé
+                </h3>
+              </div>
+            </div>
+          </div>
+          {/*/Metric Card*/}
+        </div>
+        <div className="tw-w-full md:tw-w-1/2 xl:tw-w-1/3 tw-p-3">
+          {/*Metric Card*/}
+          <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
+            <div className="tw-flex tw-flex-row tw-items-center">
+              <div className="tw-flex-shrink tw-pr-4">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-indigo-600">
+                <img src={Succes} width="50"/>
+                </div>
+              </div>
+              <div className="tw-flex-1 tw-text-right md:tw-text-center">
+                <h5 className="tw-font-bold tw-uppercase tw-text-white">
+                  Số vé đã thanh toán
+                </h5>
+                <h3 className="tw-font-bold tw-text-3xl tw-text-white">
+                  {filterTicketPaymentSuccess.length} Vé
+                </h3>
+              </div>
+            </div>
+          </div>
+          {/*/Metric Card*/}
+        </div><div className="tw-w-full md:tw-w-1/2 xl:tw-w-1/3 tw-p-3">
+          {/*Metric Card*/}
+          <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
+            <div className="tw-flex tw-flex-row tw-items-center">
+              <div className="tw-flex-shrink tw-pr-4">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-indigo-600">
+                <img src={PaymentNotSuccess} width="50"/>
+                </div>
+              </div>
+              <div className="tw-flex-1 tw-text-right md:tw-text-center">
+                <h5 className="tw-font-bold tw-uppercase tw-text-white">
+                  Số vé chưa thanh toán
+                </h5>
+                <h3 className="tw-font-bold tw-text-3xl tw-text-white">
+                  {filterTicketWaiting.length} Vé
+                </h3>
+              </div>
+            </div>
+          </div>
+          {/*/Metric Card*/}
+        </div>
+        <div className="tw-w-full md:tw-w-1/2 xl:tw-w-1/3 tw-p-3">
+          {/*Metric Card*/}
+          <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
+            <div className="tw-flex tw-flex-row tw-items-center">
+              <div className="tw-flex-shrink tw-pr-4">
+                <div className="tw-rounded-lg tw-p-3">
+                <img src={PaymentFail} width="50"/>
+                </div>
+              </div>
+              <div className="tw-flex-1 tw-text-right md:tw-text-center">
+                <h5 className="tw-font-bold tw-uppercase tw-text-white">
+                  Số vé đã huỷ
+                </h5>
+                <h3 className="tw-font-bold tw-text-3xl tw-text-white">
+                  {filterTicketRejected.length} Vé
+                  <span className="tw-text-red-500">
+                    <i className="fas fa-caret-up" />
+                  </span>
+                </h3>
+              </div>
+            </div>
+          </div>
+          {/*/Metric Card*/}
         </div>
       </div>
-      <Chart />
     </div>
   );
 };

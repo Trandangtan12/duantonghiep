@@ -59,27 +59,8 @@ const ServiceCarPage = () => {
       },
     },
     {
-      Header: "Hình ảnh",
-      accessor: "image",
-      show: true,
-      maxHeight: 500,
-      Cell: ({ original }) => {
-        return (
-          <div className="tw-flex tw-justify-center">
-            <img src={original.image} height="10" width="50" />
-          </div>
-        );
-      },
-    },
-    {
       Header: "Tên chuyên xe",
       accessor: "name",
-      show: true,
-    },
-    {
-      Header: "Ghi chú",
-      accessor: "description",
-      maxHeight: 500,
       show: true,
     },
     {

@@ -186,12 +186,12 @@ const Order = () => {
         const isActiveTicket = original.status === ACTIVED
        return <div>
           <div>
-            <span onClick={()=>handleRejectTicket(original.id)}>
+            <span onClick={()=>handleRejectTicket(original.id)} className="tw-cursor-pointer">
               <FontAwesomeIcon icon={faTimes} color="red" />
             </span>
             <span className="tw-ml-2">
             {
-              isActiveTicket ? null : <span  onClick={()=>handleApprovalTicket(original.id)}>
+              isActiveTicket ? null : <span  onClick={()=>handleApprovalTicket(original.id)} className="tw-cursor-pointer">
                 <FontAwesomeIcon icon={faMoneyCheck} color="green" />
               </span>
             }

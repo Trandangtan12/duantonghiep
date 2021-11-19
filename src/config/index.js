@@ -26,6 +26,9 @@ export const API_PAYMENT = "/payment"
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0
 }
+export const numberWithCommas = (number) =>{
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 const { faChartArea, faCar, faBus  , faCertificate, faNewspaper, faStar ,faHome, faTicketAlt, faPercent, faAddressCard, faPhone , faHandshake , faUserAlt , faSignOutAlt , faUser , faBroadcastTower  } = icon
 const { faAddressBook } = iconRegular

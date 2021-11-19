@@ -46,12 +46,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   const handlePayTicket = async (data) => {
     const ticket = { ...data, quantity: qty, totalPrice: totalPrice }
     try {
-      if(currentRadioValue === "moneyReal") {
-      const resTicket = await BusesService.addTicket(ticket)
-      if (resTicket.status === 201 || resTicket.status === 200) {
-        localStorage.setItem('ticket', JSON.stringify(resTicket.data))
-      }
-    }else {
       const resTicket = await BusesService.addTicket(ticket)
       if (resTicket.status === 201 || resTicket.status === 200) {
         localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -60,7 +54,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
       if (res.data.message === "success") {
         window.location.href = res.data.data
       }
-    }
       setIsOpenModal(false);
     } catch (error) {
       console.log(error.response.data.message);

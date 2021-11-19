@@ -78,12 +78,6 @@ const NewBuses = () => {
       });
     });
   };
-  const handleChangeDescriptionImage = (e) => {
-    for (var i = 0; i < e.target.files.length; i++) {
-      var imageFile = e.target.files[i];
-      handleUploadImageToFirebase(imageFile);
-    }
-  };
   const {
     register,
     handleSubmit,
@@ -107,7 +101,9 @@ const NewBuses = () => {
       setdistrictValue(districtFilter);
     }
   };
-  const onChangeWard = async (id) => {
+  const onChangeWard = async (original , pointName, pointId ,id) => {
+    setValue(pointId, original.value);
+    setValue(pointName, original.label);
     const wardRes = await ProvinceService.getWard(id);
     if (wardRes.status === 200) {
       const wardFilter = wardRes.data.wards.map((ward) => {
@@ -119,6 +115,10 @@ const NewBuses = () => {
       setWardValue(wardFilter);
     }
   };
+  const handleChangeDistrict = (pointId , pointName , original) =>{
+    setValue(pointId, original.value);
+    setValue(pointName, original.label);
+  }
   const handleSubmitForm = (data) => {
     alertify.confirm("Thêm chuyến xe", async function () {
       const newBuses = {
@@ -343,19 +343,24 @@ const NewBuses = () => {
                     provinceFilter={provinceFilter}
                     onChangeCity={onChangeCity}
                     onChangeWard={onChangeWard}
+                    onChangeDistrict={handleChangeDistrict}
                     setdistrictValue={setdistrictValue}
                     districtValue={districtValue}
                     wardValue={wardValue}
                     register={register}
                     pointName={"startPointName"}
                     pointId={"startPointId"}
+                    pointDistrictId={"startDisrict_id"}
+                    pointDistrictName={"startDistrict_name"}
+                    pointWardId={"startWard_id"}
+                    pointWardName={"startWard_name"}
                     title="Điểm đi"
-                    // register={register}
                   />
                   <LocationSelect
                     provinceFilter={provinceFilter}
                     onChangeCity={onChangeCity}
                     onChangeWard={onChangeWard}
+                    onChangeDistrict={handleChangeDistrict}
                     setdistrictValue={setdistrictValue}
                     districtValue={districtValue}
                     wardValue={wardValue}
@@ -363,6 +368,10 @@ const NewBuses = () => {
                     title="Điểm đến"
                     pointName={"endPointName"}
                     pointId={"endPointId"}
+                    pointDistrictId={"endDisrict_id"}
+                    pointDistrictName={"endDistrict_name"}
+                    pointWardId={"endWard_id"}
+                    pointWardName={"endWard_name"}
                   />
                   <TextArea
                     title="Ghi chú"
