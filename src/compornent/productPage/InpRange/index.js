@@ -1,31 +1,36 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import InputRange from 'react-input-range';
 import "react-input-range/lib/css/index.css";
 
 import "./style.css";
- 
-const InpRange = () => {
-  const [state, setState] = useState({ value: {min: 0, max: 10} })
-    return (
+
+const InpRange = (props) => {
+  const { max, min, step, value } = props.data
+  const onChange = (range) => {
+    props.onChange({
+      value: range
+    })
+  }
+  return (
+    <div>
       <div>
-      <div>
-      <InputRange
-        formatLabel={value => null}
-        draggableTrack={false}
-        allowSameValues={false}
-        maxValue={10}
-        minValue={0}
-        value={state.value}
-        onChange={value => setState({ value })}
-        onChangeComplete={args => console.log(args)}
-      />
+        <InputRange
+          formatLabel={value => null}
+          draggableTrack={false}
+          allowSameValues={false}
+          minValue={min}
+          maxValue={max}
+          step={step}
+          onChange={onChange}
+          value={value}
+        />
+      </div>
+      <div className="tw-flex tw-justify-between tw-mt-1">
+        <div className="tw-text-sm">{`${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(value.min)}`}</div>
+        <div className="tw-text-sm">{`${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(value.max)}`}</div>
+      </div>
     </div>
-    <div className="tw-flex tw-justify-between tw-mt-1">
-      <div className="tw-text-sm">{`${state.value.min} đ`}</div>
-      <div className="tw-text-sm">{`${state.value.max} đ`}</div>
-    </div>
-    </div>
-    );
+  );
 }
 
 export default InpRange

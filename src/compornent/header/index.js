@@ -10,7 +10,7 @@ import NavMobile from "../navMobile";
 import UserMenuClient from "./UserMenuClient";
 const Header = () => {
   const [navMobileStatus, setNavMobileStatus] = useState(false);
-  
+
   const handleShowMenu = () => {
     if (navMobileStatus) {
       setNavMobileStatus(false);
@@ -21,7 +21,7 @@ const Header = () => {
   return (
     <header
       className="header tw-relative tw-box-border tw-font-sans 
-    tw-z-20 tw-leading-normal tw-rounded-2xl md:tw-rounded-none tw-bg-white
+    tw-z-30 tw-leading-normal tw-rounded-2xl md:tw-rounded-none tw-bg-white
     tw-shadow-md tw-tracking-norma"
     >
       <div className="tw-bg-green-100">
@@ -39,32 +39,12 @@ const Header = () => {
             <div className="tw-hidden md:tw-block tw-w-64">
               <div className="tw-flex tw-items-center tw-justify-end md:tw-justify-between">
                 <div className="tw-text-[#777777] tw-font-bold ">
-                  <FontAwesomeIcon icon={faSuitcase} /> Vé của bạn
+                  <FontAwesomeIcon icon={faSuitcase} /> Vé của tôi
                 </div>
-                {/* {!isLogged && (
-                  <Link
-                  to="/signin"
-                  className="tw-inline-block tw-border-0 md:tw-border tw-border-[#777777] tw-rounded-full tw-py-2 tw-px-1   
-                    md:tw-px-4 tw-font-bold  tw-no-underline tw-text-xs 
-                    md:tw-text-base tw-text-[#777777] hover:tw-bg-green-200 tw-transition tw-duration-500 tw-ease-in-out"
-                >
-                  <FontAwesomeIcon icon={faUser} /> Đăng nhập
-                </Link>
-                )}
-                {isLogged && (
-                  <Link
-                  to="/signin"
-                  onClick={()=> UserApi.signout(() => {setIsLogged(false); history.push("/")})}
-                  className="tw-inline-block tw-border-0 md:tw-border tw-border-[#777777] tw-rounded-full tw-py-2 tw-px-1   
-                    md:tw-px-4 tw-font-bold  tw-no-underline tw-text-xs 
-                    md:tw-text-base tw-text-[#777777] hover:tw-bg-green-200 tw-transition tw-duration-500 tw-ease-in-out"
-                >
-                  <FontAwesomeIcon icon={faUser} /> Đăng xuất
-                </Link>
-                )} */}
 
-                <UserMenuClient/>
-                
+
+                <UserMenuClient />
+
               </div>
             </div>
           </div>
@@ -83,30 +63,7 @@ const Header = () => {
           </div>
 
           <nav id="header">
-            {/* <div
-          id="progress"
-          className="tw-h-1 tw-z-20 tw-top-0"
-          style={{
-            background:
-              "linear-gradient(to right, #4dc0b5 var(--scroll), transparent 0)",
-          }}
-        /> */}
-            {/* <div className=""> */}
-            {/* <div className="tw-block lg:tw-hidden tw-pr-4">
-            <button
-              id="nav-toggle"
-              className="tw-flex tw-items-center tw-px-3 tw-py-2 tw-border tw-rounded tw-text-gray-500 tw-border-gray-600 hover:tw-text-gray-900 hover:tw-border-green-500 tw-appearance-none focus:tw-outline-none"
-              onClick={() => {
-                handleShowMenu();
-              }}
-            >
-              {navMobileStatus ? (
-                <Icon.Close width="10px" />
-              ) : (
-                <Icon.Menu width="10px" />
-              )}
-            </button>
-          </div> */}
+
             <div id="nav-content" className="tw-w-full">
               <ul className="list-reset tw-flex tw-justify-between">
                 {NAV_LINK_LIST.map((item) => (
@@ -139,31 +96,11 @@ const Header = () => {
           <div className="tw-flex tw-items-center tw-justify-between">
             <div className="tw-text-[#777777] tw-font-bold ">
               <Link to="/ticket">
-                <FontAwesomeIcon icon={faSuitcase} /> Vé của bạn
+                <FontAwesomeIcon icon={faSuitcase} /> Vé của tôi
               </Link>
             </div>
-            {/* {!isLogged && (
-                  <Link
-                  to="/signin"
-                  className="tw-inline-block tw-border-0 md:tw-border tw-border-[#777777] tw-rounded-full tw-py-2 tw-px-1   
-                    md:tw-px-4 tw-font-bold  tw-no-underline tw-text-xs 
-                    md:tw-text-base tw-text-[#777777] hover:tw-bg-green-200 tw-transition tw-duration-500 tw-ease-in-out"
-                >
-                  <FontAwesomeIcon icon={faUser} /> Đăng nhập
-                </Link>
-                )}
-                {isLogged && (
-                  <Link
-                  to="/signin"
-                  onClick={()=> UserApi.signout(() => {setIsLogged(false); history.push("/")})}
-                  className="tw-inline-block tw-border-0 md:tw-border tw-border-[#777777] tw-rounded-full tw-py-2 tw-px-1   
-                    md:tw-px-4 tw-font-bold  tw-no-underline tw-text-xs 
-                    md:tw-text-base tw-text-[#777777] hover:tw-bg-green-200 tw-transition tw-duration-500 tw-ease-in-out"
-                >
-                  <FontAwesomeIcon icon={faUser} /> Đăng xuất
-                </Link>
-                )} */}
-                <UserMenuClient/>
+           
+            <UserMenuClient />
           </div>
         </div>
       </div>

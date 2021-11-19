@@ -11,7 +11,7 @@ const UpdateSearch = () => {
     }, []);
     return (
         <div className="tw-bg-green-500">
-        <div className="formTrip tw-relative tw-z-10 tw-flex tw-items-center tw-w-3/4 tw-mx-auto">
+        <div className="formTrip tw-relative tw-z-20 tw-flex tw-items-center tw-w-3/4 tw-mx-auto">
        <div className="tw-flex tw-flex-grow tw tw-items-center tw-h-20 ">
        <div className="tw-w-full tw-mr-2">
            <p className="tw-text-white">Điểm đi</p>
