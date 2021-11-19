@@ -32,8 +32,8 @@ const SearchCars = () => {
   };
   const handleSearch = async () =>{
     const date_active = moment(startDate).utc(true).format("YYYY-MM-DD")
-   dispatch(actionSearchBuses(startPoint , endPoint, date_active))
-   history.push('/products')
+    console.log(date_active);
+   history.push(`/product/start=${startPoint}/and/end=${endPoint}/and/date=${date_active}`)
   }
   useEffect(() => {
     dispatch(actionGetBuses());

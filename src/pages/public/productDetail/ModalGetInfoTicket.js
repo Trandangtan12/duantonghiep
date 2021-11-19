@@ -14,7 +14,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 `
 const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
-  const {user} = UserApi.isAuthenticated()
+  const { user } = UserApi.isAuthenticated()
   const {
     register,
     handleSubmit,
@@ -25,10 +25,10 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   }
   const [qty, setQty] = useState(1)
   const Increase = () => {
-    if(qty >= product.seat) {
+    if (qty >= product.seat) {
 
-    }else {
-    setQty(qty + 1)
+    } else {
+      setQty(qty + 1)
     }
   }
   const Decrease = () => {
@@ -38,16 +38,20 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
       setQty(qty - 1)
     }
   }
+  const [currentRadioValue, setCurrentRadioValue] = useState('moneyReal')
+  const handleRadioChange = (value) => {
+    setCurrentRadioValue(value)
+  }
   const totalPrice = product.price * qty
   const handlePayTicket = async (data) => {
     const ticket = { ...data, quantity: qty, totalPrice: totalPrice }
     try {
-      const res = await BusesService.paymentTicket(totalPrice)
       const resTicket = await BusesService.addTicket(ticket)
       if (resTicket.status === 201 || resTicket.status === 200) {
-        localStorage.setItem('ticket' , JSON.stringify(resTicket.data))
+        localStorage.setItem('ticket', JSON.stringify(resTicket.data))
       }
-      if(res.data.message === "success"){
+      const res = await BusesService.paymentTicket(totalPrice)
+      if (res.data.message === "success") {
         window.location.href = res.data.data
       }
       setIsOpenModal(false);
@@ -232,9 +236,37 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                     </label>
                     <textarea className="tw-appearance-none tw-block tw-w-full tw-bg-gray-200 tw-text-gray-700 tw-border tw-border-gray-200 tw-rounded tw-py-3 tw-px-4 tw-leading-tight focus:tw-outline-none focus:tw-bg-white focus:tw-border-gray-500" rows="5"  {...register('description')}></textarea>
                   </div>
+
+                  <div className="tw-my-6">
+                    <p className="tw-block tw-uppercase tw-tracking-wide tw-text-gray-700 tw-text-xs tw-font-bold tw-mb-2">Chọn phương thức thanh toán</p>
+                    <div className="tw-flex ">
+                      <div className="tw-mr-4">
+                        <input
+                          type="radio"
+                          id="moneyReal"
+                          name="payMoney"
+                          value="moneyReal"
+                          onChange={(e) => setCurrentRadioValue(e.target.value)}
+                          defaultChecked={currentRadioValue === "moneyReal"}/>
+                        <label for="moneyReal">
+                          Thanh toán bằng tiền mặt
+                        </label></div>
+
+                      <div>
+                        <input type="radio" id="moneyOnl" name="payMoney" value="moneyOnl" 
+                        onChange={(e) => setCurrentRadioValue(e.target.value)}
+                        defaultChecked={currentRadioValue === "moneyOnl"}/>
+                        <label for="moneyOnl">
+                          Thanh toán qua VNPAY
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+
                   <div className="tw-flex tw-justify-between tw-align-middle tw-mt-2">
                     <div className="tw-text-xl">Tổng tiền</div>
-                    <div> {new Intl.NumberFormat('vi', {  currency: 'VND', style: 'currency',}).format(totalPrice)}</div>
+                    <div> {new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(totalPrice)}</div>
                   </div>
                   <button type="submit" className="tw-w-full tw-mt-2 tw-bg-green-500 tw-p-3 tw-rounded-md tw-text-white">Xác nhận</button>
                 </form>
