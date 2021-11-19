@@ -9,12 +9,11 @@ const TabList = () => {
   useEffect(() => {
     dispatch(actionGetTicket())
   }, []);
-  // console.log(availableOrder);
   const {user} = UserApi.isAuthenticated()
-  console.log(user.id);
   const listWaiting = availableOrder.filter(item => item.user_id == user.id && item.status == "WAITING_ACTIVE");
   const listActived = availableOrder.filter(item => item.user_id == user.id && item.status == "ACTIVED");
-  const listRejected = availableOrder.filter(item => item.user_id == user.id && item.status == "REJECTED")
+  const listRejected = availableOrder.filter(item => item.user_id == user.id && item.status == "REJECTED");
+  console.log(listWaiting);
   return (
     <div className="tw-w-full sm:tw-px-0 tw-bg-white tw-rounded-lg">
       <Tab.Group>

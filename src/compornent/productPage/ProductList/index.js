@@ -12,7 +12,7 @@ const ProductList = ({ products, price }) => {
     <div className="tw-flex-grow tw-w-full">
       {products.filter(item => item.price >= price.value.min && item.price <= price.value.max).map((item) => {
         return (
-          <div className="tw-rounded-lg tw-bg-white tw-p-3 tw-mb-3">
+          <div className="tw-rounded-lg tw-bg-white tw-p-3 tw-mb-3 hover:tw-shadow-2xl tw-transition  tw-ease-in-out">
             <div className="tw-flex tw-justify-between">
               <div className="tw-flex">
                   <img src={item.image} className="tw-w-44 tw-h-44 tw-object-cover" alt="" />
