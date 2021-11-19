@@ -38,29 +38,32 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
       setQty(qty - 1)
     }
   }
-  const [currentRadioValue, setCurrentRadioValue] = useState('moneyReal')
-  const handleRadioChange = (value) => {
-    setCurrentRadioValue(value)
-  }
+  const [currentRadioValue, setCurrentRadioValue] = useState('OFFLINE')
   const totalPrice = product.price * qty
   const handlePayTicket = async (data) => {
-    const ticket = { ...data, quantity: qty, totalPrice: totalPrice }
+    const ticket = { ...data, quantity: qty, totalPrice: totalPrice, paymentMethod: currentRadioValue }
+    console.log(ticket);
     try {
-      const resTicket = await BusesService.addTicket(ticket)
+      if(currentRadioValue === "OFFLINE") {
+        const resTicket = await BusesService.addTicket(ticket)
       if (resTicket.status === 201 || resTicket.status === 200) {
         localStorage.setItem('ticket', JSON.stringify(resTicket.data))
-      }
+      } 
+      setIsOpenModal(false);
+      }else {
+      
       const res = await BusesService.paymentTicket(totalPrice)
       if (res.data.message === "success") {
         window.location.href = res.data.data
       }
       setIsOpenModal(false);
+    }
     } catch (error) {
       console.log(error.response.data.message);
       setIsOpenModal(true);
     }
-
   }
+
 
   return (
     <ModalStyled className="tw-z-50">
@@ -243,20 +246,20 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                       <div className="tw-mr-4">
                         <input
                           type="radio"
-                          id="moneyReal"
+                          id="OFFLINE"
                           name="payMoney"
-                          value="moneyReal"
+                          value="OFFLINE"
                           onChange={(e) => setCurrentRadioValue(e.target.value)}
-                          defaultChecked={currentRadioValue === "moneyReal"}/>
-                        <label for="moneyReal">
+                          defaultChecked={currentRadioValue === "OFFLINE"}/>
+                        <label for="OFFLINE">
                           Thanh toán bằng tiền mặt
                         </label></div>
 
                       <div>
-                        <input type="radio" id="moneyOnl" name="payMoney" value="moneyOnl" 
+                        <input type="radio" id="ATM" name="payMoney" value="ATM" 
                         onChange={(e) => setCurrentRadioValue(e.target.value)}
-                        defaultChecked={currentRadioValue === "moneyOnl"}/>
-                        <label for="moneyOnl">
+                        defaultChecked={currentRadioValue === "ATM"}/>
+                        <label for="ATM">
                           Thanh toán qua VNPAY
                         </label>
                       </div>
