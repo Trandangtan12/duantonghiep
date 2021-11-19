@@ -76,12 +76,9 @@ export const actionGetTicket =() =>{
             return
         }
         else{
-            const dataFilter = res.data.filter(elt =>{
-                return elt.status === "ACTIVED" || elt.status === "WAITING_ACTIVE"
-            })
             dispatch({
                 type : ACTION_GET_ORDER,
-                payload : dataFilter || []
+                payload : res.data || []
             })
         }
     }
