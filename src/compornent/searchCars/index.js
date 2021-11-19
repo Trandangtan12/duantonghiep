@@ -32,7 +32,6 @@ const SearchCars = () => {
   };
   const handleSearch = async () =>{
     const date_active = moment(startDate).utc(true).format("YYYY-MM-DD")
-    console.log(date_active);
    dispatch(actionSearchBuses(startPoint , endPoint, date_active))
    history.push('/products')
   }

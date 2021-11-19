@@ -1449,6 +1449,38 @@ video {
   border-radius: 50%;
 }
 
+.tw-rounded-\[0\.25rem\] {
+  border-radius: 0.25rem;
+}
+
+.tw-rounded-\[0\.50px\] {
+  border-radius: 0.50px;
+}
+
+.tw-rounded-\[20px\] {
+  border-radius: 20px;
+}
+
+.tw-rounded-\[3px\] {
+  border-radius: 3px;
+}
+
+.tw-rounded-\[4px\] {
+  border-radius: 4px;
+}
+
+.tw-rounded-\[5px\] {
+  border-radius: 5px;
+}
+
+.tw-rounded-\[7px\] {
+  border-radius: 7px;
+}
+
+.tw-rounded-\[6px\] {
+  border-radius: 6px;
+}
+
 .tw-rounded-t-lg {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
@@ -1478,6 +1510,14 @@ video {
 
 .tw-border-2 {
   border-width: 2px;
+}
+
+.tw-border-\[2px\] {
+  border-width: 2px;
+}
+
+.tw-border-\[0\.25rem\] {
+  border-width: 0.25rem;
 }
 
 .tw-border-b {
