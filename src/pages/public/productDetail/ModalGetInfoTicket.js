@@ -44,7 +44,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   }
   const totalPrice = product.price * qty
   const handlePayTicket = async (data) => {
-    const ticket = { ...data, quantity: qty, totalPrice: totalPrice }
+    const ticket = { ...data, quantity: qty, totalPrice: totalPrice , paymentMethod : "ATM" }
     try {
       const resTicket = await BusesService.addTicket(ticket)
       if (resTicket.status === 201 || resTicket.status === 200) {

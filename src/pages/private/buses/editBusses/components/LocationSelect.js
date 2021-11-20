@@ -35,7 +35,6 @@ const LocationSelect = ({
                 }}
                 placeholder={"Thành phố"}
                 defaultValues={cityDefault}
-                // {...register(fieldName)}
               />
             </div>
           </div>
