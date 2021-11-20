@@ -118,7 +118,7 @@ const Order = () => {
         };
       case OFFLINE:
         return {
-          render: <div>ATM</div>,
+          render: <div>Thanh toán tại xe</div>,
         };
       default:
         return null;
@@ -192,8 +192,8 @@ const Order = () => {
       Header: "Phương thức",
       maxWidth: 250,
       show: true,
-      Cell: ({}) => {
-        return;
+      Cell: ({original}) => {
+        return getPaymentMethod(original.paymentMethod).render
       },
     },
     {

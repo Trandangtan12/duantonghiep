@@ -32,7 +32,7 @@ const SearchCars = () => {
   };
   const handleSearch = async () =>{
     if(startPoint === '' || endPoint === ''){
-      alertify.alert('Vui lòng chọn địa điểm') .set({ title: "Thông báo" })
+      alertify.alert('Vui lòng chọn địa điểm').set({ title: "Thông báo" })
       .set("movable", false)
       .set("ok", "Alright!")
       .set("notifier", "position", "top-right");
