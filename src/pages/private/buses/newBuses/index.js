@@ -24,8 +24,9 @@ import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
 import SlideImageDescription from "./components/SlideImageDescription";
-import { initialValues } from "./hookFormConfig";
+import { initialValues, validationSchema } from "./hookFormConfig";
 import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
+import { yupResolver } from "@hookform/resolvers/yup";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
   const [urlImage, setUrlImage] = useState(null);
@@ -85,7 +86,9 @@ const NewBuses = () => {
     setValue,
   } = useForm({
     defaultValues: initialValues,
+    resolver: yupResolver(validationSchema),
   });
+  console.log(errors);
   const onChangeCity = async (pointName, pointId, original) => {
     setValue(pointId, original.value);
     setValue(pointName, original.label);

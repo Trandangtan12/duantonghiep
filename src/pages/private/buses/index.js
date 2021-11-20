@@ -24,6 +24,7 @@ const Buses = () => {
   };
   const { availableBuses } = useSelector((state) => state.buses);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
+  
   const handleDeleteBuses = (id) => {
     alertify
       .confirm("Bạn có chắc chắn muốn xoá sản phẩm ?", async function () {

@@ -8,27 +8,31 @@ import Table from "../../../compornent/admin/table";
 import { IsoStringConvert } from "../../../config";
 import { actionGetTicket } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
-import { ACTIVED, listFilterStatus, REJECTED, WAITING_ACTIVE } from "./utility";
+import {
+  ACTIVED,
+  ATM,
+  listFilterStatus,
+  OFFLINE,
+  REJECTED,
+  WAITING_ACTIVE,
+} from "./utility";
 
 const Order = () => {
-  const history = useHistory()
+  const history = useHistory();
   const { availableOrder } = useSelector((state) => state.buses);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
   const dependencies = [availableOrder.length, dispatchDependency];
   const handleApprovalTicket = (id) => {
     alertify
-      .confirm(
-        "Bạn có chắc chắn muốn thanh toán vé xe ?",
-        async function () {
-          const res = await BusesService.approvalTicket(id);
-          if (res.status === 200) {
-            reloadActiveAPI();
-            alertify.success("Thanh toán thành công !");
-          } else {
-            alertify.warning("Có lỗi xảy ra");
-          }
+      .confirm("Bạn có chắc chắn muốn thanh toán vé xe ?", async function () {
+        const res = await BusesService.approvalTicket(id);
+        if (res.status === 200) {
+          reloadActiveAPI();
+          alertify.success("Thanh toán thành công !");
+        } else {
+          alertify.warning("Có lỗi xảy ra");
         }
-      )
+      })
       .set({ title: "Cập nhật vé xe" })
       .set("movable", false)
       .set("ok", "Alright!")
@@ -36,18 +40,15 @@ const Order = () => {
   };
   const handleRejectTicket = (id) => {
     alertify
-      .confirm(
-        "Bạn có chắc chắn muốn huỷ vé xe ?",
-        async function () {
-          const res = await BusesService.rejectTicket(id);
-          if (res.status === 200 || res.status === 201) {
-            reloadActiveAPI();
-            alertify.success("Hủy vé thành công !");
-          } else {
-            alertify.warning("Có lỗi xảy ra");
-          }
+      .confirm("Bạn có chắc chắn muốn huỷ vé xe ?", async function () {
+        const res = await BusesService.rejectTicket(id);
+        if (res.status === 200 || res.status === 201) {
+          reloadActiveAPI();
+          alertify.success("Hủy vé thành công !");
+        } else {
+          alertify.warning("Có lỗi xảy ra");
         }
-      )
+      })
       .set({ title: "Cập nhật vé xe" })
       .set("movable", false)
       .set("ok", "Alright!")
@@ -105,6 +106,20 @@ const Order = () => {
           render: <div>Huỷ vé</div>,
         };
 
+      default:
+        return null;
+    }
+  };
+  const getPaymentMethod = (method) => {
+    switch (method) {
+      case ATM:
+        return {
+          render: <div>ATM</div>,
+        };
+      case OFFLINE:
+        return {
+          render: <div>ATM</div>,
+        };
       default:
         return null;
     }
@@ -177,28 +192,39 @@ const Order = () => {
       Header: "Phương thức",
       maxWidth: 250,
       show: true,
+      Cell: ({}) => {
+        return;
+      },
     },
     {
       Header: "Hành động",
       maxWidth: 150,
       show: true,
-      Cell : ({original}) =>{
-        const isActiveTicket = original.status === ACTIVED
-       return <div>
+      Cell: ({ original }) => {
+        const isActiveTicket = original.status === ACTIVED;
+        return (
           <div>
-            <span onClick={()=>handleRejectTicket(original.id)} className="tw-cursor-pointer">
-              <FontAwesomeIcon icon={faTimes} color="red" />
-            </span>
-            <span className="tw-ml-2">
-            {
-              isActiveTicket ? null : <span  onClick={()=>handleApprovalTicket(original.id)} className="tw-cursor-pointer">
-                <FontAwesomeIcon icon={faMoneyCheck} color="green" />
+            <div>
+              <span
+                onClick={() => handleRejectTicket(original.id)}
+                className="tw-cursor-pointer"
+              >
+                <FontAwesomeIcon icon={faTimes} color="red" />
               </span>
-            }
-            </span>
+              <span className="tw-ml-2">
+                {isActiveTicket ? null : (
+                  <span
+                    onClick={() => handleApprovalTicket(original.id)}
+                    className="tw-cursor-pointer"
+                  >
+                    <FontAwesomeIcon icon={faMoneyCheck} color="green" />
+                  </span>
+                )}
+              </span>
+            </div>
           </div>
-        </div>
-      }
+        );
+      },
     },
   ]);
   const dispatch = useDispatch();
@@ -212,7 +238,12 @@ const Order = () => {
     <div>
       <div className="tw-flex tw-justify-between">
         <h1 className="tw-text-[2rem] tw-mb-2">Quản lý vé xe</h1>
-        <button className="tw-bg-green-600 tw-rounded-md tw-p-3 tw-mb-4 tw-text-white" onClick={()=>history.push("/admin/order/create")}>Thêm vé xe</button>
+        <button
+          className="tw-bg-green-600 tw-rounded-md tw-p-3 tw-mb-4 tw-text-white"
+          onClick={() => history.push("/admin/order/create")}
+        >
+          Thêm vé xe
+        </button>
       </div>
       <Table
         data={availableOrder}
