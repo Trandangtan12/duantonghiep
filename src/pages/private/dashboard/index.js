@@ -41,13 +41,13 @@ const DashBoard = () => {
   }, []);
   return (
     <div>
-      <div className="tw-flex tw-flex-wrap tw-justify-center">
+      <div className="tw-flex tw-flex-wrap tw-justify-start">
         <div className="tw-w-full md:tw-w-1/2 xl:tw-w-1/3 tw-p-3">
           {/*Metric Card*/}
           <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
             <div className="tw-flex tw-flex-row tw-items-center">
               <div className="tw-flex-shrink tw-pr-4">
-                <div className="tw-rounded-lg tw-p-3 tw-bg-green-600">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-white">
                   <img src={Money} width="50" />
                 </div>
               </div>
@@ -71,7 +71,7 @@ const DashBoard = () => {
           <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
             <div className="tw-flex tw-flex-row tw-items-center">
               <div className="tw-flex-shrink tw-pr-4">
-                <div className="tw-rounded-lg tw-p-3 tw-bg-pink-600">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-white">
                 <img src={User} width="50" />
                 </div>
               </div>
@@ -95,7 +95,7 @@ const DashBoard = () => {
           <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
             <div className="tw-flex tw-flex-row tw-items-center">
               <div className="tw-flex-shrink tw-pr-4">
-                <div className="tw-rounded-lg tw-p-3 tw-bg-yellow-600">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-white">
                 <img src={Buses} width="50"/>
                 </div>
               </div>
@@ -119,7 +119,7 @@ const DashBoard = () => {
           <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
             <div className="tw-flex tw-flex-row tw-items-center">
               <div className="tw-flex-shrink tw-pr-4">
-                <div className="tw-rounded-lg tw-p-3 tw-bg-blue-600">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-white">
                   <img src={Ticket} width="50"/>
                 </div>
               </div>
@@ -140,7 +140,7 @@ const DashBoard = () => {
           <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
             <div className="tw-flex tw-flex-row tw-items-center">
               <div className="tw-flex-shrink tw-pr-4">
-                <div className="tw-rounded-lg tw-p-3 tw-bg-indigo-600">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-white">
                 <img src={Succes} width="50"/>
                 </div>
               </div>
@@ -160,7 +160,7 @@ const DashBoard = () => {
           <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
             <div className="tw-flex tw-flex-row tw-items-center">
               <div className="tw-flex-shrink tw-pr-4">
-                <div className="tw-rounded-lg tw-p-3 tw-bg-indigo-600">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-white">
                 <img src={PaymentNotSuccess} width="50"/>
                 </div>
               </div>
@@ -181,7 +181,7 @@ const DashBoard = () => {
           <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
             <div className="tw-flex tw-flex-row tw-items-center">
               <div className="tw-flex-shrink tw-pr-4">
-                <div className="tw-rounded-lg tw-p-3">
+                <div className="tw-rounded-lg tw-p-3 tw-bg-white">
                 <img src={PaymentFail} width="50"/>
                 </div>
               </div>
