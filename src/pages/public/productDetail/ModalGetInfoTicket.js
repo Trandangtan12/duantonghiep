@@ -38,26 +38,46 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
       setQty(qty - 1)
     }
   }
-  const [currentRadioValue, setCurrentRadioValue] = useState('OFFLINE')
-  const totalPrice = product.price * qty
+  const [currentRadioValue, setCurrentRadioValue] = useState('OFFLINE');
+  const totalPrice = product.price * qty;
+  const seat = product.seat;
+  const [seatEmpty, setSeatEmty] = useState(seat)
+  const handleSeatEmpty = () => {
+    setSeatEmty(seat - 1)
+  }
   const handlePayTicket = async (data) => {
-    const ticket = { ...data, quantity: qty, totalPrice: totalPrice, paymentMethod: currentRadioValue }
-    console.log(ticket);
-    try {
-      if(currentRadioValue === "OFFLINE") {
-        const resTicket = await BusesService.addTicket(ticket)
-      if (resTicket.status === 201 || resTicket.status === 200) {
-        localStorage.setItem('ticket', JSON.stringify(resTicket.data))
-      } 
-      setIsOpenModal(false);
-      }else {
-      
-      const res = await BusesService.paymentTicket(totalPrice)
-      if (res.data.message === "success") {
-        window.location.href = res.data.data
-      }
-      setIsOpenModal(false);
+    const updateDataBuses = {
+      ...product,
+      seat_empty: seatEmpty
     }
+    const ticket = {
+      ...data,
+      quantity: qty,
+      totalPrice: totalPrice,
+      paymentMethod: currentRadioValue,
+    }
+    console.log("Thông tin vé", ticket);
+    try {
+      if (currentRadioValue === "OFFLINE") {
+        const resTicket = await BusesService.addTicket(ticket)
+        if (resTicket.status === 201 || resTicket.status === 200) {
+          localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+        }
+        // if(updateDataBuses.seat_empty <= 0){
+        //   alert("Hết ghế rồi còn đặt :))")
+        // }else {
+        // await BusesService.updateBusses(product.id, updateDataBuses)
+        // console.log(product);
+        // }
+        setIsOpenModal(false);
+      } else {
+
+        const res = await BusesService.paymentTicket(totalPrice)
+        if (res.data.message === "success") {
+          window.location.href = res.data.data
+        }
+        setIsOpenModal(false);
+      }
     } catch (error) {
       console.log(error.response.data.message);
       setIsOpenModal(true);
@@ -250,15 +270,15 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                           name="payMoney"
                           value="OFFLINE"
                           onChange={(e) => setCurrentRadioValue(e.target.value)}
-                          defaultChecked={currentRadioValue === "OFFLINE"}/>
+                          defaultChecked={currentRadioValue === "OFFLINE"} />
                         <label for="OFFLINE">
                           Thanh toán bằng tiền mặt
                         </label></div>
 
                       <div>
-                        <input type="radio" id="ATM" name="payMoney" value="ATM" 
-                        onChange={(e) => setCurrentRadioValue(e.target.value)}
-                        defaultChecked={currentRadioValue === "ATM"}/>
+                        <input type="radio" id="ATM" name="payMoney" value="ATM"
+                          onChange={(e) => setCurrentRadioValue(e.target.value)}
+                          defaultChecked={currentRadioValue === "ATM"} />
                         <label for="ATM">
                           Thanh toán qua VNPAY
                         </label>

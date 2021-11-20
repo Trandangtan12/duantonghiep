@@ -6,11 +6,15 @@ import {
 } from "@fortawesome/fontawesome-free-solid";
 import { Link } from 'react-router-dom';
 
-const ProductList = ({ products, price }) => {
+const ProductList = ({ products, price, qtyFilter }) => {
 
   return (
     <div className="tw-flex-grow tw-w-full">
-      {products.filter(item => item.price >= price.value.min && item.price <= price.value.max).map((item) => {
+      {products.filter(item => 
+      item.price >= price.value.min && 
+      item.price <= price.value.max && 
+      item.seat >= qtyFilter)
+      .map((item) => {
         return (
           <div className="tw-rounded-lg tw-bg-white tw-p-3 tw-mb-3 hover:tw-shadow-2xl tw-transition  tw-ease-in-out">
             <div className="tw-flex tw-justify-between">
