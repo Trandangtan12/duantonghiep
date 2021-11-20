@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useState ,useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import styled from "styled-components";
@@ -13,7 +13,7 @@ input[type=number]::-webkit-outer-spin-button {
 	-webkit-appearance: none;
 }
 `
-const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
+const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product}) => {
   const { user } = UserApi.isAuthenticated()
   const {
     register,
@@ -23,12 +23,16 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   function closeModal() {
     setIsOpenModal(false);
   }
+  const [emp, setEmp] = useState();
+  console.log(emp);
   const [qty, setQty] = useState(1)
+  
   const Increase = () => {
     if (qty >= product.seat) {
 
     } else {
       setQty(qty + 1)
+      setEmp(emp - 1)
     }
   }
   const Decrease = () => {
@@ -40,21 +44,14 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   }
   const [currentRadioValue, setCurrentRadioValue] = useState('OFFLINE');
   const totalPrice = product.price * qty;
-  const seat = product.seat;
-  const [seatEmpty, setSeatEmty] = useState(seat)
-  const handleSeatEmpty = () => {
-    setSeatEmty(seat - 1)
-  }
   const handlePayTicket = async (data) => {
-    const updateDataBuses = {
-      ...product,
-      seat_empty: seatEmpty
-    }
+    console.log(emp);
     const ticket = {
       ...data,
       quantity: qty,
       totalPrice: totalPrice,
       paymentMethod: currentRadioValue,
+      seat_empty : emp
     }
     console.log("Thông tin vé", ticket);
     try {
@@ -83,8 +80,10 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
       setIsOpenModal(true);
     }
   }
-
-
+  useEffect(() => {
+   let seat = Number(product.seat) - 1
+   setEmp(seat);
+  }, [product]);
   return (
     <ModalStyled className="tw-z-50">
       <Transition appear show={isOpen} as={Fragment}>
