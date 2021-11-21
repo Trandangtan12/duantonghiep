@@ -1,21 +1,19 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import alertify from "alertifyjs";
-import { height } from "dom7";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import {Swiper , SwiperSlide} from "swiper/react";
-import 'swiper/swiper-bundle.min.css'
-import 'swiper/swiper.min.css'
+import 'swiper/swiper-bundle.min.css';
+import 'swiper/swiper.min.css';
 import Input from "../../../../compornent/admin/input/Input";
 import DatePickerForm from "../../../../compornent/datePicker";
 import TextArea from "../../../../compornent/textarea";
-import UploadFile from "../../../../compornent/uploadFile";
 import firebase from "../../../../firebase";
 import {
   actionGetAllBusesTypes,
-  actionGetService,
+  actionGetService
 } from "../../../../redux/actions/buses";
 import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
@@ -23,13 +21,11 @@ import { ProvinceService } from "../../../../service/provinceService";
 import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
-import SlideImageDescription from "./components/SlideImageDescription";
 import { initialValues, validationSchema } from "./hookFormConfig";
 import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
-import { yupResolver } from "@hookform/resolvers/yup";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
-  const [urlImage, setUrlImage] = useState(null);
+  const [urlImage, setUrlImage] = useState("https://via.placeholder.com/300.png/09f/fff");
   const [urlImageDescription, setUrlImageDescription] = useState([]);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -77,7 +73,8 @@ const NewBuses = () => {
   } = useForm({
     defaultValues: initialValues,
     resolver: yupResolver(validationSchema),
-    mode: "onBlur"
+    mode: "all",
+    reValidateMode : "onSubmit"
   });
   const onChangeCity = async (pointName, pointId, original) => {
     setValue(pointId, original.value);
@@ -147,7 +144,6 @@ const NewBuses = () => {
     setServiceValues(services);
     setValue("service_id", serviceFilter);
   };
-  console.log(errors);
   useEffect(() => {
     dispatch(actionGetService());
     dispatch(actionGetAllBusesTypes());
@@ -331,6 +327,7 @@ const NewBuses = () => {
                           handleChange={handleChangeService}
                           values={serviceValues}
                           errors={errors}
+                          fieldName={"service_id"}
                         />
                       </div>
                     </div>

@@ -1,3 +1,4 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import alertify from "alertifyjs";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -7,7 +8,6 @@ import { useHistory, useParams } from "react-router";
 import Input from "../../../../compornent/admin/input/Input";
 import DatePickerForm from "../../../../compornent/datePicker";
 import TextArea from "../../../../compornent/textarea";
-import UploadFile from "../../../../compornent/uploadFile";
 import firebase from "../../../../firebase";
 import { actionGetAllBusesTypes, actionGetService } from "../../../../redux/actions/buses";
 import { getAllProvince } from "../../../../redux/actions/province";
@@ -16,9 +16,9 @@ import { ProvinceService } from "../../../../service/provinceService";
 import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
-import { initialValues } from "./hookFormConfig";
-import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
-
+import { InputNumberStyle } from "./utility";
+import {validationSchema} from './hookFormConfig';
+import { data } from "autoprefixer";
 const EditBusses = () => {
   const [fileName, setFileName] = useState("");
   const { id } = useParams();
@@ -29,6 +29,7 @@ const EditBusses = () => {
   const dispatch = useDispatch();
   const {availableService , availableBusesTypes} = useSelector(state => state.buses)
   const [serviceValues, setServiceValues] = useState([]);
+
   const serviceFilter = availableService.map((service) =>{
     return {
       label : service.name,
@@ -55,24 +56,11 @@ const EditBusses = () => {
       label : elt.name
     }
   })
-  const cityFilter = city.filter((elt) =>{
-   return elt.code === infoBusses.startPointId
-  })
-  const cityDefault = cityFilter.map(_elt =>{
-    return {
-      label : _elt.name,
-      value : _elt.code
-    }
-  })
-  const cityEndFilter = city.filter((elt) =>{
-    return elt.code === infoBusses.endPointId
-   })
-   const cityEndDefault = cityEndFilter.map(_elt =>{
-     return {
-       label : _elt.name,
-       value : _elt.code
-     }
-   })
+   const [startCityDefault, setStartCityDefault] = useState();
+    const handleChangeDistrict = (pointId , pointName , original) =>{
+    setValue(pointId, original.value);
+    setValue(pointName, original.label);
+  }
   const [districtValue, setdistrictValue] = useState([]);
   const [wardValue, setWardValue] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
@@ -90,12 +78,6 @@ const EditBusses = () => {
     const file = e.target.files[0];
     handleUploadImageToFirebase(file, setUrlImage);
   };
-  const handleChangeDescriptionImage = (e) => {
-    for (var i = 0; i < e.target.files.length; i++) {
-      var imageFile = e.target.files[i];
-      handleUploadImageToFirebase(imageFile);
-    }
-  };
   const handleChangeStartTime = (date) => {
     const startDateConvert = moment(date).format("YYYY-MM-DD");
     const startTime = moment(date).format('H:mm')
@@ -111,11 +93,12 @@ const EditBusses = () => {
       return service.value;
     });
     setServiceValues(services);
-    setValue("service_id", serviceFilter);
+    setValue("service_id", serviceFilter.length !== 0 ?  serviceFilter : []);
   }
   const onChangeCity = async (pointName, pointId, original) => {
     setValue(pointId, original.value);
     setValue(pointName, original.label);
+    setStartCityDefault(original)
     setdistrictValue([]);
     const districtRes = await ProvinceService.getDistrict(original.value);
     if (districtRes.status === 200) {
@@ -153,7 +136,9 @@ const EditBusses = () => {
     reset,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    // resolver: yupResolver(validationSchema),
+  });
   const handleSubmitForm = (data) => {
     delete data.service
     alertify.confirm("Thêm chuyến xe", async function () {
@@ -171,7 +156,7 @@ const EditBusses = () => {
     dispatch(getAllProvince());
     const getInfoBusses = async () => {
       const res = await BusesService.getInfoBuses(id);
-      if (res) {
+      if (res.status === 200) {
         const serviceFiler = res.data.service.service !== 0 ? res.data.service.map(elt => {
           return {value : elt.id , label : elt.name}
         }) : []
@@ -179,40 +164,62 @@ const EditBusses = () => {
         setUrlImage(res.data.image)
         setServiceValues(serviceFiler)
         reset(res.data)
+        const date = `${res.data.date_active} ${res.data.start_time}`
+        const d = new Date(date)
+        setStartDate(d)
+        // const cityFilter = city.filter((elt) =>{
+        //   return elt.code === res.data.startPointId
+        //  })
+        //  const cityDefault = cityFilter.map(_elt =>{
+        //    return {
+        //      label : _elt.name,
+        //      value : _elt.code
+        //    }
+        //  })
+        //  const cityEndFilter = city.filter((elt) =>{
+        //    return elt.code === infoBusses.endPointId
+        //   })
+        //   const cityEndDefault = cityEndFilter.map(_elt =>{
+        //     return {
+        //       label : _elt.name,
+        //       value : _elt.code
+        //     }
+        //   })
+        //   setStartCityDefault(cityDefault[0])
       }
     };
     getInfoBusses();
   }, []);
   return (
     <>
-    <div>
-      <section className="bg-blueGray-50">
-        <div className="">
-          <div className="tw-relative tw-flex tw-flex-col tw-min-w-0 tw-break-words tw-w-full tw-mb-6 tw-shadow-lg tw-rounded-lg bg-blueGray-100 tw-border-0">
-            <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-px-6 tw-py-6 ">
-              <div className="tw-text-center tw-flex tw-justify-between">
-                <h6 className="text-blueGray-700 tw-text-xl tw-font-bold">
-                  Cập nhật chuyến xe
-                </h6>
-                <button
-                  className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
-                  type="button"
-                  onClick={() => {
-                    history.push("/admin/buses");
-                  }}
-                >
-                  Quay lại
-                </button>
+      <div>
+        <section className="bg-blueGray-50">
+          <div className="">
+            <div className="tw-relative tw-flex tw-flex-col tw-min-w-0 tw-break-words tw-w-full tw-mb-6 tw-shadow-lg tw-rounded-lg bg-blueGray-100 tw-border-0">
+              <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-px-6 tw-py-6 ">
+                <div className="tw-text-center tw-flex tw-justify-between">
+                  <h6 className="text-blueGray-700 tw-text-xl tw-font-bold">
+                   Cập nhật chuyến xe
+                  </h6>
+                  <button
+                    className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
+                    type="button"
+                    onClick={() => {
+                      history.push("/admin/buses");
+                    }}
+                  >
+                    Quay lại
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className=" tw-flex-auto lg:tw-px-3">
-              <form onSubmit={handleSubmit(handleSubmitForm)}>
-              <div className="tw-mb-2 tw-flex tw-justify-between lg:tw-px-3 tw-px-3 tw-gap-2">
+              <div className=" tw-flex-auto lg:tw-px-3">
+                <form onSubmit={handleSubmit(handleSubmitForm)}>
+                  <div className="tw-mb-2 tw-flex tw-justify-between lg:tw-px-3 tw-px-3 tw-gap-2">
                     <div className="tw-w-full tw-flex tw-flex-wrap">
                       <div className="tw-w-full lg:tw-w-4/12">
                         <img
                           src={`${
-                            urlImage !== ""
+                            urlImage !== null
                               ? urlImage
                               : "https://fakeimg.pl/370/"
                           }`}
@@ -351,6 +358,8 @@ const EditBusses = () => {
                           options={serviceFilter}
                           placeholder={"Loại dịch vụ"}
                           handleChange={handleChangeService}
+                          errors={errors}
+                          fieldName={"service_id"}
                           values={serviceValues}
                         />
                       </div>
@@ -360,20 +369,26 @@ const EditBusses = () => {
                     provinceFilter={provinceFilter}
                     onChangeCity={onChangeCity}
                     onChangeWard={onChangeWard}
+                    onChangeDistrict={handleChangeDistrict}
                     setdistrictValue={setdistrictValue}
                     districtValue={districtValue}
                     wardValue={wardValue}
                     register={register}
                     pointName={"startPointName"}
                     pointId={"startPointId"}
+                    pointDistrictId={"startDisrict_id"}
+                    pointDistrictName={"startDistrict_name"}
+                    pointWardId={"startWard_id"}
+                    pointWardName={"startWard_name"}
                     title="Điểm đi"
-                    cityDefault={cityDefault[0]}
-                    // register={register}
+                    errors={errors}
+                    cityDefault={startCityDefault}
                   />
                   <LocationSelect
                     provinceFilter={provinceFilter}
                     onChangeCity={onChangeCity}
                     onChangeWard={onChangeWard}
+                    onChangeDistrict={handleChangeDistrict}
                     setdistrictValue={setdistrictValue}
                     districtValue={districtValue}
                     wardValue={wardValue}
@@ -381,7 +396,12 @@ const EditBusses = () => {
                     title="Điểm đến"
                     pointName={"endPointName"}
                     pointId={"endPointId"}
-                    cityDefault={cityEndDefault[0]}
+                    pointDistrictId={"endDisrict_id"}
+                    pointDistrictName={"endDistrict_name"}
+                    pointWardId={"endWard_id"}
+                    pointWardName={"endWard_name"}
+                    errors={errors}
+                    // cityDefault={cityEndDefault[0]}
                   />
                   <TextArea
                     title="Ghi chú"
@@ -396,18 +416,18 @@ const EditBusses = () => {
                           type="submit"
                           className="sm:tw-w-full md:tw-w-full lg:tw-w-[200px] tw-bg-green-600 tw-transform tw-p-3 tw-text-white tw-text-md hover:tw-bg-gray-800 tw-font-bold tw-rounded-lg"
                         >
-                          Cập nhật
+                          Tạo mới
                         </button>
                       </div>
                     </div>
                   </footer>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
-  </>
+        </section>
+      </div>
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 export let selectErrorStyles = {
     control: (provided, state) => ({
         ...provided,
+        borderWidth: "1px" ,
         borderColor: state.isFocused ? "#51912D !important" : "#ea5455 !important",
     }),
     placeholder: (defaultStyles) => {

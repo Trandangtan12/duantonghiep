@@ -1,14 +1,16 @@
+import alertify from "alertifyjs";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { actionGetBuses, actionSearchBuses } from "../../redux/actions/buses";
+import { actionGetBuses } from "../../redux/actions/buses";
 import { getAllProvince } from "../../redux/actions/province";
 import SelectForm from "../selectForm";
-import alertify from "alertifyjs";
+import Select from 'react-select'
 const SearchCars = () => {
   const TODAY = new Date()
+  console.log(TODAY);
   const [startPoint, setstartPoint] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [endPoint, setEndPoint] = useState('');
@@ -53,20 +55,22 @@ const SearchCars = () => {
           <div className="tw-flex tw-flex-col ">
             <div className="tw-w-full tw-py-2">
               <p className="tw-mb-1 tw-text-gray-400">Điểm đi </p>
-              <SelectForm
+              <Select
                 placeholder="Chọn địa điểm"
                 className="tw-text-black tw-font-bold"
                 options={provinceFilter}
                 onChange={handleChangeStartPoint}
+                fieldName="startPointId"
               />
             </div>
             <div className="tw-w-full tw-py-2">
               <p className="tw-mb-2 tw-text-gray-400">Điểm đến </p>
-              <SelectForm
+              <Select
                 placeholder="Chọn địa điểm"
                 className="tw-text-black tw-font-bold"
                 options={provinceFilter}
                 onChange={handleChangeEndPoint}
+                fieldName="endPointId"
               />
             </div>
             <div className="tw-w-full">

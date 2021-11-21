@@ -3,7 +3,7 @@ import SelectForm from '../selectForm';
 import { actionGetBuses } from "../../redux/actions/buses";
 import { useDispatch, useSelector } from "react-redux";
 import DatePickerProduct from '../datePicker/DatePickerProduct';
-
+import Select from 'react-select'
 const UpdateSearch = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -15,10 +15,10 @@ const UpdateSearch = () => {
        <div className="tw-flex tw-flex-grow tw tw-items-center tw-h-20 ">
        <div className="tw-w-full tw-mr-2">
            <p className="tw-text-white">Điểm đi</p>
-           <SelectForm placeholder="Đi" /></div>
+           <Select placeholder="Đi" /></div>
        <div className="tw-w-full tw-mr-2">
            <p className="tw-text-white">Điếm đến</p>
-           <SelectForm placeholder="Đến" />
+           <Select placeholder="Đến" />
            </div>
        <div>
        <p className="tw-text-white ">Ngày đi</p>
