@@ -39,7 +39,6 @@ const SearchCars = () => {
       return
     }
     const date_active = moment(startDate).utc(true).format("YYYY-MM-DD")
-    console.log(date_active);
    history.push(`/product/start=${startPoint}/and/end=${endPoint}/and/date=${date_active}`)
   }
   useEffect(() => {
