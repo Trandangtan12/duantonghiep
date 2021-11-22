@@ -1,3 +1,4 @@
+import * as Yup from "yup";
 export const initialValues = {
   name: "",
   price: "",
@@ -21,3 +22,17 @@ export const initialValues = {
   endDistrict_name: "",
   seat_empty: 0,
 };
+
+export const validationSchema = Yup.object().shape({
+  name: Yup.string().required(),
+  price: Yup.string().required(),
+  seat: Yup.string().required(),
+  startPointId: Yup.string().required(),
+  endPointId: Yup.string().required(),
+  startWard_id : Yup.string().required(),
+  service_id: Yup.array().required(),
+  startDisrict_id: Yup.string().required(),
+  endWard_id: Yup.string().required(),
+  endDisrict_id: Yup.string().required(),
+  cartype_id: Yup.number().required(),
+});

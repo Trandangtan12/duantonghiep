@@ -15,7 +15,7 @@ const HomePages = () => {
       <div className="homePageBgLight tw-hidden xl:tw-block tw-absolute tw-top-[-37rem] tw-left-[-11.5rem] tw-bg-green-300 
     tw-w-[72rem] tw-h-[60.3rem] tw-rounded-[50%]"> </div>
       <section className="tw-w-3/4 tw-mx-auto tw-mt-5 tw-z-10">
-        <h1 className="tw-text-white tw-font-bold tw-text-xl tw-mb-3">Đặt vé xe</h1>
+        <h1 className="tw-text-white tw-font-bold tw-text-xl tw-mb-3">Tìm kiếm chuyến xe</h1>
         <div className="tw-flex">
          <SearchCars />
           <BannerRow />

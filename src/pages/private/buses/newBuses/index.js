@@ -24,8 +24,9 @@ import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
 import SlideImageDescription from "./components/SlideImageDescription";
-import { initialValues } from "./hookFormConfig";
+import { initialValues, validationSchema } from "./hookFormConfig";
 import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
+import { yupResolver } from "@hookform/resolvers/yup";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
   const [urlImage, setUrlImage] = useState(null);
@@ -58,16 +59,6 @@ const NewBuses = () => {
       label: city.name,
     };
   });
-  const handleUploadImageToFirebase = (file, setUrl) => {
-    let storeRef = firebase.storage().ref(`buses/${file.name}`);
-    storeRef.put(file).then((e) => {
-      storeRef.getDownloadURL().then(async (url, e) => {
-        let image = url;
-        setUrlImageDescription([...urlImageDescription, image]);
-      });
-    });
-  };
-
   const handleChangeImage = (e) => {
     const file = e.target.files[0];
     setFileName(file.name);
@@ -85,6 +76,8 @@ const NewBuses = () => {
     setValue,
   } = useForm({
     defaultValues: initialValues,
+    resolver: yupResolver(validationSchema),
+    mode: "onBlur"
   });
   const onChangeCity = async (pointName, pointId, original) => {
     setValue(pointId, original.value);
@@ -120,6 +113,7 @@ const NewBuses = () => {
     setValue(pointName, original.label);
   }
   const handleSubmitForm = (data) => {
+    data.seat_empty = data.seat
     alertify.confirm("Thêm chuyến xe", async function () {
       const newBuses = {
         ...data , 
@@ -131,7 +125,10 @@ const NewBuses = () => {
         alertify.success("Thêm thành công !");
         history.push("/admin/buses");
       }
-    });
+    }).set({ title: "Thông báo" })
+    .set("movable", false)
+    .set("ok", "Alright!")
+    .set("notifier", "position", "top-right");
   };
   const handleChangeStartTime = (date) => {
     const startDateConvert = moment(date).format("YYYY-MM-DD");
@@ -150,7 +147,7 @@ const NewBuses = () => {
     setServiceValues(services);
     setValue("service_id", serviceFilter);
   };
-
+  console.log(errors);
   useEffect(() => {
     dispatch(actionGetService());
     dispatch(actionGetAllBusesTypes());
@@ -322,7 +319,6 @@ const NewBuses = () => {
                           handleChange={handlechangeTypeCar}
                           errors={errors}                        
                           fieldName={'cartype_id'}
-                          // register={register}
                         />
                       </div>
                     </div>
@@ -334,7 +330,7 @@ const NewBuses = () => {
                           placeholder={"Loại dịch vụ"}
                           handleChange={handleChangeService}
                           values={serviceValues}
-                          // register={register}
+                          errors={errors}
                         />
                       </div>
                     </div>
@@ -355,6 +351,7 @@ const NewBuses = () => {
                     pointWardId={"startWard_id"}
                     pointWardName={"startWard_name"}
                     title="Điểm đi"
+                    errors={errors}
                   />
                   <LocationSelect
                     provinceFilter={provinceFilter}
@@ -372,6 +369,7 @@ const NewBuses = () => {
                     pointDistrictName={"endDistrict_name"}
                     pointWardId={"endWard_id"}
                     pointWardName={"endWard_name"}
+                    errors={errors}
                   />
                   <TextArea
                     title="Ghi chú"

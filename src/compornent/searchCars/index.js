@@ -6,12 +6,12 @@ import { useHistory } from "react-router";
 import { actionGetBuses, actionSearchBuses } from "../../redux/actions/buses";
 import { getAllProvince } from "../../redux/actions/province";
 import SelectFormHome from "../selectForm/selectFormHome";
-
+import alertify from "alertifyjs";
 const SearchCars = () => {
   const TODAY = new Date()
-  const [startPoint, setstartPoint] = useState();
+  const [startPoint, setstartPoint] = useState('');
   const [startDate, setStartDate] = useState(new Date());
-  const [endPoint, setEndPoint] = useState();
+  const [endPoint, setEndPoint] = useState('');
   const dispatch = useDispatch();
   const history = useHistory()
   const { city } = useSelector((state) => state.province);
@@ -30,7 +30,14 @@ const SearchCars = () => {
   const handleChangeEndPoint = (original) => {
     setEndPoint(original.value);
   };
-  const handleSearch = async () => {
+  const handleSearch = async () =>{
+    if(startPoint === '' || endPoint === ''){
+      alertify.alert('Vui lòng chọn địa điểm').set({ title: "Thông báo" })
+      .set("movable", false)
+      .set("ok", "Alright!")
+      .set("notifier", "position", "top-right");
+      return
+    }
     const date_active = moment(startDate).utc(true).format("YYYY-MM-DD")
     console.log(date_active);
     if (startPoint == null || endPoint == null) {

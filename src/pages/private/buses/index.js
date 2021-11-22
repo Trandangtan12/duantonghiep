@@ -12,7 +12,6 @@ import Table from "../../../compornent/admin/table";
 import { IsoStringConvert } from "../../../config";
 import { actionGetBuses } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
-import Modal from "./Modal";
 const TdStyled = styled.td`
 `
 const Buses = () => {
@@ -24,6 +23,7 @@ const Buses = () => {
   };
   const { availableBuses } = useSelector((state) => state.buses);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
+  
   const handleDeleteBuses = (id) => {
     alertify
       .confirm("Bạn có chắc chắn muốn xoá sản phẩm ?", async function () {
@@ -60,6 +60,10 @@ const Buses = () => {
         <tr className="tw-flex tw-flex-wrap tw-mb-4">
           <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Dịch vụ</td>
           <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.service !== null || data.service !== 0 ? data.service.map((elt)=> elt.name).join(", ")  :null}</td>
+        </tr>
+        <tr className="tw-flex tw-flex-wrap tw-mb-4">
+          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Số ghế trống</td>
+          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.seat_empty}</td>
         </tr>
         <tr className="tw-flex tw-flex-wrap tw-mb-4">
           <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ngày tạo</td>
@@ -150,7 +154,6 @@ const Buses = () => {
         </div>
       </div>
       <Table data={availableBuses} columns={columns} ExpandableTable={ExpandableTable}/>
-      <Modal isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} />
     </>
   );
 };
