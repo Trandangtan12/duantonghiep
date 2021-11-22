@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import styled from "styled-components";
@@ -23,12 +23,18 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   function closeModal() {
     setIsOpenModal(false);
   }
+  const [emp, setEmp] = useState();
+  console.log("Ghế trống", emp);
   const [qty, setQty] = useState(1)
+
   const Increase = () => {
-    if (qty >= product.seat) {
+    if (qty >= product.seat_empty) {
 
     } else {
       setQty(qty + 1)
+      if (emp >= 0) {
+        setEmp(emp - 1)
+      }
     }
   }
   const Decrease = () => {
@@ -36,33 +42,57 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
 
     } else {
       setQty(qty - 1)
+      if (product.seat >= emp) {
+        setEmp(emp + 1)
+      }
     }
   }
-  const [currentRadioValue, setCurrentRadioValue] = useState('OFFLINE')
-  const totalPrice = product.price * qty
+  const [currentRadioValue, setCurrentRadioValue] = useState('OFFLINE');
+  const totalPrice = product.price * qty;
   const handlePayTicket = async (data) => {
-    const ticket = { ...data, quantity: qty, totalPrice: totalPrice, paymentMethod: currentRadioValue }
-    console.log(ticket);
-    try {
-      if(currentRadioValue === "OFFLINE") {
-        const resTicket = await BusesService.addTicket(ticket)
-      if (resTicket.status === 201 || resTicket.status === 200) {
-        localStorage.setItem('ticket', JSON.stringify(resTicket.data))
-      } 
-      setIsOpenModal(false);
-      }else {
-      
-      const res = await BusesService.paymentTicket(totalPrice)
-      if (res.data.message === "success") {
-        window.location.href = res.data.data
-      }
-      setIsOpenModal(false);
+    console.log(emp);
+    const ticket = {
+      ...data,
+      quantity: qty,
+      totalPrice: totalPrice,
+      paymentMethod: currentRadioValue,
     }
+    const updateBuses = {
+      ...data,
+      seat_empty: emp
+    }
+    console.log("Thông tin vé", ticket);
+    try {
+      if (currentRadioValue === "OFFLINE") {
+        const resTicket = await BusesService.addTicket(ticket)
+        if (resTicket.status === 201 || resTicket.status === 200) {
+          localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+        }
+        if (emp < 0) {
+          alert("Hết ghế trống!!!")
+        } else {
+          setIsOpenModal(false);
+          console.log("Cập nhật ghế ok")
+          await BusesService.updateBusses(product.id, updateBuses)
+        }
+
+      } else {
+
+        const res = await BusesService.paymentTicket(totalPrice)
+        if (res.data.message === "success") {
+          window.location.href = res.data.data
+        }
+        setIsOpenModal(false);
+      }
     } catch (error) {
       console.log(error.response.data.message);
       setIsOpenModal(true);
     }
   }
+  useEffect(() => {
+    const seat_empty = product.seat_empty - 1
+    setEmp(seat_empty)
+  }, [product])
 
 
   return (
@@ -250,15 +280,15 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                           name="payMoney"
                           value="OFFLINE"
                           onChange={(e) => setCurrentRadioValue(e.target.value)}
-                          defaultChecked={currentRadioValue === "OFFLINE"}/>
+                          defaultChecked={currentRadioValue === "OFFLINE"} />
                         <label for="OFFLINE">
                           Thanh toán bằng tiền mặt
                         </label></div>
 
                       <div>
-                        <input type="radio" id="ATM" name="payMoney" value="ATM" 
-                        onChange={(e) => setCurrentRadioValue(e.target.value)}
-                        defaultChecked={currentRadioValue === "ATM"}/>
+                        <input type="radio" id="ATM" name="payMoney" value="ATM"
+                          onChange={(e) => setCurrentRadioValue(e.target.value)}
+                          defaultChecked={currentRadioValue === "ATM"} />
                         <label for="ATM">
                           Thanh toán qua VNPAY
                         </label>

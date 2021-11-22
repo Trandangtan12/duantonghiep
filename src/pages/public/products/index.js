@@ -21,23 +21,38 @@ const Products = () => {
         step: 1,
         value: {min: 0, max: 2000000}
     })
+    const [qtyFilter, setQtyFilter] = useState(1)
     const onChange = (data) => {
-        setPrice({
-            ...price,
-            value: data.value
-        })
-        console.log(price);
+        setPrice({...price, value: data.value})
     }
+    
     const onRemoveChange = () =>{
         setPrice({...price, value: {min: 0, max: 2000000}})
+        setQtyFilter(1)
+    }
+    const increateQty = () => {
+        setQtyFilter(qtyFilter + 1)
+    } 
+    const decreateQty = () => {
+        if(qtyFilter <= 1) {
+
+        }else {
+            setQtyFilter(qtyFilter - 1)
+        }
     }
     return (
         <div className="">
             <UpdateSearch />
-            <div className="tw-relative tw-z-10 tw-w-3/4 tw-mx-auto tw-mt-5">
+            <div className="tw-relative tw-z-10 tw-w-3/4 tw-mx-auto tw-my-5">
                 <div className="tw-flex">
-                    <SearchFilter data={price} onChange={onChange} onRemoveChange={onRemoveChange}/>
-                    <ProductList products={availableSearch} price={price}/>
+                    <SearchFilter 
+                    data={price} 
+                    onChange={onChange} 
+                    onRemoveChange={onRemoveChange}
+                    qtyFilter={qtyFilter}
+                    onIncreateQty={increateQty}
+                    onDecreateQty={decreateQty}/>
+                    <ProductList products={availableSearch} price={price} qtyFilter={qtyFilter}/>
                 </div>
             </div>
         </div>

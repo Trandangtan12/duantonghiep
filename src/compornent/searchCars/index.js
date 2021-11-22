@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { actionGetBuses, actionSearchBuses } from "../../redux/actions/buses";
 import { getAllProvince } from "../../redux/actions/province";
-import SelectForm from "../selectForm";
+import SelectFormHome from "../selectForm/selectFormHome";
 import alertify from "alertifyjs";
 const SearchCars = () => {
   const TODAY = new Date()
@@ -40,45 +40,49 @@ const SearchCars = () => {
     }
     const date_active = moment(startDate).utc(true).format("YYYY-MM-DD")
     console.log(date_active);
-   history.push(`/product/start=${startPoint}/and/end=${endPoint}/and/date=${date_active}`)
+    if (startPoint == null || endPoint == null) {
+      console.log("Bạn chưa chọn tỉnh thành");
+    } else {
+      history.push(`/product/start=${startPoint}/and/end=${endPoint}/and/date=${date_active}`)
+    }
   }
   useEffect(() => {
     dispatch(actionGetBuses());
     dispatch(getAllProvince());
   }, []);
   return (
-    <div className="tw-bg-white tw-w-full tw-p-5 tw-h-[20rem] tw-rounded-lg tw-shadow-lg tw-mr-5">
+    <div className="tw-bg-white tw-w-full tw-p-5 tw-h-[21rem] tw-rounded-lg tw-shadow-lg tw-mr-5">
       <div className="formTiket tw-relative">
         <div className="formTrip tw-flex tw-flex-col">
           <div className="tw-flex tw-flex-col ">
             <div className="tw-w-full tw-py-2">
               <p className="tw-mb-1 tw-text-gray-400">Điểm đi </p>
-              <SelectForm
+              <SelectFormHome
                 placeholder="Chọn địa điểm"
-                className="tw-text-black tw-font-bold"
+                className="tw-text-black tw-font-bold tw-cursor-text"
                 options={provinceFilter}
                 onChange={handleChangeStartPoint}
               />
             </div>
             <div className="tw-w-full tw-py-2">
               <p className="tw-mb-2 tw-text-gray-400">Điểm đến </p>
-              <SelectForm
+              <SelectFormHome
                 placeholder="Chọn địa điểm"
-                className="tw-text-black tw-font-bold"
+                className="tw-text-black tw-font-bold tw-cursor-text"
                 options={provinceFilter}
                 onChange={handleChangeEndPoint}
               />
             </div>
-            <div className="tw-w-full">
-              Chọn ngày đi
-              <DatePicker className="tw-w-full tw-py-2 tw-border-[1px] tw-rounded-sm tw-border-green-600 tw-font-bold tw-h-[47px] tw-pl-[10px]" dateFormat="yyyy-MM-dd" selected={startDate} onChange={handleChangeStartTime} minDate={TODAY}/>
+            <div className="tw-w-full tw-mt-2">
+              <p className="tw-text-gray-400">Chọn ngày đi</p>
+              <DatePicker className="tw-w-full tw-py-2 tw-border-b-2 tw-rounded-sm tw-border-gray-200 tw-font-bold tw-h-[47px]" dateFormat="yyyy-MM-dd" selected={startDate} onChange={handleChangeStartTime} minDate={TODAY} />
             </div>
           </div>
           <button
-          onClick={handleSearch}
+            onClick={handleSearch}
             className="tw-flex tw-flex-col tw-justify-center tw-ml-2 tw-items-center tw-h-16 tw-bg-red-800 
         tw-text-white tw-text-xl tw-w-40 tw-font-bold tw-shadow-lg tw-absolute tw-translate-x-[-50%] 
-        tw-translate-y-[-50%] tw-bottom-[-8rem] tw-left-[50%] tw-rounded-full"
+        tw-translate-y-[-50%] tw-bottom-[-9rem] tw-left-[50%] tw-rounded-full"
           >
             Tìm xe
           </button>
