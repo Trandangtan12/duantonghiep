@@ -9,7 +9,10 @@ import Input from "../../../../compornent/admin/input/Input";
 import DatePickerForm from "../../../../compornent/datePicker";
 import TextArea from "../../../../compornent/textarea";
 import firebase from "../../../../firebase";
-import { actionGetAllBusesTypes, actionGetService } from "../../../../redux/actions/buses";
+import {
+  actionGetAllBusesTypes,
+  actionGetService,
+} from "../../../../redux/actions/buses";
 import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
 import { ProvinceService } from "../../../../service/provinceService";
@@ -17,7 +20,7 @@ import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
 import { InputNumberStyle } from "./utility";
-import {validationSchema} from './hookFormConfig';
+import { validationSchema } from "./hookFormConfig";
 import { data } from "autoprefixer";
 const EditBusses = () => {
   const [fileName, setFileName] = useState("");
@@ -27,49 +30,52 @@ const EditBusses = () => {
   const { city } = useSelector((state) => state.province);
   const [urlImage, setUrlImage] = useState(null);
   const dispatch = useDispatch();
-  const {availableService , availableBusesTypes} = useSelector(state => state.buses)
+  const { availableService, availableBusesTypes } = useSelector(
+    (state) => state.buses
+  );
   const [serviceValues, setServiceValues] = useState([]);
-
-  const serviceFilter = availableService.map((service) =>{
+  const serviceFilter = availableService.map((service) => {
     return {
-      label : service.name,
-      value : service.id
-    }
-  })
-  const busesTypeFilter = availableBusesTypes.map((type) =>{
+      label: service.name,
+      value: service.id,
+    };
+  });
+  const busesTypeFilter = availableBusesTypes.map((type) => {
     return {
-      label : type.name,
-      value : type.id
+      label: type.name,
+      value: type.id,
+    };
+  });
+  const cartTypeFilter = availableBusesTypes.filter((elt) => {
+    if (elt.id === infoBusses.cartype_id) {
+      return {
+        value: elt.id,
+        label: elt.name,
+      };
     }
-  })
-  const cartTypeFilter = availableBusesTypes.filter((elt)=>{
-     if (elt.id === infoBusses.cartype_id) {
-       return {
-         value : elt.id,
-         label : elt.name
-       }
-     }
-  })
-  const carTypeDefault = cartTypeFilter.map((elt)=>{
+  });
+  const carTypeDefault = cartTypeFilter.map((elt) => {
     return {
-      value : elt.id,
-      label : elt.name
-    }
-  })
-   const [startCityDefault, setStartCityDefault] = useState();
-    const handleChangeDistrict = (pointId , pointName , original) =>{
-    setValue(pointId, original.value);
-    setValue(pointName, original.label);
-  }
+      value: elt.id,
+      label: elt.name,
+    };
+  });
+  const [startCityDefault, setStartCityDefault] = useState([]);
+  const [startDistrictDefault, setStartDistrictDefault] = useState([]);
+  const [startWardDefault, setStartWardDefault] = useState([]);
+  const [endCityDefault, setEndCityDefault] = useState([]);
   const [districtValue, setdistrictValue] = useState([]);
   const [wardValue, setWardValue] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
+  const [endPointCity, setEndPointCity] = useState([]);
+  const [endPointDistricts, setEndPointDistricts] = useState([]);
+  const [endPointWard, setEndPointWard] = useState([]);
   const handleUploadImageToFirebase = (file, setUrl) => {
     let storeRef = firebase.storage().ref(`images/${file.name}`);
     storeRef.put(file).then((e) => {
       storeRef.getDownloadURL().then(async (url, e) => {
         setUrl(url);
-        setValue('image' , url)
+        setValue("image", url);
       });
     });
   };
@@ -80,26 +86,29 @@ const EditBusses = () => {
   };
   const handleChangeStartTime = (date) => {
     const startDateConvert = moment(date).format("YYYY-MM-DD");
-    const startTime = moment(date).format('H:mm')
+    const startTime = moment(date).format("H:mm");
     setStartDate(date);
     setValue("date_active", startDateConvert);
-    setValue('start_time', startTime)
+    setValue("start_time", startTime);
   };
   const handlechangeTypeCar = (type) => {
-    setValue('cartype_id',type.value)
+    setValue("cartype_id", type.value);
   };
-  const handleChangeService = (services) =>{
+  const handleChangeService = (services) => {
     const serviceFilter = services.map((service) => {
       return service.value;
     });
     setServiceValues(services);
-    setValue("service_id", serviceFilter.length !== 0 ?  serviceFilter : []);
-  }
-  const onChangeCity = async (pointName, pointId, original) => {
+    setValue("service_id", serviceFilter.length !== 0 ? serviceFilter : []);
+  };
+  const onChangeCity = async (
+    pointName,
+    pointId,
+    original,
+    setValueOptions
+  ) => {
     setValue(pointId, original.value);
     setValue(pointName, original.label);
-    setStartCityDefault(original)
-    setdistrictValue([]);
     const districtRes = await ProvinceService.getDistrict(original.value);
     if (districtRes.status === 200) {
       const districtFilter = districtRes.data.districts.map((districts) => {
@@ -108,10 +117,18 @@ const EditBusses = () => {
           label: districts.name,
         };
       });
-      setdistrictValue(districtFilter);
+      setValueOptions(districtFilter);
     }
   };
-  const onChangeWard = async (id) => {
+  const onChangeWard = async (
+    original,
+    pointName,
+    pointId,
+    id,
+    setValueOptions
+  ) => {
+    setValue(pointId, original.value);
+    setValue(pointName, original.label);
     const wardRes = await ProvinceService.getWard(id);
     if (wardRes.status === 200) {
       const wardFilter = wardRes.data.wards.map((ward) => {
@@ -120,8 +137,17 @@ const EditBusses = () => {
           label: ward.name,
         };
       });
-      setWardValue(wardFilter);
+      setValueOptions(wardFilter);
     }
+  };
+  const handleChangeDistrict = (
+    pointId,
+    pointName,
+    original,
+    setValueOptions
+  ) => {
+    setValue(pointId, original.value);
+    setValue(pointName, original.label);
   };
   const provinceFilter = city.map((city) => {
     return {
@@ -129,7 +155,12 @@ const EditBusses = () => {
       label: city.name,
     };
   });
-
+  const provinceEndFilter = endPointCity.map((city) => {
+    return {
+      value: city.code,
+      label: city.name,
+    };
+  });
   const {
     register,
     handleSubmit,
@@ -140,9 +171,9 @@ const EditBusses = () => {
     // resolver: yupResolver(validationSchema),
   });
   const handleSubmitForm = (data) => {
-    delete data.service
+    delete data.service;
     alertify.confirm("Thêm chuyến xe", async function () {
-      const res = await BusesService.updateBusses(id,data);
+      const res = await BusesService.updateBusses(id, data);
       if (res.status === 200) {
         alertify.set("notifier", "position", "bottom-right");
         alertify.success("Thêm thành công !");
@@ -157,39 +188,96 @@ const EditBusses = () => {
     const getInfoBusses = async () => {
       const res = await BusesService.getInfoBuses(id);
       if (res.status === 200) {
-        const serviceFiler = res.data.service.service !== 0 ? res.data.service.map(elt => {
-          return {value : elt.id , label : elt.name}
-        }) : []
+        const serviceFiler =
+          res.data.service.service !== 0
+            ? res.data.service.map((elt) => {
+                return { value: elt.id, label: elt.name };
+              })
+            : [];
         setInfoBusses(res.data);
-        setUrlImage(res.data.image)
-        setServiceValues(serviceFiler)
-        reset(res.data)
-        const date = `${res.data.date_active} ${res.data.start_time}`
-        const d = new Date(date)
-        setStartDate(d)
-        // const cityFilter = city.filter((elt) =>{
-        //   return elt.code === res.data.startPointId
-        //  })
-        //  const cityDefault = cityFilter.map(_elt =>{
-        //    return {
-        //      label : _elt.name,
-        //      value : _elt.code
-        //    }
-        //  })
-        //  const cityEndFilter = city.filter((elt) =>{
-        //    return elt.code === infoBusses.endPointId
-        //   })
-        //   const cityEndDefault = cityEndFilter.map(_elt =>{
-        //     return {
-        //       label : _elt.name,
-        //       value : _elt.code
-        //     }
-        //   })
-        //   setStartCityDefault(cityDefault[0])
+        setUrlImage(res.data.image);
+        setServiceValues(serviceFiler);
+        reset(res.data);
+        const date = `${res.data.date_active} ${res.data.start_time}`;
+        const d = new Date(date);
+        setStartDate(d);
+        const districtsResStart = await ProvinceService.getDistrict(
+          res.data.startPointId
+        );
+        if (districtsResStart.status === 200) {
+          const disrtrictsFilter = districtsResStart.data.districts.map(
+            (ward) => {
+              return {
+                value: ward.code,
+                label: ward.name,
+              };
+            }
+          );
+          setdistrictValue(disrtrictsFilter);
+        }
+        const districtsResEnd = await ProvinceService.getDistrict(
+          res.data.endPointId
+        );
+        if (districtsResEnd.status === 200) {
+          const disrtrictsFilter = districtsResEnd.data.districts.map(
+            (ward) => {
+              return {
+                value: ward.code,
+                label: ward.name,
+              };
+            }
+          );
+          const endDistrictsDefault = disrtrictsFilter.filter(_elt =>{
+            return _elt.value === res.data.endDisrict_id
+          })
+          console.log(endDistrictsDefault);
+          setEndPointDistricts(disrtrictsFilter);
+        }
+        const wardResStart = await ProvinceService.getWard(
+          res.data.startWard_id
+        );
+        if (wardResStart.status === 200) {
+          const wardFilter = wardResStart.data.wards.map((ward) => {
+            return {
+              value: ward.code,
+              label: ward.name,
+            };
+          });
+          setWardValue(wardFilter);
+        }
+        const wardResEnd = await ProvinceService.getWard(res.data.endWard_id);
+        if (wardResEnd.status === 200) {
+          const wardFilter = wardResEnd.data.wards.map((ward) => {
+            return {
+              value: ward.code,
+              label: ward.name,
+            };
+          });
+          setEndPointWard(wardFilter);
+        }
       }
     };
     getInfoBusses();
   }, []);
+  useEffect(() => {
+    const startCityDefault = provinceFilter.filter((_elt) => {
+      return _elt.value === infoBusses.startPointId;
+    });
+    // const startDistrictsDefault = districtValue.filter(_elt =>{
+    //   return _elt.value === infoBusses.startDisrict_id;
+    // })
+    // console.log(startDistrictsDefault);
+    // const startWardDefault = wardValue.filter(_elt =>{
+    //   return _elt.value === infoBusses.startWard_id;
+    // })
+    const endCityDefault = provinceFilter.filter((_elt) => {
+      return _elt.value === infoBusses.endPointId;
+    });
+    setStartCityDefault(startCityDefault);
+    setEndCityDefault(endCityDefault);
+    // setStartDistrictDefault(startDistrictsDefault)
+    // setStartWardDefault(startWardDefault)
+  }, [infoBusses]);
   return (
     <>
       <div>
@@ -199,7 +287,7 @@ const EditBusses = () => {
               <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-px-6 tw-py-6 ">
                 <div className="tw-text-center tw-flex tw-justify-between">
                   <h6 className="text-blueGray-700 tw-text-xl tw-font-bold">
-                   Cập nhật chuyến xe
+                    Cập nhật chuyến xe
                   </h6>
                   <button
                     className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
@@ -345,8 +433,8 @@ const EditBusses = () => {
                           options={busesTypeFilter}
                           placeholder={"loại xe"}
                           handleChange={handlechangeTypeCar}
-                          errors={errors}                        
-                          fieldName={'cartype_id'}
+                          errors={errors}
+                          fieldName={"cartype_id"}
                           defaultValues={carTypeDefault[0]}
                         />
                       </div>
@@ -382,16 +470,19 @@ const EditBusses = () => {
                     pointWardName={"startWard_name"}
                     title="Điểm đi"
                     errors={errors}
+                    setWardValue={setWardValue}
                     cityDefault={startCityDefault}
+                    districtsDefault={startDistrictDefault}
+                    wardDefault={startWardDefault}
                   />
                   <LocationSelect
-                    provinceFilter={provinceFilter}
+                    provinceFilter={provinceEndFilter}
                     onChangeCity={onChangeCity}
                     onChangeWard={onChangeWard}
                     onChangeDistrict={handleChangeDistrict}
-                    setdistrictValue={setdistrictValue}
-                    districtValue={districtValue}
-                    wardValue={wardValue}
+                    setdistrictValue={setEndPointDistricts}
+                    districtValue={endPointDistricts}
+                    wardValue={endPointWard}
                     register={register}
                     title="Điểm đến"
                     pointName={"endPointName"}
@@ -401,7 +492,10 @@ const EditBusses = () => {
                     pointWardId={"endWard_id"}
                     pointWardName={"endWard_name"}
                     errors={errors}
-                    // cityDefault={cityEndDefault[0]}
+                    setWardValue={setEndPointWard}
+                    cityDefault={endCityDefault}
+                    districtsDefault={startDistrictDefault}
+                    wardDefault={startWardDefault}
                   />
                   <TextArea
                     title="Ghi chú"

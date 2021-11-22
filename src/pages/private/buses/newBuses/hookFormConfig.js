@@ -25,7 +25,7 @@ export const initialValues = {
 
 export const validationSchema = Yup.object().shape({
   name: Yup.string().required("Vui lòng nhập thông tin").max(100, "Tên không quá 100 kí tự"),
-  price: Yup.number().required(`Không được để trống`).typeError('Nhập đúng định dạng sô').min(5000, "Giá nhỏ nhất 5000 Vnđ").max(10000000000, 'Giá lớn nhất 10000000000 Vnđ').integer('Vui lòng nhập đúng định dạng'),
+  price: Yup.number().required(`Không được để trống`).typeError('Nhập đúng định dạng sô').min(5000, "Giá nhỏ nhất 5000 Vnđ").max(2000000, 'Giá lớn nhất 2000000 Vnđ').integer('Vui lòng nhập đúng định dạng'),
   seat: Yup.number().required(`Không được để trống`).typeError('Nhập đúng định dạng sô').min(1,"Số ghế không nhỏ hơn 1").max(30, 'Số ghế không quá 30').integer('Vui lòng nhập đúng định dạng'),
   startPointId: Yup.string().required("Vui lòng nhập thông tin"),
   endPointId: Yup.string().required("Vui lòng nhập thông tin"),

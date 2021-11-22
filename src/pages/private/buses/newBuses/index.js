@@ -26,10 +26,9 @@ import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
   const [urlImage, setUrlImage] = useState("https://via.placeholder.com/300.png/09f/fff");
-  const [urlImageDescription, setUrlImageDescription] = useState([]);
   const history = useHistory();
   const dispatch = useDispatch();
-  const [cityValue, setVityValue] = useState([]);
+  const [cityValue, setCityValue] = useState([]);
   const { availableService, availableBusesTypes } = useSelector(
     (state) => state.buses
   );
@@ -49,7 +48,17 @@ const NewBuses = () => {
   const [districtValue, setdistrictValue] = useState([]);
   const [wardValue, setWardValue] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
+  ///end point
+  const [endPointCity, setEndPointCity] = useState([])
+  const [endPointDistricts, setEndPointDistricts] = useState([])
+  const [endPointWard, setEndPointWard] = useState([])
   const provinceFilter = cityValue.map((city) => {
+    return {
+      value: city.code,
+      label: city.name,
+    };
+  });
+  const provinceEndFilter = endPointCity.map((city) => {
     return {
       value: city.code,
       label: city.name,
@@ -76,10 +85,9 @@ const NewBuses = () => {
     mode: "all",
     reValidateMode : "onSubmit"
   });
-  const onChangeCity = async (pointName, pointId, original) => {
+  const onChangeCity = async (pointName, pointId, original , setValueOptions) => {
     setValue(pointId, original.value);
     setValue(pointName, original.label);
-    setdistrictValue([]);
     const districtRes = await ProvinceService.getDistrict(original.value);
     if (districtRes.status === 200) {
       const districtFilter = districtRes.data.districts.map((districts) => {
@@ -88,10 +96,10 @@ const NewBuses = () => {
           label: districts.name,
         };
       });
-      setdistrictValue(districtFilter);
+      setValueOptions(districtFilter);
     }
   };
-  const onChangeWard = async (original , pointName, pointId ,id) => {
+  const onChangeWard = async (original , pointName, pointId ,id , setValueOptions) => {
     setValue(pointId, original.value);
     setValue(pointName, original.label);
     const wardRes = await ProvinceService.getWard(id);
@@ -102,10 +110,10 @@ const NewBuses = () => {
           label: ward.name,
         };
       });
-      setWardValue(wardFilter);
+      setValueOptions(wardFilter);
     }
   };
-  const handleChangeDistrict = (pointId , pointName , original) =>{
+  const handleChangeDistrict = (pointId , pointName , original , setValueOptions) =>{
     setValue(pointId, original.value);
     setValue(pointName, original.label);
   }
@@ -144,13 +152,15 @@ const NewBuses = () => {
     setServiceValues(services);
     setValue("service_id", serviceFilter);
   };
+  const TODAY = new Date()
   useEffect(() => {
     dispatch(actionGetService());
     dispatch(actionGetAllBusesTypes());
     const getCity = async () => {
       const resCity = await ProvinceService.getAllCity();
       if (resCity.status === 200) {
-        await setVityValue(resCity.data);
+        await setCityValue(resCity.data);
+        await setEndPointCity(resCity.data)
         setValue("date_active", TODAY);
         setValue("start_time", TIME_TODAY);
       }
@@ -301,6 +311,7 @@ const NewBuses = () => {
                           onChange={(date) => {
                             handleChangeStartTime(date);
                           }}
+                          minDate={TODAY}
                         />
                       </div>
                     </div>
@@ -349,15 +360,16 @@ const NewBuses = () => {
                     pointWardName={"startWard_name"}
                     title="Điểm đi"
                     errors={errors}
+                    setWardValue={setWardValue}
                   />
                   <LocationSelect
-                    provinceFilter={provinceFilter}
+                    provinceFilter={provinceEndFilter}
                     onChangeCity={onChangeCity}
                     onChangeWard={onChangeWard}
                     onChangeDistrict={handleChangeDistrict}
-                    setdistrictValue={setdistrictValue}
-                    districtValue={districtValue}
-                    wardValue={wardValue}
+                    setdistrictValue={setEndPointDistricts}
+                    districtValue={endPointDistricts}
+                    wardValue={endPointWard}
                     register={register}
                     title="Điểm đến"
                     pointName={"endPointName"}
@@ -367,6 +379,7 @@ const NewBuses = () => {
                     pointWardId={"endWard_id"}
                     pointWardName={"endWard_name"}
                     errors={errors}
+                    setWardValue={setEndPointWard}
                   />
                   <TextArea
                     title="Ghi chú"

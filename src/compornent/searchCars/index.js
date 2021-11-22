@@ -10,7 +10,6 @@ import SelectForm from "../selectForm";
 import Select from 'react-select'
 const SearchCars = () => {
   const TODAY = new Date()
-  console.log(TODAY);
   const [startPoint, setstartPoint] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [endPoint, setEndPoint] = useState('');
