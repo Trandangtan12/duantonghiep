@@ -11,7 +11,6 @@ const Products = () => {
     const { start, end, date } = useParams()
     const dispatch = useDispatch();
     const { availableSearch } = useSelector(state => state.buses);
-    console.log(availableSearch);
     useEffect(() => {
         dispatch(actionSearchBuses(start, end, date))
         dispatch(actionGetBuses())
@@ -24,10 +23,7 @@ const Products = () => {
     })
     const [qtyFilter, setQtyFilter] = useState(1)
     const onChange = (data) => {
-        setPrice({
-            ...price,
-            value: data.value
-        })
+        setPrice({...price, value: data.value})
     }
     
     const onRemoveChange = () =>{

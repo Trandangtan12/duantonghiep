@@ -25,7 +25,7 @@ const Ticket = (props) => {
             <p className="tw-w-28">{user.name}</p>
 
           </div>
-          <div className="tw-flex tw-justify-between tw-text-sm tw-py-2 tw-p-3">
+          <div className="tw-flex tw-justify-between tw-text-sm tw-py-2 tw-p-3 tw-break-words">
             <p>Email</p>
             <p className="tw-w-28">{user.email}</p>
           </div>

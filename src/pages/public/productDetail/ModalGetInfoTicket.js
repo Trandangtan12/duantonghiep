@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState ,useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import styled from "styled-components";
@@ -13,7 +13,7 @@ input[type=number]::-webkit-outer-spin-button {
 	-webkit-appearance: none;
 }
 `
-const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product}) => {
+const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   const { user } = UserApi.isAuthenticated()
   const {
     register,
@@ -24,15 +24,17 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product}) => {
     setIsOpenModal(false);
   }
   const [emp, setEmp] = useState();
-  console.log(emp);
+  console.log("Ghế trống", emp);
   const [qty, setQty] = useState(1)
-  
+
   const Increase = () => {
-    if (qty >= product.seat) {
+    if (qty >= product.seat_empty) {
 
     } else {
       setQty(qty + 1)
-      setEmp(emp - 1)
+      if (emp >= 0) {
+        setEmp(emp - 1)
+      }
     }
   }
   const Decrease = () => {
@@ -40,6 +42,9 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product}) => {
 
     } else {
       setQty(qty - 1)
+      if (product.seat >= emp) {
+        setEmp(emp + 1)
+      }
     }
   }
   const [currentRadioValue, setCurrentRadioValue] = useState('OFFLINE');
@@ -51,7 +56,10 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product}) => {
       quantity: qty,
       totalPrice: totalPrice,
       paymentMethod: currentRadioValue,
-      seat_empty : emp
+    }
+    const updateBuses = {
+      ...data,
+      seat_empty: emp
     }
     console.log("Thông tin vé", ticket);
     try {
@@ -60,13 +68,14 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product}) => {
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
         }
-        // if(updateDataBuses.seat_empty <= 0){
-        //   alert("Hết ghế rồi còn đặt :))")
-        // }else {
-        // await BusesService.updateBusses(product.id, updateDataBuses)
-        // console.log(product);
-        // }
-        setIsOpenModal(false);
+        if (emp < 0) {
+          alert("Hết ghế trống!!!")
+        } else {
+          setIsOpenModal(false);
+          console.log("Cập nhật ghế ok")
+          await BusesService.updateBusses(product.id, updateBuses)
+        }
+
       } else {
 
         const res = await BusesService.paymentTicket(totalPrice)
@@ -81,9 +90,11 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product}) => {
     }
   }
   useEffect(() => {
-   let seat = Number(product.seat) - 1
-   setEmp(seat);
-  }, [product]);
+    const seat_empty = product.seat_empty - 1
+    setEmp(seat_empty)
+  }, [product])
+
+
   return (
     <ModalStyled className="tw-z-50">
       <Transition appear show={isOpen} as={Fragment}>
