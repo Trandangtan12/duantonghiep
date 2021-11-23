@@ -12,15 +12,17 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data: product } = await BusesService.getIdBuses(id);
-        setProduct(product);
+        const res = await BusesService.getIdBuses(id);
+        if (res.status === 200) {
+          setProduct(res.data); 
+        }
       } catch (error) {
+        console.log(error);
       }
     };
     fetchProduct();
   }, []);
   const handleOpenModal = () => {
-   
       setIsOpenModal(true)
   };
   return (
