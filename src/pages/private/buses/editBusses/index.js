@@ -1,4 +1,3 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import alertify from "alertifyjs";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -11,7 +10,7 @@ import TextArea from "../../../../compornent/textarea";
 import firebase from "../../../../firebase";
 import {
   actionGetAllBusesTypes,
-  actionGetService,
+  actionGetService
 } from "../../../../redux/actions/buses";
 import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
@@ -20,8 +19,6 @@ import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
 import { InputNumberStyle } from "./utility";
-import { validationSchema } from "./hookFormConfig";
-import { data } from "autoprefixer";
 const EditBusses = () => {
   const [fileName, setFileName] = useState("");
   const { id } = useParams();
@@ -61,8 +58,8 @@ const EditBusses = () => {
     };
   });
   const [startCityDefault, setStartCityDefault] = useState([]);
-  const [startDistrictDefault, setStartDistrictDefault] = useState([]);
-  const [startWardDefault, setStartWardDefault] = useState([]);
+  // const [startDistrictDefault, setStartDistrictDefault] = useState([]);
+  // const [startWardDefault, setStartWardDefault] = useState([]);
   const [endCityDefault, setEndCityDefault] = useState([]);
   const [districtValue, setdistrictValue] = useState([]);
   const [wardValue, setWardValue] = useState([]);
@@ -70,6 +67,21 @@ const EditBusses = () => {
   const [endPointCity, setEndPointCity] = useState([]);
   const [endPointDistricts, setEndPointDistricts] = useState([]);
   const [endPointWard, setEndPointWard] = useState([]);
+  const districtStartFilterDefault = districtValue.filter(_elt =>{
+    return _elt.value === infoBusses.startDisrict_id
+  })
+  const districtsEndFilterDefault = endPointDistricts.filter(_elt =>{
+    return _elt.value === infoBusses.endDisrict_id
+  })
+  const wardStartFilterDefault = wardValue.filter(_elt =>{
+    return _elt.value === infoBusses.startWard_id
+  })
+  const wardEndFilterDefault = endPointWard.filter(_elt =>{
+    return _elt.value === infoBusses.endWard_id
+  })
+  const [startDistrictDefault, setStartDistrictDefault] = useState(districtStartFilterDefault);
+  const [startWardDefault, setStartWardDefault] = useState(wardStartFilterDefault);
+  console.log(startDistrictDefault);
   const handleUploadImageToFirebase = (file, setUrl) => {
     let storeRef = firebase.storage().ref(`images/${file.name}`);
     storeRef.put(file).then((e) => {
@@ -79,7 +91,6 @@ const EditBusses = () => {
       });
     });
   };
-
   const handleChangeImage = (e) => {
     const file = e.target.files[0];
     handleUploadImageToFirebase(file, setUrlImage);
@@ -155,12 +166,6 @@ const EditBusses = () => {
       label: city.name,
     };
   });
-  const provinceEndFilter = endPointCity.map((city) => {
-    return {
-      value: city.code,
-      label: city.name,
-    };
-  });
   const {
     register,
     handleSubmit,
@@ -218,6 +223,7 @@ const EditBusses = () => {
         const districtsResEnd = await ProvinceService.getDistrict(
           res.data.endPointId
         );
+        console.log(districtsResEnd);
         if (districtsResEnd.status === 200) {
           const disrtrictsFilter = districtsResEnd.data.districts.map(
             (ward) => {
@@ -227,14 +233,10 @@ const EditBusses = () => {
               };
             }
           );
-          const endDistrictsDefault = disrtrictsFilter.filter(_elt =>{
-            return _elt.value === res.data.endDisrict_id
-          })
-          console.log(endDistrictsDefault);
           setEndPointDistricts(disrtrictsFilter);
         }
         const wardResStart = await ProvinceService.getWard(
-          res.data.startWard_id
+          res.data.startDisrict_id
         );
         if (wardResStart.status === 200) {
           const wardFilter = wardResStart.data.wards.map((ward) => {
@@ -245,7 +247,7 @@ const EditBusses = () => {
           });
           setWardValue(wardFilter);
         }
-        const wardResEnd = await ProvinceService.getWard(res.data.endWard_id);
+        const wardResEnd = await ProvinceService.getWard(res.data.endDisrict_id);
         if (wardResEnd.status === 200) {
           const wardFilter = wardResEnd.data.wards.map((ward) => {
             return {
@@ -263,20 +265,11 @@ const EditBusses = () => {
     const startCityDefault = provinceFilter.filter((_elt) => {
       return _elt.value === infoBusses.startPointId;
     });
-    // const startDistrictsDefault = districtValue.filter(_elt =>{
-    //   return _elt.value === infoBusses.startDisrict_id;
-    // })
-    // console.log(startDistrictsDefault);
-    // const startWardDefault = wardValue.filter(_elt =>{
-    //   return _elt.value === infoBusses.startWard_id;
-    // })
     const endCityDefault = provinceFilter.filter((_elt) => {
       return _elt.value === infoBusses.endPointId;
     });
     setStartCityDefault(startCityDefault);
     setEndCityDefault(endCityDefault);
-    // setStartDistrictDefault(startDistrictsDefault)
-    // setStartWardDefault(startWardDefault)
   }, [infoBusses]);
   return (
     <>
@@ -472,11 +465,11 @@ const EditBusses = () => {
                     errors={errors}
                     setWardValue={setWardValue}
                     cityDefault={startCityDefault}
-                    districtsDefault={startDistrictDefault}
-                    wardDefault={startWardDefault}
+                    districsDefault={districtStartFilterDefault}
+                    wardDefault={wardStartFilterDefault}
                   />
                   <LocationSelect
-                    provinceFilter={provinceEndFilter}
+                    provinceFilter={provinceFilter}
                     onChangeCity={onChangeCity}
                     onChangeWard={onChangeWard}
                     onChangeDistrict={handleChangeDistrict}
@@ -494,8 +487,8 @@ const EditBusses = () => {
                     errors={errors}
                     setWardValue={setEndPointWard}
                     cityDefault={endCityDefault}
-                    districtsDefault={startDistrictDefault}
-                    wardDefault={startWardDefault}
+                    districsDefault={districtsEndFilterDefault}
+                    wardDefault={wardEndFilterDefault}
                   />
                   <TextArea
                     title="Ghi chú"

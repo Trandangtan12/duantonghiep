@@ -60,8 +60,8 @@ const LocationSelect = ({
               onChange={(original) => {
                 onChangeWard(
                   original,
-                  pointWardName,
-                  pointWardId,
+                  pointDistrictName,
+                  pointDistrictId,
                   original.value,
                   setWardValue
                 );
@@ -83,7 +83,7 @@ const LocationSelect = ({
               options={wardValue}
               placeholder={"Huyện"}
               onChange={(original) =>
-                onChangeDistrict(pointDistrictId, pointDistrictName, original)
+                onChangeDistrict(pointWardId, pointWardName, original)
               }
               errors={errors}
               fieldName={pointDistrictId}

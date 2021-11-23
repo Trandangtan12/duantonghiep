@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import SelectForm from "../../../../../compornent/selectForm";
+import Select from 'react-select'
 const LocationSelect = ({
   provinceFilter,
   onChangeCity,
@@ -64,15 +65,15 @@ const LocationSelect = ({
               onChange={(original) => {
                 onChangeWard(
                   original,
-                  pointWardName,
-                  pointWardId,
+                  pointDistrictName,
+                  pointDistrictId,
                   original.value,
                   setWardValue
                 );
               }}
               errors={errors}
               fieldName={pointWardId}
-              // defaultValues={districsDefault[0]}
+              defaultValues={districsDefault[0]}
             />
           </div>
         </div>
@@ -88,11 +89,11 @@ const LocationSelect = ({
               options={wardValue}
               placeholder={"Huyện"}
               onChange={(original) =>
-                onChangeDistrict(pointDistrictId, pointDistrictName, original)
+                onChangeDistrict(pointWardId, pointWardName, original)
               }
               errors={errors}
               fieldName={pointDistrictId}
-              // defaultValues={wardDefault[0]}
+              defaultValues={wardDefault[0]}
             />
           </div>
         </div>

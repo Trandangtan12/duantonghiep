@@ -118,6 +118,7 @@ const NewBuses = () => {
     setValue(pointName, original.label);
   }
   const handleSubmitForm = (data) => {
+    console.log(data);
     data.seat_empty = data.seat
     alertify.confirm("Thêm chuyến xe", async function () {
       const newBuses = {
