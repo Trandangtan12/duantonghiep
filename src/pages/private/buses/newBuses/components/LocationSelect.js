@@ -15,7 +15,8 @@ const LocationSelect = ({
   pointDistrictName,
   pointWardId,
   pointWardName,
-  errors
+  errors,
+  setWardValue
 }) => {
   return (
     <div>
@@ -36,7 +37,7 @@ const LocationSelect = ({
                 options={provinceFilter}
                 onChange={(original) => {
                   setdistrictValue([]);
-                  onChangeCity(pointName, pointId, original);
+                  onChangeCity(pointName, pointId, original, setdistrictValue);
                 }}
                 placeholder={"Thành phố"}
                 errors={errors}
@@ -59,9 +60,10 @@ const LocationSelect = ({
               onChange={(original) => {
                 onChangeWard(
                   original,
-                  pointWardName,
-                  pointWardId,
-                  original.value
+                  pointDistrictName,
+                  pointDistrictId,
+                  original.value,
+                  setWardValue
                 );
               }}
               errors={errors}
@@ -81,7 +83,7 @@ const LocationSelect = ({
               options={wardValue}
               placeholder={"Huyện"}
               onChange={(original) =>
-                onChangeDistrict(pointDistrictId, pointDistrictName, original)
+                onChangeDistrict(pointWardId, pointWardName, original)
               }
               errors={errors}
               fieldName={pointDistrictId}

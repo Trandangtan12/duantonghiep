@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SelectForm from "../../../../../compornent/selectForm";
+import Select from 'react-select'
 const LocationSelect = ({
   provinceFilter,
   onChangeCity,
   onChangeWard,
+  onChangeDistrict,
   setdistrictValue,
   districtValue,
   wardValue,
   title,
   pointName,
   pointId,
-  cityDefault
+  pointDistrictId,
+  pointDistrictName,
+  pointWardId,
+  pointWardName,
+  errors,
+  setWardValue,
+  cityDefault,
+  districsDefault,
+  wardDefault,
 }) => {
   return (
     <div>
@@ -27,14 +37,16 @@ const LocationSelect = ({
               Tỉnh/thành phố
             </label>
             <div>
-              <SelectForm                
+              <SelectForm
                 options={provinceFilter}
                 onChange={(original) => {
                   setdistrictValue([]);
-                  onChangeCity(pointName,pointId,original);
+                  onChangeCity(pointName, pointId, original, setdistrictValue);
                 }}
                 placeholder={"Thành phố"}
-                defaultValues={cityDefault}
+                errors={errors}
+                defaultValues={cityDefault[0]}
+                fieldName={pointId}
               />
             </div>
           </div>
@@ -51,8 +63,17 @@ const LocationSelect = ({
               options={districtValue}
               placeholder={"Huyện"}
               onChange={(original) => {
-                onChangeWard(original.value);
+                onChangeWard(
+                  original,
+                  pointDistrictName,
+                  pointDistrictId,
+                  original.value,
+                  setWardValue
+                );
               }}
+              errors={errors}
+              fieldName={pointWardId}
+              defaultValues={districsDefault[0]}
             />
           </div>
         </div>
@@ -67,6 +88,12 @@ const LocationSelect = ({
             <SelectForm
               options={wardValue}
               placeholder={"Huyện"}
+              onChange={(original) =>
+                onChangeDistrict(pointWardId, pointWardName, original)
+              }
+              errors={errors}
+              fieldName={pointDistrictId}
+              defaultValues={wardDefault[0]}
             />
           </div>
         </div>

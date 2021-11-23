@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Table from "../../../compornent/admin/table";
-import { IsoStringConvert } from "../../../config";
+import { IsoStringConvert, numberWithCommas } from "../../../config";
 import { actionGetTicket } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
 import {
@@ -159,6 +159,9 @@ const Order = () => {
       accessor: "totalPrice",
       // filterable: true,
       show: true,
+      Cell : ({original}) =>{
+        return numberWithCommas(original.totalPrice)
+      }
     },
     {
       Header: "Trạng thái",
