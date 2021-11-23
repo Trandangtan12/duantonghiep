@@ -21,6 +21,9 @@ const LocationSelect = ({
   cityDefault,
   districsDefault,
   wardDefault,
+  setCityDefault,
+  setDistrictDefault,
+  setWardDefault
 }) => {
   return (
     <div>
@@ -42,6 +45,7 @@ const LocationSelect = ({
                 onChange={(original) => {
                   setdistrictValue([]);
                   onChangeCity(pointName, pointId, original, setdistrictValue);
+                  setCityDefault(original)
                 }}
                 placeholder={"Thành phố"}
                 errors={errors}
@@ -63,6 +67,7 @@ const LocationSelect = ({
               options={districtValue}
               placeholder={"Huyện"}
               onChange={(original) => {
+                setDistrictDefault(original)
                 onChangeWard(
                   original,
                   pointDistrictName,
@@ -88,8 +93,10 @@ const LocationSelect = ({
             <SelectForm
               options={wardValue}
               placeholder={"Huyện"}
-              onChange={(original) =>
+              onChange={(original) =>{
+                setWardDefault(original)
                 onChangeDistrict(pointWardId, pointWardName, original)
+              }
               }
               errors={errors}
               fieldName={pointDistrictId}

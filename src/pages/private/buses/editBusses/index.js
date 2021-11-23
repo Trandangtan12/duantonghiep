@@ -10,7 +10,7 @@ import TextArea from "../../../../compornent/textarea";
 import firebase from "../../../../firebase";
 import {
   actionGetAllBusesTypes,
-  actionGetService
+  actionGetService,
 } from "../../../../redux/actions/buses";
 import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
@@ -58,30 +58,16 @@ const EditBusses = () => {
     };
   });
   const [startCityDefault, setStartCityDefault] = useState([]);
-  // const [startDistrictDefault, setStartDistrictDefault] = useState([]);
-  // const [startWardDefault, setStartWardDefault] = useState([]);
   const [endCityDefault, setEndCityDefault] = useState([]);
   const [districtValue, setdistrictValue] = useState([]);
   const [wardValue, setWardValue] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
-  const [endPointCity, setEndPointCity] = useState([]);
   const [endPointDistricts, setEndPointDistricts] = useState([]);
   const [endPointWard, setEndPointWard] = useState([]);
-  const districtStartFilterDefault = districtValue.filter(_elt =>{
-    return _elt.value === infoBusses.startDisrict_id
-  })
-  const districtsEndFilterDefault = endPointDistricts.filter(_elt =>{
-    return _elt.value === infoBusses.endDisrict_id
-  })
-  const wardStartFilterDefault = wardValue.filter(_elt =>{
-    return _elt.value === infoBusses.startWard_id
-  })
-  const wardEndFilterDefault = endPointWard.filter(_elt =>{
-    return _elt.value === infoBusses.endWard_id
-  })
-  const [startDistrictDefault, setStartDistrictDefault] = useState(districtStartFilterDefault);
-  const [startWardDefault, setStartWardDefault] = useState(wardStartFilterDefault);
-  console.log(startDistrictDefault);
+  const [startDistrictDefault, setStartDistrictDefault] = useState([]);
+  const [startWardDefault, setStartWardDefault] = useState([]);
+  const [endDistrictDefault, setEndDistrictDefault] = useState([]);
+  const [endWardDefault, setEndWardDefault] = useState([]);
   const handleUploadImageToFirebase = (file, setUrl) => {
     let storeRef = firebase.storage().ref(`images/${file.name}`);
     storeRef.put(file).then((e) => {
@@ -218,12 +204,15 @@ const EditBusses = () => {
               };
             }
           );
+          const startDistrictsDefault = disrtrictsFilter.filter(
+            (_elt) => _elt.value === res.data.startDisrict_id
+          );
+          setStartDistrictDefault(startDistrictsDefault);
           setdistrictValue(disrtrictsFilter);
         }
         const districtsResEnd = await ProvinceService.getDistrict(
           res.data.endPointId
         );
-        console.log(districtsResEnd);
         if (districtsResEnd.status === 200) {
           const disrtrictsFilter = districtsResEnd.data.districts.map(
             (ward) => {
@@ -233,6 +222,10 @@ const EditBusses = () => {
               };
             }
           );
+          const endDistrictsDefault = disrtrictsFilter.filter(
+            (_elt) => _elt.value === res.data.endDisrict_id
+          );
+          setEndDistrictDefault(endDistrictsDefault);
           setEndPointDistricts(disrtrictsFilter);
         }
         const wardResStart = await ProvinceService.getWard(
@@ -245,9 +238,15 @@ const EditBusses = () => {
               label: ward.name,
             };
           });
+          const startWardDefault = wardFilter.filter(
+            (_elt) => _elt.value === res.data.startWard_id
+          );
+          setStartWardDefault(startWardDefault);
           setWardValue(wardFilter);
         }
-        const wardResEnd = await ProvinceService.getWard(res.data.endDisrict_id);
+        const wardResEnd = await ProvinceService.getWard(
+          res.data.endDisrict_id
+        );
         if (wardResEnd.status === 200) {
           const wardFilter = wardResEnd.data.wards.map((ward) => {
             return {
@@ -255,6 +254,10 @@ const EditBusses = () => {
               label: ward.name,
             };
           });
+          const endWardDefault = wardFilter.filter(
+            (_elt) => _elt.value === res.data.endWard_id
+          );
+          setEndWardDefault(endWardDefault);
           setEndPointWard(wardFilter);
         }
       }
@@ -465,8 +468,11 @@ const EditBusses = () => {
                     errors={errors}
                     setWardValue={setWardValue}
                     cityDefault={startCityDefault}
-                    districsDefault={districtStartFilterDefault}
-                    wardDefault={wardStartFilterDefault}
+                    districsDefault={startDistrictDefault}
+                    wardDefault={startWardDefault}
+                    setCityDefault={setStartCityDefault}
+                    setDistrictDefault={setStartDistrictDefault}
+                    setWardDefault={setStartWardDefault}
                   />
                   <LocationSelect
                     provinceFilter={provinceFilter}
@@ -487,8 +493,11 @@ const EditBusses = () => {
                     errors={errors}
                     setWardValue={setEndPointWard}
                     cityDefault={endCityDefault}
-                    districsDefault={districtsEndFilterDefault}
-                    wardDefault={wardEndFilterDefault}
+                    districsDefault={endDistrictDefault}
+                    wardDefault={endWardDefault}
+                    setCityDefault={setEndCityDefault}
+                    setDistrictDefault={setEndDistrictDefault}
+                    setWardDefault={setEndWardDefault}
                   />
                   <TextArea
                     title="Ghi chú"
