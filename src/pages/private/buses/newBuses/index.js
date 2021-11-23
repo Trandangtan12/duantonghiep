@@ -137,8 +137,9 @@ const NewBuses = () => {
     .set("notifier", "position", "top-right");
   };
   const handleChangeStartTime = (date) => {
-    const startDateConvert = moment(date).format("YYYY-MM-DD");
-    const startTime = moment(date).format("H:mm");
+    const startDateConvert = moment(date).utc(true).format("YYYY-MM-DD");
+    console.log(startDateConvert);
+    const startTime = moment(date).utc(true).format("H:mm");
     setStartDate(date);
     setValue("date_active", startDateConvert);
     setValue("start_time", startTime);
@@ -153,7 +154,6 @@ const NewBuses = () => {
     setServiceValues(services);
     setValue("service_id", serviceFilter);
   };
-  const TODAY = new Date()
   useEffect(() => {
     dispatch(actionGetService());
     dispatch(actionGetAllBusesTypes());
@@ -162,8 +162,6 @@ const NewBuses = () => {
       if (resCity.status === 200) {
         await setCityValue(resCity.data);
         await setEndPointCity(resCity.data)
-        setValue("date_active", TODAY);
-        setValue("start_time", TIME_TODAY);
       }
     };
     getCity();

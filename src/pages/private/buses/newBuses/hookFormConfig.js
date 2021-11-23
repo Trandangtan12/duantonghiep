@@ -1,11 +1,14 @@
+import moment from "moment";
 import * as Yup from "yup";
+const TODAY = moment().utc(true).format("YYYY-MM-DD")
+const TIME = moment().utc(true).format("H:mm")
 export const initialValues = {
   name: "",
   price: "",
   cartype_id: "",
   seat: "",
-  date_active: "",
-  start_time: "",
+  date_active: TODAY,
+  start_time: TIME,
   description: "",
   startPointName: "",
   startPointId: "",
