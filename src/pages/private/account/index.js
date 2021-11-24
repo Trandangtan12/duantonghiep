@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Table from '../../../compornent/admin/table';
+import { IsoStringConvert } from '../../../config';
 import { actionGetAllUsers } from '../../../redux/actions/user';
 
 const Account = () => {
@@ -14,16 +15,6 @@ const Account = () => {
           filterable: true,
           show: true,
         },
-        {
-            Header: "Hình ảnh",
-            accessor: "image",
-            maxWidth: 200,
-            filterable: true,
-            show: true,
-            Cell : ({original}) =>{
-                return <div className="tw-flex tw-justify-center"><img src={original.image} /></div>
-            }
-          },
         {
           Header: "Tên khách hàng",
           accessor: "name",
@@ -54,26 +45,27 @@ const Account = () => {
       ]);
       const ExpandableTable = ({ data }) => {
         return (
-          <table size='sm' responsive bordered>
-            <tbody>
-              <tr className="tw-flex tw-flex-wrap">
-                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
-                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
-              </tr>
-              <tr className="tw-flex tw-flex-wrap">
-                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
-                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
-              </tr>
-              <tr className="tw-flex tw-flex-wrap">
-                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
-                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
-              </tr>
-              <tr className="tw-flex tw-flex-wrap">
-                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">shiw</td>
-                <td className="tw-w-full lg:tw-w-[500px] tw-px-4">show</td>
-              </tr>
-            </tbody>
-          </table>
+          <table
+          size="sm"
+          responsive
+          bordered
+          className="tw-bg-green-100 tw-rounded-lg"
+        >
+          <tbody>
+            <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+              <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ngày tạo</td>
+              <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+                {IsoStringConvert(data?.created_at)}
+              </td>
+            </tr>
+            <tr className="tw-flex tw-flex-wrap tw-mb-4">
+              <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ngày cập nhật</td>
+              <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {IsoStringConvert(data?.updated_at)}
+              </td>
+            </tr>
+          </tbody>
+        </table>
         )
       }
     useEffect(() => {
