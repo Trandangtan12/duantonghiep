@@ -716,8 +716,8 @@ video {
   top: 90px;
 }
 
-.tw-bottom-\[-8rem\] {
-  bottom: -8rem;
+.tw-bottom-\[-9rem\] {
+  bottom: -9rem;
 }
 
 .tw-left-\[50\%\] {
@@ -746,10 +746,6 @@ video {
 
 .tw-top-2 {
   top: 0.5rem;
-}
-
-.tw-bottom-\[-9rem\] {
-  bottom: -9rem;
 }
 
 .tw-z-30 {
@@ -828,11 +824,6 @@ video {
   margin-bottom: 1.5rem;
 }
 
-.tw-my-auto {
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
 .tw-my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
@@ -841,6 +832,11 @@ video {
 .tw-my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.tw-my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .tw-mb-20 {
@@ -1047,8 +1043,8 @@ video {
   height: 100%;
 }
 
-.tw-h-\[20rem\] {
-  height: 20rem;
+.tw-h-\[21rem\] {
+  height: 21rem;
 }
 
 .tw-h-20 {
@@ -1100,6 +1096,10 @@ video {
   height: 7rem;
 }
 
+.tw-h-\[15rem\] {
+  height: 15rem;
+}
+
 .tw-h-\[339px\] {
   height: 339px;
 }
@@ -1108,12 +1108,8 @@ video {
   height: 10rem;
 }
 
-.tw-h-\[15rem\] {
-  height: 15rem;
-}
-
-.tw-h-\[21rem\] {
-  height: 21rem;
+.tw-h-\[50px\] {
+  height: 50px;
 }
 
 .tw-min-h-screen {
@@ -1212,20 +1208,16 @@ video {
   width: 22rem;
 }
 
-.tw-w-\[10rem\] {
-  width: 10rem;
-}
-
-.tw-w-\[30rem\] {
-  width: 30rem;
-}
-
 .tw-w-\[15rem\] {
   width: 15rem;
 }
 
 .tw-w-28 {
   width: 7rem;
+}
+
+.tw-w-\[30rem\] {
+  width: 30rem;
 }
 
 .tw-min-w-0 {
@@ -1328,16 +1320,16 @@ video {
           transform: var(--tw-transform);
 }
 
+.tw-cursor-text {
+  cursor: text;
+}
+
 .tw-cursor-pointer {
   cursor: pointer;
 }
 
 .tw-cursor-default {
   cursor: default;
-}
-
-.tw-cursor-text {
-  cursor: text;
 }
 
 .tw-list-none {
@@ -1556,11 +1548,6 @@ video {
   border-color: transparent;
 }
 
-.tw-border-green-600 {
-  --tw-border-opacity: 1;
-  border-color: rgba(5, 150, 105, var(--tw-border-opacity));
-}
-
 .tw-border-gray-600 {
   --tw-border-opacity: 1;
   border-color: rgba(71, 85, 105, var(--tw-border-opacity));
@@ -1574,6 +1561,11 @@ video {
 .tw-border-gray-800 {
   --tw-border-opacity: 1;
   border-color: rgba(30, 41, 59, var(--tw-border-opacity));
+}
+
+.tw-border-green-600 {
+  --tw-border-opacity: 1;
+  border-color: rgba(5, 150, 105, var(--tw-border-opacity));
 }
 
 .tw-border-green-500 {

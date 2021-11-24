@@ -50,13 +50,14 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   const [currentRadioValue, setCurrentRadioValue] = useState('OFFLINE');
   const totalPrice = product.price * qty;
   const handlePayTicket = async (data) => {
-    console.log(emp);
+    
     const ticket = {
       ...data,
       quantity: qty,
       totalPrice: totalPrice,
       paymentMethod: currentRadioValue,
     }
+    localStorage.setItem('paymentMethod' , currentRadioValue)
     const updateBuses = {
       ...data,
       seat_empty: emp
