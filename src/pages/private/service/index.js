@@ -59,7 +59,7 @@ const ServiceCarPage = () => {
       },
     },
     {
-      Header: "Tên chuyên xe",
+      Header: "Tên dịch vụ",
       accessor: "name",
       show: true,
     },

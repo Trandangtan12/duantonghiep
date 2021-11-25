@@ -1,10 +1,12 @@
 // gọi ở đây và lưu dữ liệu lên redux
 import HttpClient from "../api/axiosClient";
 import {
+  API_EXPORT,
   API_GET_BUSES,
   API_GET_BUSES_TYPE, API_GET_SERVICE,
   API_PAYMENT,
   API_SEARCH,
+  API_SEND_EMAIL,
   API_TICKET
 } from "../config";
 export const BusesService = {
@@ -73,6 +75,14 @@ export const BusesService = {
   },
   deleteTicket(id){
     return HttpClient.delete(`${API_TICKET}/${id}`)
+  },
+  exportListTicket(){
+    return HttpClient.get(`${API_EXPORT}`)
+  },
+  sendEmail(id){
+    return HttpClient.post(`${API_SEND_EMAIL}`,{
+      id : id
+    })
   },
   paymentTicket(price){
     return HttpClient.post(`${API_PAYMENT}`,{

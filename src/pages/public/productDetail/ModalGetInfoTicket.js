@@ -26,13 +26,14 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   const [emp, setEmp] = useState();
   // console.log("Ghế trống", emp);
   const [qty, setQty] = useState(1)
-
   const Increase = () => {
+  
     if (qty >= product.seat_empty) {
-
+      console.log("show");
     } else {
       setQty(qty + 1)
       if (emp >= 0) {
+        
         setEmp(emp - 1)
       }
     }
