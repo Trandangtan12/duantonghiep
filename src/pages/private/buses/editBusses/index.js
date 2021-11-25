@@ -163,8 +163,10 @@ const EditBusses = () => {
   });
   const handleSubmitForm = (data) => {
     delete data.service;
+    const seat_empty = data.seat - infoBusses.seat
     alertify.confirm("Thêm chuyến xe", async function () {
-      const res = await BusesService.updateBusses(id, data);
+      const newData= {...data, seat_empty : seat_empty < 0 ? 0 : seat_empty}
+      const res = await BusesService.updateBusses(id, newData);
       if (res.status === 200) {
         alertify.set("notifier", "position", "bottom-right");
         alertify.success("Thêm thành công !");
