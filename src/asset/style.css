@@ -748,10 +748,6 @@ video {
   top: 0.5rem;
 }
 
-.tw-bottom-\[-8rem\] {
-  bottom: -8rem;
-}
-
 .tw-z-30 {
   z-index: 30;
 }
@@ -1120,10 +1116,6 @@ video {
 
 .tw-h-40 {
   height: 10rem;
-}
-
-.tw-h-\[20rem\] {
-  height: 20rem;
 }
 
 .tw-min-h-screen {
@@ -1711,6 +1703,11 @@ video {
 .tw-bg-yellow-400 {
   --tw-bg-opacity: 1;
   background-color: rgba(251, 191, 36, var(--tw-bg-opacity));
+}
+
+.tw-bg-blue-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(96, 165, 250, var(--tw-bg-opacity));
 }
 
 .tw-bg-gray-300 {
