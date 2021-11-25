@@ -1,6 +1,7 @@
 import { faMoneyCheck, faTimes } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
+import FileSaver from "file-saver";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -11,6 +12,7 @@ import { BusesService } from "../../../service/productService";
 import {
   ACTIVED,
   ATM,
+  DEPOSIT,
   listFilterStatus,
   OFFLINE,
   REJECTED,
@@ -22,6 +24,15 @@ const Order = () => {
   const { availableOrder } = useSelector((state) => state.buses);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
   const dependencies = [availableOrder.length, dispatchDependency];
+  const handleExportList =async () =>{
+    const res = await BusesService.exportListTicket()
+    if (res.status === 200 ) {
+      const blob = new Blob([res.data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+     });
+     FileSaver.saveAs(blob, `sixleaf_ticket.xlsx`);  
+    }
+  }
   const handleApprovalTicket = (id) => {
     alertify
       .confirm("Bạn có chắc chắn muốn thanh toán vé xe ?", async function () {
@@ -63,6 +74,7 @@ const Order = () => {
         className="tw-bg-green-100 tw-rounded-lg"
       >
         <tbody>
+        
           <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Tên chuyến xe</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
@@ -87,6 +99,18 @@ const Order = () => {
               {IsoStringConvert(data.buses.created_at)}
             </td>
           </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Số CMND</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+            {data.identity_card}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ghi chú</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+            {data.description !== null ? data.description : "-"}
+            </td>
+          </tr>
         </tbody>
       </table>
     );
@@ -105,7 +129,10 @@ const Order = () => {
         return {
           render: <div>Huỷ vé</div>,
         };
-
+        case DEPOSIT:
+          return {
+            render: <div>Đã đặt cọc</div>,
+          };
       default:
         return null;
     }
@@ -126,9 +153,9 @@ const Order = () => {
   };
   const [columns, setColumns] = useState([
     {
-      Header: "ID",
-      accessor: "id",
-      maxWidth: 60,
+      Header: "Mã vé",
+      accessor: "ticket_code",
+      maxWidth: 100,
       filterable: true,
       show: true,
     },
@@ -241,12 +268,25 @@ const Order = () => {
     <div>
       <div className="tw-flex tw-justify-between">
         <h1 className="tw-text-[2rem] tw-mb-2">Quản lý vé xe</h1>
+        <div>
         <button
-          className="tw-bg-green-600 tw-rounded-md tw-p-3 tw-mb-4 tw-text-white"
-          onClick={() => history.push("/admin/order/create")}
-        >
-          Thêm vé xe
+          className="tw-bg-green-600 tw-rounded-md tw-p-2 tw-mb-4 tw-mr-2 tw-text-white">
+         Danh sách vé huỷ
         </button>
+        <button
+          className="tw-bg-green-600 tw-rounded-md tw-p-2 tw-mb-4 tw-mr-2 tw-text-white"
+          onClick={()=>handleExportList()}
+          >
+         Xuất dữ liệu
+        </button>
+        
+          <button
+            className="tw-bg-green-600 tw-rounded-md tw-p-2 tw-mb-4 tw-text-white"
+            onClick={() => history.push("/admin/order/create")}
+          >
+            Thêm vé xe
+          </button>
+        </div>
       </div>
       <Table
         data={availableOrder}

@@ -78,7 +78,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
         }
 
       } else {
-
+        const resTicket = await BusesService.addTicket(ticket)
         const res = await BusesService.paymentTicket(totalPrice)
         if (res.data.message === "success") {
           window.location.href = res.data.data

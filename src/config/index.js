@@ -23,6 +23,9 @@ export const API_TICKET = "/ticket"
 
 export const API_PAYMENT = "/payment"
 
+export const API_EXPORT = "/ticketexport"
+
+export const API_SEND_EMAIL = "/sendmail"
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0
 }

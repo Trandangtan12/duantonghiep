@@ -9,7 +9,11 @@ const SuccessPayment = () => {
     const updateTicket = async () => {
       await BusesService.approvalTicket(ticket.id);
     };
+    const sendEmail = async () =>{
+      await BusesService.sendEmail(ticket.id)
+    }
     updateTicket();
+    sendEmail()
   }, []);
   return (
     <div>

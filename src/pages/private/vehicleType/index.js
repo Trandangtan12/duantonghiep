@@ -59,7 +59,7 @@ const BusesType = () => {
         },
       },
       {
-        Header: "Tên chuyên xe",
+        Header: "Loại xe",
         accessor: "name",
         show: true,
       },
