@@ -14,7 +14,7 @@ const SignUp = () => {
     const onHandleSubmit = async (data, e) => {
         const newUser = {
             ...data,
-            gender : "fale"
+            gender : "Nam"
         }
         try {
             await UserApi.signup(newUser)

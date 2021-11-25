@@ -24,7 +24,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
     setIsOpenModal(false);
   }
   const [emp, setEmp] = useState();
-  console.log("Ghế trống", emp);
+  // console.log("Ghế trống", emp);
   const [qty, setQty] = useState(1)
 
   const Increase = () => {
@@ -49,22 +49,22 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   }
   const [currentRadioValue, setCurrentRadioValue] = useState('OFFLINE');
   const totalPrice = product.price * qty;
+  const depositPrice = Math.round(totalPrice * 0.3)
   const handlePayTicket = async (data) => {
-    
-    const ticket = {
-      ...data,
-      quantity: qty,
-      totalPrice: totalPrice,
-      paymentMethod: currentRadioValue,
-    }
-    localStorage.setItem('paymentMethod' , currentRadioValue)
-    const updateBuses = {
-      ...data,
-      seat_empty: emp
-    }
-    console.log("Thông tin vé", ticket);
     try {
-      if (currentRadioValue === "OFFLINE") {
+      const updateBuses = {
+        ...data,
+        seat_empty: emp
+      }
+      if (currentRadioValue === "OFFLINE" && qty < 3) {
+        const ticket = {
+          ...data,
+          quantity: qty,
+          totalPrice: totalPrice,
+          paymentMethod: currentRadioValue,
+        }
+
+        console.log("vé offline", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -77,11 +77,53 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           await BusesService.updateBusses(product.id, updateBuses)
         }
 
-      } else {
-
+      } else if (qty >= 3) {
+        const ticket = {
+          ...data,
+          quantity: qty,
+          totalPrice: Math.round(totalPrice * 0.3),
+          paymentMethod: currentRadioValue,
+          status: "DEPOSIT"
+        }
+        const resTicket = await BusesService.addTicket(ticket)
+        if (resTicket.status === 201 || resTicket.status === 200) {
+          localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+        }
+        const res = await BusesService.paymentTicket(depositPrice)
+        if (res.data.message === "success") {
+          window.location.href = res.data.data
+        }
+        if (emp < 0) {
+          alert("Hết ghế trống!!!")
+        } else {
+          setIsOpenModal(false);
+          console.log("Cập nhật ghế ok")
+          await BusesService.updateBusses(product.id, updateBuses)
+        }
+        setIsOpenModal(false);
+      }
+      else {
+        const ticket = {
+          ...data,
+          quantity: qty,
+          totalPrice: totalPrice,
+          paymentMethod: currentRadioValue,
+        }
+        console.log("else", ticket);
+        const resTicket = await BusesService.addTicket(ticket)
+        if (resTicket.status === 201 || resTicket.status === 200) {
+          localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+        }
         const res = await BusesService.paymentTicket(totalPrice)
         if (res.data.message === "success") {
           window.location.href = res.data.data
+        }
+        if (emp < 0) {
+          alert("Hết ghế trống!!!")
+        } else {
+          setIsOpenModal(false);
+          console.log("Cập nhật ghế ok")
+          await BusesService.updateBusses(product.id, updateBuses)
         }
         setIsOpenModal(false);
       }
@@ -274,6 +316,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                   <div className="tw-my-6">
                     <p className="tw-block tw-uppercase tw-tracking-wide tw-text-gray-700 tw-text-xs tw-font-bold tw-mb-2">Chọn phương thức thanh toán</p>
                     <div className="tw-flex ">
+
                       <div className="tw-mr-4">
                         <input
                           type="radio"
@@ -283,7 +326,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                           onChange={(e) => setCurrentRadioValue(e.target.value)}
                           defaultChecked={currentRadioValue === "OFFLINE"} />
                         <label for="OFFLINE">
-                          Thanh toán bằng tiền mặt
+                          {qty >= 3 ? "Đặt cọc 30%" : "Thanh toán bằng tiền mặt"}
                         </label></div>
 
                       <div>
@@ -294,13 +337,18 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                           Thanh toán qua VNPAY
                         </label>
                       </div>
+
+
+
                     </div>
+
 
                   </div>
 
                   <div className="tw-flex tw-justify-between tw-align-middle tw-mt-2">
-                    <div className="tw-text-xl">Tổng tiền</div>
-                    <div> {new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(totalPrice)}</div>
+                    <div className="tw-text-xl">{currentRadioValue === "OFFLINE" && qty >= 3 ? "30% tổng tiền" : "Tổng tiền"}</div>
+                    <div> {currentRadioValue === "OFFLINE" && qty >= 3 ? `${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(depositPrice)}` : `${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(totalPrice)}`}
+                       </div>
                   </div>
                   <button type="submit" className="tw-w-full tw-mt-2 tw-bg-green-500 tw-p-3 tw-rounded-md tw-text-white">Xác nhận</button>
                 </form>
