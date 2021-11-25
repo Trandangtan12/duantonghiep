@@ -54,10 +54,6 @@ const Buses = () => {
           <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.seat}</td>
         </tr>
         <tr className="tw-flex tw-flex-wrap tw-mb-4">
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Điêm đi</td>
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.startPointName}</td>
-        </tr>
-        <tr className="tw-flex tw-flex-wrap tw-mb-4">
           <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Dịch vụ</td>
           <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.service !== null || data.service !== 0 ? data.service.map((elt)=> elt.name).join(", ")  :null}</td>
         </tr>
