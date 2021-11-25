@@ -77,7 +77,10 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
         }
 
       } else {
-
+        const resTicket = await BusesService.addTicket(ticket)
+        if (resTicket.status === 201 || resTicket.status === 200) {
+          localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+        }
         const res = await BusesService.paymentTicket(totalPrice)
         if (res.data.message === "success") {
           window.location.href = res.data.data
