@@ -1,12 +1,12 @@
+import alertify from "alertifyjs";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { actionGetBuses, actionSearchBuses } from "../../redux/actions/buses";
+import { actionGetBuses } from "../../redux/actions/buses";
 import { getAllProvince } from "../../redux/actions/province";
 import SelectFormHome from "../selectForm/selectFormHome";
-import alertify from "alertifyjs";
 const SearchCars = () => {
   const TODAY = new Date()
   const [startPoint, setstartPoint] = useState('');
@@ -62,6 +62,7 @@ const SearchCars = () => {
                 className="tw-text-black tw-font-bold tw-cursor-text"
                 options={provinceFilter}
                 onChange={handleChangeStartPoint}
+                fieldName="startPointId"
               />
             </div>
             <div className="tw-w-full tw-py-2">
@@ -71,6 +72,7 @@ const SearchCars = () => {
                 className="tw-text-black tw-font-bold tw-cursor-text"
                 options={provinceFilter}
                 onChange={handleChangeEndPoint}
+                fieldName="endPointId"
               />
             </div>
             <div className="tw-w-full tw-mt-2">

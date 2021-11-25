@@ -1,21 +1,19 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import alertify from "alertifyjs";
-import { height } from "dom7";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import {Swiper , SwiperSlide} from "swiper/react";
-import 'swiper/swiper-bundle.min.css'
-import 'swiper/swiper.min.css'
+import 'swiper/swiper-bundle.min.css';
+import 'swiper/swiper.min.css';
 import Input from "../../../../compornent/admin/input/Input";
 import DatePickerForm from "../../../../compornent/datePicker";
 import TextArea from "../../../../compornent/textarea";
-import UploadFile from "../../../../compornent/uploadFile";
 import firebase from "../../../../firebase";
 import {
   actionGetAllBusesTypes,
-  actionGetService,
+  actionGetService
 } from "../../../../redux/actions/buses";
 import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
@@ -23,17 +21,14 @@ import { ProvinceService } from "../../../../service/provinceService";
 import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
-import SlideImageDescription from "./components/SlideImageDescription";
 import { initialValues, validationSchema } from "./hookFormConfig";
 import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
-import { yupResolver } from "@hookform/resolvers/yup";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
-  const [urlImage, setUrlImage] = useState(null);
-  const [urlImageDescription, setUrlImageDescription] = useState([]);
+  const [urlImage, setUrlImage] = useState("https://via.placeholder.com/300.png/09f/fff");
   const history = useHistory();
   const dispatch = useDispatch();
-  const [cityValue, setVityValue] = useState([]);
+  const [cityValue, setCityValue] = useState([]);
   const { availableService, availableBusesTypes } = useSelector(
     (state) => state.buses
   );
@@ -53,7 +48,17 @@ const NewBuses = () => {
   const [districtValue, setdistrictValue] = useState([]);
   const [wardValue, setWardValue] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
+  ///end point
+  const [endPointCity, setEndPointCity] = useState([])
+  const [endPointDistricts, setEndPointDistricts] = useState([])
+  const [endPointWard, setEndPointWard] = useState([])
   const provinceFilter = cityValue.map((city) => {
+    return {
+      value: city.code,
+      label: city.name,
+    };
+  });
+  const provinceEndFilter = endPointCity.map((city) => {
     return {
       value: city.code,
       label: city.name,
@@ -77,12 +82,12 @@ const NewBuses = () => {
   } = useForm({
     defaultValues: initialValues,
     resolver: yupResolver(validationSchema),
-    mode: "onBlur"
+    mode: "all",
+    reValidateMode : "onSubmit"
   });
-  const onChangeCity = async (pointName, pointId, original) => {
+  const onChangeCity = async (pointName, pointId, original , setValueOptions) => {
     setValue(pointId, original.value);
     setValue(pointName, original.label);
-    setdistrictValue([]);
     const districtRes = await ProvinceService.getDistrict(original.value);
     if (districtRes.status === 200) {
       const districtFilter = districtRes.data.districts.map((districts) => {
@@ -91,10 +96,10 @@ const NewBuses = () => {
           label: districts.name,
         };
       });
-      setdistrictValue(districtFilter);
+      setValueOptions(districtFilter);
     }
   };
-  const onChangeWard = async (original , pointName, pointId ,id) => {
+  const onChangeWard = async (original , pointName, pointId ,id , setValueOptions) => {
     setValue(pointId, original.value);
     setValue(pointName, original.label);
     const wardRes = await ProvinceService.getWard(id);
@@ -105,14 +110,15 @@ const NewBuses = () => {
           label: ward.name,
         };
       });
-      setWardValue(wardFilter);
+      setValueOptions(wardFilter);
     }
   };
-  const handleChangeDistrict = (pointId , pointName , original) =>{
+  const handleChangeDistrict = (pointId , pointName , original , setValueOptions) =>{
     setValue(pointId, original.value);
     setValue(pointName, original.label);
   }
   const handleSubmitForm = (data) => {
+    console.log(data);
     data.seat_empty = data.seat
     alertify.confirm("Thêm chuyến xe", async function () {
       const newBuses = {
@@ -131,8 +137,9 @@ const NewBuses = () => {
     .set("notifier", "position", "top-right");
   };
   const handleChangeStartTime = (date) => {
-    const startDateConvert = moment(date).format("YYYY-MM-DD");
-    const startTime = moment(date).format("H:mm");
+    const startDateConvert = moment(date).utc(true).format("YYYY-MM-DD");
+    console.log(startDateConvert);
+    const startTime = moment(date).utc(true).format("H:mm");
     setStartDate(date);
     setValue("date_active", startDateConvert);
     setValue("start_time", startTime);
@@ -147,16 +154,14 @@ const NewBuses = () => {
     setServiceValues(services);
     setValue("service_id", serviceFilter);
   };
-  console.log(errors);
   useEffect(() => {
     dispatch(actionGetService());
     dispatch(actionGetAllBusesTypes());
     const getCity = async () => {
       const resCity = await ProvinceService.getAllCity();
       if (resCity.status === 200) {
-        await setVityValue(resCity.data);
-        setValue("date_active", TODAY);
-        setValue("start_time", TIME_TODAY);
+        await setCityValue(resCity.data);
+        await setEndPointCity(resCity.data)
       }
     };
     getCity();
@@ -305,6 +310,7 @@ const NewBuses = () => {
                           onChange={(date) => {
                             handleChangeStartTime(date);
                           }}
+                          minDate={TODAY}
                         />
                       </div>
                     </div>
@@ -331,6 +337,7 @@ const NewBuses = () => {
                           handleChange={handleChangeService}
                           values={serviceValues}
                           errors={errors}
+                          fieldName={"service_id"}
                         />
                       </div>
                     </div>
@@ -352,15 +359,16 @@ const NewBuses = () => {
                     pointWardName={"startWard_name"}
                     title="Điểm đi"
                     errors={errors}
+                    setWardValue={setWardValue}
                   />
                   <LocationSelect
-                    provinceFilter={provinceFilter}
+                    provinceFilter={provinceEndFilter}
                     onChangeCity={onChangeCity}
                     onChangeWard={onChangeWard}
                     onChangeDistrict={handleChangeDistrict}
-                    setdistrictValue={setdistrictValue}
-                    districtValue={districtValue}
-                    wardValue={wardValue}
+                    setdistrictValue={setEndPointDistricts}
+                    districtValue={endPointDistricts}
+                    wardValue={endPointWard}
                     register={register}
                     title="Điểm đến"
                     pointName={"endPointName"}
@@ -370,6 +378,7 @@ const NewBuses = () => {
                     pointWardId={"endWard_id"}
                     pointWardName={"endWard_name"}
                     errors={errors}
+                    setWardValue={setEndPointWard}
                   />
                   <TextArea
                     title="Ghi chú"

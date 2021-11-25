@@ -26,11 +26,11 @@ const Input = ({
         id={id}
         onChange={onChange}
         placeholder={placeholder}
-        className={`tw-border-[1px] tw-border-gray-500 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-border-green-600 focus:tw-border-2 tw-w-full tw-ease-linear tw-transition-all tw-duration-15 tw-outline-none`}
+        className={`tw-border-[0.5px] tw-border-gray-300 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-border-green-600 focus:tw-border-[1px] tw-w-full tw-ease-linear tw-transition-all tw-duration-15 tw-outline-none ${errors[fieldName] ? "tw-border-[1px] tw-border-red-500" : ""}`}
         {...register(fieldName, { required: required })}
       />
       <span className="tw-text-red-600">
-        {errors !== undefined && errors[fieldName] && messageErrors}
+        {errors !== undefined && errors[fieldName] && errors[fieldName].message}
       </span>
     </div>
   );
