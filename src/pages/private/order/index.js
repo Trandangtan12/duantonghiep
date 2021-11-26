@@ -1,4 +1,4 @@
-import { faMoneyCheck, faTimes } from "@fortawesome/fontawesome-free-solid";
+import { faMoneyCheck, faTimes, faTrash } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
 import FileSaver from "file-saver";
@@ -49,6 +49,15 @@ const Order = () => {
       .set("ok", "Alright!")
       .set("notifier", "position", "top-right");
   };
+  const handleDeleteTicket = async (id) =>{
+    const res = await BusesService.deleteTicket(id)
+    if (res.status === 200 || res.status === 201) {
+      reloadActiveAPI();
+      alertify.success("Xoá thành công !");
+    } else {
+      alertify.warning("Có lỗi xảy ra");
+    }
+  }
   const handleRejectTicket = (id) => {
     alertify
       .confirm("Bạn có chắc chắn muốn huỷ vé xe ?", async function () {
@@ -119,19 +128,19 @@ const Order = () => {
     switch (status) {
       case ACTIVED:
         return {
-          render: <div>Đã thanh toán</div>,
+          render: <div className="tw-bg-green-500 tw-text-white">Đã thanh toán</div>,
         };
       case WAITING_ACTIVE:
         return {
-          render: <div>Chưa thanh toán</div>,
+          render: <div className="tw-bg-red-500 tw-text-white">Chưa thanh toán</div>,
         };
       case REJECTED:
         return {
-          render: <div>Huỷ vé</div>,
+          render: <div className="tw-bg-red-500 tw-text-white">Huỷ vé</div>,
         };
         case DEPOSIT:
           return {
-            render: <div>Đã đặt cọc</div>,
+            render: <div  className="tw-bg-yellow-400 tw-text-white">Đã đặt cọc</div>,
           };
       default:
         return null;
@@ -235,6 +244,12 @@ const Order = () => {
         return (
           <div>
             <div>
+            <span
+                onClick={() => handleDeleteTicket(original.id)}
+                className="tw-cursor-pointer tw-mr-2"
+              >
+                <FontAwesomeIcon icon={faTrash} color="red" />
+              </span>
               <span
                 onClick={() => handleRejectTicket(original.id)}
                 className="tw-cursor-pointer"

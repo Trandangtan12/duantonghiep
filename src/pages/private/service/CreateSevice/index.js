@@ -17,7 +17,7 @@ const NewService = () => {
           const res = await BusesService.createService(data);
           if (res.status === 200 || res.status === 201) {
             alertify.set("notifier", "position", "bottom-right");
-            alertify.success("Thêm thành công !");
+            alertify.success("Thêm mới thành công !");
             history.push("/admin/service");
           }else{
             alertify.errors("Có lỗi xảy ra , vui lòng thử lại sau !");
@@ -72,7 +72,7 @@ const NewService = () => {
                             type="submit"
                             className="sm:tw-w-full md:tw-w-full lg:tw-w-[200px] tw-bg-green-600 tw-transform tw-p-3 tw-text-white tw-text-md hover:tw-bg-gray-800 tw-font-bold tw-rounded-lg"
                           >
-                            Tạo mới
+                            Tạo mới dịch vụ
                           </button>
                         </div>
                       </div>

@@ -12,8 +12,6 @@ import Table from "../../../compornent/admin/table";
 import { IsoStringConvert } from "../../../config";
 import { actionGetBuses } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
-const TdStyled = styled.td`
-`
 const Buses = () => {
   const dispatch = useDispatch();
   const history = useHistory()

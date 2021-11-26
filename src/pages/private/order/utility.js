@@ -16,5 +16,9 @@ export const listFilterStatus = [
     {
         type : REJECTED , 
         name : "Huỷ vé"
+    },
+    {
+        type : DEPOSIT , 
+        name : "Đã đặt cọc"
     }
 ]
