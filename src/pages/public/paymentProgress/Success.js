@@ -8,7 +8,6 @@ const SuccessPayment = () => {
   useEffect(() => {
     const updateTicket = async () => {
       const deposit = localStorage.getItem("deposit")
-      console.log(deposit);
       const paymentMethod = localStorage.getItem("paymentMethod")
       if (deposit === 'true') {
         await BusesService.depositedTicket(ticket.id)

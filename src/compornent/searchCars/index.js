@@ -39,9 +39,7 @@ const SearchCars = () => {
       return
     }
     const date_active = moment(startDate).utc(true).format("YYYY-MM-DD")
-    console.log(date_active);
     if (startPoint == null || endPoint == null) {
-      console.log("Bạn chưa chọn tỉnh thành");
     } else {
       history.push(`/product/start=${startPoint}/and/end=${endPoint}/and/date=${date_active}`)
     }

@@ -34,7 +34,6 @@ export const UserApi = {
         }
     },
     updateUser(id , user){
-        console.log(this.isAuthenticated().accessToken);
         return HttpClient.put(`${API_UPDATE_USER}/${id}`, user , {
             headers : {
                 Authorization : 'Bearer' + this.isAuthenticated().accessToken

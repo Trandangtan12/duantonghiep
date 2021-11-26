@@ -116,7 +116,6 @@ const NewBuses = () => {
     setValue(pointName, original.label);
   }
   const handleSubmitForm = (data) => {
-    console.log(data);
     data.seat_empty = data.seat
     alertify.confirm("Thêm chuyến xe", async function () {
       const newBuses = {
@@ -136,7 +135,6 @@ const NewBuses = () => {
   };
   const handleChangeStartTime = (date) => {
     const startDateConvert = moment(date).utc(true).format("YYYY-MM-DD");
-    console.log(startDateConvert);
     const startTime = moment(date).utc(true).format("H:mm");
     setStartDate(date);
     setValue("date_active", startDateConvert);
