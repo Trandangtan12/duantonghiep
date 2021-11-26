@@ -7,6 +7,10 @@ const UserMenu = () => {
   const account = localStorage.getItem('user') !== undefined ?  JSON.parse(localStorage.getItem('user')) : null
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const history = useHistory()
+  const handleLogOut = () =>{
+    localStorage.removeItem('user')
+    history.push("/login")
+  }
   return (
     <>
     <Menu as="div" className="tw-relative tw-inline-block tw-text-left">
