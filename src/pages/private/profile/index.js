@@ -1,24 +1,42 @@
-import { faEnvelope, faPhone, faPhoneSquare } from "@fortawesome/fontawesome-free-solid";
+import {
+  faEnvelope,
+  faPhone,
+  faPhoneSquare,
+} from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { UserApi } from "../../../service/userService";
 
 const Profile = () => {
-    const account = JSON.parse(localStorage.getItem('user'))
-    const [changeInfo, setChangeInfo] = useState(false);
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        setValue,
-      } = useForm({
-        defaultValues : {...account.user}
-      });
-    const handleChangeInfoAcount = (data) =>{
-        console.log(data);
+  const account = JSON.parse(localStorage.getItem("user"));
+  const [changeInfo, setChangeInfo] = useState(false);
+  const [profileDetail, setProfileDetail] = useState({});
+  console.log(profileDetail);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    defaultValues: { ...account.user },
+  });
+  const handleChangeInfoAcount = async (data) => {
+    const res = await UserApi.updateUser(account.user.id, data);
+    if (res.status === 200) {
+      console.log(res.data);
     }
+  };
+  useEffect(() => {
+    const getInfoUser = async () => {
+      const res = await UserApi.getUser(account.user.id)
+      if(res.status === 200){
+        setProfileDetail(res.data)
+      }
+    };
+    getInfoUser()
+  }, []);
   return (
-      
     <form onSubmit={handleSubmit(handleChangeInfoAcount)}>
       <div className="tw-max-w-4xl tw-flex tw-items-center tw-h-auto lg:tw-h-screen tw-flex-wrap tw-mx-auto tw-my-32 lg:tw-my-0">
         {/*Main Col*/}
@@ -35,28 +53,71 @@ const Profile = () => {
                   'url("https://image.freepik.com/free-vector/follow-me-social-business-theme-design_24877-50426.jpg")',
               }}
             />
-            <input className={`tw-text-3xl tw-font-bold tw-pt-8 lg:tw-pt-0 ${changeInfo ?'tw-border tw-border-1 tw-rounded-md tw-p-1 tw-border-green-600' :''}`} defaultValue={account.user.name} {...register('name')}/>
+            <input
+              className={`tw-text-3xl tw-font-bold tw-pt-8 lg:tw-pt-0 ${
+                changeInfo
+                  ? "tw-border tw-border-1 tw-rounded-md tw-p-1 tw-border-green-600"
+                  : ""
+              }`}
+              defaultValue={profileDetail.name}
+              {...register("name")}
+            />
             <div className="tw-mx-auto lg:tw-mx-0 tw-w-4/5 tw-pt-3 tw-border-b-2 tw-border-green-500 tw-opacity-25" />
             <p className="tw-pt-4 tw-text-base tw-font-bold tw-flex tw-items-center tw-justify-center lg:tw-justify-start">
-              <FontAwesomeIcon icon={faEnvelope} className={"tw-text-green-600 tw-text-lg"}/>
-              <input type="text" name="" id="" className={`tw-text-green-600 tw-ml-2 tw-w-full tw-p-1 tw-rounded-md tw-bg-white  tw-outline-none ${changeInfo ?'tw-border tw-border-1 tw-border-green-600' :''}`} defaultValue={account.user.email} disabled={!changeInfo} {...register('email')} />
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                className={"tw-text-green-600 tw-text-lg"}
+              />
+              <input
+                type="text"
+                name=""
+                id=""
+                className={`tw-text-green-600 tw-ml-2 tw-w-full tw-p-1 tw-rounded-md tw-bg-white  tw-outline-none ${
+                  changeInfo ? "tw-border tw-border-1 tw-border-green-600" : ""
+                }`}
+                defaultValue={profileDetail.email}
+                disabled={!changeInfo}
+                {...register("email")}
+                disabled
+              />
             </p>
             <p className="tw-pt-4 tw-text-base tw-font-bold tw-flex tw-items-center tw-justify-center lg:tw-justify-start">
-            <FontAwesomeIcon icon={faPhoneSquare} className={"tw-text-green-600 tw-text-lg"}/>
-            <input type="text" name="" id="" className={`tw-text-green-600 tw-ml-2 tw-w-full tw-p-1 tw-rounded-md tw-bg-white tw-outline-none ${changeInfo ?'tw-border tw-border-1 tw-border-green-600' :''}`} defaultValue={ account.user.phone_number} disabled={!changeInfo}  {...register('phone_number')} />
+              <FontAwesomeIcon
+                icon={faPhoneSquare}
+                className={"tw-text-green-600 tw-text-lg"}
+              />
+              <input
+                type="text"
+                name=""
+                id=""
+                className={`tw-text-green-600 tw-ml-2 tw-w-full tw-p-1 tw-rounded-md tw-bg-white tw-outline-none ${
+                  changeInfo ? "tw-border tw-border-1 tw-border-green-600" : ""
+                }`}
+                defaultValue={profileDetail.phone_number}
+                disabled={!changeInfo}
+                {...register("phone_number")}
+              />
             </p>
             <div className="tw-pt-12 tw-pb-8">
-            {
-                !changeInfo ? <button className="tw-bg-green-700 hover:tw-bg-green-900 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded-full" onClick={()=>{
-                  setChangeInfo(true)
-              }}>
-                Thay đổi thông tin
-              </button> :<button className="tw-bg-green-700 hover:tw-bg-green-900 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded-full" onClick={()=>{
-                  setChangeInfo(false)
-              }}>
-                Cập nhật
-              </button>
-            }
+              {!changeInfo ? (
+                <button
+                  className="tw-bg-green-700 hover:tw-bg-green-900 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded-full"
+                  onClick={() => {
+                    setChangeInfo(true);
+                  }}
+                >
+                  Thay đổi thông tin
+                </button>
+              ) : (
+                <button
+                  className="tw-bg-green-700 hover:tw-bg-green-900 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded-full"
+                  onClick={() => {
+                    setChangeInfo(false);
+                  }}
+                >
+                  Cập nhật
+                </button>
+              )}
             </div>
             <div className="tw-mt-6 tw-pb-16 lg:tw-pb-0 tw-w-4/5 lg:tw-w-full tw-mx-auto tw-flex tw-flex-wrap tw-items-center tw-justify-between">
               <a
@@ -159,7 +220,7 @@ const Profile = () => {
             src="https://image.freepik.com/free-vector/follow-me-social-business-theme-design_24877-50426.jpg"
             className="tw-rounded-none lg:tw-rounded-lg tw-shadow-2xl tw-hidden lg:tw-block"
           />
-          
+
           {/* Image from: http://unsplash.com/photos/MP0IUfwrn0A */}
         </div>
         {/* Pin to top right corner */}

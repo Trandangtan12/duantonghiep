@@ -7,7 +7,15 @@ const SuccessPayment = () => {
   const ticket = JSON.parse(localStorage.getItem('ticket'))
   useEffect(() => {
     const updateTicket = async () => {
-      await BusesService.approvalTicket(ticket.id);
+      const deposit = localStorage.getItem("deposit")
+      console.log(deposit);
+      const paymentMethod = localStorage.getItem("paymentMethod")
+      if (deposit === 'true') {
+        await BusesService.depositedTicket(ticket.id)
+      }
+      else if(deposit === 'false' && paymentMethod === "ATM"){
+        await BusesService.approvalTicket(ticket.id);
+      }   
     };
     const sendEmail = async () =>{
       await BusesService.sendEmail(ticket.id)

@@ -58,14 +58,13 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
         seat_empty: emp
       }
       if (currentRadioValue === "OFFLINE" && qty < 3) {
+        localStorage.setItem('deposit' , false)
         const ticket = {
           ...data,
           quantity: qty,
           totalPrice: totalPrice,
           paymentMethod: currentRadioValue,
         }
-
-        console.log("vé offline", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -74,17 +73,17 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           alert("Hết ghế trống!!!")
         } else {
           setIsOpenModal(false);
-          console.log("Cập nhật ghế ok")
           await BusesService.updateBusses(product.id, updateBuses)
         }
 
-      } else if (qty >= 3) {
+      } else if (currentRadioValue === "OFFLINE" && qty >= 3) {
+        localStorage.setItem('deposit' , true)
         const ticket = {
           ...data,
           quantity: qty,
-          totalPrice: Math.round(totalPrice * 0.3),
+          totalPrice: depositPrice,
           paymentMethod: currentRadioValue,
-          status: "DEPOSIT"
+          status: "WAITING_ACTIVE"
         }
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
@@ -104,13 +103,13 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
         setIsOpenModal(false);
       }
       else {
+        localStorage.setItem('deposit' , false)
         const ticket = {
           ...data,
           quantity: qty,
           totalPrice: totalPrice,
           paymentMethod: currentRadioValue,
         }
-        console.log("else", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -129,7 +128,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
         setIsOpenModal(false);
       }
     } catch (error) {
-      console.log(error.response.data.message);
       setIsOpenModal(true);
     }
   }

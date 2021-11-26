@@ -1,7 +1,6 @@
-import { useSelector } from "react-redux"
 import HttpClient from "../api/axiosClient"
 import { API_UPDATE_USER } from "../config"
-const token = localStorage.getItem('user')
+import { v4 as uuidv4 } from 'uuid';
 export const UserApi = {
     signup(user){
         const url = "/register"
@@ -43,7 +42,7 @@ export const UserApi = {
             
         })
     },
-    getUser(){
-        return HttpClient.get("/users")
+    getUser(id){
+        return HttpClient.get(`/users`)
     }
 }
