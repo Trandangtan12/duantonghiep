@@ -1,4 +1,8 @@
-import { faMoneyCheck, faTimes, faTrash } from "@fortawesome/fontawesome-free-solid";
+import {
+  faMoneyCheck,
+  faTimes,
+  faTrash,
+} from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
 import FileSaver from "file-saver";
@@ -24,15 +28,15 @@ const Order = () => {
   const { availableOrder } = useSelector((state) => state.buses);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
   const dependencies = [availableOrder.length, dispatchDependency];
-  const handleExportList =async () =>{
-    const res = await BusesService.exportListTicket()
-    if (res.status === 200 ) {
+  const handleExportList = async () => {
+    const res = await BusesService.exportListTicket();
+    if (res.status === 200) {
       const blob = new Blob([res.data], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-     });
-     FileSaver.saveAs(blob, `sixleaf_ticket.xlsx`);  
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      FileSaver.saveAs(blob, `sixleaf_ticket.xlsx`);
     }
-  }
+  };
   const handleApprovalTicket = (id) => {
     alertify
       .confirm("Bạn có chắc chắn muốn thanh toán vé xe ?", async function () {
@@ -49,15 +53,15 @@ const Order = () => {
       .set("ok", "Alright!")
       .set("notifier", "position", "top-right");
   };
-  const handleDeleteTicket = async (id) =>{
-    const res = await BusesService.deleteTicket(id)
+  const handleDeleteTicket = async (id) => {
+    const res = await BusesService.deleteTicket(id);
     if (res.status === 200 || res.status === 201) {
       reloadActiveAPI();
       alertify.success("Xoá thành công !");
     } else {
       alertify.warning("Có lỗi xảy ra");
     }
-  }
+  };
   const handleRejectTicket = (id) => {
     alertify
       .confirm("Bạn có chắc chắn muốn huỷ vé xe ?", async function () {
@@ -83,7 +87,6 @@ const Order = () => {
         className="tw-bg-green-100 tw-rounded-lg"
       >
         <tbody>
-        
           <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Tên chuyến xe</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
@@ -111,13 +114,13 @@ const Order = () => {
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Số CMND</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
-            {data.identity_card}
+              {data.identity_card}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ghi chú</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
-            {data.description !== null ? data.description : "-"}
+              {data.description !== null ? data.description : "-"}
             </td>
           </tr>
         </tbody>
@@ -128,20 +131,26 @@ const Order = () => {
     switch (status) {
       case ACTIVED:
         return {
-          render: <div className="tw-bg-green-500 tw-text-white">Đã thanh toán</div>,
+          render: (
+            <div className="tw-bg-green-500 tw-text-white">Đã thanh toán</div>
+          ),
         };
       case WAITING_ACTIVE:
         return {
-          render: <div className="tw-bg-red-500 tw-text-white">Chưa thanh toán</div>,
+          render: (
+            <div className="tw-bg-red-500 tw-text-white">Chưa thanh toán</div>
+          ),
         };
       case REJECTED:
         return {
           render: <div className="tw-bg-red-500 tw-text-white">Huỷ vé</div>,
         };
-        case DEPOSIT:
-          return {
-            render: <div  className="tw-bg-yellow-400 tw-text-white">Đã đặt cọc</div>,
-          };
+      case DEPOSIT:
+        return {
+          render: (
+            <div className="tw-bg-yellow-400 tw-text-white">Đã đặt cọc</div>
+          ),
+        };
       default:
         return null;
     }
@@ -195,9 +204,9 @@ const Order = () => {
       accessor: "totalPrice",
       // filterable: true,
       show: true,
-      Cell : ({original}) =>{
-        return numberWithCommas(original.totalPrice)
-      }
+      Cell: ({ original }) => {
+        return numberWithCommas(original.totalPrice);
+      },
     },
     {
       Header: "Trạng thái",
@@ -231,8 +240,8 @@ const Order = () => {
       Header: "Phương thức",
       maxWidth: 250,
       show: true,
-      Cell: ({original}) => {
-        return getPaymentMethod(original.paymentMethod).render
+      Cell: ({ original }) => {
+        return getPaymentMethod(original.paymentMethod).render;
       },
     },
     {
@@ -244,7 +253,7 @@ const Order = () => {
         return (
           <div>
             <div>
-            <span
+              <span
                 onClick={() => handleDeleteTicket(original.id)}
                 className="tw-cursor-pointer tw-mr-2"
               >
@@ -284,17 +293,17 @@ const Order = () => {
       <div className="tw-flex tw-justify-between">
         <h1 className="tw-text-[2rem] tw-mb-2">Quản lý vé xe</h1>
         <div>
-        <button
-          className="tw-bg-green-600 tw-rounded-md tw-p-2 tw-mb-4 tw-mr-2 tw-text-white">
-         Danh sách vé huỷ
-        </button>
-        <button
-          className="tw-bg-green-600 tw-rounded-md tw-p-2 tw-mb-4 tw-mr-2 tw-text-white"
-          onClick={()=>handleExportList()}
+          <button className="tw-bg-green-600 tw-rounded-md tw-p-2 tw-mb-4 tw-mr-2 tw-text-white">
+            Danh sách vé huỷ
+          </button>
+          <button
+            className="tw-bg-green-600 tw-rounded-md tw-p-2 tw-mb-4 tw-mr-2 tw-text-white"
+            onClick={() => handleExportList()}
+            disabled={availableOrder.length === 0 ? true : false}
           >
-         Xuất dữ liệu
-        </button>
-        
+            Xuất dữ liệu
+          </button>
+
           <button
             className="tw-bg-green-600 tw-rounded-md tw-p-2 tw-mb-4 tw-text-white"
             onClick={() => history.push("/admin/order/create")}

@@ -5,8 +5,6 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import 'swiper/swiper-bundle.min.css';
-import 'swiper/swiper.min.css';
 import Input from "../../../../compornent/admin/input/Input";
 import DatePickerForm from "../../../../compornent/datePicker";
 import TextArea from "../../../../compornent/textarea";
