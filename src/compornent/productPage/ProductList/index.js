@@ -19,9 +19,9 @@ const ProductList = (props) => {
   const mapProduct = productFilter.map((item) => {
     return (
       <div className="tw-rounded-lg tw-bg-white tw-p-3 tw-mb-3 hover:tw-shadow-2xl tw-transition tw-ease-in-out">
-        <div className="tw-flex tw-justify-between">
+        <div className="tw-flex tw-justify-between ">
           <div className="tw-flex">
-            <div className="tw-w-40 tw-h-40 tw-border tw-border-gray-200">
+            <div className="tw-w-36 tw-h-36 tw-border tw-border-gray-200">
               {item.image == null ? <p className="tw-text-center tw-my-[40%] tw-text-sm">Không có ảnh</p>: <img src={item.image} className="tw-w-full tw-h-full tw-object-cover"  alt="" />}
             
             </div>
@@ -50,14 +50,14 @@ const ProductList = (props) => {
                     <span className="tw-text-xl tw-font-bold">{item.start_time}</span>
                     <div className="tw-flex tw-items-center tw-ml-1">
                       <FontAwesomeIcon className="tw-text-[0.25rem] tw-mx-1" icon={faCircle} />
-                      <p className="tw-text-gray-500 tw-text-sm">{item.from}</p>
+                      <p className="tw-text-gray-500 tw-text-sm">{item.startWard_name}</p>
                     </div>
                   </div>
                   <div className="tw-flex">
-                    <span className="tw-text-xl tw-font-bold">{item.end_time}</span>
+                    <span className="tw-text-xl tw-font-bold">{item.start_time}</span>
                     <div className="tw-flex tw-items-center tw-ml-1">
                       <FontAwesomeIcon className="tw-text-[0.25rem] tw-mx-1" icon={faCircle} />
-                      <p className="tw-text-gray-500 tw-text-sm">{item.to}</p>
+                      <p className="tw-text-gray-500 tw-text-sm">{item.endWard_name}</p>
                     </div>
                   </div>
                 </div>
