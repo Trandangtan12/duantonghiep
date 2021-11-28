@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Input from "../../../../compornent/admin/input/Input";
+import InputNumber from "../../../../compornent/admin/inputNumber";
 import DatePickerForm from "../../../../compornent/datePicker";
 import TextArea from "../../../../compornent/textarea";
 import firebase from "../../../../firebase";
@@ -20,7 +21,7 @@ import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
 import { initialValues, validationSchema } from "./hookFormConfig";
-import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
+import { InputNumberStyle, TODAY } from "./utility";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
   const [urlImage, setUrlImage] = useState("https://via.placeholder.com/300.png/09f/fff");
@@ -171,7 +172,7 @@ const NewBuses = () => {
             <div className="tw-relative tw-flex tw-flex-col tw-min-w-0 tw-break-words tw-w-full tw-mb-6 tw-shadow-lg tw-rounded-lg bg-blueGray-100 tw-border-0">
               <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-px-6 tw-py-6 ">
                 <div className="tw-text-center tw-flex tw-justify-between">
-                  <h6 className="text-blueGray-700 tw-text-xl tw-font-bold">
+                  <h6 className="text-blueGray-700 tw-text-xl tw-font-bold tw-uppercase">
                     Tạo mới chuyến xe
                   </h6>
                   <button
@@ -356,6 +357,7 @@ const NewBuses = () => {
                     title="Điểm đi"
                     errors={errors}
                     setWardValue={setWardValue}
+                    detailAddress={"detailStart"}
                   />
                   <LocationSelect
                     provinceFilter={provinceEndFilter}
@@ -375,6 +377,7 @@ const NewBuses = () => {
                     pointWardName={"endWard_name"}
                     errors={errors}
                     setWardValue={setEndPointWard}
+                    detailAddress={"detailEnd"}
                   />
                   <TextArea
                     title="Ghi chú"

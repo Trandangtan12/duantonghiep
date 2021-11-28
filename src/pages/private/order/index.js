@@ -7,12 +7,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
 import FileSaver from "file-saver";
 import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Table from "../../../compornent/admin/table";
 import { IsoStringConvert, numberWithCommas } from "../../../config";
 import { actionGetTicket } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
+import { TODAY } from "../buses/newBuses/utility";
 import {
   ACTIVED,
   ATM,
@@ -28,6 +30,7 @@ const Order = () => {
   const { availableOrder } = useSelector((state) => state.buses);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
   const dependencies = [availableOrder.length, dispatchDependency];
+  const [startDate, setStartDate] = useState(new Date());
   const handleExportList = async () => {
     const res = await BusesService.exportListTicket();
     if (res.status === 200) {
@@ -84,41 +87,69 @@ const Order = () => {
         size="sm"
         responsive
         bordered
-        className="tw-bg-green-100 tw-rounded-lg"
+        className="tw-bg-green-100 tw-border-[1px] tw-border-green-500 tw-rounded-lg"
       >
         <tbody>
+        <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Email</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {data.email}
+            </td>
+          </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Tên chuyến xe</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Mã chuyến xe</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {data.buses.id}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Tên chuyến xe</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.buses.name}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Điêm đi</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Điêm đi</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.buses.startPointName}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Điểm đến</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Điểm đến</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.buses.endPointName}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ngày đặt</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Ngày đặt</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {IsoStringConvert(data.buses.created_at)}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Số CMND</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Số CMND</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.identity_card}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ghi chú</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Ngày khởi hành
+            </td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {data.buses.date_active}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Thời gian khởi hành
+            </td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {data.buses.start_time}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Ghi chú</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.description !== null ? data.description : "-"}
             </td>
@@ -311,6 +342,14 @@ const Order = () => {
             Thêm vé xe
           </button>
         </div>
+      </div>
+      <div className="tw-flex tw-justify-between">
+        <DatePicker
+          className="tw-w-full tw-py-2 tw-border-b-2 tw-rounded-sm tw-border-gray-200 tw-font-bold tw-h-[47px]"
+          dateFormat="yyyy-MM-dd"
+          selected={startDate}
+          dateFormat="yyyy-MM-dd"
+        />
       </div>
       <Table
         data={availableOrder}
