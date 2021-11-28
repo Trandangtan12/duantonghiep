@@ -1,7 +1,6 @@
 import React from 'react'
 
 const SlideImageDescription = ({arrImage}) => {
-    console.log(arrImage);
     return (
         <div>
         {

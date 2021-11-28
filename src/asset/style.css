@@ -1593,6 +1593,11 @@ video {
   border-color: rgba(0, 0, 0, var(--tw-border-opacity));
 }
 
+.tw-border-blue-500 {
+  --tw-border-opacity: 1;
+  border-color: rgba(59, 130, 246, var(--tw-border-opacity));
+}
+
 .tw-bg-\[\#f4f5f4\] {
   --tw-bg-opacity: 1;
   background-color: rgba(244, 245, 244, var(--tw-bg-opacity));
@@ -1698,14 +1703,14 @@ video {
   background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
 }
 
-.tw-bg-green-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(110, 231, 183, var(--tw-bg-opacity));
-}
-
 .tw-bg-yellow-400 {
   --tw-bg-opacity: 1;
   background-color: rgba(251, 191, 36, var(--tw-bg-opacity));
+}
+
+.tw-bg-green-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(110, 231, 183, var(--tw-bg-opacity));
 }
 
 .tw-bg-blue-400 {
@@ -1721,11 +1726,6 @@ video {
 .tw-bg-red-200 {
   --tw-bg-opacity: 1;
   background-color: rgba(254, 205, 211, var(--tw-bg-opacity));
-}
-
-.tw-bg-yellow-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(245, 158, 11, var(--tw-bg-opacity));
 }
 
 .tw-bg-opacity-30 {
@@ -1864,6 +1864,11 @@ video {
 .tw-py-20 {
   padding-top: 5rem;
   padding-bottom: 5rem;
+}
+
+.tw-py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 .tw-pr-3 {
@@ -2084,6 +2089,10 @@ video {
 
 .tw-leading-tight {
   line-height: 1.25;
+}
+
+.tw-leading-4 {
+  line-height: 1rem;
 }
 
 .tw-tracking-widest {
@@ -2313,6 +2322,11 @@ video {
   --tw-ring-color: rgba(255, 255, 255, var(--tw-ring-opacity));
 }
 
+.tw-ring-blue-400 {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgba(96, 165, 250, var(--tw-ring-opacity));
+}
+
 .tw-ring-opacity-5 {
   --tw-ring-opacity: 0.05;
 }
@@ -2453,11 +2467,6 @@ video {
   background-color: rgba(124, 58, 237, var(--tw-bg-opacity));
 }
 
-.hover\:tw-bg-gray-200:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(226, 232, 240, var(--tw-bg-opacity));
-}
-
 .hover\:tw-bg-red-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgba(190, 18, 60, var(--tw-bg-opacity));
@@ -2466,6 +2475,11 @@ video {
 .hover\:tw-bg-gray-50:hover {
   --tw-bg-opacity: 1;
   background-color: rgba(248, 250, 252, var(--tw-bg-opacity));
+}
+
+.hover\:tw-bg-gray-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(226, 232, 240, var(--tw-bg-opacity));
 }
 
 .hover\:tw-bg-blue-700:hover {
@@ -2541,6 +2555,10 @@ video {
 
 .hover\:tw-duration-500:hover {
   transition-duration: 500ms;
+}
+
+.focus\:tw-z-10:focus {
+  z-index: 10;
 }
 
 .focus\:tw-border-\[1px\]:focus {

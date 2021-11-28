@@ -12,7 +12,6 @@ const Profile = () => {
   const account = JSON.parse(localStorage.getItem("user"));
   const [changeInfo, setChangeInfo] = useState(false);
   const [profileDetail, setProfileDetail] = useState({});
-  console.log(profileDetail);
   const {
     register,
     handleSubmit,
@@ -24,7 +23,6 @@ const Profile = () => {
   const handleChangeInfoAcount = async (data) => {
     const res = await UserApi.updateUser(account.user.id, data);
     if (res.status === 200) {
-      console.log(res.data);
     }
   };
   useEffect(() => {

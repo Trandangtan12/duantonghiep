@@ -24,12 +24,10 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
     setIsOpenModal(false);
   }
   const [emp, setEmp] = useState();
-  // console.log("Ghế trống", emp);
   const [qty, setQty] = useState(1)
   const Increase = () => {
   
     if (qty >= product.seat_empty) {
-      console.log("show");
     } else {
       setQty(qty + 1)
       if (emp >= 0) {
@@ -97,7 +95,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           alert("Hết ghế trống!!!")
         } else {
           setIsOpenModal(false);
-          console.log("Cập nhật ghế ok")
           await BusesService.updateBusses(product.id, updateBuses)
         }
         setIsOpenModal(false);
@@ -122,7 +119,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           alert("Hết ghế trống!!!")
         } else {
           setIsOpenModal(false);
-          console.log("Cập nhật ghế ok")
           await BusesService.updateBusses(product.id, updateBuses)
         }
         setIsOpenModal(false);
