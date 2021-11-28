@@ -22,9 +22,12 @@ const UpdateSearch = () => {
 
   const history = useHistory()
   const { start, end, date } = useParams();
-  const [valueStart, setValueStart] = useState([])
-  const [valueEnd, setValueEnd] = useState([])
-
+  const provinceFilterStart = provinceFilter
+    .filter((item) => item.value == start)
+    .map((item) => item.label);
+  const provinceFilterEnd = provinceFilter
+    .filter((item) => item.value == end)
+    .map((item) => item.label);
   const TODAY = new Date()
   const [startDate, setStartDate] = useState(new Date(date));
   const [startPoint, setstartPoint] = useState(start);
@@ -54,17 +57,6 @@ const UpdateSearch = () => {
   }
 
   useEffect(() => {
-    const provinceFilterStart = provinceFilter
-    .filter((item) => item.value == start)
-    .map((item) => item.label);
-    
-  const provinceFilterEnd = provinceFilter
-    .filter((item) => item.value == end)
-    .map((item) => item.label);
-    
-    setValueStart(provinceFilterStart)
-    setValueEnd(provinceFilterEnd)
-    console.log(provinceFilterStart);
     dispatch(getAllProvince());
     dispatch(actionGetBuses());
   }, []);
@@ -75,7 +67,7 @@ const UpdateSearch = () => {
           <div className="tw-w-full tw-mr-2">
             <p className="tw-text-white">Điểm đi</p>
             <SelectFormProduct
-             
+              placeholder={provinceFilterStart}
               className="tw-text-black tw-cursor-text"
               options={provinceFilter}
               onChange={handleChangeStartPoint}
@@ -85,12 +77,11 @@ const UpdateSearch = () => {
           <div className="tw-w-full tw-mr-2">
             <p className="tw-text-white">Điếm đến</p>
             <SelectFormProduct
-              // placeholder={provinceFilterEnd}
+              placeholder={provinceFilterEnd}
               className="tw-text-black tw-cursor-text"
               options={provinceFilter}
               onChange={handleChangeEndPoint}
-              // fieldName="startPointId"
-              defaultValues={valueEnd[0]}
+            // fieldName="startPointId"
             />
           </div>
           <div>
