@@ -77,14 +77,14 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           await BusesService.updateBusses(product.id, updateBuses)
         }
 
-      } else if (qty >= 3) {
+      } else if (qty >= 3 && currentRadioValue === "OFFLINE") {
         const ticket = {
           ...data,
           quantity: qty,
-          totalPrice: Math.round(totalPrice * 0.3),
+          totalPrice: depositPrice,
           paymentMethod: currentRadioValue,
-          status: "DEPOSIT"
         }
+        console.log("đặt cọc", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))

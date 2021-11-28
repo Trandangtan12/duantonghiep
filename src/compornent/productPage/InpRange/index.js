@@ -5,7 +5,7 @@ import "react-input-range/lib/css/index.css";
 import "./style.css";
 
 const InpRange = (props) => {
-  const { max, min, step, value } = props.data
+  const { max, min, step, value } = props.price
   const onChange = (range) => {
     props.onChange({
       value: range

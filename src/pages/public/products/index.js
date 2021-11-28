@@ -52,33 +52,33 @@ const Products = () => {
         setCheckedLunch(false)
         setCheckedAfternoon(false)
         setCheckedNigth(false)
-        if(!checkedMoning) {
+        if (!checkedMoning) {
             setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("06:00", "HH:mm") })
-        }else {
+        } else {
             setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
-        
+
     }
     const handleCheckedLunch = () => {
         setCheckedMoning(false)
         setCheckedLunch(!checkedLunch)
         setCheckedAfternoon(false)
         setCheckedNigth(false)
-        if(!checkedLunch) {
+        if (!checkedLunch) {
             setTime({ minTime: moment("06:01", "HH:mm"), maxTime: moment("12:00", "HH:mm") })
-        }else {
+        } else {
             setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
-       
+
     }
     const handleCheckedAfternoon = () => {
         setCheckedMoning(false)
         setCheckedLunch(false)
         setCheckedAfternoon(!checkedAfternoon)
         setCheckedNigth(false)
-        if(!checkedAfternoon) {
+        if (!checkedAfternoon) {
             setTime({ minTime: moment("12:01", "HH:mm"), maxTime: moment("18:00", "HH:mm") })
-        }else {
+        } else {
             setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
     }
@@ -87,9 +87,9 @@ const Products = () => {
         setCheckedLunch(false)
         setCheckedAfternoon(false)
         setCheckedNigth(!checkedNigth)
-        if(!checkedNigth) {
+        if (!checkedNigth) {
             setTime({ minTime: moment("18:01", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
-        }else {
+        } else {
             setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
     }
@@ -113,13 +113,51 @@ const Products = () => {
         setCheckedNigth(false)
         setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
     }
+    const filterProduct = availableSearch.filter((item) =>
+        item.price >= price.value.min
+        && item.price <= price.value.max
+        && item.seat_empty >= qtyFilter
+        && moment(item.start_time, "HH:mm") >= time.minTime
+        && moment(item.start_time, "HH:mm") <= time.maxTime
+    )
+    const timeMoning = availableSearch.filter(item => item.price >= price.value.min
+        && item.price <= price.value.max
+        && item.seat_empty >= qtyFilter
+        && moment(item.start_time, "HH:mm") >= moment("00:00", "HH:mm")
+        && moment(item.start_time, "HH:mm") <= moment("06:00", "HH:mm"))
+
+    const timeLunch = availableSearch.filter(item => item.price >= price.value.min
+        && item.price <= price.value.max
+        && item.seat_empty >= qtyFilter
+        && moment(item.start_time, "HH:mm") >= moment("06:01", "HH:mm")
+        && moment(item.start_time, "HH:mm") <= moment("12:00", "HH:mm"))
+
+    const timeAfternoon = availableSearch.filter(item => item.price >= price.value.min
+        && item.price <= price.value.max
+        && item.seat_empty >= qtyFilter
+        && moment(item.start_time, "HH:mm") >= moment("12:01", "HH:mm")
+        && moment(item.start_time, "HH:mm") <= moment("18:00", "HH:mm"))
+
+    const timeNight= availableSearch.filter(item => item.price >= price.value.min
+        && item.price <= price.value.max
+        && item.seat_empty >= qtyFilter
+        && moment(item.start_time, "HH:mm") >= moment("18:01", "HH:mm")
+        && moment(item.start_time, "HH:mm") <= moment("23:59", "HH:mm"))
+
     return (
         <div className="">
             <UpdateSearch />
             <div className="tw-relative tw-z-10 tw-w-3/4 tw-mx-auto tw-my-5">
                 {availableSearch.length == 0 ? ListError() : <div className="tw-flex">
                     <SearchFilter
-                        data={price}
+                        products={availableSearch}
+                        time={time}
+                        qtyFilter={qtyFilter}
+                        price={price}
+                        timeMoning={timeMoning}
+                        timeLunch={timeLunch}
+                        timeAfternoon={timeAfternoon}
+                        timeNight={timeNight}
                         onChange={onChange}
                         onRemoveChange={onRemoveChange}
                         qtyFilter={qtyFilter}
@@ -135,8 +173,9 @@ const Products = () => {
                         handleCheckedNigth={handleCheckedNigth}
                     />
                     <ProductList
-                        products={availableSearch} 
-                        price={price} 
+                        products={availableSearch}
+                        productFilter={filterProduct}
+                        price={price}
                         qtyFilter={qtyFilter}
                         checkedMoning={checkedMoning}
                         checkedLunch={checkedLunch}

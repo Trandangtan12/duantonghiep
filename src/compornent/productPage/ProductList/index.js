@@ -7,31 +7,22 @@ import {
 import { Link } from 'react-router-dom';
 
 const ProductList = (props) => {
-  const { products, price, qtyFilter, timeFilter } = props
+  const { products, productFilter } = props
   const ListError = () => {
     return (<div className="tw-bg-white tw-p-5 tw-text-center">
       <img src="https://storage.googleapis.com/fe-production/images/route-no-schedule.png" alt="" />
       <p className="tw-font-bold tw-text-xl">Không có chuyến nào để hiển thị</p>
     </div>)
   }
-  const listFilter = () => {
-      const filterProduct = products.filter((item) =>
-        item.price >= price.value.min
-        && item.price <= price.value.max
-        && item.seat_empty >= qtyFilter
-        && moment(item.start_time, "HH:mm") >= timeFilter.minTime
-        && moment(item.start_time, "HH:mm") <= timeFilter.maxTime
-      )
-      return filterProduct;
-    }
 
-  const mapProduct = listFilter().map((item) => {
+
+  const mapProduct = productFilter.map((item) => {
     return (
       <div className="tw-rounded-lg tw-bg-white tw-p-3 tw-mb-3 hover:tw-shadow-2xl tw-transition tw-ease-in-out">
         <div className="tw-flex tw-justify-between">
           <div className="tw-flex">
-            <div className="tw-w-44 tw-h-44 tw-border tw-border-gray-200">
-              {item.image == null ? <p className="tw-text-center tw-my-[40%] tw-text-sm">Không có ảnh</p>: <img src={item.image} className="tw-w-full tw-object-cover"  alt="" />}
+            <div className="tw-w-40 tw-h-40 tw-border tw-border-gray-200">
+              {item.image == null ? <p className="tw-text-center tw-my-[40%] tw-text-sm">Không có ảnh</p>: <img src={item.image} className="tw-w-full tw-h-full tw-object-cover"  alt="" />}
             
             </div>
             
