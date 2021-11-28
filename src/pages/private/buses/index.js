@@ -21,7 +21,7 @@ const Buses = () => {
 
   const handleDeleteBuses = (id) => {
     alertify
-      .confirm("Bạn có chắc chắn muốn xoá sản phẩm ?", async function () {
+      .confirm("Bạn có chắc chắn muốn xoá chuyến xe ?", async function () {
         const res = await BusesService.deleteBuses(id);
         if (res.status === 200) {
           reloadActiveAPI();
@@ -30,7 +30,7 @@ const Buses = () => {
           alertify.warning("Có lỗi xảy ra");
         }
       })
-      .set({ title: "Xoá sản phẩm ?" })
+      .set({ title: "Chuyến xe" })
       .set("movable", false)
       .set("ok", "Alright!")
       .set("notifier", "position", "top-right");

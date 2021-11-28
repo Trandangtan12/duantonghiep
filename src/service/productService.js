@@ -44,7 +44,7 @@ export const BusesService = {
     return HttpClient.post("/ticket", data);
   },
   createVehicel(data) {
-    return HttpClient.post(`${API_GET_BUSES_TYPE}`, data);
+    return HttpClient.post(`${API_GET_BUSES_TYPE}`, data );
   },
   deleteVehicel(id) {
     return HttpClient.delete(`${API_GET_BUSES_TYPE}/${id}`);
@@ -59,7 +59,7 @@ export const BusesService = {
     return HttpClient.put(`${API_GET_SERVICE}/${id}`, service);
   },
   createService(data) {
-    return HttpClient.post(`${API_GET_SERVICE}`, data);
+    return HttpClient.post(`${API_GET_SERVICE}`, data );
   },
   getService(id) {
     return HttpClient.get(`${API_GET_SERVICE}/${id}`);

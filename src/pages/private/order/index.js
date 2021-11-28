@@ -15,6 +15,7 @@ import { IsoStringConvert, numberWithCommas } from "../../../config";
 import { actionGetTicket } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
 import { TODAY } from "../buses/newBuses/utility";
+import "react-datepicker/dist/react-datepicker.css";
 import {
   ACTIVED,
   ATM,
@@ -90,44 +91,56 @@ const Order = () => {
         className="tw-bg-green-100 tw-border-[1px] tw-border-green-500 tw-rounded-lg"
       >
         <tbody>
-        <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Email</td>
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
-              {data.email}
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Email
             </td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.email}</td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Mã chuyến xe</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Mã chuyến xe
+            </td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.buses.id}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Tên chuyến xe</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Tên chuyến xe
+            </td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.buses.name}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Điêm đi</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Điêm đi
+            </td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.buses.startPointName}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Điểm đến</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Điểm đến
+            </td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.buses.endPointName}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Ngày đặt</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Ngày đặt
+            </td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {IsoStringConvert(data.buses.created_at)}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Số CMND</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Số CMND
+            </td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.identity_card}
             </td>
@@ -149,7 +162,9 @@ const Order = () => {
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Ghi chú</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Ghi chú
+            </td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.description !== null ? data.description : "-"}
             </td>
@@ -322,13 +337,13 @@ const Order = () => {
   return (
     <div>
       <div className="tw-flex tw-justify-between">
-        <h1 className="tw-text-[2rem] tw-mb-2">Quản lý vé xe</h1>
+        <span className="tw-uppercase tw-text-2xl">Quản lý vé xe</span>
         <div>
-          <button className="tw-bg-green-600 tw-rounded-md tw-p-2 tw-mb-4 tw-mr-2 tw-text-white">
+          <button className="tw-bg-green-600 tw-rounded-md tw-p-1 tw-mb-4 tw-mr-2 tw-text-white">
             Danh sách vé huỷ
           </button>
           <button
-            className="tw-bg-green-600 tw-rounded-md tw-p-2 tw-mb-4 tw-mr-2 tw-text-white"
+            className="tw-bg-green-600 tw-rounded-md tw-p-1 tw-mb-4 tw-mr-2 tw-text-white"
             onClick={() => handleExportList()}
             disabled={availableOrder.length === 0 ? true : false}
           >
@@ -336,7 +351,7 @@ const Order = () => {
           </button>
 
           <button
-            className="tw-bg-green-600 tw-rounded-md tw-p-2 tw-mb-4 tw-text-white"
+            className="tw-bg-green-600 tw-rounded-md tw-p-1 tw-mb-4 tw-text-white"
             onClick={() => history.push("/admin/order/create")}
           >
             Thêm vé xe

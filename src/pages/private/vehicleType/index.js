@@ -75,7 +75,6 @@ const BusesType = () => {
       maxHeight: 500,
       show: true,
       Cell: ({ original }) => {
-        console.log(original);
         return <span>{original.id}</span>;
       },
     },

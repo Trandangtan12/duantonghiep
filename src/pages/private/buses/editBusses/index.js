@@ -164,15 +164,18 @@ const EditBusses = () => {
   const handleSubmitForm = (data) => {
     delete data.service;
     const seat_empty = data.seat - infoBusses.seat
-    alertify.confirm("Thêm chuyến xe", async function () {
+    alertify.confirm("Bạn có chắc chắn muốn cập nhật chuyến xe ?", async function () {
       const newData= {...data, seat_empty : seat_empty < 0 ? 0 : seat_empty}
       const res = await BusesService.updateBusses(id, newData);
       if (res.status === 200) {
         alertify.set("notifier", "position", "bottom-right");
-        alertify.success("Thêm thành công !");
+        alertify.success("Cập nhật thành công !")
         history.push("/admin/buses");
       }
-    });
+    }).set({ title: "Chuyến xe" })
+    .set("movable", false)
+    .set("ok", "Alright!")
+    .set("notifier", "position", "top-right");
   };
   useEffect(() => {
     dispatch(actionGetService());
@@ -284,7 +287,7 @@ const EditBusses = () => {
             <div className="tw-relative tw-flex tw-flex-col tw-min-w-0 tw-break-words tw-w-full tw-mb-6 tw-shadow-lg tw-rounded-lg bg-blueGray-100 tw-border-0">
               <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-px-6 tw-py-6 ">
                 <div className="tw-text-center tw-flex tw-justify-between">
-                  <h6 className="text-blueGray-700 tw-text-xl tw-font-bold">
+                  <h6 className="text-blueGray-700 tw-text-xl">
                     Cập nhật chuyến xe
                   </h6>
                   <button
@@ -514,7 +517,7 @@ const EditBusses = () => {
                           type="submit"
                           className="sm:tw-w-full md:tw-w-full lg:tw-w-[200px] tw-bg-green-600 tw-transform tw-p-3 tw-text-white tw-text-md hover:tw-bg-gray-800 tw-font-bold tw-rounded-lg"
                         >
-                          Tạo mới
+                          Cập nhật
                         </button>
                       </div>
                     </div>

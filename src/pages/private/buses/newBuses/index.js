@@ -17,6 +17,7 @@ import {
 import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
 import { ProvinceService } from "../../../../service/provinceService";
+import { UserApi } from "../../../../service/userService";
 import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
@@ -118,7 +119,7 @@ const NewBuses = () => {
   }
   const handleSubmitForm = (data) => {
     data.seat_empty = data.seat
-    alertify.confirm("Thêm chuyến xe", async function () {
+    alertify.confirm("Bạn có chắc chắn muốn tạo mới chuyến xe ?", async function () {
       const newBuses = {
         ...data , 
         image : urlImage
@@ -126,10 +127,10 @@ const NewBuses = () => {
       const res = await BusesService.addBuses(newBuses);
       if (res) {
         alertify.set("notifier", "position", "bottom-right");
-        alertify.success("Thêm thành công !");
+        alertify.success("Tạo mới thành công !");
         history.push("/admin/buses");
       }
-    }).set({ title: "Thông báo" })
+    }).set({ title: "Chuyến xe" })
     .set("movable", false)
     .set("ok", "Alright!")
     .set("notifier", "position", "top-right");
