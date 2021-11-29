@@ -5,17 +5,24 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import Table from "../../../compornent/admin/table";
 import { IsoStringConvert } from "../../../config";
-import { actionGetBuses, actionGetService } from "../../../redux/actions/buses";
+import { actionGetService } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
+const TableStyled = styled.div`
+.rt-th:first-child {
+    display: none;
+  }
+  .rt-td:first-child {
+    display:none;
+  }
+`
+
 const ServiceCarPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const handleOpenModal = () => {
-    setIsOpenModal(true);
-  };
   const { availableService } = useSelector((state) => state.buses);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
   const handleDeleteBuses = (id) => {
@@ -59,9 +66,25 @@ const ServiceCarPage = () => {
       },
     },
     {
-      Header: "Tên chuyên xe",
+      Header: "Tên dịch vụ",
       accessor: "name",
       show: true,
+    },
+    {
+      Header: "Ngày tạo",
+      accessor: "created_at",
+      show: true,
+      Cell : ({original}) =>{
+        return <span>{IsoStringConvert(original.created_at)}</span>
+      }
+    },
+    {
+      Header: "Ngày cập nhật",
+      accessor: "created_at",
+      show: true,
+      Cell : ({original}) =>{
+        return <span>{IsoStringConvert(original.updated_at)}</span>
+      }
     },
     {
       Header: "Hành động",
@@ -88,7 +111,7 @@ const ServiceCarPage = () => {
     setDispatchAcitive((pre) => ++pre);
   };
   return (
-    <>
+    <TableStyled>
       <div className="tw-flex tw-justify-between tw-align-middle tw-mb-5">
         <span className="tw-uppercase tw-text-2xl">Quản lý dịch vụ</span>
         <div>
@@ -100,7 +123,7 @@ const ServiceCarPage = () => {
         </div>
       </div>
       <Table data={availableService} columns={columns} ExpandableTable={ExpandableTable}/>
-    </>
+    </TableStyled>
   );
 };
 

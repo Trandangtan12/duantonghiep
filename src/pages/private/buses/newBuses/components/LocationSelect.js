@@ -1,5 +1,6 @@
 import React from "react";
 import SelectForm from "../../../../../compornent/selectForm";
+import Input from '../../../../../compornent/admin/input/Input';
 const LocationSelect = ({
   provinceFilter,
   onChangeCity,
@@ -16,7 +17,9 @@ const LocationSelect = ({
   pointWardId,
   pointWardName,
   errors,
-  setWardValue
+  setWardValue,
+  register,
+  detailAddress
 }) => {
   return (
     <div>
@@ -90,6 +93,18 @@ const LocationSelect = ({
             />
           </div>
         </div>
+      </div>
+      <div className="tw-px-4 tw-mb-3">
+        <Input
+          lable="Địa chỉ chi tiết"
+          placeholder="Địa chỉ chi tiết"
+          type="text"
+          register={register}
+          fieldName={detailAddress}
+          errors={errors}
+          required={true}
+          messageErrors={"Vui lòng nhập thông tin"}
+        />
       </div>
     </div>
   );

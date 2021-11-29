@@ -23,6 +23,17 @@ export const API_TICKET = "/ticket"
 
 export const API_PAYMENT = "/payment"
 
+export const API_EXPORT = "/ticketexport"
+
+export const API_SEND_EMAIL = "/sendmail"
+
+export const API_GET_ALL_PERMISSION = "/permisson"
+
+export const API_ROLE = "/role"
+
+export const API_USER_ADMIN = "/userAdmin"
+
+
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0
 }

@@ -5,9 +5,8 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import 'swiper/swiper-bundle.min.css';
-import 'swiper/swiper.min.css';
 import Input from "../../../../compornent/admin/input/Input";
+import InputNumber from "../../../../compornent/admin/inputNumber";
 import DatePickerForm from "../../../../compornent/datePicker";
 import TextArea from "../../../../compornent/textarea";
 import firebase from "../../../../firebase";
@@ -18,11 +17,12 @@ import {
 import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
 import { ProvinceService } from "../../../../service/provinceService";
+import { UserApi } from "../../../../service/userService";
 import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
 import { initialValues, validationSchema } from "./hookFormConfig";
-import { InputNumberStyle, TIME_TODAY, TODAY } from "./utility";
+import { InputNumberStyle, TODAY } from "./utility";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
   const [urlImage, setUrlImage] = useState("https://via.placeholder.com/300.png/09f/fff");
@@ -118,9 +118,8 @@ const NewBuses = () => {
     setValue(pointName, original.label);
   }
   const handleSubmitForm = (data) => {
-    console.log(data);
     data.seat_empty = data.seat
-    alertify.confirm("Thêm chuyến xe", async function () {
+    alertify.confirm("Bạn có chắc chắn muốn tạo mới chuyến xe ?", async function () {
       const newBuses = {
         ...data , 
         image : urlImage
@@ -128,17 +127,16 @@ const NewBuses = () => {
       const res = await BusesService.addBuses(newBuses);
       if (res) {
         alertify.set("notifier", "position", "bottom-right");
-        alertify.success("Thêm thành công !");
+        alertify.success("Tạo mới thành công !");
         history.push("/admin/buses");
       }
-    }).set({ title: "Thông báo" })
+    }).set({ title: "Chuyến xe" })
     .set("movable", false)
     .set("ok", "Alright!")
     .set("notifier", "position", "top-right");
   };
   const handleChangeStartTime = (date) => {
     const startDateConvert = moment(date).utc(true).format("YYYY-MM-DD");
-    console.log(startDateConvert);
     const startTime = moment(date).utc(true).format("H:mm");
     setStartDate(date);
     setValue("date_active", startDateConvert);
@@ -175,7 +173,7 @@ const NewBuses = () => {
             <div className="tw-relative tw-flex tw-flex-col tw-min-w-0 tw-break-words tw-w-full tw-mb-6 tw-shadow-lg tw-rounded-lg bg-blueGray-100 tw-border-0">
               <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-px-6 tw-py-6 ">
                 <div className="tw-text-center tw-flex tw-justify-between">
-                  <h6 className="text-blueGray-700 tw-text-xl tw-font-bold">
+                  <h6 className="text-blueGray-700 tw-text-xl tw-font-bold tw-uppercase">
                     Tạo mới chuyến xe
                   </h6>
                   <button
@@ -360,6 +358,7 @@ const NewBuses = () => {
                     title="Điểm đi"
                     errors={errors}
                     setWardValue={setWardValue}
+                    detailAddress={"detailStart"}
                   />
                   <LocationSelect
                     provinceFilter={provinceEndFilter}
@@ -379,6 +378,7 @@ const NewBuses = () => {
                     pointWardName={"endWard_name"}
                     errors={errors}
                     setWardValue={setEndPointWard}
+                    detailAddress={"detailEnd"}
                   />
                   <TextArea
                     title="Ghi chú"

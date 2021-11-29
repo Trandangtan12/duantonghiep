@@ -17,7 +17,7 @@ const CreateVehicel = () => {
       const res = await BusesService.createVehicel(data);
       if (res.status === 200 || res.status === 201) {
         alertify.set("notifier", "position", "bottom-right")
-        alertify.success("Thêm thành công !");
+        alertify.success("Thêm mới thành công !");
         history.push("/admin/vehicel-type");
       }else{
 
@@ -32,9 +32,7 @@ const CreateVehicel = () => {
             <div className="tw-relative tw-flex tw-flex-col tw-min-w-0 tw-break-words tw-w-full tw-mb-6 tw-shadow-lg tw-rounded-lg bg-blueGray-100 tw-border-0">
               <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-px-6 tw-py-6 ">
                 <div className="tw-text-center tw-flex tw-justify-between">
-                  <h6 className="text-blueGray-700 tw-text-xl tw-font-bold">
-                    Tạo mới chuyến xe
-                  </h6>
+                <span className="tw-uppercase tw-text-2xl">Tạo mới loại xe</span>
                   <button
                     className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
                     type="button"
@@ -72,7 +70,7 @@ const CreateVehicel = () => {
                           type="submit"
                           className="sm:tw-w-full md:tw-w-full lg:tw-w-[200px] tw-bg-green-600 tw-transform tw-p-3 tw-text-white tw-text-md hover:tw-bg-gray-800 tw-font-bold tw-rounded-lg"
                         >
-                          Tạo mới
+                          Tạo mới loại xe
                         </button>
                       </div>
                     </div>

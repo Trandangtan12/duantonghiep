@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React from 'react'
 import { Redirect, Route } from 'react-router'
 import { UserApi } from '../service/userService'
 

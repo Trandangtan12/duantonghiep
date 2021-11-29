@@ -24,15 +24,14 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
     setIsOpenModal(false);
   }
   const [emp, setEmp] = useState();
-  // console.log("Ghế trống", emp);
   const [qty, setQty] = useState(1)
-
   const Increase = () => {
+  
     if (qty >= product.seat_empty) {
-
     } else {
       setQty(qty + 1)
       if (emp >= 0) {
+        
         setEmp(emp - 1)
       }
     }
@@ -57,14 +56,13 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
         seat_empty: emp
       }
       if (currentRadioValue === "OFFLINE" && qty < 3) {
+        localStorage.setItem('deposit' , false)
         const ticket = {
           ...data,
           quantity: qty,
           totalPrice: totalPrice,
           paymentMethod: currentRadioValue,
         }
-
-        console.log("vé offline", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -73,16 +71,17 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           alert("Hết ghế trống!!!")
         } else {
           setIsOpenModal(false);
-          console.log("Cập nhật ghế ok")
           await BusesService.updateBusses(product.id, updateBuses)
         }
 
-      } else if (qty >= 3 && currentRadioValue === "OFFLINE") {
+      } else if (currentRadioValue === "OFFLINE" && qty >= 3) {
+        localStorage.setItem('deposit' , true)
         const ticket = {
           ...data,
           quantity: qty,
           totalPrice: depositPrice,
           paymentMethod: currentRadioValue,
+          status: "WAITING_ACTIVE"
         }
         console.log("đặt cọc", ticket);
         const resTicket = await BusesService.addTicket(ticket)
@@ -97,19 +96,18 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           alert("Hết ghế trống!!!")
         } else {
           setIsOpenModal(false);
-          console.log("Cập nhật ghế ok")
           await BusesService.updateBusses(product.id, updateBuses)
         }
         setIsOpenModal(false);
       }
       else {
+        localStorage.setItem('deposit' , false)
         const ticket = {
           ...data,
           quantity: qty,
           totalPrice: totalPrice,
           paymentMethod: currentRadioValue,
         }
-        console.log("else", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -122,13 +120,11 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           alert("Hết ghế trống!!!")
         } else {
           setIsOpenModal(false);
-          console.log("Cập nhật ghế ok")
           await BusesService.updateBusses(product.id, updateBuses)
         }
         setIsOpenModal(false);
       }
     } catch (error) {
-      console.log(error.response.data.message);
       setIsOpenModal(true);
     }
   }

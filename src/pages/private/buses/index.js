@@ -1,32 +1,27 @@
-import {
-  faEdit, faTrash
-} from "@fortawesome/fontawesome-free-solid";
+import { faEdit, faTrash } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import Table from "../../../compornent/admin/table";
-import { IsoStringConvert } from "../../../config";
+import { IsoStringConvert, numberWithCommas } from "../../../config";
 import { actionGetBuses } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
-const TdStyled = styled.td`
-`
 const Buses = () => {
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const handleOpenModal = () => {
     setIsOpenModal(true);
   };
   const { availableBuses } = useSelector((state) => state.buses);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
-  
+
   const handleDeleteBuses = (id) => {
     alertify
-      .confirm("Bạn có chắc chắn muốn xoá sản phẩm ?", async function () {
+      .confirm("Bạn có chắc chắn muốn xoá chuyến xe ?", async function () {
         const res = await BusesService.deleteBuses(id);
         if (res.status === 200) {
           reloadActiveAPI();
@@ -35,7 +30,7 @@ const Buses = () => {
           alertify.warning("Có lỗi xảy ra");
         }
       })
-      .set({ title: "Xoá sản phẩm ?" })
+      .set({ title: "Chuyến xe" })
       .set("movable", false)
       .set("ok", "Alright!")
       .set("notifier", "position", "top-right");
@@ -43,39 +38,105 @@ const Buses = () => {
   const dependencies = [availableBuses.length, dispatchDependency];
   const ExpandableTable = ({ data }) => {
     return (
-      <table size='sm' responsive bordered className="tw-bg-green-100 tw-rounded-lg">
-      <tbody>
-      <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ngày khởi hành</td>
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.date_active}</td>
-        </tr>
-        <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Số ghế</td>
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.seat}</td>
-        </tr>
-        <tr className="tw-flex tw-flex-wrap tw-mb-4">
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Dịch vụ</td>
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.service !== null || data.service !== 0 ? data.service.map((elt)=> elt.name).join(", ")  :null}</td>
-        </tr>
-        <tr className="tw-flex tw-flex-wrap tw-mb-4">
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Số ghế trống</td>
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.seat_empty}</td>
-        </tr>
-        <tr className="tw-flex tw-flex-wrap tw-mb-4">
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ngày tạo</td>
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{IsoStringConvert(data.created_at)}</td>
-        </tr>
-      </tbody>
-    </table>
-    )
-  }
+      <table
+        size="sm"
+        responsive
+        bordered
+        className="tw-bg-green-100 tw-border-[1px] tw-border-green-500 tw-rounded-lg"
+      >
+        <tbody>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Quận/huyện điểm đi
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+            {console.log(data)}
+              {data.startDistrict_name}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Xã phường điểm đi
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.startWard_name}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Điạ chỉ chi tiết
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.startWard_name}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Quận/huyện điểm đến
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.endDistrict_name}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Xã/phường điểm đến
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.endWard_name}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Điạ chỉ chi tiết
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.startWard_name}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Ngày khởi hành
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.date_active}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Số ghế</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.seat}</td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Dịch vụ</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {data.service !== null || data.service !== 0
+                ? data.service.map((elt) => elt.name).join(", ")
+                : null}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Số ghế trống</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {data.seat_empty}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Ngày tạo</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {IsoStringConvert(data.created_at)}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    );
+  };
 
   const [columns, setColumns] = useState([
     {
       Header: "Số thứ tự",
       accessor: "id",
-      maxWidth: 100,
-      maxHeight : 500,
+      maxWidth: 80,
+      maxHeight: 500,
       show: true,
       Cell: ({ original }) => {
         return <span>{original.id}</span>;
@@ -85,42 +146,53 @@ const Buses = () => {
       Header: "Hình ảnh",
       accessor: "image",
       show: true,
-      maxHeight : 500,
-      Cell : ({original}) =>{
-       return <div className="tw-flex tw-justify-center">
-         <img src={original.image} height="10" width="50"/>
-       </div>
-      }
+      maxHeight: 500,
+      Cell: ({ original }) => {
+        return (
+          <div className="tw-flex tw-justify-center">
+            <img src={original.image} height="10" width="50" />
+          </div>
+        );
+      },
     },
     {
       Header: "Tên chuyên xe",
       accessor: "name",
       show: true,
+      Cell: ({ original }) => {
+        return <span title={original.name}>{original.name}</span>;
+      },
     },
     {
       Header: "Điểm đi",
       accessor: "startPointName",
-      maxHeight : 500,
+      maxHeight: 500,
       show: true,
     },
     {
       Header: "Điểm đến",
       accessor: "endPointName",
-      maxHeight : 500,
+      maxHeight: 500,
       show: true,
     },
     {
-      Header: "Giá",
+      Header: "Giá (VNĐ)",
       accessor: "price",
-      maxHeight : 500,
+      maxHeight: 500,
       show: true,
+      Cell: ({ original }) => {
+        return <span>{numberWithCommas(original.price)}</span>;
+      },
     },
     {
       Header: "Hành động",
+      maxWidth: 100,
       Cell: ({ original }) => {
         return (
           <div className="tw-flex tw-justify-center tw-gap-[20px]">
-            <button onClick={() => history.push(`/admin/buses/edit/${original.id}`)}>
+            <button
+              onClick={() => history.push(`/admin/buses/edit/${original.id}`)}
+            >
               <FontAwesomeIcon icon={faEdit} color="blue" />
             </button>
             <button onClick={() => handleDeleteBuses(original.id)}>
@@ -149,7 +221,11 @@ const Buses = () => {
           </Link>
         </div>
       </div>
-      <Table data={availableBuses} columns={columns} ExpandableTable={ExpandableTable}/>
+      <Table
+        data={availableBuses}
+        columns={columns}
+        ExpandableTable={ExpandableTable}
+      />
     </>
   );
 };
