@@ -11,7 +11,7 @@ const Notifications = () => {
     <Menu as="div" className="tw-relative tw-inline-block tw-text-left tw-mr-7 tw-ml-7">
       <div>
         <Menu.Button className="tw-inline-flex tw-justify-center tw-rounded-md  tw-align-middle tw-relative">
-        <FontAwesomeIcon icon={faBell} size="lg" className={'tw-text-gray-800 tw-mr-5'}/>
+        <FontAwesomeIcon icon={faBell} size="lg" className={'tw-text-green-600 tw-mr-5'}/>
         </Menu.Button>
       </div>
       <Transition
@@ -24,9 +24,6 @@ const Notifications = () => {
       >
         <Menu.Items className="tw-origin-top-right tw-absolute tw-right-0 tw-mt-2 tw-w-56 tw-rounded-md tw-shadow-lg tw-bg-white tw-ring-1 tw-ring-black tw-ring-opacity-5 focus:tw-outline-none tw-min-h-[200px]">
           <div className="tw-py-1">
-            <ul>
-              <li className="tw-p-2 hover:tw-bg-gray-200">THONG BAO</li>
-            </ul>
           </div>
         </Menu.Items>
       </Transition>

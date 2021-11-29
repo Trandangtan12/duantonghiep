@@ -17,7 +17,6 @@ const ProductDetail = () => {
           setProduct(res.data); 
         }
       } catch (error) {
-        console.log(error);
       }
     };
     fetchProduct();

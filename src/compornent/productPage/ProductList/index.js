@@ -1,23 +1,31 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircle
 } from "@fortawesome/fontawesome-free-solid";
 import { Link } from 'react-router-dom';
 
-const ProductList = ({ products, price, qtyFilter }) => {
-  const filterProduct = products.filter((item) => 
-    item.price >= price.value.min
-    && item.price <= price.value.max 
-    && item.seat_empty >= qtyFilter
-  )
-  const mapProduct = filterProduct.map((item) => {
+const ProductList = (props) => {
+  const { products, productFilter } = props
+  const ListError = () => {
+    return (<div className="tw-bg-white tw-p-5 tw-text-center">
+      <img src="https://storage.googleapis.com/fe-production/images/route-no-schedule.png" alt="" />
+      <p className="tw-font-bold tw-text-xl">Không có chuyến nào để hiển thị</p>
+    </div>)
+  }
+
+
+  const mapProduct = productFilter.map((item) => {
     return (
-        <div className="tw-rounded-lg tw-bg-white tw-p-3 tw-mb-3 hover:tw-shadow-2xl tw-transition tw-ease-in-out">
-        <div className="tw-flex tw-justify-between">
+      <div className="tw-rounded-lg tw-bg-white tw-p-3 tw-mb-3 hover:tw-shadow-2xl tw-transition tw-ease-in-out">
+        <div className="tw-flex tw-justify-between ">
           <div className="tw-flex">
-              <img src={item.image} className="tw-w-44 tw-h-44 tw-object-cover" alt="" />
+            <div className="tw-w-36 tw-h-36 tw-border tw-border-gray-200">
+              {item.image == null ? <p className="tw-text-center tw-my-[40%] tw-text-sm">Không có ảnh</p>: <img src={item.image} className="tw-w-full tw-h-full tw-object-cover"  alt="" />}
+            
+            </div>
+            
             <div className="tw-ml-5">
               <div className="tw-mb-3 tw-flex tw-justify-bet">
                 <div>
@@ -42,14 +50,14 @@ const ProductList = ({ products, price, qtyFilter }) => {
                     <span className="tw-text-xl tw-font-bold">{item.start_time}</span>
                     <div className="tw-flex tw-items-center tw-ml-1">
                       <FontAwesomeIcon className="tw-text-[0.25rem] tw-mx-1" icon={faCircle} />
-                      <p className="tw-text-gray-500 tw-text-sm">{item.from}</p>
+                      <p className="tw-text-gray-500 tw-text-sm">{item.startWard_name}</p>
                     </div>
                   </div>
                   <div className="tw-flex">
-                    <span className="tw-text-xl tw-font-bold">{item.end_time}</span>
+                    <span className="tw-text-xl tw-font-bold">{item.start_time}</span>
                     <div className="tw-flex tw-items-center tw-ml-1">
                       <FontAwesomeIcon className="tw-text-[0.25rem] tw-mx-1" icon={faCircle} />
-                      <p className="tw-text-gray-500 tw-text-sm">{item.to}</p>
+                      <p className="tw-text-gray-500 tw-text-sm">{item.endWard_name}</p>
                     </div>
                   </div>
                 </div>
@@ -62,28 +70,23 @@ const ProductList = ({ products, price, qtyFilter }) => {
             <p className="tw-text-2xl tw-font-black tw-text-green-700">{new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(item.price)}</p>
             <div className="tw-text-center">
               <p className="tw-py-3 tw-text-gray-500">{item.seat_empty > 0 ? `Số ghế trống ${item.seat_empty}` : <span>Hết ghế</span>}</p>
-              {item.seat_empty <= 0 ? null : 
-               <Link to={`/productdetail/${item.id}`}>
-               <button className="tw-p-2 tw-bg-red-500 tw-text-white tw-rounded-lg">
-               Chọn chuyến
-               </button></Link>}
-             
+              {item.seat_empty <= 0 ? null :
+                <Link to={`/productdetail/${item.id}`}>
+                  <button className="tw-p-2 tw-bg-red-500 tw-text-white tw-rounded-lg">
+                    Chọn chuyến
+                  </button></Link>}
+
             </div>
           </div>
         </div>
       </div>
-      )}
-  )
-  const ListError = () => {
-    return (<div className="tw-bg-white tw-p-5 tw-text-center">
-    <img src="https://storage.googleapis.com/fe-production/images/route-no-schedule.png" alt="" />
-    <p className="tw-font-bold tw-text-xl">Không có chuyến nào để hiển thị</p>
-    </div>)
+    )
   }
+  )
 
   return (
     <div className="tw-flex-grow tw-w-full">
-      {filterProduct.length == 0 ? ListError() : mapProduct}
+      {mapProduct == null || mapProduct.length == 0 ? ListError() : mapProduct}
     </div>
   )
 }

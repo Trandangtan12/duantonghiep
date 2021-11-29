@@ -7,14 +7,19 @@ import Input from "../../../../compornent/admin/input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetBuses } from "../../../../redux/actions/buses";
 import SelectForm from "../../../../compornent/selectForm";
+import TextArea from "../../../../compornent/textarea";
+import { ACTIVED, ATM, OFFLINE, WAITING_ACTIVE } from "../utility";
 const CreateTicket = () => {
   const { user } = UserApi.isAuthenticated();
   const dispatch = useDispatch();
+  const [paymentMethodType, setPaymentMethodType] = useState(ACTIVED);
   const { availableBuses } = useSelector((state) => state.buses);
+  const [busesSelect, setBusesSelect] = useState();
   const avaibleBussesSuggesstion = availableBuses.map((_elt) => {
     return {
       label: _elt.name,
-      value: _elt.handleAddTicket,
+      value: _elt.id,
+      price : _elt.price
     };
   });
   const {
@@ -25,20 +30,19 @@ const CreateTicket = () => {
   const history = useHistory();
   const [emp, setEmp] = useState();
   const [qty, setQty] = useState(1);
-  const [currentRadioValue, setCurrentRadioValue] = useState("OFFLINE");
-  // const totalPrice = product.price * qty;
   const handleAddTicket = async (data) => {
-    //   const ticket = {
-    //     ...data,
-    //     quantity: qty,
-    //     totalPrice: totalPrice,
-    //     paymentMethod: currentRadioValue,
-    //   }
-    //   localStorage.setItem('paymentMethod' , currentRadioValue)
-    //   const updateBuses = {
-    //     ...data,
-    //     seat_empty: emp
-    //   }
+    const totalPrice = busesSelect.price * data.quantity 
+    const newData = {
+      ...data,
+      buses_id: busesSelect.value,
+      status : paymentMethodType,
+      paymentMethod : OFFLINE,
+      totalPrice : totalPrice
+    };
+    const resTicket = await BusesService.addTicket(newData)   
+    if (resTicket.status === 201) {
+      history.push("/admin/order")
+    }
   };
   useEffect(() => {
     dispatch(actionGetBuses());
@@ -76,7 +80,7 @@ const CreateTicket = () => {
                           placeholder="Tên khách hàng"
                           type="text"
                           register={register}
-                          fieldName={"name"}
+                          fieldName={"customer_name"}
                           errors={errors}
                           required={true}
                           messageErrors={"Vui lòng nhập thông tin"}
@@ -90,7 +94,7 @@ const CreateTicket = () => {
                           placeholder="Email"
                           type="text"
                           register={register}
-                          fieldName={"name"}
+                          fieldName={"email"}
                           errors={errors}
                           required={true}
                           messageErrors={"Vui lòng nhập thông tin"}
@@ -106,7 +110,7 @@ const CreateTicket = () => {
                           placeholder="Số điện thoại"
                           type="text"
                           register={register}
-                          fieldName={"name"}
+                          fieldName={"phone_number"}
                           errors={errors}
                           required={true}
                           messageErrors={"Vui lòng nhập thông tin"}
@@ -120,7 +124,7 @@ const CreateTicket = () => {
                           placeholder="Số CMND"
                           type="text"
                           register={register}
-                          fieldName={"name"}
+                          fieldName={"identity_card"}
                           errors={errors}
                           required={true}
                           messageErrors={"Vui lòng nhập thông tin"}
@@ -135,8 +139,9 @@ const CreateTicket = () => {
                           lable="Số lượng"
                           placeholder="Số lượng"
                           type="text"
+                          defaultValues={"1"}
                           register={register}
-                          fieldName={"name"}
+                          fieldName={"quantity"}
                           errors={errors}
                           required={true}
                           messageErrors={"Vui lòng nhập thông tin"}
@@ -154,13 +159,55 @@ const CreateTicket = () => {
                         <SelectForm
                           options={avaibleBussesSuggesstion}
                           closeMenuOnSelect={false}
-                          isMulti={true}
-                          //   onChange={handleChange}
-                          //   value={values}
+                          onChange={(original) => {
+                            setBusesSelect(original);
+                          }}
                           placeholder={"Chọn chuyến xe"}
-                          className="tw-border-[1px] tw-rounded-md tw-border-green-600 tw-h-[300px]"
+                          className="tw-border-[1px] tw-rounded-md tw-border-green-600"
                           errors={errors}
                           fieldName={"busses"}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="tw-flex tw-flex-wrap">
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <label
+                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+                          htmlfor="grid-password"
+                        >
+                          Trạng thái thanh toán
+                        </label>
+                        <div className="tw-mb-3">
+                          <input
+                            type="radio"
+                            checked={paymentMethodType === WAITING_ACTIVE}
+                            onClick={() => {
+                              setPaymentMethodType(WAITING_ACTIVE);
+                            }}
+                          />
+                          <span className="tw-ml-2">Chưa thanh toán</span>
+                        </div>
+                        <div className="tw-mb-3">
+                          <input
+                            type="radio"
+                            checked={paymentMethodType === ACTIVED}
+                            onClick={() => {
+                              setPaymentMethodType(ACTIVED);
+                            }}
+                          />
+                          <span className="tw-ml-2">Đã thanh toán</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <TextArea
+                          title="Ghi chú"
+                          placeholder="Nhập ghi chú"
+                          fieldName="description"
+                          register={register}
                         />
                       </div>
                     </div>

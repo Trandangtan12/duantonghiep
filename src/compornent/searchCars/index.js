@@ -42,7 +42,6 @@ const SearchCars = () => {
    history.push(`/product/start=${startPoint}/and/end=${endPoint}/and/date=${date_active}`)
     console.log(date_active);
     if (startPoint == null || endPoint == null) {
-      console.log("Bạn chưa chọn tỉnh thành");
     } else {
       history.push(`/product/start=${startPoint}/and/end=${endPoint}/and/date=${date_active}`)
     }
@@ -78,7 +77,7 @@ const SearchCars = () => {
             </div>
             <div className="tw-w-full tw-mt-2">
               <p className="tw-text-gray-400">Chọn ngày đi</p>
-              <DatePicker className="tw-w-full tw-py-2 tw-border-b-2 tw-rounded-sm tw-border-gray-200 tw-font-bold tw-h-[47px]" dateFormat="yyyy-MM-dd" selected={startDate} onChange={handleChangeStartTime} minDate={TODAY} />
+              <DatePicker className="tw-w-full tw-py-2 tw-border-b-2 tw-rounded-sm tw-border-gray-200 tw-font-bold tw-h-[47px]" dateFormat="dd/MM/yyyy" selected={startDate} onChange={handleChangeStartTime} minDate={TODAY} />
             </div>
           </div>
           <button

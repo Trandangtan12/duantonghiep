@@ -7,6 +7,10 @@ const UserMenu = () => {
   const account = localStorage.getItem('user') !== undefined ?  JSON.parse(localStorage.getItem('user')) : null
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const history = useHistory()
+  const handleLogOut = () =>{
+    localStorage.removeItem('user')
+    history.push("/signin")
+  }
   return (
     <>
     <Menu as="div" className="tw-relative tw-inline-block tw-text-left">
@@ -54,6 +58,7 @@ const UserMenu = () => {
                     className={`${
                       active ? 'tw-bg-green-600 tw-text-white' : 'tw-text-gray-900'
                     } group tw-flex tw-rounded-md tw-items-center tw-w-full tw-px-2 tw-py-2 tw-text-sm`}
+                    onClick={() => handleLogOut()}
                   >
                   Đăng xuất             
                   </button>

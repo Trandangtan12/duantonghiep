@@ -15,13 +15,24 @@ export const API_GET_SERVICE = "/services"
 
 export const API_GET_BUSES_TYPE = '/cartypes'
 
-export const API_UPDATE_USER = "/users"
+export const API_UPDATE_USER = "/userAdmin"
 
 export const API_SEARCH = '/search'
 
 export const API_TICKET = "/ticket"
 
 export const API_PAYMENT = "/payment"
+
+export const API_EXPORT = "/ticketexport"
+
+export const API_SEND_EMAIL = "/sendmail"
+
+export const API_GET_ALL_PERMISSION = "/permission"
+
+export const API_ROLE = "/role"
+
+export const API_USER_ADMIN = "/userAdmin"
+
 
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0
@@ -90,8 +101,7 @@ export const NAV_LINK_LIST_ADMIN = [
     {
         label: "Dashboard",
         href: "dashboard",
-        icon: faHome
-
+        icon: faHome,
     },
     {
         label: "Chuyến xe",
@@ -121,7 +131,8 @@ export const NAV_LINK_LIST_ADMIN = [
     {
         label: "Tài khoản",
         href: "account",
-        icon: faUser
+        icon: faUser,
+        permission_id : 1
     },
     {
         label: "Vé xe",
