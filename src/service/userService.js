@@ -41,7 +41,13 @@ export const UserApi = {
             
         })
     },
-    getUser(id){
-        return HttpClient.get(`/users`)
+    getUser(){
+        return HttpClient.get(`${API_UPDATE_USER}`)
+    },
+    getInfoUser(id){
+        return HttpClient.get(`${API_UPDATE_USER}/${id}`)
+    },
+    updateUser(id,data){
+        return HttpClient.put(`${API_UPDATE_USER}/${id}`,data) 
     }
 }

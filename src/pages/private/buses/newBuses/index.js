@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Input from "../../../../compornent/admin/input/Input";
-import InputNumber from "../../../../compornent/admin/inputNumber";
 import DatePickerForm from "../../../../compornent/datePicker";
 import TextArea from "../../../../compornent/textarea";
 import firebase from "../../../../firebase";
@@ -17,12 +16,11 @@ import {
 import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
 import { ProvinceService } from "../../../../service/provinceService";
-import { UserApi } from "../../../../service/userService";
 import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
 import { initialValues, validationSchema } from "./hookFormConfig";
-import { InputNumberStyle, TODAY } from "./utility";
+import { InputNumberStyle } from "./utility";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
   const [urlImage, setUrlImage] = useState("https://via.placeholder.com/300.png/09f/fff");
@@ -45,6 +43,7 @@ const NewBuses = () => {
       value: type.id,
     };
   });
+  // const
   const [districtValue, setdistrictValue] = useState([]);
   const [wardValue, setWardValue] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
@@ -308,7 +307,7 @@ const NewBuses = () => {
                           onChange={(date) => {
                             handleChangeStartTime(date);
                           }}
-                          minDate={TODAY}
+                          minDate={new Date()}
                         />
                       </div>
                     </div>
@@ -358,7 +357,7 @@ const NewBuses = () => {
                     title="Điểm đi"
                     errors={errors}
                     setWardValue={setWardValue}
-                    detailAddress={"detailStart"}
+                    detailAddress={"detailAddressStart"}
                   />
                   <LocationSelect
                     provinceFilter={provinceEndFilter}
@@ -378,7 +377,7 @@ const NewBuses = () => {
                     pointWardName={"endWard_name"}
                     errors={errors}
                     setWardValue={setEndPointWard}
-                    detailAddress={"detailEnd"}
+                    detailAddress={"detailAddressEnd"}
                   />
                   <TextArea
                     title="Ghi chú"

@@ -95,7 +95,7 @@ export const BusesService = {
   paymentTicket(price) {
     return HttpClient.post(`${API_PAYMENT}`, {
       amount: price,
-      order_desc: "Thanh toán hóa đơn phí dich vụ",
+      order_desc: "Thanh toán hóa đơn nhà xe sixleaf",
       order_type: "billpayment",
       language: "vn",
       bank_code: "NCB",
