@@ -90,7 +90,7 @@ const Routes = () => {
                     <Route exact path="/payment/fail" component={FailPayment} />
                     <Route exact path="/signin" component={SignIn} />
                     <Route exact path="/signup" component={SignUp} />
-                    <PrivateRouterPublic exact path="/user/dashboard">
+                    <PrivateRouterPublic exact path="/user/dashbroad">
                       <UserDashBoard/>
                     </PrivateRouterPublic>
                     <Route exact path="/ticket" component={Ticket} />
