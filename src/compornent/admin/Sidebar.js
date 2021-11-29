@@ -2,11 +2,25 @@ import React, { useEffect, useRef } from "react";
 import { Link, NavLink, useLocation , Redirect } from "react-router-dom";
 import { NAV_LINK_LIST_ADMIN } from "../../config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { UserApi } from "../../service/userService";
 function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
   //check router
   const location = useLocation();
   const { pathname } = location;
   const page = pathname.split('/')[2];
+  const {user} = UserApi.isAuthenticated()
+  const userKey = () => {
+      if(user === undefined) {
+        return undefined
+      } else {
+        if(user.hasOwnProperty('roles') === false) {
+          return undefined
+        } else {
+          const userRole = user.roles.every(item => item.id === 1)
+          return userRole
+        }
+      }
+    }
   return (
     <div className="lg:tw-w-64">
       {/* Sidebar backdrop (mobile only) */}
@@ -56,8 +70,161 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
             Danh mục quản lý
           </h2>
           <ul className="tw-mt-3">
+          <li
+                className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
+                hover:tw-rounded-lg last:tw-mb-0 ${NAV_LINK_LIST_ADMIN[0].href === page && 'tw-bg-green-600 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
+                key={NAV_LINK_LIST_ADMIN[0].label}
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+              >
+                <NavLink
+                  to={`/admin/${NAV_LINK_LIST_ADMIN[0].href}`}
+                  className={`tw-block tw-text-white tw-font-extrabold tw-p-2 hover:tw-transition hover:tw-duration-500  tw-ease-in hover:tw-ml-2 hover:tw-translate-x-2 tw-transform tw-transition tw-duration-500"
+                  `}
+                  key={NAV_LINK_LIST_ADMIN[0].label}
+                >
+                  <div className="">
+                    <FontAwesomeIcon icon={NAV_LINK_LIST_ADMIN[0].icon} />
+                    <span className="tw-text-sm tw-font-black tw-ml-2">{NAV_LINK_LIST_ADMIN[0].label}</span>
+                  </div>
+                </NavLink>
+              </li>
+              {/* =====1===== */}
+              <li
+                className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
+                hover:tw-rounded-lg last:tw-mb-0 ${NAV_LINK_LIST_ADMIN[1].href === page && 'tw-bg-green-600 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
+                key={NAV_LINK_LIST_ADMIN[1].label}
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+              >
+                <NavLink
+                  to={`/admin/${NAV_LINK_LIST_ADMIN[1].href}`}
+                  className={`tw-block tw-text-white tw-font-extrabold tw-p-2 hover:tw-transition hover:tw-duration-500  tw-ease-in hover:tw-ml-2 hover:tw-translate-x-2 tw-transform tw-transition tw-duration-500"
+                  `}
+                  key={NAV_LINK_LIST_ADMIN[1].label}
+                >
+                  <div className="">
+                    <FontAwesomeIcon icon={NAV_LINK_LIST_ADMIN[1].icon} />
+                    <span className="tw-text-sm tw-font-black tw-ml-2">{NAV_LINK_LIST_ADMIN[1].label}</span>
+                  </div>
+                </NavLink>
+              </li>
+              {/* =====2===== */}
+              <li
+                className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
+                hover:tw-rounded-lg last:tw-mb-0 ${NAV_LINK_LIST_ADMIN[2].href === page && 'tw-bg-green-600 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
+                key={NAV_LINK_LIST_ADMIN[2].label}
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+              >
+                <NavLink
+                  to={`/admin/${NAV_LINK_LIST_ADMIN[2].href}`}
+                  className={`tw-block tw-text-white tw-font-extrabold tw-p-2 hover:tw-transition hover:tw-duration-500  tw-ease-in hover:tw-ml-2 hover:tw-translate-x-2 tw-transform tw-transition tw-duration-500"
+                  `}
+                  key={NAV_LINK_LIST_ADMIN[2].label}
+                >
+                  <div className="">
+                    <FontAwesomeIcon icon={NAV_LINK_LIST_ADMIN[2].icon} />
+                    <span className="tw-text-sm tw-font-black tw-ml-2">{NAV_LINK_LIST_ADMIN[2].label}</span>
+                  </div>
+                </NavLink>
+              </li>
+              {/* =====3====== */}
+              <li
+                className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
+                hover:tw-rounded-lg last:tw-mb-0 ${NAV_LINK_LIST_ADMIN[3].href === page && 'tw-bg-green-600 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
+                key={NAV_LINK_LIST_ADMIN[3].label}
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+              >
+                <NavLink
+                  to={`/admin/${NAV_LINK_LIST_ADMIN[3].href}`}
+                  className={`tw-block tw-text-white tw-font-extrabold tw-p-2 hover:tw-transition hover:tw-duration-500  tw-ease-in hover:tw-ml-2 hover:tw-translate-x-2 tw-transform tw-transition tw-duration-500"
+                  `}
+                  key={NAV_LINK_LIST_ADMIN[3].label}
+                >
+                  <div className="">
+                    <FontAwesomeIcon icon={NAV_LINK_LIST_ADMIN[3].icon} />
+                    <span className="tw-text-sm tw-font-black tw-ml-2">{NAV_LINK_LIST_ADMIN[3].label}</span>
+                  </div>
+                </NavLink>
+              </li>
+              {/* =====4==== */}
+              <li
+                className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
+                hover:tw-rounded-lg last:tw-mb-0 ${NAV_LINK_LIST_ADMIN[4].href === page && 'tw-bg-green-600 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
+                key={NAV_LINK_LIST_ADMIN[4].label}
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+              >
+                <NavLink
+                  to={`/admin/${NAV_LINK_LIST_ADMIN[4].href}`}
+                  className={`tw-block tw-text-white tw-font-extrabold tw-p-2 hover:tw-transition hover:tw-duration-500  tw-ease-in hover:tw-ml-2 hover:tw-translate-x-2 tw-transform tw-transition tw-duration-500"
+                  `}
+                  key={NAV_LINK_LIST_ADMIN[4].label}
+                >
+                  <div className="">
+                    <FontAwesomeIcon icon={NAV_LINK_LIST_ADMIN[4].icon} />
+                    <span className="tw-text-sm tw-font-black tw-ml-2">{NAV_LINK_LIST_ADMIN[4].label}</span>
+                  </div>
+                </NavLink>
+              </li>
+              {/* =====5===== */}
+              <li
+                className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
+                hover:tw-rounded-lg last:tw-mb-0 ${NAV_LINK_LIST_ADMIN[5].href === page && 'tw-bg-green-600 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
+                key={NAV_LINK_LIST_ADMIN[5].label}
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+              >
+                <NavLink
+                  to={`/admin/${NAV_LINK_LIST_ADMIN[5].href}`}
+                  className={`tw-block tw-text-white tw-font-extrabold tw-p-2 hover:tw-transition hover:tw-duration-500  tw-ease-in hover:tw-ml-2 hover:tw-translate-x-2 tw-transform tw-transition tw-duration-500"
+                  `}
+                  key={NAV_LINK_LIST_ADMIN[5].label}
+                >
+                  <div className="">
+                    <FontAwesomeIcon icon={NAV_LINK_LIST_ADMIN[5].icon} />
+                    <span className="tw-text-sm tw-font-black tw-ml-2">{NAV_LINK_LIST_ADMIN[5].label}</span>
+                  </div>
+                </NavLink>
+              </li>
+              {/* ======6==== */}
+              {
+                userKey ?  <li
+                className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
+                hover:tw-rounded-lg last:tw-mb-0 ${NAV_LINK_LIST_ADMIN[6].href === page && 'tw-bg-green-600 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
+                key={NAV_LINK_LIST_ADMIN[6].label}
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+              >
+                <NavLink
+                  to={`/admin/${NAV_LINK_LIST_ADMIN[6].href}`}
+                  className={`tw-block tw-text-white tw-font-extrabold tw-p-2 hover:tw-transition hover:tw-duration-500  tw-ease-in hover:tw-ml-2 hover:tw-translate-x-2 tw-transform tw-transition tw-duration-500"
+                  `}
+                  key={NAV_LINK_LIST_ADMIN[6].label}
+                >
+                  <div className="">
+                    <FontAwesomeIcon icon={NAV_LINK_LIST_ADMIN[6].icon} />
+                    <span className="tw-text-sm tw-font-black tw-ml-2">{NAV_LINK_LIST_ADMIN[6].label}</span>
+                  </div>
+                </NavLink>
+              </li> : null
+              }
+              {/* ======7==== */}
+              <li
+                className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
+                hover:tw-rounded-lg last:tw-mb-0 ${NAV_LINK_LIST_ADMIN[7].href === page && 'tw-bg-green-600 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
+                key={NAV_LINK_LIST_ADMIN[7].label}
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+              >
+                <NavLink
+                  to={`/admin/${NAV_LINK_LIST_ADMIN[7].href}`}
+                  className={`tw-block tw-text-white tw-font-extrabold tw-p-2 hover:tw-transition hover:tw-duration-500  tw-ease-in hover:tw-ml-2 hover:tw-translate-x-2 tw-transform tw-transition tw-duration-500"
+                  `}
+                  key={NAV_LINK_LIST_ADMIN[7].label}
+                >
+                  <div className="">
+                    <FontAwesomeIcon icon={NAV_LINK_LIST_ADMIN[7].icon} />
+                    <span className="tw-text-sm tw-font-black tw-ml-2">{NAV_LINK_LIST_ADMIN[7].label}</span>
+                  </div>
+                </NavLink>
+              </li>
             {/* Dashboard */}
-            {NAV_LINK_LIST_ADMIN.map(({ label, href, icon }) => (
+            {/* {NAV_LINK_LIST_ADMIN.map(({ label, href, icon , permission_id }) => (
               <li
                 className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
                 hover:tw-rounded-lg last:tw-mb-0 ${page === href && 'tw-bg-green-600 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
@@ -76,7 +243,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
                   </div>
                 </NavLink>
               </li>
-            ))}
+            ))} */}
           </ul>
         </div>
       </div>

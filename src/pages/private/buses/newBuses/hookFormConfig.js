@@ -24,6 +24,10 @@ export const initialValues = {
   endDisrict_id: "",
   endDistrict_name: "",
   seat_empty: 0,
+  detailAddressStart : "",
+  detailAddressEnd : "",
+  range_time : "3h",
+  end_time : "9h30"
 };
 
 export const validationSchema = Yup.object().shape({

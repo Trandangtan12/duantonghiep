@@ -1,11 +1,15 @@
+import { faEdit } from "@fortawesome/fontawesome-free-solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 import Table from "../../../compornent/admin/table";
 import { IsoStringConvert } from "../../../config";
 import { actionGetAllUsers } from "../../../redux/actions/user";
 
 const Account = () => {
+  const history = useHistory()
   const TableStyled = styled.div`
     .rt-th:first-child {
       display: none;
@@ -67,6 +71,15 @@ const Account = () => {
         return <span>{IsoStringConvert(original.updated_at)}</span>;
       },
     },
+    {
+      Header: "Hành động",
+      show: true,
+      Cell: ({ original }) => {
+        return <div>
+          <FontAwesomeIcon icon={faEdit} className="tw-cursor-pointer" onClick={()=> history.push(`/admin/account/permission/${original.id}`)} />
+        </div>
+      },
+    },
   ]);
   const ExpandableTable = ({ data }) => {
     return (
@@ -98,6 +111,20 @@ const Account = () => {
   }, []);
   return (
     <TableStyled>
+      <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-py-6 ">
+        <div className="tw-text-center tw-flex tw-justify-between">
+        <span className="tw-uppercase tw-text-2xl">Quản lý tài khoản</span>
+          <button
+            className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
+            type="button"
+            onClick={() => {
+              history.push("/admin/account/permission/create");
+            }}
+          >
+            Thêm phân quyền
+          </button>
+        </div>
+      </div>
       <Table
         data={avaibleUsers}
         columns={columns}

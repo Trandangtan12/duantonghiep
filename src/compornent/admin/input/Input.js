@@ -12,7 +12,8 @@ const Input = ({
   errors,
   required,
   messageErrors,
-  defaultValues
+  defaultValues,
+  disabled = false
 }) => {
   return (
     <div>
@@ -27,6 +28,7 @@ const Input = ({
         id={id}
         onChange={onChange}
         defaultValue={defaultValues}
+        disabled={disabled}
         placeholder={placeholder}
         className={`tw-border-[0.5px] tw-border-gray-300 tw-px-3 tw-py-3 placeholder-blueGray-300 text-blueGray-600 tw-bg-white tw-rounded tw-text-sm tw-shadow focus:tw-outline-none focus:tw-border-green-600 focus:tw-border-[1px] tw-w-full tw-ease-linear tw-transition-all tw-duration-15 tw-outline-none ${errors[fieldName] ? "tw-border-[1px] tw-border-red-500" : ""}`}
         {...register(fieldName, { required: required })}
