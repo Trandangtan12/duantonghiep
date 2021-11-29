@@ -83,6 +83,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           paymentMethod: currentRadioValue,
           status: "WAITING_ACTIVE"
         }
+        console.log("đặt cọc", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
