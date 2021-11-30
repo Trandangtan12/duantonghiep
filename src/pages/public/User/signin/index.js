@@ -17,9 +17,12 @@ const SignIn = () => {
   const [redirectToRef, setRedirectToRef] = useState(false);
   const { user } = UserApi.isAuthenticated();
   const onHandleSubmit = async (data, e) => {
+    const newData = {
+      email : data.email
+    }
     try {
       e.target.reset();
-      await UserApi.signin(data).then((dataUser) => {
+      await UserApi.signin(newData).then((dataUser) => {
         dispatch({
           type: ACTION_LOGIN,
           payload: dataUser.data,
