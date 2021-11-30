@@ -32,9 +32,21 @@ const SignIn = () => {
       setError(err.response.data.message);
     }
   };
+  const userKey = () => {
+    if (user === undefined) {
+      return undefined
+    } else {
+      if (user.hasOwnProperty('roles') === false) {
+        return undefined
+      } else {
+        const userRole = user.roles.every(item => item.id === 1 || item.id === 2)
+        return userRole
+      }
+    }
+  }
   const redirectUser = () => {
     if (redirectToRef) {
-      if (user.role == 1) {
+      if (userKey() === true) {
         return <Redirect to="admin/dashboard" />;
       } else {
         return <Redirect to="/" />;
