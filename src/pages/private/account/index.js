@@ -22,7 +22,7 @@ const Account = () => {
   const { avaibleUsers } = useSelector((state) => state.auth);
   const [columns, setColumns] = useState([
     {
-      Header: "ID",
+      Header: "Id",
       accessor: "id",
       maxWidth: 60,
       filterable: true,
@@ -44,10 +44,13 @@ const Account = () => {
     },
     {
       Header: "Email",
-      maxWidth: 200,
+      maxWidth: 250,
       accessor: "email",
       filterable: true,
       show: true,
+      Cell : ({original}) =>{
+        return <span title={original.email}>{original.email}</span>
+      }
     },
     {
       Header: "Giới tính",
@@ -76,7 +79,7 @@ const Account = () => {
       show: true,
       Cell: ({ original }) => {
         return <div>
-          <FontAwesomeIcon icon={faEdit} className="tw-cursor-pointer" onClick={()=> history.push(`/admin/account/permission/${original.id}`)} />
+          <FontAwesomeIcon icon={faEdit} color="blue" className="tw-cursor-pointer" onClick={()=> history.push(`/admin/account/permission/${original.id}`)} />
         </div>
       },
     },

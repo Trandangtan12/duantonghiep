@@ -40,7 +40,7 @@ const Permission = () => {
         }
         const res = await UserApi.updateUser(id, newData)
         if (res.status === 200) {
-            history.push("/admin/account/")
+            history.push("/admin/account")
         }
       })
       .set({ title: "Tài khoản" })

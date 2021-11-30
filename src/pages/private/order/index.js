@@ -342,14 +342,15 @@ const Order = () => {
           <button className="tw-bg-green-600 tw-rounded-md tw-p-1 tw-mb-4 tw-mr-2 tw-text-white">
             Danh sách vé huỷ
           </button>
-          <button
-            className="tw-bg-green-600 tw-rounded-md tw-p-1 tw-mb-4 tw-mr-2 tw-text-white"
-            onClick={() => handleExportList()}
-            disabled={availableOrder.length === 0 ? true : false}
-          >
-            Xuất dữ liệu
-          </button>
-
+          {availableOrder.length !== 0 ? (
+            <button
+              className="tw-bg-green-600 tw-rounded-md tw-p-1 tw-mb-4 tw-mr-2 tw-text-white"
+              onClick={() => handleExportList()}
+              disabled={availableOrder.length === 0 ? true : false}
+            >
+              Xuất dữ liệu
+            </button>
+          ) : null}
           <button
             className="tw-bg-green-600 tw-rounded-md tw-p-1 tw-mb-4 tw-text-white"
             onClick={() => history.push("/admin/order/create")}

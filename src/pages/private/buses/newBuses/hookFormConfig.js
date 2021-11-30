@@ -27,7 +27,7 @@ export const initialValues = {
   detailAddressStart : "",
   detailAddressEnd : "",
   range_time : "3h",
-  end_time : "9h30"
+  end_time : TIME
 };
 
 export const validationSchema = Yup.object().shape({
