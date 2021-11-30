@@ -9,6 +9,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
   const { pathname } = location;
   const page = pathname.split('/')[2];
   const {user} = UserApi.isAuthenticated()
+  console.log(user);
   const userKey = () => {
       if(user === undefined) {
         return undefined
@@ -21,6 +22,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
         }
       }
     }
+    console.log(userKey());
   return (
     <div className="lg:tw-w-64">
       {/* Sidebar backdrop (mobile only) */}
@@ -185,7 +187,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
               </li>
               {/* ======6==== */}
               {
-                userKey ?  <li
+                userKey() === true ?  <li
                 className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
                 hover:tw-rounded-lg last:tw-mb-0 ${NAV_LINK_LIST_ADMIN[6].href === page && 'tw-bg-green-600 tw-rounded-lg tw-border tw-border-white tw-ml-2'}`}
                 key={NAV_LINK_LIST_ADMIN[6].label}

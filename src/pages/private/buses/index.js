@@ -50,7 +50,6 @@ const Buses = () => {
               Quận/huyện điểm đi
             </td>
             <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
-            {console.log(data)}
               {data.startDistrict_name}
             </td>
           </tr>
@@ -67,7 +66,7 @@ const Buses = () => {
               Điạ chỉ chi tiết
             </td>
             <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
-              {data.startWard_name}
+              {data.detailAddressStart}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
@@ -91,7 +90,7 @@ const Buses = () => {
               Điạ chỉ chi tiết
             </td>
             <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
-              {data.startWard_name}
+              {data.detailAddressEnd}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
@@ -100,6 +99,12 @@ const Buses = () => {
             </td>
             <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
               {data.date_active}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Thời gian kết thúc</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {IsoStringConvert(data.end_time)}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
