@@ -118,12 +118,20 @@ const NewBuses = () => {
     setValue(pointName, original.label);
   }
   const handleSubmitForm = (data) => {
-    console.log(data);
+    const Startdate = `${data.date_active} ${data.start_time}`;
+    const d = new Date(Startdate);
+    const startTime = moment(d).utc(true).format("YYYY-MM-DD H:mm")
+    const endTimeConvert = moment(data.end_time).utc(false).format("YYYY-DD-MM H:mm")
+    const hoursStartTime = moment(startTime).get('hours')
+    const hoursEndTime = moment(endTimeConvert).get('hours')
+    const minusHoursTimeRange = (Number(hoursEndTime) -  Number(hoursStartTime))
+    console.log(minusHoursTimeRange);
     data.seat_empty = data.seat
     alertify.confirm("Bạn có chắc chắn muốn tạo mới chuyến xe ?", async function () {
       const newBuses = {
         ...data , 
-        image : urlImage
+        image : urlImage,
+        range_time : String(minusHoursTimeRange)
       }
       console.log(newBuses);
       const res = await BusesService.addBuses(newBuses);

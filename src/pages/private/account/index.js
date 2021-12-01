@@ -79,7 +79,9 @@ const Account = () => {
       show: true,
       Cell: ({ original }) => {
         return <div>
-          <FontAwesomeIcon icon={faEdit} color="blue" className="tw-cursor-pointer" onClick={()=> history.push(`/admin/account/permission/${original.id}`)} />
+        {
+          original.id !== 1 ?    <FontAwesomeIcon icon={faEdit} color="blue" className="tw-cursor-pointer" onClick={()=> history.push(`/admin/account/permission/${original.id}`)} />  : null
+        }
         </div>
       },
     },

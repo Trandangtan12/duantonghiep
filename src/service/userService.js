@@ -33,14 +33,14 @@ export const UserApi = {
             return false
         }
     },
-    updateUser(id , user){
-        return HttpClient.put(`${API_UPDATE_USER}/${id}`, user , {
-            headers : {
-                Authorization : 'Bearer' + this.isAuthenticated().accessToken
-            }
+    // updateUser(id , user){
+    //     return HttpClient.put(`${API_UPDATE_USER}/${id}`, user , {
+    //         headers : {
+    //             Authorization : 'Bearer' + this.isAuthenticated().accessToken
+    //         }
             
-        })
-    },
+    //     })
+    // },
     getUser(){
         return HttpClient.get(`${API_UPDATE_USER}`)
     },

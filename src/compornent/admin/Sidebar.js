@@ -9,7 +9,6 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
   const { pathname } = location;
   const page = pathname.split('/')[2];
   const {user} = UserApi.isAuthenticated()
-  console.log(user);
   const userKey = () => {
       if(user === undefined) {
         return undefined
