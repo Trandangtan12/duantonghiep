@@ -28,8 +28,6 @@ const CreateTicket = () => {
     formState: { errors },
   } = useForm({});
   const history = useHistory();
-  const [emp, setEmp] = useState();
-  const [qty, setQty] = useState(1);
   const handleAddTicket = async (data) => {
     const totalPrice = busesSelect.price * data.quantity 
     const newData = {
@@ -38,10 +36,10 @@ const CreateTicket = () => {
       status : paymentMethodType,
       paymentMethod : OFFLINE,
       totalPrice : totalPrice,
-      // depositAmount : 0
     };
     const resTicket = await BusesService.addTicket(newData)   
     if (resTicket.status === 201) {
+      await BusesService.sendEmail(resTicket.data.id)
       history.push("/admin/order")
     }
   };
