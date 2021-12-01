@@ -12,7 +12,6 @@ const Products = () => {
     const { start, end, date } = useParams()
     const dispatch = useDispatch();
     const { availableSearch } = useSelector(state => state.buses);
-    console.log(availableSearch);
     useEffect(() => {
         dispatch(actionSearchBuses(start, end, date))
         dispatch(actionGetBuses())
@@ -57,7 +56,7 @@ const Products = () => {
         setCheckedAfternoon(false)
         setCheckedNigth(false)
         if (!checkedMoning) {
-            setTime({ minTime: moment(now, "HH:mm"), maxTime: moment("06:00", "HH:mm") })
+            setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("06:00", "HH:mm") })
         } else {
             setTime({ minTime: moment(now, "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
@@ -69,7 +68,7 @@ const Products = () => {
         setCheckedAfternoon(false)
         setCheckedNigth(false)
         if (!checkedLunch) {
-            setTime({ minTime: moment(now, "HH:mm"), maxTime: moment("12:00", "HH:mm") })
+            setTime({ minTime: moment("06:01", "HH:mm"), maxTime: moment("12:00", "HH:mm") })
         } else {
             setTime({ minTime: moment(now, "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
@@ -81,7 +80,7 @@ const Products = () => {
         setCheckedAfternoon(!checkedAfternoon)
         setCheckedNigth(false)
         if (!checkedAfternoon) {
-            setTime({ minTime: moment(now, "HH:mm"), maxTime: moment("18:00", "HH:mm") })
+            setTime({ minTime: moment("12:01", "HH:mm"), maxTime: moment("18:00", "HH:mm") })
         } else {
             setTime({ minTime: moment(now, "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
@@ -92,12 +91,13 @@ const Products = () => {
         setCheckedAfternoon(false)
         setCheckedNigth(!checkedNigth)
         if (!checkedNigth) {
-            setTime({ minTime: moment(now, "HH:mm"), maxTime: moment("23:59", "HH:mm") })
+            setTime({ minTime: moment("18:01", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         } else {
             setTime({ minTime: moment(now, "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
     }
-
+    const total = moment("00:00", "HH:mm") + moment("04:00", "HH:mm")
+    console.log(moment(total, "HH:mm"));
     const ListError = () => {
         return (<div className="tw-bg-white tw-p-5 tw-flex tw-flex-col tw-justify-center tw-items-center">
             <div>
@@ -120,31 +120,34 @@ const Products = () => {
     const filterProduct = availableSearch.filter((item) =>
         item.price >= price.value.min
         && item.price <= price.value.max
-        // && item.seat_empty >= qtyFilter
+        && item.seat_empty >= qtyFilter
         && moment(item.start_time, "HH:mm") >= time.minTime
         && moment(item.start_time, "HH:mm") <= time.maxTime
     )
     const timeMoning = availableSearch.filter(item => item.price >= price.value.min
         && item.price <= price.value.max
         && item.seat_empty >= qtyFilter
-        && moment(item.start_time, "HH:mm") >= moment(now, "HH:mm")
+        && moment(item.start_time, "HH:mm") >= moment("00:00", "HH:mm")
         && moment(item.start_time, "HH:mm") <= moment("06:00", "HH:mm"))
 
     const timeLunch = availableSearch.filter(item => item.price >= price.value.min
         && item.price <= price.value.max
         && item.seat_empty >= qtyFilter
+        && moment(item.start_time, "HH:mm") >= moment("06:01", "HH:mm")
         && moment(item.start_time, "HH:mm") >= moment(now, "HH:mm")
         && moment(item.start_time, "HH:mm") <= moment("12:00", "HH:mm"))
 
     const timeAfternoon = availableSearch.filter(item => item.price >= price.value.min
         && item.price <= price.value.max
         && item.seat_empty >= qtyFilter
+        && moment(item.start_time, "HH:mm") >= moment("12:01", "HH:mm")
         && moment(item.start_time, "HH:mm") >= moment(now, "HH:mm")
         && moment(item.start_time, "HH:mm") <= moment("18:00", "HH:mm"))
 
     const timeNight = availableSearch.filter(item => item.price >= price.value.min
         && item.price <= price.value.max
         && item.seat_empty >= qtyFilter
+        && moment(item.start_time, "HH:mm") >= moment("18:01", "HH:mm")
         && moment(item.start_time, "HH:mm") >= moment(now, "HH:mm")
         && moment(item.start_time, "HH:mm") <= moment("23:59", "HH:mm"))
 
