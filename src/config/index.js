@@ -34,6 +34,8 @@ export const API_ROLE = "/role"
 
 export const API_USER_ADMIN = "/userAdmin"
 
+export const API_NEWS = "/news"
+
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0
 }
@@ -125,7 +127,7 @@ export const NAV_LINK_LIST_ADMIN = [
     },
     {
         label: "Tin tức",
-        href: "new",
+        href: "news",
         icon: faNewspaper
     },
     {

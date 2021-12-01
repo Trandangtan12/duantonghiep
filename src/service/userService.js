@@ -1,5 +1,5 @@
 import HttpClient from "../api/axiosClient"
-import { API_UPDATE_USER } from "../config"
+import { API_NEWS, API_UPDATE_USER } from "../config"
 import { v4 as uuidv4 } from 'uuid';
 export const UserApi = {
     signup(user){
@@ -49,5 +49,8 @@ export const UserApi = {
     },
     updateUser(id,data){
         return HttpClient.put(`${API_UPDATE_USER}/${id}`,data) 
+    },
+    getNews(){
+        return HttpClient.get(`${API_NEWS}`)
     }
 }
