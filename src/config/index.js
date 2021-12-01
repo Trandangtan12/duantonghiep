@@ -6,6 +6,7 @@ import moment from 'moment'
 export const API_GET_ALL_CITY = "/"
 export const API_GET_DISTRICTS = "/p"
 export const API_GET_WARD = "/d"
+export const API_GET_ALL_WARD = "/w"
 //================API=================
 export const API_GET_BUSES = '/buses'
 

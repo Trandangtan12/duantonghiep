@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { actionGetBuses } from "../../redux/actions/buses";
+import { actionGetBuses, actionSearchBuses } from "../../redux/actions/buses";
 import { getAllProvince } from "../../redux/actions/province";
 import SelectFormHome from "../selectForm/selectFormHome";
 const SearchCars = () => {
@@ -30,17 +30,18 @@ const SearchCars = () => {
   const handleChangeEndPoint = (original) => {
     setEndPoint(original.value);
   };
-  const handleSearch = async () =>{
-    if(startPoint === '' || endPoint === ''){
+  const handleSearch = async () => {
+    if (startPoint === '' || endPoint === '') {
       alertify.alert('Vui lòng chọn địa điểm').set({ title: "Thông báo" })
-      .set("movable", false)
-      .set("ok", "Alright!")
-      .set("notifier", "position", "top-right");
+        .set("movable", false)
+        .set("ok", "Alright!")
+        .set("notifier", "position", "top-right");
       return
     }
     const date_active = moment(startDate).utc(true).format("YYYY-MM-DD")
     if (startPoint == null || endPoint == null) {
     } else {
+      dispatch(actionSearchBuses(startPoint, endPoint, date_active))
       history.push(`/product/start=${startPoint}/and/end=${endPoint}/and/date=${date_active}`)
     }
   }
