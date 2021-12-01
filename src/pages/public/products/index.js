@@ -22,7 +22,6 @@ const Products = () => {
         minTime: moment(now, "HH:mm"),
         maxTime: moment("23:59", "HH:mm")
     })
-    console.log(time);
     const [price, setPrice] = useState({
         min: 0,
         max: 2000000,
@@ -96,8 +95,6 @@ const Products = () => {
             setTime({ minTime: moment(now, "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
     }
-    const total = moment("00:00", "HH:mm") + moment("04:00", "HH:mm")
-    console.log(moment(total, "HH:mm"));
     const ListError = () => {
         return (<div className="tw-bg-white tw-p-5 tw-flex tw-flex-col tw-justify-center tw-items-center">
             <div>
