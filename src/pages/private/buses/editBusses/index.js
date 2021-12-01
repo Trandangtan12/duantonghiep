@@ -83,7 +83,7 @@ const EditBusses = () => {
   };
   const handleChangeStartTime = (date) => {
     const startDateConvert = moment(date).format("YYYY-MM-DD");
-    const startTime = moment(date).format("H:mm");
+    const startTime = moment(date).format("HH:mm");
     setStartDate(date);
     setValue("date_active", startDateConvert);
     setValue("start_time", startTime);

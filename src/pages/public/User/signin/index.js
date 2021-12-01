@@ -85,6 +85,7 @@ const SignIn = () => {
                   * Email
                 </label>
                 <input
+                  autoFocus="autofocus"
                   {...register("email", {
                     required: ("Bạn chưa điền email!!!"), pattern: {
                       value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -106,7 +107,7 @@ const SignIn = () => {
                   * Mật khẩu
                 </label>
                 <input
-                  {...register("password", {required: ("Bạn chưa nhập mật khẩu!!!")})}
+                  {...register("password", { required: ("Bạn chưa nhập mật khẩu!!!") })}
                   type={showPassword ? "text" : "password"}
                   name="password"
                   id=""
