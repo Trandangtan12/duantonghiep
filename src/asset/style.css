@@ -1509,14 +1509,14 @@ video {
   border-top-right-radius: 0.5rem;
 }
 
-.tw-rounded-l-lg {
-  border-top-left-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
-}
-
 .tw-rounded-t {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
+}
+
+.tw-rounded-l-lg {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
 }
 
 .tw-border {
@@ -1851,6 +1851,11 @@ video {
   padding-bottom: 2.25rem;
 }
 
+.tw-py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
 .tw-py-2\.5 {
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
@@ -1869,11 +1874,6 @@ video {
 .tw-py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
-}
-
-.tw-py-6 {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
 }
 
 .tw-py-20 {

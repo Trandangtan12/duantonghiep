@@ -478,6 +478,8 @@ const EditBusses = () => {
                     setCityDefault={setStartCityDefault}
                     setDistrictDefault={setStartDistrictDefault}
                     setWardDefault={setStartWardDefault}
+                    register={register}
+                    detailAddress={"detailAddressStart"}
                   />
                   <LocationSelect
                     provinceFilter={provinceFilter}
@@ -503,6 +505,8 @@ const EditBusses = () => {
                     setCityDefault={setEndCityDefault}
                     setDistrictDefault={setEndDistrictDefault}
                     setWardDefault={setEndWardDefault}
+                    register={register}
+                    detailAddress={"detailAddressEnd"}
                   />
                   <TextArea
                     title="Ghi chú"

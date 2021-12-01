@@ -12,6 +12,7 @@ const Products = () => {
     const { start, end, date } = useParams()
     const dispatch = useDispatch();
     const { availableSearch } = useSelector(state => state.buses);
+    console.log(availableSearch);
     useEffect(() => {
         dispatch(actionSearchBuses(start, end, date))
         dispatch(actionGetBuses())

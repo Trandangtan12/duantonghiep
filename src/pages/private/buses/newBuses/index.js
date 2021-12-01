@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Input from "../../../../compornent/admin/input/Input";
-import InputNumber from "../../../../compornent/admin/inputNumber";
 import DatePickerForm from "../../../../compornent/datePicker";
 import TextArea from "../../../../compornent/textarea";
 import firebase from "../../../../firebase";
@@ -17,12 +16,11 @@ import {
 import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
 import { ProvinceService } from "../../../../service/provinceService";
-import { UserApi } from "../../../../service/userService";
 import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
 import { initialValues, validationSchema } from "./hookFormConfig";
-import { InputNumberStyle, TODAY } from "./utility";
+import { InputNumberStyle } from "./utility";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
   const [urlImage, setUrlImage] = useState("https://via.placeholder.com/300.png/09f/fff");
@@ -45,9 +43,11 @@ const NewBuses = () => {
       value: type.id,
     };
   });
+  // const
   const [districtValue, setdistrictValue] = useState([]);
   const [wardValue, setWardValue] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   ///end point
   const [endPointCity, setEndPointCity] = useState([])
   const [endPointDistricts, setEndPointDistricts] = useState([])
@@ -118,12 +118,14 @@ const NewBuses = () => {
     setValue(pointName, original.label);
   }
   const handleSubmitForm = (data) => {
+    console.log(data);
     data.seat_empty = data.seat
     alertify.confirm("Bạn có chắc chắn muốn tạo mới chuyến xe ?", async function () {
       const newBuses = {
         ...data , 
         image : urlImage
       }
+      console.log(newBuses);
       const res = await BusesService.addBuses(newBuses);
       if (res) {
         alertify.set("notifier", "position", "bottom-right");
@@ -142,6 +144,11 @@ const NewBuses = () => {
     setValue("date_active", startDateConvert);
     setValue("start_time", startTime);
   };
+  const handleChangeEndTime = (date) => {
+    const startTime = moment(date).utc(true).toISOString()
+    setEndDate(date);
+    setValue("end_time", startTime);
+  };
   const handlechangeTypeCar = (type) => {
     setValue("cartype_id", type.value);
   };
@@ -153,6 +160,9 @@ const NewBuses = () => {
     setValue("service_id", serviceFilter);
   };
   useEffect(() => {
+    const today = new Date()
+    const endTimeDefault = moment(today).utc(true).toISOString()
+    setValue("end_time", endTimeDefault);
     dispatch(actionGetService());
     dispatch(actionGetAllBusesTypes());
     const getCity = async () => {
@@ -279,7 +289,7 @@ const NewBuses = () => {
                     </div>
                   </div>
                   <div className="tw-flex tw-flex-wrap">
-                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
+                    <div className="tw-w-full lg:tw-w-12/12 tw-px-4">
                       <div className="tw-relative tw-w-full tw-mb-3">
                         <InputNumberStyle>
                           <Input
@@ -295,7 +305,10 @@ const NewBuses = () => {
                         </InputNumberStyle>
                       </div>
                     </div>
-                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
+                  </div>
+                  {/* =====time ==== */}
+                  <div className="tw-flex tw-flex-wrap">
+                  <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
                       <div className="tw-relative tw-w-full tw-mb-3">
                         <label
                           className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
@@ -308,11 +321,31 @@ const NewBuses = () => {
                           onChange={(date) => {
                             handleChangeStartTime(date);
                           }}
-                          minDate={TODAY}
+                          minDate={new Date()}
+                        />
+                      </div>
+                    </div>
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <label
+                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+                          htmlfor="grid-password"
+                        >
+                          Thời gian kết thúc
+                        </label>
+                        <DatePickerForm
+                          startDate={endDate}
+                          showTimeSelectOnly={false}
+                          // dateFormat="H:mm"
+                          onChange={(date) => {
+                            handleChangeEndTime(date);
+                          }}
+                          minDate={startDate}
                         />
                       </div>
                     </div>
                   </div>
+                  {/* =====end time ===== */}
                   <div className="tw-flex tw-flex-wrap">
                     <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
                       <div className="tw-relative tw-w-full tw-mb-3">
@@ -358,7 +391,7 @@ const NewBuses = () => {
                     title="Điểm đi"
                     errors={errors}
                     setWardValue={setWardValue}
-                    detailAddress={"detailStart"}
+                    detailAddress={"detailAddressStart"}
                   />
                   <LocationSelect
                     provinceFilter={provinceEndFilter}
@@ -378,7 +411,7 @@ const NewBuses = () => {
                     pointWardName={"endWard_name"}
                     errors={errors}
                     setWardValue={setEndPointWard}
-                    detailAddress={"detailEnd"}
+                    detailAddress={"detailAddressEnd"}
                   />
                   <TextArea
                     title="Ghi chú"

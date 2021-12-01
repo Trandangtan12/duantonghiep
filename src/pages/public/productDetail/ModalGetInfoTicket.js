@@ -62,6 +62,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           quantity: qty,
           totalPrice: totalPrice,
           paymentMethod: currentRadioValue,
+          depositAmount : 0,
         }
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
@@ -81,9 +82,9 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           quantity: qty,
           totalPrice: depositPrice,
           paymentMethod: currentRadioValue,
-          status: "WAITING_ACTIVE"
+          status: "WAITING_ACTIVE",
+          depositAmount : 0,
         }
-        console.log("đặt cọc", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -107,6 +108,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           quantity: qty,
           totalPrice: totalPrice,
           paymentMethod: currentRadioValue,
+          depositAmount : 0,
         }
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
