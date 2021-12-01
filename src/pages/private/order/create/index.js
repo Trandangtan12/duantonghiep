@@ -12,7 +12,7 @@ import { ACTIVED, ATM, OFFLINE, WAITING_ACTIVE } from "../utility";
 const CreateTicket = () => {
   const { user } = UserApi.isAuthenticated();
   const dispatch = useDispatch();
-  const [paymentMethodType, setPaymentMethodType] = useState(ACTIVED);
+  const [paymentMethodType, setPaymentMethodType] = useState(WAITING_ACTIVE);
   const { availableBuses } = useSelector((state) => state.buses);
   const [busesSelect, setBusesSelect] = useState();
   const avaibleBussesSuggesstion = availableBuses.map((_elt) => {
@@ -37,7 +37,8 @@ const CreateTicket = () => {
       buses_id: busesSelect.value,
       status : paymentMethodType,
       paymentMethod : OFFLINE,
-      totalPrice : totalPrice
+      totalPrice : totalPrice,
+      // depositAmount : 0
     };
     const resTicket = await BusesService.addTicket(newData)   
     if (resTicket.status === 201) {

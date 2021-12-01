@@ -126,6 +126,12 @@ const Buses = () => {
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Thời gian dự kiến</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {data.range_time} Giờ
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Ngày tạo</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {IsoStringConvert(data.created_at)}

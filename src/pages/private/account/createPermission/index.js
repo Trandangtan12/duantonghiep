@@ -37,7 +37,7 @@ const CreatePermission = () => {
         }
         const res = await PermissionService.createRole(newData);
         if (res.stauts === 201) {
-          console.log(res.data);
+          history.push("/admin/account")
         }
       })
       .set({ title: "Nhóm quyền" })

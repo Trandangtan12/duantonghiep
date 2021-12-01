@@ -26,7 +26,7 @@ export const initialValues = {
   seat_empty: 0,
   detailAddressStart : "",
   detailAddressEnd : "",
-  range_time : "3h",
+  range_time : "",
   end_time : TIME
 };
 

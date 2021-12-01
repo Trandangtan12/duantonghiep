@@ -23,6 +23,7 @@ const Profile = () => {
   const handleChangeInfoAcount = async (data) => {
     const res = await UserApi.updateUser(account.user.id, data);
     if (res.status === 200) {
+      console.log(res.data);
     }
   };
   useEffect(() => {
