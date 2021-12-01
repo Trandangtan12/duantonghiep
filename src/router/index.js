@@ -49,6 +49,9 @@ const Routes = () => {
   const CreateTicket = lazy(() => import("../pages/private/order/create"))
   const Permission = lazy(() => import("../pages/private/account/permission/index"))
   const CreatePermission = lazy(() => import("../pages/private/account/createPermission"))
+  const News = lazy(() => import("../pages/private/news"))
+  const NewsCreate = lazy(() => import("../pages/private/news/create/index"))
+
   return (
     <Router>
       <Suspense fallback={<Loading />}>
@@ -75,6 +78,8 @@ const Routes = () => {
                 <Route exact  path="/admin/account" component={Account}/>
                 <Route exact  path="/admin/account/permission/create" component={CreatePermission}/>
                 <Route exact  path="/admin/account/permission/:id" component={Permission}/>
+                <Route exact  path="/admin/news" component={News}/>
+                <Route exact  path="/admin/news/create" component={NewsCreate}/>
                 <Route exact  path="/admin/profile" component={Profile}/>
                 <Route exact path="*" component={PageNotFound} />
               </Switch>
