@@ -8,10 +8,11 @@ import { useHistory } from "react-router";
 import Input from "../../../../compornent/admin/input/Input";
 import DatePickerForm from "../../../../compornent/datePicker";
 import TextArea from "../../../../compornent/textarea";
+import TextEditor from "../../../../compornent/textEditor";
 import firebase from "../../../../firebase";
 import {
   actionGetAllBusesTypes,
-  actionGetService
+  actionGetService,
 } from "../../../../redux/actions/buses";
 import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";
@@ -23,7 +24,9 @@ import { initialValues, validationSchema } from "./hookFormConfig";
 import { InputNumberStyle } from "./utility";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
-  const [urlImage, setUrlImage] = useState("https://via.placeholder.com/300.png/09f/fff");
+  const [urlImage, setUrlImage] = useState(
+    "https://via.placeholder.com/300.png/09f/fff"
+  );
   const history = useHistory();
   const dispatch = useDispatch();
   const [cityValue, setCityValue] = useState([]);
@@ -49,9 +52,9 @@ const NewBuses = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   ///end point
-  const [endPointCity, setEndPointCity] = useState([])
-  const [endPointDistricts, setEndPointDistricts] = useState([])
-  const [endPointWard, setEndPointWard] = useState([])
+  const [endPointCity, setEndPointCity] = useState([]);
+  const [endPointDistricts, setEndPointDistricts] = useState([]);
+  const [endPointWard, setEndPointWard] = useState([]);
   const provinceFilter = cityValue.map((city) => {
     return {
       value: city.code,
@@ -83,9 +86,14 @@ const NewBuses = () => {
     defaultValues: initialValues,
     resolver: yupResolver(validationSchema),
     mode: "all",
-    reValidateMode : "onSubmit"
+    reValidateMode: "onSubmit",
   });
-  const onChangeCity = async (pointName, pointId, original , setValueOptions) => {
+  const onChangeCity = async (
+    pointName,
+    pointId,
+    original,
+    setValueOptions
+  ) => {
     setValue(pointId, original.value);
     setValue(pointName, original.label);
     const districtRes = await ProvinceService.getDistrict(original.value);
@@ -99,7 +107,13 @@ const NewBuses = () => {
       setValueOptions(districtFilter);
     }
   };
-  const onChangeWard = async (original , pointName, pointId ,id , setValueOptions) => {
+  const onChangeWard = async (
+    original,
+    pointName,
+    pointId,
+    id,
+    setValueOptions
+  ) => {
     setValue(pointId, original.value);
     setValue(pointName, original.label);
     const wardRes = await ProvinceService.getWard(id);
@@ -113,37 +127,45 @@ const NewBuses = () => {
       setValueOptions(wardFilter);
     }
   };
-  const handleChangeDistrict = (pointId , pointName , original , setValueOptions) =>{
+  const handleChangeDistrict = (
+    pointId,
+    pointName,
+    original,
+    setValueOptions
+  ) => {
     setValue(pointId, original.value);
     setValue(pointName, original.label);
-  }
+  };
   const handleSubmitForm = (data) => {
     const Startdate = `${data.date_active} ${data.start_time}`;
     const d = new Date(Startdate);
-    const startTime = moment(d).utc(true).format("YYYY-MM-DD H:mm")
-    const endTimeConvert = moment(data.end_time).utc(false).format("YYYY-DD-MM H:mm")
-    const hoursStartTime = moment(startTime).get('hours')
-    const hoursEndTime = moment(endTimeConvert).get('hours')
-    const minusHoursTimeRange = (Number(hoursEndTime) -  Number(hoursStartTime))
-    console.log(minusHoursTimeRange);
-    data.seat_empty = data.seat
-    alertify.confirm("Bạn có chắc chắn muốn tạo mới chuyến xe ?", async function () {
-      const newBuses = {
-        ...data , 
-        image : urlImage,
-        range_time : String(minusHoursTimeRange)
-      }
-      console.log(newBuses);
-      const res = await BusesService.addBuses(newBuses);
-      if (res) {
-        alertify.set("notifier", "position", "bottom-right");
-        alertify.success("Tạo mới thành công !");
-        history.push("/admin/buses");
-      }
-    }).set({ title: "Chuyến xe" })
-    .set("movable", false)
-    .set("ok", "Alright!")
-    .set("notifier", "position", "top-right");
+    const startTime = moment(d).utc(true).format("YYYY-MM-DD H:mm");
+    const endTimeConvert = moment(data.end_time)
+      .utc(false)
+      .format("YYYY-DD-MM H:mm");
+    const hoursStartTime = moment(startTime).get("hours");
+    const hoursEndTime = moment(endTimeConvert).get("hours");
+    const minusHoursTimeRange = Number(hoursEndTime) - Number(hoursStartTime);
+    data.seat_empty = data.seat;
+    alertify
+      .confirm("Bạn có chắc chắn muốn tạo mới chuyến xe ?", async function () {
+        const newBuses = {
+          ...data,
+          image: urlImage,
+          range_time: String(minusHoursTimeRange),
+        };
+        console.log(newBuses);
+        const res = await BusesService.addBuses(newBuses);
+        if (res) {
+          alertify.set("notifier", "position", "bottom-right");
+          alertify.success("Tạo mới thành công !");
+          history.push("/admin/buses");
+        }
+      })
+      .set({ title: "Chuyến xe" })
+      .set("movable", false)
+      .set("ok", "Alright!")
+      .set("notifier", "position", "top-right");
   };
   const handleChangeStartTime = (date) => {
     const startDateConvert = moment(date).utc(true).format("YYYY-MM-DD");
@@ -153,7 +175,7 @@ const NewBuses = () => {
     setValue("start_time", startTime);
   };
   const handleChangeEndTime = (date) => {
-    const startTime = moment(date).utc(true).toISOString()
+    const startTime = moment(date).utc(true).toISOString();
     setEndDate(date);
     setValue("end_time", startTime);
   };
@@ -168,8 +190,8 @@ const NewBuses = () => {
     setValue("service_id", serviceFilter);
   };
   useEffect(() => {
-    const today = new Date()
-    const endTimeDefault = moment(today).utc(true).toISOString()
+    const today = new Date();
+    const endTimeDefault = moment(today).utc(true).toISOString();
     setValue("end_time", endTimeDefault);
     dispatch(actionGetService());
     dispatch(actionGetAllBusesTypes());
@@ -177,7 +199,7 @@ const NewBuses = () => {
       const resCity = await ProvinceService.getAllCity();
       if (resCity.status === 200) {
         await setCityValue(resCity.data);
-        await setEndPointCity(resCity.data)
+        await setEndPointCity(resCity.data);
       }
     };
     getCity();
@@ -316,7 +338,7 @@ const NewBuses = () => {
                   </div>
                   {/* =====time ==== */}
                   <div className="tw-flex tw-flex-wrap">
-                  <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
                       <div className="tw-relative tw-w-full tw-mb-3">
                         <label
                           className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
@@ -362,8 +384,8 @@ const NewBuses = () => {
                           options={busesTypeFilter}
                           placeholder={"loại xe"}
                           handleChange={handlechangeTypeCar}
-                          errors={errors}                        
-                          fieldName={'cartype_id'}
+                          errors={errors}
+                          fieldName={"cartype_id"}
                         />
                       </div>
                     </div>
@@ -421,12 +443,13 @@ const NewBuses = () => {
                     setWardValue={setEndPointWard}
                     detailAddress={"detailAddressEnd"}
                   />
-                  <TextArea
-                    title="Ghi chú"
-                    placeholder="Nhập mô tả"
-                    fieldName="description"
-                    register={register}
-                  />
+                  <div className="tw-mb-3 tw-px-4">
+                    <TextEditor
+                      label="Mô tả chuyến xe"
+                      setValue={setValue}
+                      fieldName={"description"}
+                    />
+                  </div>
                   <footer className="">
                     <div className="container tw-mx-auto tw-px-4">
                       <div className="tw-flex tw-flex-wrap tw-items-center md:tw-justify-end tw-justify-center tw-mb-10 tw-gap-5">

@@ -1,12 +1,16 @@
+import { faEdit, faTimes, faTrash } from "@fortawesome/fontawesome-free-solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import alertify from "alertifyjs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Table from "../../../compornent/admin/table";
 import { IsoStringConvert } from "../../../config";
 import { actionGetNews } from "../../../redux/actions/news";
+import { NewsService } from "../../../service/news";
+import {useHistory} from 'react-router-dom'
 const News = () => {
   const { news } = useSelector((state) => state.news);
-  console.log(news);
   const dispatch = useDispatch();
   const ExpandableTable = ({ data }) => {
     return (
@@ -32,6 +36,20 @@ const News = () => {
   };
   const [dispatchDependency, setDispatchAcitive] = useState(0);
   const dependencies = [news.length, dispatchDependency];
+  const history = useHistory()
+  const handleDelete = async (id) => {
+    alertify
+      .confirm("Bạn có chắc chắn muốn xoá bài viết ?", async function () {
+        const res = await NewsService.deleteNew(id);
+        if (res.status === 200) {
+          reloadActiveAPI();
+        }
+      })
+      .set({ title: "Quản lý bài viết" })
+      .set("movable", false)
+      .set("ok", "Alright!")
+      .set("notifier", "position", "top-right");
+  };
   const [columns, setColumns] = useState([
     {
       Header: "Số thứ tự",
@@ -66,9 +84,26 @@ const News = () => {
       show: true,
       Cell: ({ original }) => {
         return (
-          <span title={original.created_at}>
-            {IsoStringConvert(original.created_at)}
-          </span>
+          <div>
+            <div>
+              <span
+                // onClick={() => handleRejectTicket(original.id)}
+                className="tw-cursor-pointer tw-mr-2"
+              >
+                <FontAwesomeIcon icon={faEdit} color="blue" onClick={()=>history.push(`/admin/news/edit/${original.id}`)} />
+              </span>
+              <span
+                // onClick={() => handleDeleteTicket(original.id)}
+                className="tw-cursor-pointer "
+              >
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  color="red"
+                  onClick={() => handleDelete(original.id)}
+                />
+              </span>
+            </div>
+          </div>
         );
       },
     },
@@ -76,12 +111,15 @@ const News = () => {
   useEffect(() => {
     dispatch(actionGetNews());
   }, [...dependencies]);
+  const reloadActiveAPI = () => {
+    setDispatchAcitive((pre) => ++pre);
+  };
   return (
     <>
       <div className="tw-flex tw-justify-between tw-align-middle tw-mb-5">
         <span className="tw-uppercase tw-text-2xl">Quản lý tin tức</span>
         <div>
-          <Link to="/admin/buses/create">
+          <Link to="/admin/news/create">
             <button className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150">
               Thêm bài viết
             </button>

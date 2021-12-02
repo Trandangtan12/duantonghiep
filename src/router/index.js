@@ -51,6 +51,7 @@ const Routes = () => {
   const CreatePermission = lazy(() => import("../pages/private/account/createPermission"))
   const News = lazy(() => import("../pages/private/news"))
   const NewsCreate = lazy(() => import("../pages/private/news/create/index"))
+  const EditNews = lazy(() => import("../pages/private/news/edit/index"))
 
   return (
     <Router>
@@ -79,6 +80,7 @@ const Routes = () => {
                 <Route exact  path="/admin/account/permission/create" component={CreatePermission}/>
                 <Route exact  path="/admin/account/permission/:id" component={Permission}/>
                 <Route exact  path="/admin/news" component={News}/>
+                <Route exact  path="/admin/news/edit/:id" component={EditNews}/>
                 <Route exact  path="/admin/news/create" component={NewsCreate}/>
                 <Route exact  path="/admin/profile" component={Profile}/>
                 <Route exact path="*" component={PageNotFound} />
