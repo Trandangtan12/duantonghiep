@@ -174,6 +174,12 @@ const Order = () => {
               {data.reservationTime !== null ? data.reservationTime : "-"}
             </td>
           </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Số tiền đặt cọc</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {data.depositAmount !== null ? data.depositAmount : "-"}
+            </td>
+          </tr>
         </tbody>
       </table>
     );
