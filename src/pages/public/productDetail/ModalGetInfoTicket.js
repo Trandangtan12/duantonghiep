@@ -87,7 +87,35 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           await BusesService.updateBusses(product.id, updateBuses)
         }
 
-      } else if (currentRadioValue === "OFFLINE" && qty >= 3 ||
+      } else if (currentRadioValue === "OFFLINE" && qty >= 3) {
+        localStorage.setItem('deposit', true)
+        const ticket = {
+          ...data,
+          quantity: qty,
+          totalPrice: totalPrice,
+          paymentMethod: currentRadioValue,
+          status: "WAITING_ACTIVE",
+          depositAmount: depositPrice,
+        }
+        console.log("Đặt cọc", ticket);
+        const resTicket = await BusesService.addTicket(ticket)
+        if (resTicket.status === 201 || resTicket.status === 200) {
+          localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+        }
+        const res = await BusesService.paymentTicket(depositPrice)
+        if (res.data.message === "success") {
+          window.location.href = res.data.data
+        }
+        if (emp < 0) {
+          alert("Hết ghế trống!!!")
+        } else {
+          setIsOpenModal(false);
+          await BusesService.updateBusses(product.id, updateBuses)
+        }
+
+        setIsOpenModal(false);
+      }
+      else if (
         currentRadioValue === "OFFLINE" && sucess === true) {
         localStorage.setItem('deposit', true)
         const ticket = {
@@ -114,10 +142,10 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           setIsOpenModal(false);
           await BusesService.updateBusses(product.id, updateBuses)
         }
-        
+
         setIsOpenModal(false);
       }
-      else if(currentRadioValue === "ATM" && sucess === true) {
+      else if (currentRadioValue === "ATM" && sucess === true) {
         localStorage.setItem('deposit', false)
         const ticket = {
           ...data,
