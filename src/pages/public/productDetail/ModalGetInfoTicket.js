@@ -32,6 +32,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   const addToday = moment(TODAY).add(1, "days")
   const addTodayFormat = moment(addToday).format("yyyy-MM-DD")
   const todayFormatMoment = new Date(addTodayFormat)
+  // const [hiddenCancel, setHiddenCancel] = useState()
   const [startDate, setStartDate] = useState(todayFormatMoment);
   const [currentRadioValue, setCurrentRadioValue] = useState('OFFLINE');
   const [hidden, setHidden] = useState(false)
@@ -92,10 +93,10 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
         const ticket = {
           ...data,
           quantity: qty,
-          totalPrice: depositPrice,
+          totalPrice: totalPrice,
           paymentMethod: currentRadioValue,
           status: "WAITING_ACTIVE",
-          depositAmount: 0,
+          depositAmount: depositPrice,
           reservationTime: startDate
         }
         console.log("Đặt cọc", ticket);
@@ -104,6 +105,33 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
         }
         const res = await BusesService.paymentTicket(depositPrice)
+        if (res.data.message === "success") {
+          window.location.href = res.data.data
+        }
+        if (emp < 0) {
+          alert("Hết ghế trống!!!")
+        } else {
+          setIsOpenModal(false);
+          await BusesService.updateBusses(product.id, updateBuses)
+        }
+        
+        setIsOpenModal(false);
+      }
+      else if(currentRadioValue === "ATM" && sucess === true) {
+        localStorage.setItem('deposit', false)
+        const ticket = {
+          ...data,
+          quantity: qty,
+          totalPrice: totalPrice,
+          paymentMethod: currentRadioValue,
+          reservationTime: startDate
+        }
+        console.log("Thanh toán VPN", ticket);
+        const resTicket = await BusesService.addTicket(ticket)
+        if (resTicket.status === 201 || resTicket.status === 200) {
+          localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+        }
+        const res = await BusesService.paymentTicket(totalPrice)
         if (res.data.message === "success") {
           window.location.href = res.data.data
         }
@@ -122,7 +150,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           quantity: qty,
           totalPrice: totalPrice,
           paymentMethod: currentRadioValue,
-          depositAmount: 0,
         }
         console.log("Thanh toán VPN", ticket);
         const resTicket = await BusesService.addTicket(ticket)
@@ -323,7 +350,12 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                         }}
                       >
                         {hidden === false ? <p>{sucess === true ?
-                          <span>Đã chọn ngày đi!!! Nếu bạn muốn sửa hãy Click vào đây</span> :
+                          <span>Đã chọn ngày đi!!! Nếu bạn muốn sửa hãy Click vào đây
+                            hoặc <span className=" tw-text-red-500" onClick={() => {
+                              setStartDate(startDate)
+                              setSucess(false)
+                            }}>Hủy</span>
+                          </span> :
                           "Click vào đây để Đặt trước"}
                         </p>
                           : <p>
