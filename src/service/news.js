@@ -13,5 +13,8 @@ export const NewsService = {
   },
   getInfoNew(id){
     return HttpClient.get(`${API_NEWS}/${id}`)
+  },
+  updateNews(id,news){
+    return HttpClient.put(`${API_NEWS}/${id}`,news)
   }
 };

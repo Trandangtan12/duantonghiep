@@ -1,10 +1,13 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import { BusesService } from "../../../service/productService";
 import { UserApi } from "../../../service/userService";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 const ModalStyled = styled.div`
 `
 export const InputNumberStyle = styled.div`
@@ -25,13 +28,23 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   }
   const [emp, setEmp] = useState();
   const [qty, setQty] = useState(1)
+  const TODAY = new Date()
+  const addToday = moment(TODAY).add(1, "days")
+  const addTodayFormat = moment(addToday).format("yyyy-MM-DD")
+  const todayFormatMoment = new Date(addTodayFormat)
+  const [startDate, setStartDate] = useState(todayFormatMoment);
+  const [currentRadioValue, setCurrentRadioValue] = useState('OFFLINE');
+  const [hidden, setHidden] = useState(false)
+  const [sucess, setSucess] = useState(false)
+  const totalPrice = product.price * qty;
+  const depositPrice = Math.round(totalPrice * 0.3)
   const Increase = () => {
-  
+
     if (qty >= product.seat_empty) {
     } else {
       setQty(qty + 1)
       if (emp >= 0) {
-        
+
         setEmp(emp - 1)
       }
     }
@@ -46,24 +59,22 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
       }
     }
   }
-  const [currentRadioValue, setCurrentRadioValue] = useState('OFFLINE');
-  const totalPrice = product.price * qty;
-  const depositPrice = Math.round(totalPrice * 0.3)
   const handlePayTicket = async (data) => {
     try {
       const updateBuses = {
         ...data,
         seat_empty: emp
       }
-      if (currentRadioValue === "OFFLINE" && qty < 3) {
-        localStorage.setItem('deposit' , false)
+      if (currentRadioValue === "OFFLINE" && qty < 3 && sucess !== true) {
+        localStorage.setItem('deposit', false)
         const ticket = {
           ...data,
           quantity: qty,
           totalPrice: totalPrice,
           paymentMethod: currentRadioValue,
-          depositAmount : 0,
+          depositAmount: 0,
         }
+        console.log("thanh toán off", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -75,16 +86,19 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           await BusesService.updateBusses(product.id, updateBuses)
         }
 
-      } else if (currentRadioValue === "OFFLINE" && qty >= 3) {
-        localStorage.setItem('deposit' , true)
+      } else if (currentRadioValue === "OFFLINE" && qty >= 3 ||
+        currentRadioValue === "OFFLINE" && sucess === true) {
+        localStorage.setItem('deposit', true)
         const ticket = {
           ...data,
           quantity: qty,
           totalPrice: depositPrice,
           paymentMethod: currentRadioValue,
           status: "WAITING_ACTIVE",
-          depositAmount : 0,
+          depositAmount: 0,
+          reservationTime: startDate
         }
+        console.log("Đặt cọc", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -102,14 +116,15 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
         setIsOpenModal(false);
       }
       else {
-        localStorage.setItem('deposit' , false)
+        localStorage.setItem('deposit', false)
         const ticket = {
           ...data,
           quantity: qty,
           totalPrice: totalPrice,
           paymentMethod: currentRadioValue,
-          depositAmount : 0,
+          depositAmount: 0,
         }
+        console.log("Thanh toán VPN", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -134,8 +149,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
     const seat_empty = product.seat_empty - 1
     setEmp(seat_empty)
   }, [product])
-
-
   return (
     <ModalStyled className="tw-z-50">
       <Transition appear show={isOpen} as={Fragment}>
@@ -285,7 +298,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                   </div>
 
 
-                  <div className="tw-flex tw-flex-wrap tw-mb-6">
+                  <div className="tw-flex tw-w-full tw-items-center tw-justify-between tw-mb-6">
                     <div className="tw-w-full">
                       <label
                         className="tw-block tw-uppercase tw-tracking-wide tw-text-gray-700 tw-text-xs tw-font-bold tw-mb-2"
@@ -298,6 +311,49 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                         <button type="button" className="tw-cursor-default tw-px-4 tw-py-1 tw-border tw-border-gray-300">{qty}</button>
                         <button type="button" className="tw-cursor-pointer tw-px-4 tw-py-1 tw-border tw-border-gray-300" onClick={() => Increase()}>+</button>
                       </div>
+                    </div>
+
+                    <div className="tw-w-full">
+                      <label
+                        className="tw-uppercase tw-text-green-500 tw-cursor-pointer no-underline 
+                        tw-tracking-wide tw-text-xs tw-font-bold tw-mb-5"
+                        htmlFor="grid-password"
+                        onClick={() => {
+                          setHidden(!hidden)
+                        }}
+                      >
+                        {hidden === false ? <p>{sucess === true ?
+                          <span>Đã chọn ngày đi!!! Nếu bạn muốn sửa hãy Click vào đây</span> :
+                          "Click vào đây để Đặt trước"}
+                        </p>
+                          : <p>
+                            <span className="tw-mr-2" onClick={() => {
+                              setStartDate(startDate)
+                              setSucess(true)
+                            }}>
+                              Đồng ý
+                            </span>
+                            <span className=" tw-text-red-500" onClick={() => {
+                              setStartDate(startDate)
+                              setSucess(false)
+                            }}>Hủy</span>
+                          </p>}
+                      </label>
+                      <p className={`${hidden === false ? "tw-block tw-py-2" : "tw-hidden"}`}>
+
+                        {sucess === true ? moment(startDate).format("DD/MM/yyy HH:mm") :
+                          moment(TODAY).format("DD/MM/yyy HH:mm")}
+                      </p>
+                      <div className={`${hidden ? "tw-block" : "tw-hidden tw-p-0"}`}>
+                        <DatePicker
+                          className={`tw-p-2 tw-border tw-border-gray-300`}
+                          onChange={(date) => setStartDate(date)}
+                          dateFormat="dd/MM/yyyy HH:mm"
+                          showTimeSelect
+                          minDate={todayFormatMoment}
+                          selected={startDate} />
+                      </div>
+
                     </div>
                   </div>
 
@@ -324,7 +380,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                           onChange={(e) => setCurrentRadioValue(e.target.value)}
                           defaultChecked={currentRadioValue === "OFFLINE"} />
                         <label for="OFFLINE">
-                          {qty >= 3 ? "Đặt cọc 30%" : "Thanh toán bằng tiền mặt"}
+                          {qty >= 3 || sucess === true && TODAY !== startDate ? "Đặt cọc 30%" : "Thanh toán bằng tiền mặt"}
                         </label></div>
 
                       <div>
@@ -346,7 +402,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                   <div className="tw-flex tw-justify-between tw-align-middle tw-mt-2">
                     <div className="tw-text-xl">{currentRadioValue === "OFFLINE" && qty >= 3 ? "30% tổng tiền" : "Tổng tiền"}</div>
                     <div> {currentRadioValue === "OFFLINE" && qty >= 3 ? `${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(depositPrice)}` : `${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(totalPrice)}`}
-                       </div>
+                    </div>
                   </div>
                   <button type="submit" className="tw-w-full tw-mt-2 tw-bg-green-500 tw-p-3 tw-rounded-md tw-text-white">Xác nhận</button>
                 </form>

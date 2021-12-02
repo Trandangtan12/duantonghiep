@@ -4,6 +4,7 @@ import { NewsService } from "../../../../service/news";
 import Input from "../../../../compornent/admin/input/Input";
 import { useForm } from "react-hook-form";
 import TextEditor from "../../../../compornent/textEditor";
+import alertify from "alertifyjs";
 const EditNews = () => {
     const { id } = useParams();
     console.log(id);
@@ -17,10 +18,20 @@ const EditNews = () => {
   } = useForm();
   const [contentDefalut, setContentDefalut] = useState('');
   const handleSubmitForm = async (data) => {
-    const res = await NewsService.createNews(data);
-    if (res.status === 201) {
-      history.push("/admin/news");
-    }
+    alertify
+    .confirm("Bạn có chắc chắn muốn cập nhật bài viết ?", async function () {
+      const res = await NewsService.updateNews(id,data);
+      if (res.status === 200) {
+        history.push("/admin/news")
+        alertify.success("Cập nhật thành công");
+      } else {
+        alertify.warning("Có lỗi xảy ra");
+      }
+    })
+    .set({ title: "Cập nhật bài viết" })
+    .set("movable", false)
+    .set("ok", "Alright!")
+    .set("notifier", "position", "top-right");
   };
   useEffect(() => {
   const getInfoNews = async() =>{
