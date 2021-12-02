@@ -12,7 +12,7 @@ const SuccessPayment = () => {
       if (deposit === 'true') {
         await BusesService.depositedTicket(ticket.id)
       }
-      else if(deposit === 'false' && paymentMethod === "ATM"){
+      else if(paymentMethod === "ATM"){
         await BusesService.approvalTicket(ticket.id);
       }   
     };
