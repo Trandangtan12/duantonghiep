@@ -13,12 +13,14 @@ import busesReducers from "./redux/reducers/busesReducer";
 import authReducers from "./redux/reducers/auth";
 import userReducers from "./redux/reducers/user";
 import roleReducers from "./redux/reducers/permission";
+import newsReducers from "./redux/reducers/news";
 const rootReducer = combineReducers({
   province : provinceReducers,
   buses : busesReducers,
   auth : authReducers,
   users : userReducers,
-  role : roleReducers
+  role : roleReducers,
+  news : newsReducers
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancer(applyMiddleware(thunk)));
