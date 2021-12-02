@@ -40,7 +40,6 @@ const SearchCars = () => {
     }
     const date_active = moment(startDate).utc(true).format("YYYY-MM-DD")
    history.push(`/product/start=${startPoint}/and/end=${endPoint}/and/date=${date_active}`)
-    console.log(date_active);
     if (startPoint == null || endPoint == null) {
     } else {
       dispatch(actionSearchBuses(startPoint, endPoint, date_active))
