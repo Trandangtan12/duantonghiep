@@ -24,6 +24,7 @@ const ProductDetail = () => {
   const handleOpenModal = () => {
       setIsOpenModal(true)
   };
+  console.log(product);
   return (
     <div className="">
       <div className="tw-bg-green-500 tw-h-[12rem]">

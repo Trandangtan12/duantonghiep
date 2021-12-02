@@ -16,7 +16,7 @@ const Products = () => {
         dispatch(actionSearchBuses(start, end, date))
         dispatch(actionGetBuses())
     }, [])
-    console.log(availableSearch);
+   
     const now = moment().format("HH:mm")
     const [time, setTime] = useState({
         minTime: moment(now, "HH:mm"),
