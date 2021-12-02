@@ -1,39 +1,53 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useHistory , useParams } from "react-router";
 import { NewsService } from "../../../../service/news";
 import Input from "../../../../compornent/admin/input/Input";
 import { useForm } from "react-hook-form";
 import TextEditor from "../../../../compornent/textEditor";
 import alertify from "alertifyjs";
-const CreateNews = () => {
+const EditNews = () => {
+    const { id } = useParams();
+    console.log(id);
   const history = useHistory();
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
+    reset
   } = useForm();
-
+  const [contentDefalut, setContentDefalut] = useState('');
   const handleSubmitForm = async (data) => {
     alertify
-    .confirm("Bạn có chắc chắn muốn thêm bài viết ?", async function () {
-      const res = await NewsService.createNews(data);
-      if (res.status === 201) {
-        alertify.success("Xoá thành công");
+    .confirm("Bạn có chắc chắn muốn cập nhật bài viết ?", async function () {
+      const res = await NewsService.updateNews(id,data);
+      if (res.status === 200) {
+        history.push("/admin/news")
+        alertify.success("Cập nhật thành công");
       } else {
         alertify.warning("Có lỗi xảy ra");
       }
     })
-    .set({ title: "Thêm bài viết" })
+    .set({ title: "Cập nhật bài viết" })
     .set("movable", false)
     .set("ok", "Alright!")
     .set("notifier", "position", "top-right");
   };
+  useEffect(() => {
+  const getInfoNews = async() =>{
+      const res = await NewsService.getInfoNew(id)
+      if (res.status === 200) {
+        reset(res.data);
+        setContentDefalut(res.data.description)
+      }
+  }
+  getInfoNews()
+  }, [])
   return (
     <div>
       <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-py-6 ">
         <div className="tw-text-center tw-flex tw-justify-between tw-px-6">
-          <span className="tw-uppercase tw-text-2xl">Tạo mới bài viết</span>
+          <span className="tw-uppercase tw-text-2xl">Cập nhật bài viết</span>
           <button
             className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
             type="button"
@@ -63,6 +77,7 @@ const CreateNews = () => {
              label="Mô tả bài viết"
              setValue={setValue}
              fieldName={"description"}
+             defaultValueProps={contentDefalut}
             />
           </div>
         <footer className="">
@@ -83,4 +98,4 @@ const CreateNews = () => {
   );
 };
 
-export default CreateNews;
+export default EditNews;
