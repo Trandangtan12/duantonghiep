@@ -111,6 +111,10 @@ const Buses = () => {
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Số ghế</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.seat}</td>
           </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Số ghế trống</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.seat_empty}</td>
+          </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Dịch vụ</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
