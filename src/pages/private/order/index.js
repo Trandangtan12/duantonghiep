@@ -1,21 +1,20 @@
 import {
   faMoneyCheck,
   faTimes,
-  faTrash,
+  faTrash
 } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
 import FileSaver from "file-saver";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Table from "../../../compornent/admin/table";
 import { IsoStringConvert, numberWithCommas } from "../../../config";
 import { actionGetTicket } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
-import { TODAY } from "../buses/newBuses/utility";
-import "react-datepicker/dist/react-datepicker.css";
 import {
   ACTIVED,
   ATM,
@@ -23,7 +22,7 @@ import {
   listFilterStatus,
   OFFLINE,
   REJECTED,
-  WAITING_ACTIVE,
+  WAITING_ACTIVE
 } from "./utility";
 
 const Order = () => {
@@ -167,6 +166,12 @@ const Order = () => {
             </td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.description !== null ? data.description : "-"}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Ngày đặt trước</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {data.reservationTime !== null ? data.reservationTime : "-"}
             </td>
           </tr>
         </tbody>
@@ -339,12 +344,14 @@ const Order = () => {
       <div className="tw-flex tw-justify-between">
         <span className="tw-uppercase tw-text-2xl">Quản lý vé xe</span>
         <div>
-          <button className="tw-bg-green-600 tw-rounded-md tw-p-1 tw-mb-4 tw-mr-2 tw-text-white">
+          <button  className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
+            type="button">
             Danh sách vé huỷ
           </button>
           {availableOrder.length !== 0 ? (
             <button
-              className="tw-bg-green-600 tw-rounded-md tw-p-1 tw-mb-4 tw-mr-2 tw-text-white"
+                className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
+            type="button"
               onClick={() => handleExportList()}
               disabled={availableOrder.length === 0 ? true : false}
             >
@@ -352,7 +359,8 @@ const Order = () => {
             </button>
           ) : null}
           <button
-            className="tw-bg-green-600 tw-rounded-md tw-p-1 tw-mb-4 tw-text-white"
+              className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
+            type="button"
             onClick={() => history.push("/admin/order/create")}
           >
             Thêm vé xe

@@ -21,10 +21,10 @@ const Profile = () => {
     defaultValues: { ...account.user },
   });
   const handleChangeInfoAcount = async (data) => {
-    const res = await UserApi.updateUser(account.user.id, data);
-    if (res.status === 200) {
-      console.log(res.data);
-    }
+    // const res = await UserApi.updateUser(account.user.id, data);
+    // if (res.status === 200) {
+    //   console.log(res.data);
+    // }
   };
   useEffect(() => {
     const getInfoUser = async () => {

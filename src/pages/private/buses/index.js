@@ -38,14 +38,107 @@ const Buses = () => {
   const dependencies = [availableBuses.length, dispatchDependency];
   const ExpandableTable = ({ data }) => {
     return (
-      <table size='sm' responsive bordered className="tw-bg-green-100 tw-rounded-lg">
-      <tbody>
-        <tr className="tw-flex tw-flex-wrap tw-mb-4">
-          <td className="tw-w-full lg:tw-w-[500px] tw-px-4">Ngày tạo</td>
-          {/* <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{IsoStringConvert(data.created_at)}</td> */}
-        </tr>
-      </tbody>
-    </table>
+      <table
+        size="sm"
+        responsive
+        bordered
+        className="tw-bg-green-100 tw-border-[1px] tw-border-green-500 tw-rounded-lg"
+      >
+        <tbody>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Quận/huyện điểm đi
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.startDistrict_name}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Xã phường điểm đi
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.startWard_name}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Điạ chỉ chi tiết
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.detailAddressStart}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Quận/huyện điểm đến
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.endDistrict_name}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Xã/phường điểm đến
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.endWard_name}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Điạ chỉ chi tiết
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.detailAddressEnd}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Ngày khởi hành
+            </td>
+            <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
+              {data.date_active}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Thời gian kết thúc</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {IsoStringConvert(data.end_time)}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Số ghế</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">{data.seat}</td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Dịch vụ</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {data.service !== null || data.service !== 0
+                ? data.service.map((elt) => elt.name).join(", ")
+                : null}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Số ghế trống</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {data.seat_empty}
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Thời gian dự kiến</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {data.range_time} Giờ
+            </td>
+          </tr>
+          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Ngày tạo</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
+              {IsoStringConvert(data.created_at)}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     )
   }
   const [columns, setColumns] = useState([
@@ -141,7 +234,7 @@ const Buses = () => {
       <Table
         data={availableBuses}
         columns={columns}
-        // ExpandableTable={ExpandableTable}
+        ExpandableTable={ExpandableTable}
       />
     </>
   );

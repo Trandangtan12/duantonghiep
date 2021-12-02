@@ -7,5 +7,11 @@ export const NewsService = {
   },
   createNews(data){
       return HttpClient.post(`${API_NEWS}`,data)
+  },
+  deleteNew(id){
+    return HttpClient.delete(`${API_NEWS}/${id}`)
+  },
+  getInfoNew(id){
+    return HttpClient.get(`${API_NEWS}/${id}`)
   }
 };
