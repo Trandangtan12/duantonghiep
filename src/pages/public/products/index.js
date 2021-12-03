@@ -16,8 +16,8 @@ const Products = () => {
         dispatch(actionSearchBuses(start, end, date))
         dispatch(actionGetBuses())
     }, [])
-   
-    
+
+
     const [time, setTime] = useState({
         minTime: moment("00:00", "HH:mm"),
         maxTime: moment("23:59", "HH:mm")
@@ -29,13 +29,51 @@ const Products = () => {
         value: { min: 0, max: 2000000 }
     })
     const [qtyFilter, setQtyFilter] = useState(1)
+    const [checkedMoning, setCheckedMoning] = useState(false)
+    const [checkedLunch, setCheckedLunch] = useState(false)
+    const [checkedAfternoon, setCheckedAfternoon] = useState(false)
+    const [checkedNigth, setCheckedNigth] = useState(false)
+    const [districtStart, setDistricStart] = useState([])
+    const [districtEnd, setDistrictEnd] = useState([])
+    const [activeFilter, setActiveFilter] = useState([])
+
+    const onChangeFilterCheckBox = (filter) => {
+        if (activeFilter.includes(filter)) {
+            const filterIndex = activeFilter.indexOf(filter)
+            const newFilter = [...activeFilter]
+            newFilter.splice(filterIndex, 1)
+            setActiveFilter(newFilter)
+        } else {
+            setActiveFilter([...activeFilter, filter])
+
+        }
+    }
+    let filterProduct;
+    if (activeFilter.length === 0 || activeFilter.length === districtStart.length || activeFilter.length === districtEnd.length) {
+        filterProduct = availableSearch.filter((item) =>
+            item.price >= price.value.min
+            && item.price <= price.value.max
+            && item.seat_empty >= qtyFilter
+            && moment(item.start_time, "HH:mm") >= time.minTime
+            && moment(item.start_time, "HH:mm") <= time.maxTime
+        )
+    } else {
+        filterProduct = availableSearch.filter((item) =>
+            item.price >= price.value.min
+            && item.price <= price.value.max
+            && item.seat_empty >= qtyFilter
+            && moment(item.start_time, "HH:mm") >= time.minTime
+            && moment(item.start_time, "HH:mm") <= time.maxTime
+            && activeFilter.includes(item.startDistrict_name) || activeFilter.includes(item.endDistrict_name)
+
+        )
+    }
+   console.log(activeFilter);
     const onChange = (data) => {
         setPrice({ ...price, value: data.value })
     }
-
-
     const increateQty = () => {
-            setQtyFilter(qtyFilter + 1)
+        setQtyFilter(qtyFilter + 1)
     }
     const decreateQty = () => {
         if (qtyFilter <= 1) {
@@ -44,11 +82,6 @@ const Products = () => {
             setQtyFilter(qtyFilter - 1)
         }
     }
-    const [checkedMoning, setCheckedMoning] = useState(false)
-    const [checkedLunch, setCheckedLunch] = useState(false)
-    const [checkedAfternoon, setCheckedAfternoon] = useState(false)
-    const [checkedNigth, setCheckedNigth] = useState(false)
-
     const handleCheckedMoning = () => {
         setCheckedMoning(!checkedMoning)
         setCheckedLunch(false)
@@ -113,18 +146,11 @@ const Products = () => {
         setCheckedAfternoon(false)
         setCheckedNigth(false)
         setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
+        setActiveFilter([])
     }
-    const filterProduct = availableSearch.filter((item) =>
-        item.price >= price.value.min
-        && item.price <= price.value.max
-        && item.seat_empty >= qtyFilter
-        && moment(item.start_time, "HH:mm") >= time.minTime
-        && moment(item.start_time, "HH:mm") <= time.maxTime
-    )
-    const timeMoning = availableSearch.filter(item => item.price >= price.value.min
-        && item.price <= price.value.max
-        && item.seat_empty >= qtyFilter
-        && moment(item.start_time, "HH:mm") >= moment("00:00", "HH:mm")
+
+    const timeMoning = filterProduct.filter(item =>
+        moment(item.start_time, "HH:mm") >= moment("00:00", "HH:mm")
         && moment(item.start_time, "HH:mm") <= moment("06:00", "HH:mm"))
 
     const timeLunch = availableSearch.filter(item => item.price >= price.value.min
@@ -133,21 +159,13 @@ const Products = () => {
         && moment(item.start_time, "HH:mm") >= moment("06:01", "HH:mm")
         && moment(item.start_time, "HH:mm") <= moment("12:00", "HH:mm"))
 
-    const timeAfternoon = availableSearch.filter(item => item.price >= price.value.min
-        && item.price <= price.value.max
-        && item.seat_empty >= qtyFilter
-        && moment(item.start_time, "HH:mm") >= moment("12:01", "HH:mm")
+    const timeAfternoon = filterProduct.filter(item =>
+        moment(item.start_time, "HH:mm") >= moment("12:01", "HH:mm")
         && moment(item.start_time, "HH:mm") <= moment("18:00", "HH:mm"))
 
-    const timeNight = availableSearch.filter(item => item.price >= price.value.min
-        && item.price <= price.value.max
-        && item.seat_empty >= qtyFilter
-        && moment(item.start_time, "HH:mm") >= moment("18:01", "HH:mm")
+    const timeNight = filterProduct.filter(item =>
+        moment(item.start_time, "HH:mm") >= moment("18:01", "HH:mm")
         && moment(item.start_time, "HH:mm") <= moment("23:59", "HH:mm"))
-
-    const [districtStart, setDistricStart] = useState([])
-    const [districtEnd, setDistrictEnd] = useState([])
-
     useEffect(() => {
         const fetchDistrictStart = async () => {
             try {
@@ -184,9 +202,7 @@ const Products = () => {
         fetchDistrictEnd()
     }, [end])
 
-    const onChangeFilterCheckBox = (data) => {
-        console.log(data);
-    }
+
 
 
     return (
@@ -196,6 +212,7 @@ const Products = () => {
                 {/* {filterProduct.length == 0 ? ListError() : */}
                 <div className="tw-flex">
                     <SearchFilter
+                        activeFilter={activeFilter}
                         districtStart={districtStart}
                         districtEnd={districtEnd}
                         products={availableSearch}
