@@ -86,7 +86,7 @@ const NewBuses = () => {
     defaultValues: initialValues,
     resolver: yupResolver(validationSchema),
     mode: "all",
-    reValidateMode: "onSubmit",
+    reValidateMode: "onTouched",
   });
   const onChangeCity = async (
     pointName,

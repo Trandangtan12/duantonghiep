@@ -12,7 +12,9 @@ const CreateNews = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm();
+  } = useForm({
+    mode: 'onTouched'
+  });
 
   const handleSubmitForm = async (data) => {
     alertify
