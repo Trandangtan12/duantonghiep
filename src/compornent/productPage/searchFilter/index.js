@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react'
 import InpRange from '../InpRange'
 
 const SearchFilter = (props) => {
-    const { timeNight, timeMoning, timeLunch, timeAfternoon, districtStart, districtEnd, onChangeFilterCheckBox } = props
+    const { timeNight, timeMoning, timeLunch, timeAfternoon, districtStart,
+        districtEnd, onChangeFilterCheckBox, activeFilter,
+    } = props
+    const [searchStart, setSearchStart] = useState("");
+    const [searchEnd, setSearchEnd] = useState("");
+
     return (
         <div className="tw-mr-4  tw-rounded-lg tw-h-[max-content] tw-w-[16rem] tw-sticky 
         tw-top-[0.5rem] tw-flex-none tw-bg-white">
@@ -65,11 +70,29 @@ const SearchFilter = (props) => {
 
             <div className="tw-p-3">
                 <h3 className="tw-font-semibold">Điểm đi</h3>
+                <div className="tw-my-4">
+                    <input type="text"
+                        className="tw-border tw-border-gray-400 tw-p-1 tw-w-full"
+                        onChange={(e) => setSearchStart(e.target.value)}
+                        placeholder="Tìm quận, huyện" name="" id="" />
+                </div>
                 <div className="tw-my-4 tw-h-60 tw-overflow-auto">
                     <ul>
-                        {districtStart.map(item =>
+                        {districtStart.filter(val => {
+                            if (searchStart === "") {
+                                return val
+                            } else if (val.label.toLowerCase().includes(searchStart.toLowerCase())) {
+                                return val
+                            }
+                        }).map(item =>
                             <li className="tw-py-1">
-                                <input onClick={() => onChangeFilterCheckBox(item.value)} type="checkbox" name="" className="tw-mr-1" id={item.value} />
+                                <input
+                                    type="checkbox"
+                                    className="tw-mr-1"
+                                    id={item.value}
+                                    onClick={() => onChangeFilterCheckBox(item.label)}
+                                    checked={activeFilter.includes(item.label)}
+                                />
                                 <label htmlFor={item.value}>{item.label}</label>
                             </li>
                         )}
@@ -80,12 +103,30 @@ const SearchFilter = (props) => {
 
             <div className="tw-p-3">
                 <h3 className="tw-font-semibold">Điểm điến</h3>
+                <div className="tw-my-4">
+                    <input type="text"
+                        className="tw-border tw-border-gray-400 tw-p-1 tw-w-full"
+                        onChange={(e) => setSearchEnd(e.target.value)}
+                        placeholder="Tìm quận, huyện" name="" id="" />
+                </div>
                 <div className="tw-my-4 tw-h-60 tw-overflow-auto">
                     <ul>
-
-                        {districtEnd.map(item =>
+                        {districtEnd.filter(val => {
+                            if (searchEnd === "") {
+                                return val
+                            } else if (val.label.toLowerCase().includes(searchEnd.toLowerCase())) {
+                                return val
+                            }
+                        }).map(item =>
                             <li className="tw-py-1">
-                                <input type="checkbox" name="" className="tw-mr-1" id={item.value} />
+                                <input
+                                    type="checkbox"
+                                    name=""
+                                    className="tw-mr-1"
+                                    id={item.value}
+                                    onClick={() => onChangeFilterCheckBox(item.label)}
+                                    checked={activeFilter.includes(item.label)}
+                                />
                                 <label htmlFor={item.value}>{item.label}</label>
                             </li>
                         )}

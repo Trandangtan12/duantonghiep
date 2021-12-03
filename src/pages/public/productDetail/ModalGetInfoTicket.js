@@ -378,13 +378,8 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                         }}
                       >
                         {hidden === false ? <p>{sucess === true ?
-                          <span>Đã chọn ngày đi!!! Nếu bạn muốn sửa hãy Click vào đây
-                            hoặc <span className=" tw-text-red-500" onClick={() => {
-                              setStartDate(startDate)
-                              setSucess(false)
-                            }}>Hủy</span>
-                          </span> :
-                          "Click vào đây để Đặt trước"}
+                          <span>Đã chọn ngày đi!!! Nếu bạn muốn sửa hãy Click vào đây</span> 
+                          :"Click vào đây để Đặt trước"}
                         </p>
                           : <p>
                             <span className="tw-mr-2" onClick={() => {
@@ -460,8 +455,8 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                   </div>
 
                   <div className="tw-flex tw-justify-between tw-align-middle tw-mt-2">
-                    <div className="tw-text-xl">{currentRadioValue === "OFFLINE" && qty >= 3 ? "30% tổng tiền" : "Tổng tiền"}</div>
-                    <div> {currentRadioValue === "OFFLINE" && qty >= 3 ? `${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(depositPrice)}` : `${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(totalPrice)}`}
+                    <div className="tw-text-xl"> Tổng tiền</div>
+                    <div> {currentRadioValue === "OFFLINE" && qty >= 3 ||currentRadioValue === "OFFLINE" && sucess === true && TODAY !== startDate ?  `${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(depositPrice)}` : `${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(totalPrice)}`}
                     </div>
                   </div>
                   <button type="submit" className="tw-w-full tw-mt-2 tw-bg-green-500 tw-p-3 tw-rounded-md tw-text-white">Xác nhận</button>
