@@ -1,11 +1,12 @@
 import {
   faMoneyCheck,
   faTimes,
-  faTrash
+  faTrash,
 } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
 import FileSaver from "file-saver";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -22,12 +23,13 @@ import {
   listFilterStatus,
   OFFLINE,
   REJECTED,
-  WAITING_ACTIVE
+  WAITING_ACTIVE,
 } from "./utility";
 
 const Order = () => {
   const history = useHistory();
   const { availableOrder } = useSelector((state) => state.buses);
+  const [ticketDefault, seTicketDefault] = useState([]);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
   const dependencies = [availableOrder.length, dispatchDependency];
   const [startDate, setStartDate] = useState(new Date());
@@ -169,13 +171,17 @@ const Order = () => {
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Ngày đặt trước</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Ngày đặt trước
+            </td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.reservationTime !== null ? data.reservationTime : "-"}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Số tiền đặt cọc</td>
+            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
+              Số tiền đặt cọc
+            </td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.depositAmount !== null ? data.depositAmount : "-"}
             </td>
@@ -338,8 +344,20 @@ const Order = () => {
       },
     },
   ]);
+  const handleFilterTicketByDate = (date) => {
+    setStartDate(date);
+    const convertDate = moment(date).utc(true).format("YYYY-MM-DD");
+    const ticketFilter = availableOrder.filter((_elt) => {
+      const createDateConvert = moment(_elt.create_at)
+        .utc(true)
+        .format("YYYY-MM-DD");
+      return createDateConvert === convertDate;
+    });
+    seTicketDefault(ticketFilter);
+  };
   const dispatch = useDispatch();
   useEffect(() => {
+    seTicketDefault(availableOrder);
     dispatch(actionGetTicket());
   }, [...dependencies]);
   const reloadActiveAPI = () => {
@@ -349,15 +367,11 @@ const Order = () => {
     <div>
       <div className="tw-flex tw-justify-between">
         <span className="tw-uppercase tw-text-2xl">Quản lý vé xe</span>
-        <div>
-          <button  className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
-            type="button">
-            Danh sách vé huỷ
-          </button>
+        <div className="tw-mb-4">
           {availableOrder.length !== 0 ? (
             <button
-                className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
-            type="button"
+              className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none foc us:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
+              type="button"
               onClick={() => handleExportList()}
               disabled={availableOrder.length === 0 ? true : false}
             >
@@ -365,7 +379,7 @@ const Order = () => {
             </button>
           ) : null}
           <button
-              className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
+            className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
             type="button"
             onClick={() => history.push("/admin/order/create")}
           >
@@ -373,16 +387,23 @@ const Order = () => {
           </button>
         </div>
       </div>
-      <div className="tw-flex tw-justify-between">
+      <label
+        className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+        htmlfor="grid-password"
+      >
+        Bộ lọc vé
+      </label>
+
+      <div className="tw-flex tw-justify-between tw-mb-4">
         <DatePicker
-          className="tw-w-full tw-py-2 tw-border-b-2 tw-rounded-sm tw-border-gray-200 tw-font-bold tw-h-[47px]"
+          className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"
           dateFormat="yyyy-MM-dd"
           selected={startDate}
-          dateFormat="yyyy-MM-dd"
+          onChange={handleFilterTicketByDate}
         />
       </div>
       <Table
-        data={availableOrder}
+        data={ticketDefault}
         columns={columns}
         ExpandableTable={ExpandableTable}
       />

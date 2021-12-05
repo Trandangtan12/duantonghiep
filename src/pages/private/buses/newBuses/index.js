@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import alertify from "alertifyjs";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm , Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Input from "../../../../compornent/admin/input/Input";
@@ -82,11 +82,13 @@ const NewBuses = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
+    control
   } = useForm({
+    reValidateMode: "onChange",
     defaultValues: initialValues,
     resolver: yupResolver(validationSchema),
-    mode: "all",
-    reValidateMode: "onTouched",
+
   });
   const onChangeCity = async (
     pointName,
@@ -154,7 +156,6 @@ const NewBuses = () => {
           image: urlImage,
           range_time: String(minusHoursTimeRange),
         };
-        console.log(newBuses);
         const res = await BusesService.addBuses(newBuses);
         if (res) {
           alertify.set("notifier", "position", "bottom-right");

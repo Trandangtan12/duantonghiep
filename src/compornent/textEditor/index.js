@@ -43,12 +43,13 @@ const TextEditor = ({ label, setValue, fieldName , defaultValueProps }) => {
         editorClassName="editorClassName"
         onEditorStateChange={onEditorStateChange}
         editorStyle={{
-          border: `1px solid #40966a `,
+          border: `1px solid #F5F5F5 `,
           borderRadius: "5px",
+          boxShadow: ".2px .1px .5px .2px #333",
           padding: "10px",
           minHeight: "200px",
         }}
-        placeholder={"Nhập nội dung  ..."}
+        placeholder={"Nhập nội dung ..."}
       />
     </div>
   );

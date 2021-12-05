@@ -98,7 +98,7 @@ const Buses = () => {
               Ngày khởi hành
             </td>
             <td className="twz-w-full lg:tw-w-[500px] tw-px-4">
-              {data.date_active}
+              {`${data.date_active} ${data.start_time}`}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4">

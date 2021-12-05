@@ -58,7 +58,7 @@ const SearchCars = () => {
             <div className="tw-w-full tw-py-2">
               <p className="tw-mb-1 tw-text-gray-400">Điểm đi </p>
               <SelectFormHome
-                placeholder="Chọn địa điểm"
+                placeholder="Chọn điểm xuất phát"
                 className="tw-text-black tw-font-bold tw-cursor-text"
                 options={provinceFilter}
                 onChange={handleChangeStartPoint}
@@ -68,7 +68,7 @@ const SearchCars = () => {
             <div className="tw-w-full tw-py-2">
               <p className="tw-mb-2 tw-text-gray-400">Điểm đến </p>
               <SelectFormHome
-                placeholder="Chọn địa điểm"
+                placeholder="Chọn điểm kết thúc"
                 className="tw-text-black tw-font-bold tw-cursor-text"
                 options={provinceFilter}
                 onChange={handleChangeEndPoint}

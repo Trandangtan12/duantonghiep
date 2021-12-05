@@ -104,6 +104,7 @@ const Profile = () => {
                   onClick={() => {
                     setChangeInfo(true);
                   }}
+                  disabled
                 >
                   Thay đổi thông tin
                 </button>
