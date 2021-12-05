@@ -33,8 +33,8 @@ const CreateTicket = () => {
     const newData = {
       ...data,
       buses_id: busesSelect.value,
-      status : paymentMethodType,
-      paymentMethod : OFFLINE,
+      status :  paymentMethodType,
+      paymentMethod :paymentMethodType === ACTIVED ? ATM : OFFLINE,
       totalPrice : totalPrice,
     };
     const resTicket = await BusesService.addTicket(newData)   

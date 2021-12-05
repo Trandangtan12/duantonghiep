@@ -1,13 +1,12 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState, useEffect } from "react";
+import moment from "moment";
+import { Fragment, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router";
 import styled from "styled-components";
 import { BusesService } from "../../../service/productService";
 import { UserApi } from "../../../service/userService";
-import "react-datepicker/dist/react-datepicker.css";
-import moment from "moment";
 const ModalStyled = styled.div`
 `
 export const InputNumberStyle = styled.div`
@@ -75,7 +74,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           paymentMethod: currentRadioValue,
           depositAmount: 0,
         }
-        console.log("thanh toán off", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -178,8 +176,9 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           quantity: qty,
           totalPrice: totalPrice,
           paymentMethod: currentRadioValue,
+          buses_id : product.id
         }
-        console.log("Thanh toán VPN", ticket);
+        console.log(ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))

@@ -21,7 +21,6 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
         }
       }
     }
-    console.log(userKey());
   return (
     <div className="lg:tw-w-64">
       {/* Sidebar backdrop (mobile only) */}

@@ -41,5 +41,7 @@ export const validationSchema = Yup.object().shape({
   startDisrict_id: Yup.string().required("Vui lòng nhập thông tin"),
   endWard_id: Yup.string().required("Vui lòng nhập thông tin"),
   endDisrict_id: Yup.string().required("Vui lòng nhập thông tin"),
+  detailAddressStart: Yup.string().required("Vui lòng nhập thông tin"),
+  detailAddressEnd: Yup.string().required("Vui lòng nhập thông tin"),
   cartype_id: Yup.number().typeError('Vui lòng chọn loại xe').required("Vui lòng nhập thông tin"),
 });

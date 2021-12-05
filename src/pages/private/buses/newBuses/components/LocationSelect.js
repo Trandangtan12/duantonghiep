@@ -24,7 +24,7 @@ const LocationSelect = ({
   return (
     <div>
       <div className="tw-w-full tw-px-4 tw-mb-3 tw-uppercase tw-text-lg">
-        <h5>{title}</h5>
+        <h5 className="tw-text-green-500 tw-font-bold">{title}</h5>
       </div>
       <div className="tw-flex tw-flex-wrap">
         <div className="tw-w-full lg:tw-w-4/12 tw-px-4">

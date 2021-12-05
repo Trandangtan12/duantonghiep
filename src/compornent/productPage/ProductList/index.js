@@ -54,7 +54,7 @@ const ProductList = (props) => {
                     </div>
                   </div>
                   <div className="tw-flex">
-                    <span className="tw-text-xl tw-font-bold">{item.start_time}</span>
+                    <span className="tw-text-xl tw-font-bold">{moment(item.end_time).utc(true).format("HH:mm")}</span>
                     <div className="tw-flex tw-items-center tw-ml-1">
                       <FontAwesomeIcon className="tw-text-[0.25rem] tw-mx-1" icon={faCircle} />
                       <p className="tw-text-gray-500 tw-text-sm">{item.endWard_name}</p>

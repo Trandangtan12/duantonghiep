@@ -9,7 +9,7 @@ export let selectErrorStyles = {
             ...defaultStyles,
             color: "#5f5f5f",
             fontSize: "0.96rem",
-            opacity: "0.5"
+            opacity: "1"
         };
     }
   }
@@ -18,9 +18,9 @@ export let selectErrorStyles = {
     placeholder: (defaultStyles) => {
         return {
             ...defaultStyles,
-            color: "#5f5f5f",
+            color: "#D4D5D6",
             fontSize: "0.96rem",
-            opacity: "0.5"
+            opacity: "1"
         };
     }
   }
