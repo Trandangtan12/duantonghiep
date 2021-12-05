@@ -20,7 +20,6 @@ export const initialValues = {
   endWard_name: "",
   endDisrict_id: "",
   endDistrict_name: "",
-  seat_empty: 0,
 };
 
 

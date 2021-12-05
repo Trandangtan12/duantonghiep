@@ -21,7 +21,8 @@ const CreateNews = () => {
     .confirm("Bạn có chắc chắn muốn thêm bài viết ?", async function () {
       const res = await NewsService.createNews(data);
       if (res.status === 201) {
-        alertify.success("Xoá thành công");
+        history.push("/admin/news")
+        alertify.success("Thêm bài viết thành công !");
       } else {
         alertify.warning("Có lỗi xảy ra");
       }
