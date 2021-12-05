@@ -149,8 +149,10 @@ const Products = () => {
         setActiveFilter([])
     }
 
-    const timeMoning = filterProduct.filter(item =>
-        moment(item.start_time, "HH:mm") >= moment("00:00", "HH:mm")
+    const timeMoning = availableSearch.filter(item => item.price >= price.value.min
+        && item.price <= price.value.max
+        && item.seat_empty >= qtyFilter
+        && moment(item.start_time, "HH:mm") >= moment("00:00", "HH:mm")
         && moment(item.start_time, "HH:mm") <= moment("06:00", "HH:mm"))
 
     const timeLunch = availableSearch.filter(item => item.price >= price.value.min
@@ -159,12 +161,16 @@ const Products = () => {
         && moment(item.start_time, "HH:mm") >= moment("06:01", "HH:mm")
         && moment(item.start_time, "HH:mm") <= moment("12:00", "HH:mm"))
 
-    const timeAfternoon = filterProduct.filter(item =>
-        moment(item.start_time, "HH:mm") >= moment("12:01", "HH:mm")
+    const timeAfternoon = availableSearch.filter(item => item.price >= price.value.min
+        && item.price <= price.value.max
+        && item.seat_empty >= qtyFilter
+        && moment(item.start_time, "HH:mm") >= moment("12:01", "HH:mm")
         && moment(item.start_time, "HH:mm") <= moment("18:00", "HH:mm"))
 
-    const timeNight = filterProduct.filter(item =>
-        moment(item.start_time, "HH:mm") >= moment("18:01", "HH:mm")
+    const timeNight = availableSearch.filter(item => item.price >= price.value.min
+        && item.price <= price.value.max
+        && item.seat_empty >= qtyFilter
+        && moment(item.start_time, "HH:mm") >= moment("18:01", "HH:mm")
         && moment(item.start_time, "HH:mm") <= moment("23:59", "HH:mm"))
     useEffect(() => {
         const fetchDistrictStart = async () => {
