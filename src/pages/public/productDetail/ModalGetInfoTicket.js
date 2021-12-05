@@ -4,6 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 import { BusesService } from "../../../service/productService";
 import { UserApi } from "../../../service/userService";
@@ -25,6 +26,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
   function closeModal() {
     setIsOpenModal(false);
   }
+  const history = useHistory()
   const [emp, setEmp] = useState();
   const [qty, setQty] = useState(1)
   const TODAY = new Date()
@@ -81,6 +83,8 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
         if (emp < 0) {
           alert("Hết ghế trống!!!")
         } else {
+          localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+          history.push("/payment/success")
           setIsOpenModal(false);
           await BusesService.updateBusses(product.id, updateBuses)
         }
@@ -125,7 +129,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           depositAmount: depositPrice,
           reservationTime: startDate
         }
-        console.log("Đặt cọc", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -178,7 +181,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           paymentMethod: currentRadioValue,
           buses_id : product.id
         }
-        console.log(ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))

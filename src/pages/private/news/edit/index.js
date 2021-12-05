@@ -88,7 +88,7 @@ const EditNews = () => {
                 // onClick={() => handleSubmit()}
                 className="sm:tw-w-full md:tw-w-full lg:tw-w-[200px] tw-bg-green-600 tw-transform tw-p-3 tw-text-white tw-text-md hover:tw-bg-gray-800 tw-font-bold tw-rounded-lg"
               >
-                Tạo mới
+                Cập nhật
               </button>
             </div>
           </div>

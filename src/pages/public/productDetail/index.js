@@ -59,7 +59,9 @@ const ProductDetail = () => {
                       </p>
                     </div>
                   </div>
-                  <div></div>
+                  <div>
+                  <p className="tw-text-sm tw-text-gray-500" >{product.seat_empty} ghế trống</p>
+                  </div>
 
                   <div></div>
                 </div>

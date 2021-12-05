@@ -163,9 +163,9 @@ const EditBusses = () => {
   });
   const handleSubmitForm = (data) => {
     delete data.service;
-    const seat_empty = data.seat - infoBusses.seat
+    // const seat_empty = data.seat - infoBusses.seat
     alertify.confirm("Bạn có chắc chắn muốn cập nhật chuyến xe ?", async function () {
-      const newData= {...data, seat_empty : seat_empty < 0 ? 0 : seat_empty}
+      const newData= {...data, seat_empty : 10}
       const res = await BusesService.updateBusses(id, newData);
       if (res.status === 200) {
         alertify.set("notifier", "position", "bottom-right");

@@ -17,73 +17,88 @@ const Footer = () => {
         </div>
         <div className="tw-flex-grow tw-flex tw-flex-wrap md:tw-pl-20 tw--mb-10 md:tw-mt-0 tw-mt-10 md:tw-text-left tw-text-center">
           <div className="lg:tw-w-1/4 md:tw-w-1/2 tw-w-full tw-px-4">
-            <h2 className="title-font tw-font-bold tw-text-white tw-tracking-widest text-md tw-mb-3">CATEGORIES</h2>
-            <nav className="tw-list-none tw-mb-10">
+            <h2 className="title-font tw-font-bold tw-text-white tw-tracking-widest text-md tw-mb-3">Về chúng tôi</h2>
+            <nav className="tw-list-none tw-mb-10 tw-text-sm">
               <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">First Link</a>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Giơí thiêụ về SixLeaf</a>
               </li>
               <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">Second Link</a>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Tuyển dụng</a>
               </li>
               <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">Third Link</a>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Tin tức</a>
               </li>
               <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">Fourth Link</a>
-              </li>
-            </nav>
-          </div>
-          <div className="lg:tw-w-1/4 md:tw-w-1/2 tw-w-full tw-px-4">
-            <h2 className="title-font tw-font-bold tw-text-white tw-tracking-widest text-md tw-mb-3">CATEGORIES</h2>
-            <nav className="tw-list-none tw-mb-10">
-              <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">First Link</a>
-              </li>
-              <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">Second Link</a>
-              </li>
-              <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">Third Link</a>
-              </li>
-              <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">Fourth Link</a>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Liên hệ</a>
               </li>
             </nav>
           </div>
           <div className="lg:tw-w-1/4 md:tw-w-1/2 tw-w-full tw-px-4">
-            <h2 className="title-font tw-font-bold tw-text-white tw-tracking-widest text-md tw-mb-3">CATEGORIES</h2>
-            <nav className="tw-list-none tw-mb-10">
+            <h2 className="title-font tw-font-bold tw-text-white tw-tracking-widest text-md tw-mb-3">Hỗ trợ</h2>
+            <nav className="tw-list-none tw-mb-10 tw-text-sm">
               <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">First Link</a>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Hướng dẫn thanh toán</a>
               </li>
               <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">Second Link</a>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Quy chế của SixLeaf</a>
               </li>
               <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">Third Link</a>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Chính sách bảo mật thông tin </a>
               </li>
               <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">Fourth Link</a>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Chính sách bảo mật thanh toán</a>
+              </li>
+              <li>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Chính sách và quy trình giải quyết tranh chấp khiếu nại</a>
+              </li>
+              <li>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Câu hỏi thường gặp</a>
+              </li>
+              <li>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Phần mềm hãng xe</a>
+              </li>
+              <li>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Tra cứu đơn hàng</a>
               </li>
             </nav>
           </div>
           <div className="lg:tw-w-1/4 md:tw-w-1/2 tw-w-full tw-px-4">
-            <h2 className="title-font tw-font-bold tw-text-white tw-tracking-widest text-md tw-mb-3">CATEGORIES</h2>
+            <h2 className="title-font tw-font-bold tw-text-white tw-tracking-widest text-md tw-mb-3">Chứng nhận</h2>
             <nav className="tw-list-none tw-mb-10">
               <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">First Link</a>
+              <img src="https://storage.googleapis.com/fe-production/images/Home/certificate0.png" alt="" />
+                {/* <a className="tw-text-white hover:tw-text-red-300" href="#">First Link</a> */}
               </li>
               <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">Second Link</a>
+              <img src="https://storage.googleapis.com/fe-production/images/Home/certificate1.png" alt="" />
+                {/* <a className="tw-text-white hover:tw-text-red-300" href="#">Second Link</a> */}
               </li>
-              <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">Third Link</a>
+              <li className="tw-my-3">
+              <img src="https://storage.googleapis.com/fe-production/images/dangkybocongthuong.png" alt="" />
+                {/* <a className="tw-text-white hover:tw-text-red-300" href="#">Third Link</a> */}
               </li>
-              <li>
-                <a className="tw-text-white hover:tw-text-red-300" href="#">Fourth Link</a>
-              </li>
+             
             </nav>
           </div>
+          <div className="lg:tw-w-1/4 md:tw-w-1/2 tw-w-full tw-px-4">
+            <h2 className="title-font tw-font-bold tw-text-white tw-tracking-widest text-md tw-mb-3">Chứng nhận</h2>
+            <nav className="tw-list-none tw-mb-10">
+              <li>
+              <img src="https://storage.googleapis.com/fe-production/images/Home/certificate0.png" alt="" />
+                {/* <a className="tw-text-white hover:tw-text-red-300" href="#">First Link</a> */}
+              </li>
+              <li>
+              <img src="https://storage.googleapis.com/fe-production/images/Home/certificate1.png" alt="" />
+                {/* <a className="tw-text-white hover:tw-text-red-300" href="#">Second Link</a> */}
+              </li>
+              <li className="tw-my-3">
+              <img src="https://storage.googleapis.com/fe-production/images/dangkybocongthuong.png" alt="" />
+                {/* <a className="tw-text-white hover:tw-text-red-300" href="#">Third Link</a> */}
+              </li>
+             
+            </nav>
+          </div>
+         
         </div>
       </div>
       <div className="tw-bg-green-700">
