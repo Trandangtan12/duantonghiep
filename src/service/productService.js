@@ -79,11 +79,19 @@ export const BusesService = {
   depositedTicket(id){
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "DEPOSIT" });
   },
+  inActiveTicket(id){
+    return HttpClient.put(`${API_TICKET}/${id}`, { status: "WAITING_ACTIVE" });
+  },
   deleteTicket(id) {
     return HttpClient.delete(`${API_TICKET}/${id}`);
   },
-  exportListTicket() {
-    return HttpClient.get(`${API_EXPORT}`, {
+  exportListTicket(today) {
+    return HttpClient.get(`${API_EXPORT}?today=${today}`, {
+      responseType: "arraybuffer",
+    });
+  },
+  exportAboutDays(startDate,endDate){
+    return HttpClient.get(`${API_EXPORT}?from_date=${startDate}&to_date=${endDate}`, {
       responseType: "arraybuffer",
     });
   },

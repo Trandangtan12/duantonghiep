@@ -3,6 +3,7 @@ import alertify from "alertifyjs";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useForm , Controller } from "react-hook-form";
+import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Input from "../../../../compornent/admin/input/Input";
@@ -25,7 +26,7 @@ import { InputNumberStyle } from "./utility";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
   const [urlImage, setUrlImage] = useState(
-    "https://via.placeholder.com/300.png/09f/fff"
+    "https://via.placeholder.com/300"
   );
   const history = useHistory();
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ const NewBuses = () => {
   const [wardValue, setWardValue] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [inDateActive, setInDateActive] = useState(new Date())
   ///end point
   const [endPointCity, setEndPointCity] = useState([]);
   const [endPointDistricts, setEndPointDistricts] = useState([]);
@@ -176,10 +178,15 @@ const NewBuses = () => {
     setValue("start_time", startTime);
   };
   const handleChangeEndTime = (date) => {
-    const startTime = moment(date).utc(true).toISOString();
+    const endTime = moment(date).format("H:mm");
     setEndDate(date);
-    setValue("end_time", startTime);
+    setValue("end_time", endTime);
   };
+  const handleChangeInActive = (date) =>{
+    setInDateActive(date)
+    const inDateActive = moment(date).format("YYYY-MM-DD")
+    setValue("date_inactive", inDateActive);
+  }
   const handlechangeTypeCar = (type) => {
     setValue("cartype_id", type.value);
   };
@@ -237,7 +244,7 @@ const NewBuses = () => {
                           src={`${
                             urlImage !== null
                               ? urlImage
-                              : "https://fakeimg.pl/370/"
+                              : "https://via.placeholder.com/300"
                           }`}
                           className="tw-h-[339px]"
                         />
@@ -377,6 +384,20 @@ const NewBuses = () => {
                     </div>
                   </div>
                   {/* =====end time ===== */}
+                  <div className="tw-flex tw-flex-wrap">
+                    <div className="tw-w-full lg:tw-w-12/12 tw-px-4 tw-mb-3">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <label
+                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+                          htmlfor="grid-password"
+                        >
+                          Ngày dừng hoạt động
+                        </label>
+                        <DatePicker className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"  dateFormat="dd/MM/yyyy" onChange={(date) =>handleChangeInActive(date)} selected={inDateActive}  />
+                      </div>
+                    </div>
+                  </div>
+                  {/* =======date inactive ====== */}
                   <div className="tw-flex tw-flex-wrap">
                     <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
                       <div className="tw-relative tw-w-full tw-mb-3">

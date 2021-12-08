@@ -16,6 +16,7 @@ import Table from "../../../compornent/admin/table";
 import { IsoStringConvert, numberWithCommas } from "../../../config";
 import { actionGetTicket } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
+import ModalExportTicket from "./ModalExportTicket";
 import {
   ACTIVED,
   ATM,
@@ -28,20 +29,16 @@ import {
 
 const Order = () => {
   const history = useHistory();
+  let [isOpen, setIsOpen] = useState(false)
+  function openModal() {
+    setIsOpen(true)
+  }
+
   const { availableOrder } = useSelector((state) => state.buses);
   const [ticketDefault, seTicketDefault] = useState([]);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
-  const dependencies = [availableOrder.length, dispatchDependency];
+  const dependencies = [availableOrder.length, ticketDefault.length ,history.location.pathname ,dispatchDependency];
   const [startDate, setStartDate] = useState(new Date());
-  const handleExportList = async () => {
-    const res = await BusesService.exportListTicket();
-    if (res.status === 200) {
-      const blob = new Blob([res.data], {
-        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      });
-      FileSaver.saveAs(blob, `sixleaf_ticket.xlsx`);
-    }
-  };
   const handleApprovalTicket = (id) => {
     alertify
       .confirm("Bạn có chắc chắn muốn thanh toán vé xe ?", async function () {
@@ -71,7 +68,7 @@ const Order = () => {
     alertify
       .confirm("Bạn có chắc chắn muốn huỷ vé xe ?", async function () {
         const res = await BusesService.rejectTicket(id);
-        if (res.status === 200 || res.status === 201) {
+        if (res.status === 200) {
           reloadActiveAPI();
           alertify.success("Hủy vé thành công !");
         } else {
@@ -346,10 +343,9 @@ const Order = () => {
   ]);
   const handleFilterTicketByDate = (date) => {
     setStartDate(date);
-    const convertDate = moment(date).utc(true).format("YYYY-MM-DD");
+    const convertDate = moment(date).format("YYYY-MM-DD");
     const ticketFilter = availableOrder.filter((_elt) => {
       const createDateConvert = moment(_elt.create_at)
-        .utc(true)
         .format("YYYY-MM-DD");
       return createDateConvert === convertDate;
     });
@@ -372,7 +368,7 @@ const Order = () => {
             <button
               className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none foc us:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
               type="button"
-              onClick={() => handleExportList()}
+              onClick={() => openModal()}
               disabled={availableOrder.length === 0 ? true : false}
             >
               Xuất dữ liệu
@@ -407,6 +403,7 @@ const Order = () => {
         columns={columns}
         ExpandableTable={ExpandableTable}
       />
+      <ModalExportTicket isOpen={isOpen}  setIsOpen={setIsOpen} />
     </div>
   );
 };

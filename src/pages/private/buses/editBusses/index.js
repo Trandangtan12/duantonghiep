@@ -8,6 +8,7 @@ import Input from "../../../../compornent/admin/input/Input";
 import DatePickerForm from "../../../../compornent/datePicker";
 import TextArea from "../../../../compornent/textarea";
 import firebase from "../../../../firebase";
+import DatePicker from "react-datepicker";
 import {
   actionGetAllBusesTypes,
   actionGetService,
@@ -30,6 +31,8 @@ const EditBusses = () => {
   const { availableService, availableBusesTypes } = useSelector(
     (state) => state.buses
   );
+  const [endDate, setEndDate] = useState(new Date());
+  const [inDateActive, setInDateActive] = useState(new Date())
   const [serviceValues, setServiceValues] = useState([]);
   const serviceFilter = availableService.map((service) => {
     return {
@@ -88,6 +91,16 @@ const EditBusses = () => {
     setValue("date_active", startDateConvert);
     setValue("start_time", startTime);
   };
+  const handleChangeEndTime = (date) => {
+    const endTime = moment(date).format("H:mm");
+    setEndDate(date);
+    setValue("end_time", endTime);
+  };
+  const handleChangeInActive = (date) =>{
+    setInDateActive(date)
+    const inDateActive = moment(date).format("YYYY-MM-DD")
+    setValue("date_inactive", inDateActive);
+  }
   const handlechangeTypeCar = (type) => {
     setValue("cartype_id", type.value);
   };
@@ -393,7 +406,7 @@ const EditBusses = () => {
                     </div>
                   </div>
                   <div className="tw-flex tw-flex-wrap">
-                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
+                    <div className="tw-w-full lg:tw-w-12/12 tw-px-4">
                       <div className="tw-relative tw-w-full tw-mb-3">
                         <InputNumberStyle>
                           <Input
@@ -409,6 +422,9 @@ const EditBusses = () => {
                         </InputNumberStyle>
                       </div>
                     </div>
+                  </div>
+                   {/* =====time ==== */}
+                   <div className="tw-flex tw-flex-wrap">
                     <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
                       <div className="tw-relative tw-w-full tw-mb-3">
                         <label
@@ -422,7 +438,41 @@ const EditBusses = () => {
                           onChange={(date) => {
                             handleChangeStartTime(date);
                           }}
+                          minDate={new Date()}
                         />
+                      </div>
+                    </div>
+                    <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <label
+                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+                          htmlfor="grid-password"
+                        >
+                          Thời gian kết thúc
+                        </label>
+                        <DatePickerForm
+                          startDate={endDate}
+                          showTimeSelectOnly={false}
+                          // dateFormat="H:mm"
+                          onChange={(date) => {
+                            handleChangeEndTime(date);
+                          }}
+                          minDate={startDate}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {/* =====end time ===== */}
+                  <div className="tw-flex tw-flex-wrap">
+                    <div className="tw-w-full lg:tw-w-12/12 tw-px-4 tw-mb-3">
+                      <div className="tw-relative tw-w-full tw-mb-3">
+                        <label
+                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+                          htmlfor="grid-password"
+                        >
+                          Ngày dừng hoạt động
+                        </label>
+                        <DatePicker className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"  dateFormat="dd/MM/yyyy" onChange={(date) =>handleChangeInActive(date)} selected={inDateActive}  />
                       </div>
                     </div>
                   </div>

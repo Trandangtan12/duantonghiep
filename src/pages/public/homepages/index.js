@@ -22,7 +22,7 @@ const HomePages = () => {
           
         </div>
         <Introduce />
-        <QuestionTicker />
+        {/* <QuestionTicker /> */}
       </section>
 
     </section>
