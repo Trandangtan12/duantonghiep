@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import alertify from "alertifyjs";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useForm , Controller } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -25,9 +25,7 @@ import { initialValues, validationSchema } from "./hookFormConfig";
 import { InputNumberStyle } from "./utility";
 const NewBuses = () => {
   const [fileName, setFileName] = useState("");
-  const [urlImage, setUrlImage] = useState(
-    "https://via.placeholder.com/300"
-  );
+  const [urlImage, setUrlImage] = useState("https://via.placeholder.com/300");
   const history = useHistory();
   const dispatch = useDispatch();
   const [cityValue, setCityValue] = useState([]);
@@ -52,7 +50,7 @@ const NewBuses = () => {
   const [wardValue, setWardValue] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [inDateActive, setInDateActive] = useState(new Date())
+  const [inDateActive, setInDateActive] = useState(new Date());
   ///end point
   const [endPointCity, setEndPointCity] = useState([]);
   const [endPointDistricts, setEndPointDistricts] = useState([]);
@@ -85,12 +83,11 @@ const NewBuses = () => {
     formState: { errors },
     setValue,
     reset,
-    control
+    control,
   } = useForm({
     reValidateMode: "onChange",
     defaultValues: initialValues,
     resolver: yupResolver(validationSchema),
-
   });
   const onChangeCity = async (
     pointName,
@@ -182,11 +179,11 @@ const NewBuses = () => {
     setEndDate(date);
     setValue("end_time", endTime);
   };
-  const handleChangeInActive = (date) =>{
-    setInDateActive(date)
-    const inDateActive = moment(date).format("YYYY-MM-DD")
+  const handleChangeInActive = (date) => {
+    setInDateActive(date);
+    const inDateActive = moment(date).format("YYYY-MM-DD");
     setValue("date_inactive", inDateActive);
-  }
+  };
   const handlechangeTypeCar = (type) => {
     setValue("cartype_id", type.value);
   };
@@ -393,7 +390,12 @@ const NewBuses = () => {
                         >
                           Ngày dừng hoạt động
                         </label>
-                        <DatePicker className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"  dateFormat="dd/MM/yyyy" onChange={(date) =>handleChangeInActive(date)} selected={inDateActive}  />
+                        <DatePicker
+                          className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"
+                          dateFormat="dd/MM/yyyy"
+                          onChange={(date) => handleChangeInActive(date)}
+                          selected={inDateActive}
+                        />
                       </div>
                     </div>
                   </div>
@@ -467,6 +469,7 @@ const NewBuses = () => {
                   />
                   <div className="tw-mb-3 tw-px-4">
                     <TextEditor
+                      errors={errors}
                       label="Mô tả chuyến xe"
                       setValue={setValue}
                       fieldName={"description"}
