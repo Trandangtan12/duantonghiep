@@ -7,13 +7,20 @@ const SuccessPayment = () => {
   const ticket = JSON.parse(localStorage.getItem('ticket'))
   useEffect(() => {
     const updateTicket = async () => {
+      // lấy trạng thái đặt trước với phương thức thanh toán từ local 
       const deposit = localStorage.getItem("deposit")
       const paymentMethod = localStorage.getItem("paymentMethod")
-      if (deposit === 'true') {
+      //đặt cọc
+      if (paymentMethod === "ATM" && deposit === 'true') {
         await BusesService.depositedTicket(ticket.id)
       }
+      //atm
       else if(paymentMethod === "ATM"){
         await BusesService.approvalTicket(ticket.id);
+      }   
+      //tại chỗ
+      else if(paymentMethod === "OFFLINE"){
+        await BusesService.inActiveTicket(ticket.id);
       }   
     };
     const sendEmail = async () =>{

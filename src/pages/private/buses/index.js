@@ -104,7 +104,8 @@ const Buses = () => {
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Thời gian kết thúc</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
-              {IsoStringConvert(data.end_time)}
+            {console.log(data.date_inactive)}
+              {`${data.date_active} ${data.end_time}`}
             </td>
           </tr>
           <tr className="tw-flex tw-flex-wrap tw-mb-4 tw-mt-2">
@@ -129,12 +130,12 @@ const Buses = () => {
               {data.seat_empty}
             </td>
           </tr>
-          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+          {/* <tr className="tw-flex tw-flex-wrap tw-mb-4">
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Thời gian dự kiến</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {data.range_time} Giờ
             </td>
-          </tr>
+          </tr> */}
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Ngày tạo</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
