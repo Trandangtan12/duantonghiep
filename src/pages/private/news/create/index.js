@@ -4,7 +4,9 @@ import { NewsService } from "../../../../service/news";
 import Input from "../../../../compornent/admin/input/Input";
 import { useForm } from "react-hook-form";
 import TextEditor from "../../../../compornent/textEditor";
+import { yupResolver } from "@hookform/resolvers/yup";
 import alertify from "alertifyjs";
+import { validationSchema } from "../hookFormConfig";
 const CreateNews = () => {
   const history = useHistory();
   const {
@@ -13,24 +15,25 @@ const CreateNews = () => {
     formState: { errors },
     setValue,
   } = useForm({
-    mode: 'onTouched'
+    mode: "onTouched",
+    resolver: yupResolver(validationSchema),
   });
 
   const handleSubmitForm = async (data) => {
     alertify
-    .confirm("Bạn có chắc chắn muốn thêm bài viết ?", async function () {
-      const res = await NewsService.createNews(data);
-      if (res.status === 201) {
-        history.push("/admin/news")
-        alertify.success("Thêm bài viết thành công !");
-      } else {
-        alertify.warning("Có lỗi xảy ra");
-      }
-    })
-    .set({ title: "Thêm bài viết" })
-    .set("movable", false)
-    .set("ok", "Alright!")
-    .set("notifier", "position", "top-right");
+      .confirm("Bạn có chắc chắn muốn thêm bài viết ?", async function () {
+        const res = await NewsService.createNews(data);
+        if (res.status === 201) {
+          history.push("/admin/news");
+          alertify.success("Thêm bài viết thành công !");
+        } else {
+          alertify.warning("Có lỗi xảy ra");
+        }
+      })
+      .set({ title: "Thêm bài viết" })
+      .set("movable", false)
+      .set("ok", "Alright!")
+      .set("notifier", "position", "top-right");
   };
   return (
     <div>
@@ -62,12 +65,13 @@ const CreateNews = () => {
           />
         </div>
         <div className="tw-mb-3 tw-px-6">
-            <TextEditor
-             label="Mô tả bài viết"
-             setValue={setValue}
-             fieldName={"description"}
-            />
-          </div>
+          <TextEditor
+            errors={errors}
+            label="Mô tả bài viết"
+            setValue={setValue}
+            fieldName={"description"}
+          />
+        </div>
         <footer className="">
           <div className="container tw-mx-auto tw-px-4">
             <div className="tw-flex tw-flex-wrap tw-items-center md:tw-justify-end tw-justify-center tw-mb-10 tw-gap-5">

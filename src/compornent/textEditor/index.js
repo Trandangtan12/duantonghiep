@@ -4,14 +4,20 @@ import draftToHtml from "draftjs-to-html";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import htmlToDraft from "html-to-draftjs";
-const TextEditor = ({ label, setValue, fieldName , defaultValueProps }) => {
+const TextEditor = ({ label, setValue, fieldName , defaultValueProps , errors }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
-    setValue(
-      fieldName,
-      draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    );
+    var s = convertToRaw(editorState.getCurrentContent());
+    if(s.blocks[0].text.trim().length <= 0){
+      setValue(
+        fieldName,'');
+    }else{
+      setValue(
+        fieldName,
+        draftToHtml(convertToRaw(editorState.getCurrentContent()))
+      );
+    }
   };
   function toHtml(es) {
     return draftToHtml(convertToRaw(es.getCurrentContent()))
@@ -43,7 +49,7 @@ const TextEditor = ({ label, setValue, fieldName , defaultValueProps }) => {
         editorClassName="editorClassName"
         onEditorStateChange={onEditorStateChange}
         editorStyle={{
-          border: `1px solid #F5F5F5 `,
+          border: `${errors[fieldName] && errors ? "1px solid #f16a59" : "1px solid #F5F5F5" }   `,
           borderRadius: "5px",
           boxShadow: ".2px .1px .5px .2px #333",
           padding: "10px",
