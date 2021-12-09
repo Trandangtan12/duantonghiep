@@ -74,6 +74,12 @@ export const BusesService = {
   getAllOder() {
     return HttpClient.get(`${API_TICKET}`);
   },
+  getInfoTicket(id){
+    return HttpClient.get(`${API_TICKET}/${id}`);
+  },
+  updateTicket(id,data){
+    return HttpClient.put(`${API_TICKET}/${id}`,data);
+  },
   approvalTicket(id) {
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "ACTIVED" });
   },
@@ -113,4 +119,9 @@ export const BusesService = {
       bank_code: "NCB",
     });
   },
+  // successTicket(){
+  //   return HttpClient.post(`${API_SEND_EMAIL}`, {
+  //     id: id,
+  //   });
+  // }
 };

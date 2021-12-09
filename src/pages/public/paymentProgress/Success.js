@@ -11,7 +11,7 @@ const SuccessPayment = () => {
       const deposit = localStorage.getItem("deposit")
       const paymentMethod = localStorage.getItem("paymentMethod")
       //đặt cọc
-      if (paymentMethod === "ATM" && deposit === 'true') {
+      if (paymentMethod === "OFFLINE" && deposit === 'true') {
         await BusesService.depositedTicket(ticket.id)
       }
       //atm
