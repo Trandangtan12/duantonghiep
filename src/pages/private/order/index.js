@@ -1,4 +1,5 @@
 import {
+  faEdit,
   faMoneyCheck,
   faTimes,
   faTrash,
@@ -313,6 +314,12 @@ const Order = () => {
         return (
           <div>
             <div>
+            <span
+                onClick={() => history.push(`/admin/order/edit/${original.id}`)}
+                className="tw-cursor-pointer tw-mr-2"
+              >
+                <FontAwesomeIcon icon={faEdit} color="blue" />
+              </span>
               <span
                 onClick={() => handleDeleteTicket(original.id)}
                 className="tw-cursor-pointer tw-mr-2"

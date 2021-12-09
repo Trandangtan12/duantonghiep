@@ -52,6 +52,7 @@ const Routes = () => {
   const News = lazy(() => import("../pages/private/news"))
   const NewsCreate = lazy(() => import("../pages/private/news/create/index"))
   const EditNews = lazy(() => import("../pages/private/news/edit/index"))
+  const EditTicket = lazy(() => import("../pages/private/order/edit/index"))
 
   return (
     <Router>
@@ -70,6 +71,7 @@ const Routes = () => {
                 <Route exact  path="/admin/analytics" component={Analytics} />
                 <Route exact  path="/admin/order" component={Order} />
                 <Route exact  path="/admin/order/create" component={CreateTicket} />
+                <Route exact  path="/admin/order/edit/:id" component={EditTicket} />
                 <Route exact path="/admin/service" component={Service} />
                 <Route exact  path="/admin/service/create" component={CretaeService}/>
                 <Route exact  path="/admin/service/edit/:id" component={EditService}/>
