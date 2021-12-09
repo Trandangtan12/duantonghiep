@@ -1,48 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { useHistory , useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { NewsService } from "../../../../service/news";
 import Input from "../../../../compornent/admin/input/Input";
 import { useForm } from "react-hook-form";
 import TextEditor from "../../../../compornent/textEditor";
 import alertify from "alertifyjs";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { validationSchema } from "../hookFormConfig";
 const EditNews = () => {
-    const { id } = useParams();
-    console.log(id);
+  const { id } = useParams();
   const history = useHistory();
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    reset
-  } = useForm();
-  const [contentDefalut, setContentDefalut] = useState('');
+    reset,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+  const [contentDefalut, setContentDefalut] = useState("");
   const handleSubmitForm = async (data) => {
     alertify
-    .confirm("Bạn có chắc chắn muốn cập nhật bài viết ?", async function () {
-      const res = await NewsService.updateNews(id,data);
-      if (res.status === 200) {
-        history.push("/admin/news")
-        alertify.success("Cập nhật thành công");
-      } else {
-        alertify.warning("Có lỗi xảy ra");
-      }
-    })
-    .set({ title: "Cập nhật bài viết" })
-    .set("movable", false)
-    .set("ok", "Alright!")
-    .set("notifier", "position", "top-right");
+      .confirm("Bạn có chắc chắn muốn cập nhật bài viết ?", async function () {
+        const res = await NewsService.updateNews(id, data);
+        if (res.status === 200) {
+          history.push("/admin/news");
+          alertify.success("Cập nhật thành công");
+        } else {
+          alertify.warning("Có lỗi xảy ra");
+        }
+      })
+      .set({ title: "Cập nhật bài viết" })
+      .set("movable", false)
+      .set("ok", "Alright!")
+      .set("notifier", "position", "top-right");
   };
   useEffect(() => {
-  const getInfoNews = async() =>{
-      const res = await NewsService.getInfoNew(id)
+    const getInfoNews = async () => {
+      const res = await NewsService.getInfoNew(id);
       if (res.status === 200) {
         reset(res.data);
-        setContentDefalut(res.data.description)
+        setContentDefalut(res.data.description);
       }
-  }
-  getInfoNews()
-  }, [])
+    };
+    getInfoNews();
+  }, []);
   return (
     <div>
       <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-py-6 ">
@@ -73,13 +76,14 @@ const EditNews = () => {
           />
         </div>
         <div className="tw-mb-3 tw-px-6">
-            <TextEditor
-             label="Mô tả bài viết"
-             setValue={setValue}
-             fieldName={"description"}
-             defaultValueProps={contentDefalut}
-            />
-          </div>
+          <TextEditor
+          errors={errors}
+            label="Mô tả bài viết"
+            setValue={setValue}
+            fieldName={"description"}
+            defaultValueProps={contentDefalut}
+          />
+        </div>
         <footer className="">
           <div className="container tw-mx-auto tw-px-4">
             <div className="tw-flex tw-flex-wrap tw-items-center md:tw-justify-end tw-justify-center tw-mb-10 tw-gap-5">

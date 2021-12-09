@@ -62,12 +62,15 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
     }
   }
   const handlePayTicket = async (data) => {
+    localStorage.removeItem("paymentMethod")
+    localStorage.removeItem("deposit")
     try {
       const updateBuses = {
         ...data,
         seat_empty: emp
       }
       if (currentRadioValue === "OFFLINE" && qty < 3 && sucess !== true) {
+        localStorage.setItem("paymentMethod" , "OFFLINE")
         localStorage.setItem('deposit', false)
         localStorage.setItem('paymentMethod', "OFFLINE")
         const ticket = {
@@ -101,7 +104,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           status: "WAITING_ACTIVE",
           depositAmount: depositPrice,
         }
-        console.log("Đặt cọc", ticket);
         const resTicket = await BusesService.addTicket(ticket)
         if (resTicket.status === 201 || resTicket.status === 200) {
           localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -150,6 +152,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
         setIsOpenModal(false);
       }
       else if (currentRadioValue === "ATM" && sucess === true) {
+        localStorage.setItem('paymentMethod', "ATM")
         localStorage.setItem('deposit', false)
         localStorage.setItem('paymentMethod', "ATM")
         const ticket = {

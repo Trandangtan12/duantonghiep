@@ -68,7 +68,6 @@ const Products = () => {
 
         )
     }
-   console.log(activeFilter);
     const onChange = (data) => {
         setPrice({ ...price, value: data.value })
     }
