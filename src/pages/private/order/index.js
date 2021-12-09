@@ -38,7 +38,7 @@ const Order = () => {
   const { availableOrder } = useSelector((state) => state.buses);
   const [ticketDefault, seTicketDefault] = useState([]);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
-  const dependencies = [availableOrder.length, ticketDefault.length ,history.location.pathname ,dispatchDependency];
+  const dependencies = [availableOrder.length ,history.location.pathname ,dispatchDependency];
   const [startDate, setStartDate] = useState(new Date());
   const handleApprovalTicket = (id) => {
     alertify
@@ -390,23 +390,23 @@ const Order = () => {
           </button>
         </div>
       </div>
-      <label
+      {/* <label
         className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
         htmlfor="grid-password"
       >
         Bộ lọc vé
-      </label>
+      </label> */}
 
-      <div className="tw-flex tw-justify-between tw-mb-4">
+      {/* <div className="tw-flex tw-justify-between tw-mb-4">
         <DatePicker
           className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"
           dateFormat="yyyy-MM-dd"
           selected={startDate}
           onChange={handleFilterTicketByDate}
         />
-      </div>
+      </div> */}
       <Table
-        data={ticketDefault}
+        data={availableOrder}
         columns={columns}
         ExpandableTable={ExpandableTable}
       />

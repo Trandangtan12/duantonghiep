@@ -29,6 +29,7 @@ const CreateTicket = () => {
   } = useForm({});
   const history = useHistory();
   const handleAddTicket = async (data) => {
+    console.log(data);
     const totalPrice = busesSelect.price * data.quantity 
     const newData = {
       ...data,

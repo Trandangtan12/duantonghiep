@@ -27,6 +27,7 @@ const EditTicket = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({});
   const history = useHistory();
@@ -41,17 +42,24 @@ const EditTicket = () => {
       totalPrice : totalPrice,
     };
     const resTicket = await BusesService.updateTicket(id,newData)   
-    // if (resTicket.status === 200) {
-    //   await BusesService.sendEmail(resTicket.data.id)
-    //   history.push("/admin/order")
-    // }
+    if (resTicket.status === 200) {
+      await BusesService.sendEmail(resTicket.data.id)
+      history.push("/admin/order")
+    }
   };
   useEffect(() => {
+
     dispatch(actionGetBuses());
     const getInfoTicket = async () =>{
       const resInfo = await BusesService.getInfoTicket(id)
       if (resInfo.status === 200) {
         setTicketInfo(resInfo.data);
+        setValue("customer_name", resInfo.data.customer_name)
+        setValue("description", resInfo.data.description)
+        setValue("email", resInfo.data.email)
+        setValue("identity_card", resInfo.data.identity_card)
+        setValue("phone_number", resInfo.data.phone_number)
+        setValue("quantity", resInfo.data.quantity)
       }
     }
     getInfoTicket()

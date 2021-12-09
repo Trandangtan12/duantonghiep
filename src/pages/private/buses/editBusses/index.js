@@ -1,4 +1,5 @@
 import alertify from "alertifyjs";
+import { yupResolver } from "@hookform/resolvers/yup";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -20,6 +21,7 @@ import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
 import { InputNumberStyle } from "./utility";
+import { validationSchema } from "./hookFormConfig";
 const EditBusses = () => {
   const [fileName, setFileName] = useState("");
   const { id } = useParams();
@@ -32,7 +34,7 @@ const EditBusses = () => {
     (state) => state.buses
   );
   const [endDate, setEndDate] = useState(new Date());
-  const [inDateActive, setInDateActive] = useState(new Date())
+  const [inDateActive, setInDateActive] = useState(new Date());
   const [serviceValues, setServiceValues] = useState([]);
   const serviceFilter = availableService.map((service) => {
     return {
@@ -96,11 +98,11 @@ const EditBusses = () => {
     setEndDate(date);
     setValue("end_time", endTime);
   };
-  const handleChangeInActive = (date) =>{
-    setInDateActive(date)
-    const inDateActive = moment(date).format("YYYY-MM-DD")
+  const handleChangeInActive = (date) => {
+    setInDateActive(date);
+    const inDateActive = moment(date).format("YYYY-MM-DD");
     setValue("date_inactive", inDateActive);
-  }
+  };
   const handlechangeTypeCar = (type) => {
     setValue("cartype_id", type.value);
   };
@@ -154,7 +156,6 @@ const EditBusses = () => {
     pointId,
     pointName,
     original,
-    setValueOptions
   ) => {
     setValue(pointId, original.value);
     setValue(pointName, original.label);
@@ -172,24 +173,27 @@ const EditBusses = () => {
     setValue,
     formState: { errors },
   } = useForm({
-    // resolver: yupResolver(validationSchema),
+    resolver: yupResolver(validationSchema),
   });
   const handleSubmitForm = (data) => {
     delete data.service;
     // const seat_empty = data.seat - infoBusses.seat
-    alertify.confirm("Bạn có chắc chắn muốn cập nhật chuyến xe ?", async function () {
-      const newData= {...data, seat_empty : 10}
-      const res = await BusesService.updateBusses(id, newData);
-      if (res.status === 200) {
-        alertify.set("notifier", "position", "bottom-right");
-        alertify.success("Cập nhật thành công !")
-        history.push("/admin/buses");
-      }
-    }).set({ title: "Chuyến xe" })
-    .set("movable", false)
-    .set("ok", "Alright!")
-    .set("notifier", "position", "top-right");
+    alertify
+      .confirm("Bạn có chắc chắn muốn cập nhật chuyến xe ?", async function () {
+        const newData = { ...data, seat_empty: 10 };
+        const res = await BusesService.updateBusses(id, newData);
+        if (res.status === 200) {
+          alertify.set("notifier", "position", "bottom-right");
+          alertify.success("Cập nhật thành công !");
+          history.push("/admin/buses");
+        }
+      })
+      .set({ title: "Chuyến xe" })
+      .set("movable", false)
+      .set("ok", "Alright!")
+      .set("notifier", "position", "top-right");
   };
+  console.log(errors);
   useEffect(() => {
     dispatch(actionGetService());
     dispatch(actionGetAllBusesTypes());
@@ -203,6 +207,10 @@ const EditBusses = () => {
                 return { value: elt.id, label: elt.name };
               })
             : [];
+        const serviceDefault = res.data.service.map((_elt) => {
+          return _elt.id;
+        });
+        setValue("service_id", serviceDefault);
         setInfoBusses(res.data);
         setUrlImage(res.data.image);
         setServiceValues(serviceFiler);
@@ -300,7 +308,9 @@ const EditBusses = () => {
             <div className="tw-relative tw-flex tw-flex-col tw-min-w-0 tw-break-words tw-w-full tw-mb-6 tw-shadow-lg tw-rounded-lg bg-blueGray-100 tw-border-0">
               <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-px-6 tw-py-6 ">
                 <div className="tw-text-center tw-flex tw-justify-between">
-                <span className="tw-uppercase tw-text-2xl">Cập nhật chuyến xe</span>
+                  <span className="tw-uppercase tw-text-2xl">
+                    Cập nhật chuyến xe
+                  </span>
                   <button
                     className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
                     type="button"
@@ -421,8 +431,8 @@ const EditBusses = () => {
                       </div>
                     </div>
                   </div>
-                   {/* =====time ==== */}
-                   <div className="tw-flex tw-flex-wrap">
+                  {/* =====time ==== */}
+                  <div className="tw-flex tw-flex-wrap">
                     <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
                       <div className="tw-relative tw-w-full tw-mb-3">
                         <label
@@ -470,7 +480,12 @@ const EditBusses = () => {
                         >
                           Ngày dừng hoạt động
                         </label>
-                        <DatePicker className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"  dateFormat="dd/MM/yyyy" onChange={(date) =>handleChangeInActive(date)} selected={inDateActive}  />
+                        <DatePicker
+                          className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"
+                          dateFormat="dd/MM/yyyy"
+                          onChange={(date) => handleChangeInActive(date)}
+                          selected={inDateActive}
+                        />
                       </div>
                     </div>
                   </div>
