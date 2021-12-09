@@ -36,6 +36,8 @@ export const API_USER_ADMIN = "/userAdmin"
 
 export const API_NEWS = "/news"
 
+export const API_SEARCH_TICKET = "/searchTK"
+
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0
 }
@@ -43,7 +45,7 @@ export const numberWithCommas = (number) =>{
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-const { faChartArea, faCar, faBus  , faCertificate, faNewspaper, faStar ,faHome, faTicketAlt, faPercent, faAddressCard, faPhone , faHandshake , faUserAlt , faSignOutAlt , faUser , faBroadcastTower  } = icon
+const { faChartArea, faCar, faBus, faSearch, faCertificate, faNewspaper, faStar ,faHome, faTicketAlt, faPercent, faAddressCard, faPhone , faHandshake , faUserAlt , faSignOutAlt , faUser , faBroadcastTower  } = icon
 const { faAddressBook } = iconRegular
 //==============href NAV MENU=============
 export const NAV_LINK_LIST = [
@@ -58,18 +60,18 @@ export const NAV_LINK_LIST = [
         icon: faCar
     },
     {
-        label: "Xe 16 chỗ",
-        href: "/new",
-        icon: faBus
+        label: "Tra cứu vé xe",
+        link: "/ticket/search",
+        icon: faSearch
     },
     {
         label: "Liên hệ",
-        href: "/contact",
+        link: "/contact",
         icon: faPhone
     },
     {
         label: "Tin tức",
-        href: "/new",
+        link: "/new",
         icon: faNewspaper
     }
 ]

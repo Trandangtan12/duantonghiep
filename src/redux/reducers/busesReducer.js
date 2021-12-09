@@ -4,13 +4,15 @@ import {
   ACTION_GET_ALL_SERVICE,
   ACTION_GET_ORDER,
   ACTION_SEARCH_BUSES,
+  ACTION_SEARCH_TICKET,
 } from "../actions/buses";
 const initialState = {
   availableBuses: [],
   availableService: [],
   availableBusesTypes: [],
   availableSearch : [],
-  availableOrder : []
+  availableOrder : [],
+  availableSearchTicket: []
 };
 const busesReducers = (state = initialState, action) => {
   switch (action.type) {
@@ -38,6 +40,11 @@ const busesReducers = (state = initialState, action) => {
       return{
         ...state,
         availableOrder : action.payload
+      }
+      case ACTION_SEARCH_TICKET: 
+      return {
+        ...state,
+        availableSearchTicket: action.payload
       }
     default:
       return state;

@@ -36,6 +36,7 @@ const Routes = () => {
   const EditBusses = lazy(() => import("../pages/private/buses/editBusses"))
   const PageNotFound = lazy(() => import("../pages/PageNotFound"))
   const Ticket = lazy(() => import("../pages/public/ticketPage"))
+  const TicketSearch = lazy(() => import("../pages/public/ticketPage/ticketSearch"))
   const Service = lazy(() => import("../pages/private/service"))
   const BusesType = lazy(() => import("../pages/private/vehicleType"))
   const CretaeService = lazy(() => import("../pages/private/service/CreateSevice"))
@@ -106,6 +107,7 @@ const Routes = () => {
                       <UserDashBoard/>
                     </PrivateRouterPublic>
                     <Route exact path="/ticket" component={Ticket} />
+                    <Route exact path="/ticket/search" component={TicketSearch} />
                     <Route exact path="*" component={PageNotFound} />
                   </Switch>
                 </LayoutWebsite>

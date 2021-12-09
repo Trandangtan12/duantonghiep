@@ -7,6 +7,7 @@ import {
   API_GET_SERVICE,
   API_PAYMENT,
   API_SEARCH,
+  API_SEARCH_TICKET,
   API_SEND_EMAIL,
   API_TICKET,
 } from "../config";
@@ -39,6 +40,9 @@ export const BusesService = {
     return HttpClient.get(
       `${API_SEARCH}?startPointId=${start}&endPointId=${end}&date_active=${date_active}`
     );
+  },
+  searchTicketCode(ticket_code) {
+    return HttpClient.get(`${API_SEARCH_TICKET}?ticket_code=${ticket_code}`)
   },
   addTicket(data) {
     return HttpClient.post("/ticket", data);
