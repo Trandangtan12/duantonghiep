@@ -69,6 +69,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
       }
       if (currentRadioValue === "OFFLINE" && qty < 3 && sucess !== true) {
         localStorage.setItem('deposit', false)
+        localStorage.setItem('paymentMethod', "OFFLINE")
         const ticket = {
           ...data,
           quantity: qty,
@@ -91,6 +92,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
 
       } else if (currentRadioValue === "OFFLINE" && qty >= 3) {
         localStorage.setItem('deposit', true)
+        localStorage.setItem('paymentMethod', "OFFLINE")
         const ticket = {
           ...data,
           quantity: qty,
@@ -120,6 +122,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
       else if (
         currentRadioValue === "OFFLINE" && sucess === true) {
         localStorage.setItem('deposit', true)
+        localStorage.setItem('paymentMethod', "OFFLINE")
         const ticket = {
           ...data,
           quantity: qty,
@@ -148,6 +151,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
       }
       else if (currentRadioValue === "ATM" && sucess === true) {
         localStorage.setItem('deposit', false)
+        localStorage.setItem('paymentMethod', "ATM")
         const ticket = {
           ...data,
           quantity: qty,
@@ -174,6 +178,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
       }
       else {
         localStorage.setItem('deposit', false)
+        localStorage.setItem('paymentMethod', "ATM")
         const ticket = {
           ...data,
           quantity: qty,
