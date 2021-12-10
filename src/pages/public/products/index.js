@@ -7,7 +7,9 @@ import { actionGetBuses, actionSearchBuses } from '../../../redux/actions/buses'
 import { useParams } from "react-router";
 import moment from "moment";
 import { ProvinceService } from "../../../service/provinceService";
-
+import { isMobile } from 'mobile-device-detect';
+import MobileComponent from "./MobileComponent";
+import DesktopComponent from "./DesktopComponent";
 const Products = () => {
     const { start, end, date } = useParams()
     const dispatch = useDispatch();
@@ -212,52 +214,81 @@ const Products = () => {
 
     return (
         <div className="">
-            <UpdateSearch />
-            <div className="tw-relative tw-z-10 tw-w-3/4 tw-mx-auto tw-my-5">
-                {/* {filterProduct.length == 0 ? ListError() : */}
-                <div className="tw-flex">
-                    <SearchFilter
-                        activeFilter={activeFilter}
-                        districtStart={districtStart}
-                        districtEnd={districtEnd}
-                        products={availableSearch}
-                        time={time}
-                        qtyFilter={qtyFilter}
-                        price={price}
-                        timeMoning={timeMoning}
-                        timeLunch={timeLunch}
-                        timeAfternoon={timeAfternoon}
-                        timeNight={timeNight}
-                        onChange={onChange}
-                        onRemoveChange={onRemoveChange}
-                        qtyFilter={qtyFilter}
-                        onIncreateQty={increateQty}
-                        onDecreateQty={decreateQty}
-                        checkedMoning={checkedMoning}
-                        checkedLunch={checkedLunch}
-                        checkedAfternoon={checkedAfternoon}
-                        checkedNigth={checkedNigth}
-                        handleCheckedMoning={handleCheckedMoning}
-                        handleCheckedLunch={handleCheckedLunch}
-                        handleCheckedAfternoon={handleCheckedAfternoon}
-                        handleCheckedNigth={handleCheckedNigth}
-                        onChangeFilterCheckBox={onChangeFilterCheckBox}
-                    />
-                    <ProductList
-                        products={availableSearch}
-                        productFilter={filterProduct}
-                        price={price}
-                        qtyFilter={qtyFilter}
-                        checkedMoning={checkedMoning}
-                        checkedLunch={checkedLunch}
-                        checkedAfternoon={checkedAfternoon}
-                        checkedNigth={checkedNigth}
-                        timeFilter={time}
-                    />
-                </div>
-                {/* } */}
-
-            </div>
+            {isMobile ? <MobileComponent 
+             activeFilter={activeFilter}
+             districtStart={districtStart}
+             districtEnd={districtEnd}
+             products={availableSearch}
+             time={time}
+             qtyFilter={qtyFilter}
+             price={price}
+             timeMoning={timeMoning}
+             timeLunch={timeLunch}
+             timeAfternoon={timeAfternoon}
+             timeNight={timeNight}
+             onChange={onChange}
+             onRemoveChange={onRemoveChange}
+             qtyFilter={qtyFilter}
+             onIncreateQty={increateQty}
+             onDecreateQty={decreateQty}
+             checkedMoning={checkedMoning}
+             checkedLunch={checkedLunch}
+             checkedAfternoon={checkedAfternoon}
+             checkedNigth={checkedNigth}
+             handleCheckedMoning={handleCheckedMoning}
+             handleCheckedLunch={handleCheckedLunch}
+             handleCheckedAfternoon={handleCheckedAfternoon}
+             handleCheckedNigth={handleCheckedNigth}
+             onChangeFilterCheckBox={onChangeFilterCheckBox}
+             
+             products={availableSearch}
+             productFilter={filterProduct}
+             price={price}
+             qtyFilter={qtyFilter}
+             checkedMoning={checkedMoning}
+             checkedLunch={checkedLunch}
+             checkedAfternoon={checkedAfternoon}
+             checkedNigth={checkedNigth}
+             timeFilter={time}
+            /> : <DesktopComponent 
+            activeFilter={activeFilter}
+            districtStart={districtStart}
+            districtEnd={districtEnd}
+            products={availableSearch}
+            time={time}
+            qtyFilter={qtyFilter}
+            price={price}
+            timeMoning={timeMoning}
+            timeLunch={timeLunch}
+            timeAfternoon={timeAfternoon}
+            timeNight={timeNight}
+            onChange={onChange}
+            onRemoveChange={onRemoveChange}
+            qtyFilter={qtyFilter}
+            onIncreateQty={increateQty}
+            onDecreateQty={decreateQty}
+            checkedMoning={checkedMoning}
+            checkedLunch={checkedLunch}
+            checkedAfternoon={checkedAfternoon}
+            checkedNigth={checkedNigth}
+            handleCheckedMoning={handleCheckedMoning}
+            handleCheckedLunch={handleCheckedLunch}
+            handleCheckedAfternoon={handleCheckedAfternoon}
+            handleCheckedNigth={handleCheckedNigth}
+            onChangeFilterCheckBox={onChangeFilterCheckBox}
+            
+            products={availableSearch}
+            productFilter={filterProduct}
+            price={price}
+            qtyFilter={qtyFilter}
+            checkedMoning={checkedMoning}
+            checkedLunch={checkedLunch}
+            checkedAfternoon={checkedAfternoon}
+            checkedNigth={checkedNigth}
+            timeFilter={time}
+            />}
+            
+           
         </div>
     )
 }

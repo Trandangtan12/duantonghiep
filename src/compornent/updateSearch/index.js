@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import SelectFormProduct from "../selectForm/selectFormProduct";
 import { actionGetBuses, actionSearchBuses, ACTION_SEARCH_BUSES } from "../../redux/actions/buses";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProvince } from "../../redux/actions/province";
 import { useHistory, useParams } from "react-router";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import alertify from "alertifyjs";
 import moment from "moment";
-import { BusesService } from "../../service/productService";
+import { isMobile } from 'mobile-device-detect';
+import MobileComponent from "./MobileComponent";
+import DesktopComponent from "./DesktopComponent";
 
-const UpdateSearch = () => {
+const UpdateSearch = (props) => {
+  const { handleOpenFilterMobile} = props
   const dispatch = useDispatch();
   const { city } = useSelector((state) => state.province);
   const provinceFilter = city.map((city) => {
@@ -62,41 +63,31 @@ const UpdateSearch = () => {
   }, []);
   return (
     <div className="tw-bg-green-500">
-      <div className="formTrip tw-relative tw-z-20 tw-flex tw-items-center tw-w-3/4 tw-mx-auto">
-        <div className="tw-flex tw-flex-grow tw tw-items-center tw-h-20 ">
-          <div className="tw-w-full tw-mr-2">
-            <p className="tw-text-white">Điểm đi</p>
-            <SelectFormProduct
-              placeholder={provinceFilterStart}
-              className="tw-text-black tw-cursor-text"
-              options={provinceFilter}
-              onChange={handleChangeStartPoint}
-            // fieldName="startPointId"
-            />
-          </div>
-          <div className="tw-w-full tw-mr-2">
-            <p className="tw-text-white">Điếm đến</p>
-            <SelectFormProduct
-              placeholder={provinceFilterEnd}
-              className="tw-text-black tw-cursor-text"
-              options={provinceFilter}
-              onChange={handleChangeEndPoint}
-            // fieldName="startPointId"
-            />
-          </div>
-          <div>
-            <p className="tw-text-white ">Ngày đi</p>
-            <DatePicker className="tw-p-2 tw-rounded-lg tw-bg-green-700 tw-text-white" selected={startDate}
-              onChange={handleChangeStartTime} dateFormat="dd/MM/yyyy" minDate={TODAY} />
-          </div>
-        </div>
-        <button onClick={() => handleSearch()}
-          className="tw-flex tw-flex-col tw-justify-center tw-ml-2 tw-items-center tw-h-12 tw-text-red-800 
-       tw-bg-white tw-text-xl tw-px-4 tw-font-bold tw-rounded-lg tw-shadow-lg tw-mt-4"
-        >
-          Tìm kiếm
-        </button>
-      </div>
+      <>{isMobile ? <MobileComponent
+        provinceFilterStart={provinceFilterStart}
+        provinceFilter={provinceFilter}
+        handleChangeStartPoint={handleChangeStartPoint}
+        provinceFilterEnd={provinceFilterEnd}
+        provinceFilter={provinceFilter}
+        handleChangeEndPoint={handleChangeEndPoint}
+        handleChangeStartTime={handleChangeStartTime}
+        startDate={startDate}
+        TODAY={TODAY}
+        handleSearch={handleSearch}
+        handleOpenFilterMobile={handleOpenFilterMobile}
+      /> :
+        <DesktopComponent
+          provinceFilterStart={provinceFilterStart}
+          provinceFilter={provinceFilter}
+          handleChangeStartPoint={handleChangeStartPoint}
+          provinceFilterEnd={provinceFilterEnd}
+          provinceFilter={provinceFilter}
+          handleChangeEndPoint={handleChangeEndPoint}
+          handleChangeStartTime={handleChangeStartTime}
+          startDate={startDate}
+          TODAY={TODAY}
+        />}</>
+
     </div>
   );
 };

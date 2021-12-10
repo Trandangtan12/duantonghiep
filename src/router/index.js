@@ -89,7 +89,7 @@ const Routes = () => {
             </LayoutAdmin>
           </PrivateRouterAdmin>
           <Route>
-            <div className="tw-flex tw-flex-col tw-h-screen">
+            <div className="tw-flex tw-w-full tw-flex-col tw-h-screen">
               <Header />
               
               <div className="tw-flex tw-flex-grow">
