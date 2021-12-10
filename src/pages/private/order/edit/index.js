@@ -9,6 +9,8 @@ import { actionGetBuses } from "../../../../redux/actions/buses";
 import SelectForm from "../../../../compornent/selectForm";
 import TextArea from "../../../../compornent/textarea";
 import { ACTIVED, ATM, OFFLINE, WAITING_ACTIVE } from "../utility";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from 'yup';
 const EditTicket = () => {
   const {id} = useParams()
   const [ticketInfo, setTicketInfo] = useState({});
@@ -24,12 +26,18 @@ const EditTicket = () => {
       price : _elt.price
     };
   });
+  const validationSchema = Yup.object().shape({
+    buses_id : Yup.string().required()
+  })
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({});
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+  console.log(errors);
   const history = useHistory();
   const handleAddTicket = async (data) => {
     console.log(data);  
@@ -181,11 +189,12 @@ const EditTicket = () => {
                           closeMenuOnSelect={false}
                           onChange={(original) => {
                             setBusesSelect(original);
+                            setValue("buses_id",original.value)
                           }}
                           placeholder={"Chọn chuyến xe"}
                           className="tw-border-[1px] tw-rounded-md tw-border-green-600"
                           errors={errors}
-                          fieldName={"busses"}
+                          fieldName={"buses_id"}
                         />
                       </div>
                     </div>
