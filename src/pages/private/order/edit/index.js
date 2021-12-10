@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router";
+import { useHistory , useParams } from "react-router";
 import { BusesService } from "../../../../service/productService";
 import { UserApi } from "../../../../service/userService";
 import Input from "../../../../compornent/admin/input/Input";
@@ -9,7 +9,9 @@ import { actionGetBuses } from "../../../../redux/actions/buses";
 import SelectForm from "../../../../compornent/selectForm";
 import TextArea from "../../../../compornent/textarea";
 import { ACTIVED, ATM, OFFLINE, WAITING_ACTIVE } from "../utility";
-const CreateTicket = () => {
+const EditTicket = () => {
+  const {id} = useParams()
+  const [ticketInfo, setTicketInfo] = useState({});
   const { user } = UserApi.isAuthenticated();
   const dispatch = useDispatch();
   const [paymentMethodType, setPaymentMethodType] = useState(WAITING_ACTIVE);
@@ -25,11 +27,12 @@ const CreateTicket = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({});
   const history = useHistory();
   const handleAddTicket = async (data) => {
-    console.log(data);
+    console.log(data);  
     const totalPrice = busesSelect.price * data.quantity 
     const newData = {
       ...data,
@@ -38,14 +41,28 @@ const CreateTicket = () => {
       paymentMethod :paymentMethodType === ACTIVED ? ATM : OFFLINE,
       totalPrice : totalPrice,
     };
-    const resTicket = await BusesService.addTicket(newData)   
-    if (resTicket.status === 201) {
+    const resTicket = await BusesService.updateTicket(id,newData)   
+    if (resTicket.status === 200) {
       await BusesService.sendEmail(resTicket.data.id)
       history.push("/admin/order")
     }
   };
   useEffect(() => {
+
     dispatch(actionGetBuses());
+    const getInfoTicket = async () =>{
+      const resInfo = await BusesService.getInfoTicket(id)
+      if (resInfo.status === 200) {
+        setTicketInfo(resInfo.data);
+        setValue("customer_name", resInfo.data.customer_name)
+        setValue("description", resInfo.data.description)
+        setValue("email", resInfo.data.email)
+        setValue("identity_card", resInfo.data.identity_card)
+        setValue("phone_number", resInfo.data.phone_number)
+        setValue("quantity", resInfo.data.quantity)
+      }
+    }
+    getInfoTicket()
   }, []);
   return (
     <>
@@ -56,6 +73,7 @@ const CreateTicket = () => {
               <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-px-6 tw-py-6 ">
                 <div className="tw-text-center tw-flex tw-justify-between">
                 <span className="tw-uppercase tw-text-2xl">Cập nhật vé xe</span>
+
                   <button
                     className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
                     type="button"
@@ -77,10 +95,11 @@ const CreateTicket = () => {
                           lable="Tên khách hàng"
                           placeholder="Tên khách hàng"
                           type="text"
+                          defaultValues={ticketInfo.customer_name}
                           register={register}
                           fieldName={"customer_name"}
                           errors={errors}
-                          required={true}
+                          // required={true}
                           messageErrors={"Vui lòng nhập thông tin"}
                         />
                       </div>
@@ -91,10 +110,11 @@ const CreateTicket = () => {
                           lable="Email"
                           placeholder="Email"
                           type="text"
+                          defaultValues={ticketInfo.email}
                           register={register}
                           fieldName={"email"}
                           errors={errors}
-                          required={true}
+                          // required={true}
                           messageErrors={"Vui lòng nhập thông tin"}
                         />
                       </div>
@@ -109,8 +129,9 @@ const CreateTicket = () => {
                           type="text"
                           register={register}
                           fieldName={"phone_number"}
+                          defaultValues={ticketInfo.phone_number}
                           errors={errors}
-                          required={true}
+                          // required={true}
                           messageErrors={"Vui lòng nhập thông tin"}
                         />
                       </div>
@@ -123,8 +144,9 @@ const CreateTicket = () => {
                           type="text"
                           register={register}
                           fieldName={"identity_card"}
+                          defaultValues={ticketInfo.identity_card}
                           errors={errors}
-                          required={true}
+                          // required={true}
                           messageErrors={"Vui lòng nhập thông tin"}
                         />
                       </div>
@@ -136,12 +158,12 @@ const CreateTicket = () => {
                         <Input
                           lable="Số lượng"
                           placeholder="Số lượng"
+                          defaultValues={ticketInfo.quantity}
                           type="text"
-                          defaultValues={"1"}
                           register={register}
                           fieldName={"quantity"}
                           errors={errors}
-                          required={true}
+                          // required={true}
                           messageErrors={"Vui lòng nhập thông tin"}
                         />
                       </div>
@@ -232,4 +254,4 @@ const CreateTicket = () => {
   );
 };
 
-export default CreateTicket;
+export default EditTicket;
