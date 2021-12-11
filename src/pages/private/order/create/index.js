@@ -4,10 +4,12 @@ import { useHistory } from "react-router";
 import { BusesService } from "../../../../service/productService";
 import { UserApi } from "../../../../service/userService";
 import Input from "../../../../compornent/admin/input/Input";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetBuses } from "../../../../redux/actions/buses";
 import SelectForm from "../../../../compornent/selectForm";
 import TextArea from "../../../../compornent/textarea";
+import * as Yup from 'yup';
 import { ACTIVED, ATM, OFFLINE, WAITING_ACTIVE } from "../utility";
 const CreateTicket = () => {
   const { user } = UserApi.isAuthenticated();
@@ -22,14 +24,19 @@ const CreateTicket = () => {
       price : _elt.price
     };
   });
+  const validationSchema = Yup.object().shape({
+    buses_id : Yup.string().required()
+  })
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({});
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+  console.log(errors);
   const history = useHistory();
   const handleAddTicket = async (data) => {
-    console.log(data);
     const totalPrice = busesSelect.price * data.quantity 
     const newData = {
       ...data,
@@ -163,7 +170,7 @@ const CreateTicket = () => {
                           placeholder={"Chọn chuyến xe"}
                           className="tw-border-[1px] tw-rounded-md tw-border-green-600"
                           errors={errors}
-                          fieldName={"busses"}
+                          fieldName={"buses_id"}
                         />
                       </div>
                     </div>
