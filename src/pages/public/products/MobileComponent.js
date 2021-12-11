@@ -39,7 +39,7 @@ const MobileComponent = (props) => {
             <UpdateSearch  handleOpenFilterMobile={handleOpenFilterMobile}/>
             <div className={`tw-transition tw-duration-500 tw-ease-in-out tw-delay-150
             ${openFilterMobile ? "tw-translate-x-0" : "tw--translate-x-80"}
-            tw-fixed tw-z-50 tw-top-0 tw-h-full tw-overflow-auto tw-bg-white`}>
+            tw-fixed tw-z-50 tw-top-0 tw-h-full tw-pl-3 tw-overflow-auto tw-bg-white`}>
                 <div className='tw-text-right'>
                 <span className='tw-p-4  tw-font-black' onClick={() => handleOpenFilterMobile()}>X</span>
                 </div>

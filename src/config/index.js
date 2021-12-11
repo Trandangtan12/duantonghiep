@@ -86,11 +86,13 @@ export const IsoStringConvert = (date) =>{
 export const MENU_BOTTOM_LIST = [
     {
         label: "Trang chủ",
-        icon: faHome
+        icon: faHome,
+        link: "/"
     },
     {
-        label: "Vé của bạn",
-        icon: faTicketAlt
+        label: "Vé của tôi",
+        icon: faTicketAlt,
+        link: "/ticket"
     },
     {
         label: "Ưu đãi",

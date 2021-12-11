@@ -36,7 +36,7 @@ const Routes = () => {
   const EditBusses = lazy(() => import("../pages/private/buses/editBusses"))
   const PageNotFound = lazy(() => import("../pages/PageNotFound"))
   const Ticket = lazy(() => import("../pages/public/ticketPage"))
-  const TicketSearch = lazy(() => import("../pages/public/ticketPage/ticketSearch"))
+  const TicketSearch = lazy(() => import("../pages/public/searchTicket"))
   const Service = lazy(() => import("../pages/private/service"))
   const BusesType = lazy(() => import("../pages/private/vehicleType"))
   const CretaeService = lazy(() => import("../pages/private/service/CreateSevice"))
