@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { MENU_BOTTOM_LIST, NAV_LINK_LIST } from "../../config";
+import UserMenuClient from "./UserMenuClient";
 
 const MobileComponent = () => {
     return (
@@ -27,6 +28,7 @@ const MobileComponent = () => {
                             </Link>
                         </div>
 
+                        <UserMenuClient />
                     </div>
                 </div>
             </div>
@@ -60,12 +62,16 @@ const MobileComponent = () => {
             <nav className="tw-fixed tw-bottom-0 tw-block tw-z-1 tw-w-full tw-opacity-[0.8] tw-bg-black">
                 <ul className="tw-flex tw-justify-around tw-content-end tw-px-2 tw-py-4">
                     {MENU_BOTTOM_LIST.map((item) => (
+                        <Link to={item.link}>
                         <li className="tw-flex tw-flex-col tw-justify-center">
+                            
                             <span className="tw-text-white tw-text-center">
                                 <FontAwesomeIcon icon={item.icon} />
                             </span>
                             <span className="tw-text-white tw-text-xs">{item.label}</span>
                         </li>
+                        </Link>
+
                     ))}
                 </ul>
             </nav>
