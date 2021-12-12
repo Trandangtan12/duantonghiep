@@ -3,12 +3,15 @@ import { useHistory } from "react-router";
 import { NewsService } from "../../../../service/news";
 import Input from "../../../../compornent/admin/input/Input";
 import { useForm } from "react-hook-form";
+import firebase from "../../../../firebase";
 import TextEditor from "../../../../compornent/textEditor";
 import { yupResolver } from "@hookform/resolvers/yup";
 import alertify from "alertifyjs";
 import { validationSchema } from "../hookFormConfig";
 const CreateNews = () => {
   const history = useHistory();
+  const [fileName, setFileName] = useState("");
+  const [urlImage, setUrlImage] = useState("https://via.placeholder.com/300");
   const {
     register,
     handleSubmit,
@@ -22,7 +25,11 @@ const CreateNews = () => {
   const handleSubmitForm = async (data) => {
     alertify
       .confirm("Bạn có chắc chắn muốn thêm bài viết ?", async function () {
-        const res = await NewsService.createNews(data);
+        const newData = {
+          ...data,
+          image : urlImage
+        }
+        const res = await NewsService.createNews(newData);
         if (res.status === 201) {
           history.push("/admin/news");
           alertify.success("Thêm bài viết thành công !");
@@ -34,6 +41,16 @@ const CreateNews = () => {
       .set("movable", false)
       .set("ok", "Alright!")
       .set("notifier", "position", "top-right");
+  };
+  const handleChangeImage = (e) => {
+    const file = e.target.files[0];
+    setFileName(file.name);
+    let storeRef = firebase.storage().ref(`news/${file.name}`);
+    storeRef.put(file).then((e) => {
+      storeRef.getDownloadURL().then(async (url, e) => {
+        setUrlImage(url);
+      });
+    });
   };
   return (
     <div>
@@ -52,6 +69,60 @@ const CreateNews = () => {
         </div>
       </div>
       <form onSubmit={handleSubmit(handleSubmitForm)}>
+        <div className="tw-mb-2 tw-flex tw-justify-between lg:tw-px-3 tw-px-3 tw-gap-2">
+          <div className="tw-w-full tw-flex tw-flex-wrap">
+            <div className="tw-w-full lg:tw-w-4/12">
+              <img
+                src={`${
+                  urlImage !== null
+                    ? urlImage
+                    : "https://via.placeholder.com/300"
+                }`}
+                className="tw-h-[339px]"
+              />
+            </div>
+            <div className="lg:tw-w-8/12">
+              <div className="tw-py-20 tw-h-[339px] tw-bg-gray-300 tw-px-2">
+                <div className="tw-max-w-md tw-mx-auto tw-bg-white tw-rounded-lg tw-overflow-hidden md:tw-max-w-lg">
+                  <div className="md:tw-flex">
+                    <div className="tw-w-full">
+                      <div className="tw-p-3">
+                        <div className="tw-mb-2">
+                          {" "}
+                          <div className="tw-relative tw-h-40 tw-rounded-lg tw-border-dashed tw-border-2 tw-border-gray-200 tw-bg-white tw-flex tw-justify-center tw-items-center hover:tw-cursor-pointer">
+                            <div className="tw-absolute">
+                              <div className="tw-flex tw-flex-col tw-items-center ">
+                                {" "}
+                                <span>{fileName}</span>
+                                <i className="fa fa-cloud-upload fa-3x tw-text-gray-200" />{" "}
+                                <span className="tw-block tw-text-blue-400 tw-font-normal">
+                                  Tải ảnh lên
+                                </span>{" "}
+                              </div>
+                            </div>{" "}
+                            <input
+                              onChange={handleChangeImage}
+                              type="file"
+                              className="tw-h-full tw-w-full tw-opacity-0"
+                              name
+                            />
+                          </div>
+                          <div className="tw-flex tw-justify-between tw-items-center tw-text-gray-400">
+                            {" "}
+                            <span>Accepted file type:.img only</span>{" "}
+                            <span className="tw-flex tw-items-center ">
+                              <i className="fa fa-lock tw-mr-1" /> secure
+                            </span>{" "}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="tw-mb-3 tw-px-6">
           <Input
             lable="Tiêu đề bài viết"

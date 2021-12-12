@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory , useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { BusesService } from "../../../../service/productService";
 import { UserApi } from "../../../../service/userService";
 import Input from "../../../../compornent/admin/input/Input";
@@ -10,25 +10,44 @@ import SelectForm from "../../../../compornent/selectForm";
 import TextArea from "../../../../compornent/textarea";
 import { ACTIVED, ATM, OFFLINE, WAITING_ACTIVE } from "../utility";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from 'yup';
+import * as Yup from "yup";
+import DatePickerForm from "../../../../compornent/datePicker";
+import moment from "moment";
 const EditTicket = () => {
-  const {id} = useParams()
+  const { id } = useParams();
   const [ticketInfo, setTicketInfo] = useState({});
+  const [startDate, setStartDate] = useState(new Date());
   const { user } = UserApi.isAuthenticated();
   const dispatch = useDispatch();
   const [paymentMethodType, setPaymentMethodType] = useState(WAITING_ACTIVE);
   const { availableBuses } = useSelector((state) => state.buses);
+  const [ticketDefalt, setTicketDefalt] = useState([]);
+  const [valueBusesDefault, setValueBusesDefault] = useState({});
   const [busesSelect, setBusesSelect] = useState();
-  const avaibleBussesSuggesstion = availableBuses.map((_elt) => {
-    return {
-      label: _elt.name,
-      value: _elt.id,
-      price : _elt.price
-    };
-  });
+  const handleChangeBusses = async (date) => {
+    setStartDate(date);
+    const dateBusses = moment(date).format("YYYY-MM-DD");
+    const timeBusses = moment(date).format("H:mm");
+    const resBusses = await BusesService.getBussesByTime(
+      ticketInfo.buses.startPointId,
+      ticketInfo.buses.endPointId,
+      dateBusses,
+      timeBusses
+    );
+    if (resBusses.status === 200) {
+      const busesArr = resBusses.data.map(_elt =>{
+        return {
+          label : _elt.name,
+          value : _elt.id,
+          price : _elt.price
+        }
+      })
+      setTicketDefalt(busesArr)
+    }
+  };
   const validationSchema = Yup.object().shape({
-    buses_id : Yup.string().required()
-  })
+    buses_id: Yup.string().required(),
+  });
   const {
     register,
     handleSubmit,
@@ -37,41 +56,52 @@ const EditTicket = () => {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
-  console.log(errors);
   const history = useHistory();
   const handleAddTicket = async (data) => {
-    console.log(data);  
-    const totalPrice = busesSelect.price * data.quantity 
+    const totalPrice = busesSelect.price * data.quantity;
     const newData = {
       ...data,
       buses_id: busesSelect.value,
-      status :  paymentMethodType,
-      paymentMethod :paymentMethodType === ACTIVED ? ATM : OFFLINE,
-      totalPrice : totalPrice,
+      status: paymentMethodType,
+      paymentMethod: paymentMethodType === ACTIVED ? ATM : OFFLINE,
+      totalPrice: totalPrice,
     };
-    const resTicket = await BusesService.updateTicket(id,newData)   
+    const resTicket = await BusesService.updateTicket(id, newData);
     if (resTicket.status === 200) {
-      await BusesService.sendEmail(resTicket.data.id)
-      history.push("/admin/order")
+      await BusesService.sendEmail(resTicket.data.id);
+      history.push("/admin/order");
     }
   };
   useEffect(() => {
-
     dispatch(actionGetBuses());
-    const getInfoTicket = async () =>{
-      const resInfo = await BusesService.getInfoTicket(id)
+    const avaibleBussesSuggesstion = availableBuses.map((_elt) => {
+      return {
+        label: _elt.name,
+        value: _elt.id,
+        price: _elt.price,
+      };
+    });
+    setTicketDefalt([]);
+    const getInfoTicket = async () => {
+      const resInfo = await BusesService.getInfoTicket(id);
       if (resInfo.status === 200) {
         setTicketInfo(resInfo.data);
-        setValue("customer_name", resInfo.data.customer_name)
-        setValue("description", resInfo.data.description)
-        setValue("email", resInfo.data.email)
-        setValue("identity_card", resInfo.data.identity_card)
-        setValue("phone_number", resInfo.data.phone_number)
-        setValue("quantity", resInfo.data.quantity)
+        setValue("customer_name", resInfo.data.customer_name);
+        setValue("description", resInfo.data.description);
+        setValue("email", resInfo.data.email);
+        setValue("identity_card", resInfo.data.identity_card);
+        setValue("phone_number", resInfo.data.phone_number);
+        setValue("quantity", resInfo.data.quantity);
+        const busesDefault = {
+          label : resInfo.data.buses.name,
+          value : resInfo.data.buses.id,
+          price : resInfo.data.buses.price
+        }
+        setValueBusesDefault(busesDefault)
       }
-    }
-    getInfoTicket()
-  }, []);
+    };
+    getInfoTicket();
+  }, [JSON.stringify(availableBuses)]);
   return (
     <>
       <div>
@@ -80,13 +110,15 @@ const EditTicket = () => {
             <div className="tw-relative tw-flex tw-flex-col tw-min-w-0 tw-break-words tw-w-full tw-mb-6 tw-shadow-lg tw-rounded-lg bg-blueGray-100 tw-border-0">
               <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-px-6 tw-py-6 ">
                 <div className="tw-text-center tw-flex tw-justify-between">
-                <span className="tw-uppercase tw-text-2xl">Cập nhật vé xe</span>
+                  <span className="tw-uppercase tw-text-2xl">
+                    Cập nhật vé xe
+                  </span>
 
                   <button
                     className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
                     type="button"
                     onClick={() => {
-                      history.push("/admin/buses");
+                      history.push("/admin/order");
                     }}
                   >
                     Quay lại
@@ -160,6 +192,20 @@ const EditTicket = () => {
                       </div>
                     </div>
                   </div>
+                  <div className="tw-px-4 tw-mb-2">
+                  <label
+                          className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+                          htmlfor="grid-password"
+                        >
+                         Thời gian bắt đầu
+                        </label>
+                    <DatePickerForm
+                      startDate={startDate}
+                      onChange={(date) => {
+                        handleChangeBusses(date);
+                      }}
+                    />
+                  </div>
                   <div className="tw-flex tw-flex-wrap">
                     <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
                       <div className="tw-relative tw-w-full tw-mb-3">
@@ -185,11 +231,13 @@ const EditTicket = () => {
                           Chọn chuyến xe
                         </label>
                         <SelectForm
-                          options={avaibleBussesSuggesstion}
+                        defaultValues={valueBusesDefault}
+                          options={ticketDefalt}
                           closeMenuOnSelect={false}
                           onChange={(original) => {
                             setBusesSelect(original);
-                            setValue("buses_id",original.value)
+                            setValue("buses_id", original.value);
+                            setValueBusesDefault(original)
                           }}
                           placeholder={"Chọn chuyến xe"}
                           className="tw-border-[1px] tw-rounded-md tw-border-green-600"

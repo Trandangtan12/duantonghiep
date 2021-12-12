@@ -34,7 +34,6 @@ const CreateTicket = () => {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
-  console.log(errors);
   const history = useHistory();
   const handleAddTicket = async (data) => {
     const totalPrice = busesSelect.price * data.quantity 
