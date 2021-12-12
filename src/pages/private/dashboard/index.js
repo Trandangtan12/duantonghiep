@@ -18,7 +18,10 @@ import {
 } from "../../../redux/actions/buses";
 import BarChart from "../../../compornent/admin/chart/BarChart";
 import { actionGetAllUsers } from "../../../redux/actions/user";
+import { statisticalService } from "../../../service/statistical";
 const DashBoard = () => {
+  const [staticsticalData, setStaticsticalData] = useState([])
+  console.log(staticsticalData);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const { avaibleUsers } = useSelector((state) => state.auth);
@@ -61,6 +64,16 @@ const DashBoard = () => {
     dispatch(actionGetAllBusesTypes());
     dispatch(actionGetTicket());
     dispatch(actionGetAllUsers());
+    const getStatistical = async() =>{
+      const res = await statisticalService.getDataBy30Day()
+      if (res.status === 200) {
+        const quantityData = res.data.map(_elt =>{
+          return _elt.qty_ticket
+        })
+        setStaticsticalData(quantityData)
+      }
+    }
+    getStatistical()
   }, []);
   return (
     <div>
@@ -228,7 +241,7 @@ const DashBoard = () => {
         </div>
       </div>
      
-      <BarChart />
+      <BarChart dataDefault={staticsticalData} />
     </div>
   );
 };
