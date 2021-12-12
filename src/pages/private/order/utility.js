@@ -4,6 +4,7 @@ export const REJECTED = "REJECTED"
 export const ATM = "ATM"
 export const OFFLINE = "OFFLINE"
 export const DEPOSIT = "DEPOSIT"
+export const DONE = "DONE"
 export const listFilterStatus = [
     {
         type : ACTIVED , 
@@ -20,6 +21,10 @@ export const listFilterStatus = [
     {
         type : DEPOSIT , 
         name : "Đã đặt cọc"
+    },
+    {
+        type : DONE , 
+        name : "Đã hoành thành"
     }
 ]
 

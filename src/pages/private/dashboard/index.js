@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import PaymentNotSuccess from '../../../asset/images/declined.png';
+import User from '../../../asset/images/group.png';
+import Money from '../../../asset/images/money.png';
+import Succes from '../../../asset/images/payment.png';
+import Ticket from '../../../asset/images/tickets.png';
+import Buses from '../../../asset/images/tour-bus.png';
 import { numberWithCommas } from "../../../config";
 import {
   actionGetAllBusesTypes,
@@ -7,14 +13,8 @@ import {
   actionGetService,
   actionGetTicket
 } from "../../../redux/actions/buses";
+import BarChart from '../../../compornent/admin/chart/BarChart'
 import { actionGetAllUsers } from "../../../redux/actions/user";
-import Money from '../../../asset/images/money.png'
-import User from '../../../asset/images/group.png'
-import Ticket from '../../../asset/images/tickets.png'
-import Buses from '../../../asset/images/tour-bus.png'
-import PaymentNotSuccess from '../../../asset/images/declined.png'
-import PaymentFail from '../../../asset/images/fail.png'
-import Succes from '../../../asset/images/payment.png'
 const DashBoard = () => {
   const { avaibleUsers } = useSelector((state) => state.auth);
   const { availableOrder } = useSelector((state) => state.buses);
@@ -176,31 +176,8 @@ const DashBoard = () => {
           </div>
           {/*/Metric Card*/}
         </div>
-        <div className="tw-w-full md:tw-w-1/2 xl:tw-w-1/3 tw-p-3">
-          {/*Metric Card*/}
-          <div className="tw-bg-green-600 tw-border tw-border-gray-800 tw-rounded-lg tw-shadow tw-p-2">
-            <div className="tw-flex tw-flex-row tw-items-center">
-              <div className="tw-flex-shrink tw-pr-4">
-                <div className="tw-rounded-lg tw-p-3 tw-bg-white">
-                <img src={PaymentFail} width="50"/>
-                </div>
-              </div>
-              <div className="tw-flex-1 tw-text-right md:tw-text-center">
-                <h5 className="tw-font-bold tw-uppercase tw-text-white">
-                  Số vé đã huỷ
-                </h5>
-                <h3 className="tw-font-bold tw-text-3xl tw-text-white">
-                  {filterTicketRejected.length} Vé
-                  <span className="tw-text-red-500">
-                    <i className="fas fa-caret-up" />
-                  </span>
-                </h3>
-              </div>
-            </div>
-          </div>
-          {/*/Metric Card*/}
-        </div>
       </div>
+      <BarChart />
     </div>
   );
 };

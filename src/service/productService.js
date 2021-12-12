@@ -89,6 +89,9 @@ export const BusesService = {
   depositedTicket(id){
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "DEPOSIT" });
   },
+  doneTicket(id){
+    return HttpClient.put(`${API_TICKET}/${id}`, { status: "DONE" });
+  },
   inActiveTicket(id){
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "WAITING_ACTIVE" });
   },
