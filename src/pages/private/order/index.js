@@ -3,14 +3,12 @@ import {
   faEdit,
   faMoneyCheck,
   faTimes,
-  faTrash,
+  faTrash
 } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
-import FileSaver from "file-saver";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -22,12 +20,9 @@ import ModalExportTicket from "./ModalExportTicket";
 import {
   ACTIVED,
   ATM,
-  DEPOSIT,
-  listFilterStatus,
-  OFFLINE,
-  DONE,
-  REJECTED,
-  WAITING_ACTIVE,
+  DEPOSIT, DONE, listFilterStatus,
+  OFFLINE, REJECTED,
+  WAITING_ACTIVE
 } from "./utility";
 
 const Order = () => {
@@ -36,12 +31,19 @@ const Order = () => {
   function openModal() {
     setIsOpen(true)
   }
-
+  const [isCancelTicket, setIsCancelTicket] = useState(false)
   const { availableOrder } = useSelector((state) => state.buses);
   const [ticketDefault, seTicketDefault] = useState([]);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
   const dependencies = [availableOrder.length ,history.location.pathname ,dispatchDependency];
   const [startDate, setStartDate] = useState(new Date());
+  const listTicketAvailable = availableOrder.filter(_elt =>{
+    return _elt.status !== REJECTED
+  })
+  const listTicketCancel = availableOrder.filter(_elt =>{
+    return _elt.status === REJECTED
+  })
+  console.log(listTicketCancel);
   const handleApprovalTicket = (id) => {
     alertify
       .confirm("Bạn có chắc chắn muốn thanh toán vé xe ?", async function () {
@@ -401,6 +403,15 @@ const Order = () => {
       <div className="tw-flex tw-justify-between">
         <span className="tw-uppercase tw-text-2xl">Quản lý vé xe</span>
         <div className="tw-mb-4">
+        <button
+            className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
+            type="button"
+            onClick={() => setIsCancelTicket(!isCancelTicket)}
+          >
+          {
+            isCancelTicket ? " Danh sách vé" : " Danh sách vé huỷ"
+          }
+          </button>
           {availableOrder.length !== 0 ? (
             <button
               className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none foc us:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
@@ -435,11 +446,18 @@ const Order = () => {
           onChange={handleFilterTicketByDate}
         />
       </div> */}
-      <Table
-        data={availableOrder}
+      {
+        !isCancelTicket ?  <Table
+        data={listTicketAvailable}
         columns={columns}
         ExpandableTable={ExpandableTable}
       />
+       : <Table
+        data={listTicketCancel}
+        columns={columns}
+        ExpandableTable={ExpandableTable}
+      />
+      }
       <ModalExportTicket isOpen={isOpen}  setIsOpen={setIsOpen} />
     </div>
   );
