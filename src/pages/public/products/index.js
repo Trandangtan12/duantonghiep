@@ -213,7 +213,7 @@ const Products = () => {
 
 
     return (
-        <div className="">
+        <>
             {isMobile ? <MobileComponent 
              activeFilter={activeFilter}
              districtStart={districtStart}
@@ -289,7 +289,7 @@ const Products = () => {
             />}
             
            
-        </div>
+        </>
     )
 }
 

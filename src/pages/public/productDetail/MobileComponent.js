@@ -13,8 +13,12 @@ const MobileComponent = (props) => {
     return (
         <div className="">
             <div className="tw-bg-green-500 tw-py-3">
-                <div className="tw-w-full tw-px-2 tw-flex tw-text-white">
-
+                <div className="tw-w-full tw-px-2 tw-flex tw-items-center tw-text-white">
+                    <div className='tw-px-4'>
+                        <Link to={`/product/start=${product.startPointId}/and/end=${product.endPointId}/and/date=${product.date_active}`}>
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                        </Link>
+                    </div>
                     <div>
                         <div className='tw-flex tw-font-bold'>
                             <p className='tw-w-40 tw-truncate'>{product.startPointName}, {product.startDistrict_name}, {product.startWard_name}</p>
@@ -56,7 +60,7 @@ const MobileComponent = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="tw-w-full tw-fixed tw-bottom-[4.5rem]">
+                    <div className="tw-w-full tw-fixed tw-bottom-0 tw-drop-shadow-2xl">
                         <div className="tw-rounded-lg tw-bg-white tw-p-3">
                             <div className="tw-flex tw-justify-between ">
                                 <h1 className="tw-font-bold tw-text-xl">Tổng thanh toán</h1>

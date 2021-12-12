@@ -16,9 +16,9 @@ const DesktopComponent = (props) => {
       }
     
     
-      const mapProduct = productFilter.map((item) => {
+      const mapProduct = productFilter.map((item, index) => {
         return (
-          <div className="tw-rounded-lg tw-bg-white tw-p-3 tw-mb-3 hover:tw-shadow-2xl tw-transition tw-ease-in-out">
+          <div key={index} className="tw-rounded-lg tw-bg-white tw-p-3 tw-mb-3 hover:tw-shadow-2xl tw-transition tw-ease-in-out">
             <div className="tw-flex tw-justify-between ">
               <div className="tw-flex">
                 <div className="tw-w-36 tw-h-36 tw-border tw-border-gray-200">
@@ -54,7 +54,7 @@ const DesktopComponent = (props) => {
                         </div>
                       </div>
                       <div className="tw-flex">
-                        <span className="tw-text-xl tw-font-bold">{moment(item.end_time).utc(true).format("HH:mm")}</span>
+                        <span className="tw-text-xl tw-font-bold">{`${moment(item.end_time).format("HH:mm")}`}</span>
                         <div className="tw-flex tw-items-center tw-ml-1">
                           <FontAwesomeIcon className="tw-text-[0.25rem] tw-mx-1" icon={faCircle} />
                           <p className="tw-text-gray-500 tw-text-sm">{item.endWard_name}</p>

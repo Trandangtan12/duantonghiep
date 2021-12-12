@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import SelectFormProduct from "../selectForm/selectFormProduct";
+import {
+    faArrowLeft,
+    faCircle, faDotCircle, faFilter, faSearch, faStar
+} from "@fortawesome/fontawesome-free-solid";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 const MobileComponent = (props) => {
     const { provinceFilterStart, provinceFilter, handleChangeStartPoint, provinceFilterEnd,
@@ -11,12 +17,18 @@ const MobileComponent = (props) => {
         <div >
             <div className="formTrip tw-relative tw-z-20 tw-items-center 
             tw-w-full tw-px-4 tw-py-2">
-                <div className="tw-flex tw-py-2 tw-justify-between">
-                    <h2 className='tw-text-white' onClick={() => setHidden(!hidden)}>
-                        Chọn điểm khác
+                <div className="tw-flex tw-py-2 tw-justify-between tw-items-center">
+                    <div className='tw-flex tw-items-center'>
+                    <div className='tw-pr-4'>
+                        <Link to="/"><FontAwesomeIcon className='tw-text-white' icon={faArrowLeft} /></Link>
+                    </div>
+                    <h2 className='tw-text-white tw-bg-green-700 tw-py-1 tw-px-2 tw-rounded-lg' onClick={() => setHidden(!hidden)}>
+                         <FontAwesomeIcon className='tw-text-white' icon={faSearch} /> Chọn điểm khác
                     </h2>
-                    <h2 onClick={() => handleOpenFilterMobile()} className='tw-text-white'>
-                        Lọc
+                   
+                    </div>
+                    <h2 onClick={() => handleOpenFilterMobile()} className='tw-text-white tw-bg-green-700 tw-py-1 tw-px-2 tw-rounded-lg'>
+                        Lọc <FontAwesomeIcon className='tw-text-white' icon={faFilter} />
                     </h2>
                 </div>
                

@@ -40,8 +40,8 @@ const MobileComponent = (props) => {
             <div className={`tw-transition tw-duration-500 tw-ease-in-out tw-delay-150
             ${openFilterMobile ? "tw-translate-x-0" : "tw--translate-x-80"}
             tw-fixed tw-z-50 tw-top-0 tw-h-full tw-pl-3 tw-overflow-auto tw-bg-white`}>
-                <div className='tw-text-right'>
-                <span className='tw-p-4  tw-font-black' onClick={() => handleOpenFilterMobile()}>X</span>
+                <div className='tw-text-right tw-my-2 tw-mx-4'>
+                <span className='tw-font-black tw-px-3 tw-py-2 tw-rounded-full tw-bg-gray-200' onClick={() => handleOpenFilterMobile()}>X</span>
                 </div>
                 <SearchFilter
                     activeFilter={activeFilter}

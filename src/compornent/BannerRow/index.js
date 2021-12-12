@@ -16,9 +16,9 @@ const BannerRow = () => {
       
        <div className="tw-bg-white tw-w-full tw-rounded-lg tw-shadow-lg tw-mr-5 tw-flex tw-flex-col">
         <div className="img">
-       <img src="https://gos3.ibcdn.com/cab3-new-1634741929.jpg" alt="" class="tw-object-cover tw-rounded-t-lg  tw-w-full"/>
+       <img src="https://gos3.ibcdn.com/cab3-new-1634741929.jpg" alt="" className="tw-object-cover tw-rounded-t-lg  tw-w-full"/>
        </div>
-       <div class="text tw-px-2">
+       <div className="text tw-px-2">
         {/* <p className="tw-text-sm">The Last React Carousel You'll Ever Need!
           This library is the port of jQuery slick library.</p> */}
           </div>
@@ -27,9 +27,9 @@ const BannerRow = () => {
 
        <div className="tw-bg-white tw-rounded-lg tw-w-full tw-shadow-lg tw-flex tw-flex-col">
         <div className="img">
-       <img src="https://gos3.ibcdn.com/img-1623818080.jpg" alt="" class="tw-object-cover tw-rounded-t-lg  tw-w-full"/>
+       <img src="https://gos3.ibcdn.com/img-1623818080.jpg" alt="" className="tw-object-cover tw-rounded-t-lg  tw-w-full"/>
        </div>
-       <div class="text tw-px-2">
+       <div className="text tw-px-2">
         {/* <p className="tw-text-sm">The Last React Carousel You'll Ever Need!
           This library is the port of jQuery slick library.</p> */}
           </div>

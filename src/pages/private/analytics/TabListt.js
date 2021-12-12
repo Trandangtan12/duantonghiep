@@ -32,9 +32,9 @@ export default function TabList() {
     <div className="tw-w-full sm:tw-px-0">
       <Tab.Group>
         <Tab.List className="tw-flex tw-p-1 tw-space-x-1 bg-blue-900/20 tw-rounded-xl tw-bg-gray-800">
-          {Object.keys(categories).map((category) => (
+          {Object.keys(categories).map((category, index) => (
             <Tab
-              key={category}
+              key={index}
               className={({ selected }) =>
                 classNames(
                   "tw-w-full tw-py-2.5 tw-text-sm tw-leading-5 tw-font-medium tw-text-blue-700 tw-rounded-lg",
@@ -50,9 +50,9 @@ export default function TabList() {
           ))}
         </Tab.List>
         <Tab.Panels className="tw-mt-2">
-          {Object.values(categories).map((posts, idx) => (
+          {Object.values(categories).map((posts, index) => (
             <Tab.Panel
-              key={idx}
+              key={index}
               className={classNames(
                 "tw-bg-white tw-rounded-xl tw-p-3",
                 "focus:tw-outline-none focus:tw-ring-2 tw-ring-offset-2 tw-ring-offset-blue-400 tw-ring-white tw-ring-opacity-60"
