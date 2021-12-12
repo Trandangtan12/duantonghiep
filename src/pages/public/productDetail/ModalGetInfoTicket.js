@@ -116,7 +116,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           await BusesService.updateBusses(product.id, updateBuses)
         }
 
-        setIsOpenModal(false);
       }
       else if (
         currentRadioValue === "OFFLINE" && sucess === true) {
@@ -146,7 +145,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           await BusesService.updateBusses(product.id, updateBuses)
         }
 
-        setIsOpenModal(false);
       }
       else if (currentRadioValue === "ATM" && sucess === true) {
         localStorage.setItem('deposit', false)
@@ -173,7 +171,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           setIsOpenModal(false);
           await BusesService.updateBusses(product.id, updateBuses)
         }
-        setIsOpenModal(false);
       }
       else {
         localStorage.setItem('deposit', false)
@@ -199,7 +196,6 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
           setIsOpenModal(false);
           await BusesService.updateBusses(product.id, updateBuses)
         }
-        setIsOpenModal(false);
       }
     } catch (error) {
       setIsOpenModal(true);
@@ -245,12 +241,18 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
               leaveTo="tw-opacity-0 tw-scale-95"
             >
               <div className="tw-inline-block tw-w-full tw-max-w-lg tw-p-6 tw-my-8 tw-overflow-hidden tw-text-left tw-align-middle tw-transition-all tw-transform tw-bg-white tw-shadow-xl tw-rounded-2xl">
+                <div className="tw-flex tw-justify-between tw-items-center">
                 <Dialog.Title
                   as="h3"
                   className="tw-text-lg tw-font-medium tw-leading-6 tw-text-gray-900"
                 >
                   Thông tin thanh toán
                 </Dialog.Title>
+                <div>
+                  <button onClick={() => setIsOpenModal(false)} type="button" className="tw-text-xl">x</button>
+                </div>
+                </div>
+               
                 <form className="tw-w-full tw-max-w-lg" onSubmit={handleSubmit(handlePayTicket)}>
                   <input type="hidden" {...register("user_id")} defaultValue={user == null ? "" : user.id} />
                   <input type="hidden" {...register("buses_id")} defaultValue={product.id} />

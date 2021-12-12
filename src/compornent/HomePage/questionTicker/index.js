@@ -9,8 +9,8 @@ const QuestionTicker = () => {
       </h2>
       <div className="tw-py-9 tw-px-5 tw-bg-white tw-shadow-lg tw-rounded-lg">
         <ul>
-          {QuestionList.map((item) => (
-            <li className="tw-pb-[5rem]">
+          {QuestionList.map((item, index) => (
+            <li key={index} className="tw-pb-[5rem]">
               <h3 className="tw-text-[1.125rem] tw-pb-[1.5rem]">
                 {item.title}
               </h3>

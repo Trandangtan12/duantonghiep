@@ -14,6 +14,7 @@ const SignUp = () => {
     const [error, setError] = useState("")
     const password = useRef({})
     password.current = watch("password")
+    const [loading, setLoading] = useState("")
     const onHandleSubmit = async (data, e) => {
         const newUser = {
             ...data,
@@ -25,7 +26,7 @@ const SignUp = () => {
                     if (dataUser.data.error) {
                         setError(dataUser.data.error);
                     } else {
-                        history.push("/signin")
+                       setLoading("Đã gửi mail xác thực! Hãy vào hộp thư mail của bạn và xác nhận!!!")
                     }
                 })
 
@@ -55,6 +56,12 @@ const SignUp = () => {
                             className="tw-block tw-bg-red-200 tw-text-red-500 tw-border tw-border-red-light tw-w-full tw-p-3 tw-rounded tw-mb-4"
                         >
                             {error}
+                        </div>
+                        <div
+                            style={{ display: loading ? "block" : "none" }}
+                            className="tw-block tw-bg-green-200 tw-text-green-600 tw-border tw-border-red-light tw-w-full tw-p-3 tw-rounded tw-mb-4"
+                        >
+                            {loading}
                         </div>
 
 

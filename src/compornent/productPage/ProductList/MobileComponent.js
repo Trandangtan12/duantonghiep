@@ -16,16 +16,16 @@ const MobileComponent = (props) => {
     }
 
 
-    const mapProduct = productFilter.map((item) => {
+    const mapProduct = productFilter.map((item, index) => {
         return (
-            <div className="tw-rounded-lg tw-bg-white tw-mb-3">
+            <div key={index} className="tw-rounded-lg tw-bg-white tw-mb-3">
                 <div className='tw-p-3 tw-border-b-2 tw-border-gray-200'>
                     <div className='tw-flex '>
                         <p className='tw-text-3xl tw-font-black tw-mr-2'>{item.start_time}</p>
                         <div className='tw-flex tw-items-center tw-flex-1'>
                             <FontAwesomeIcon icon={faDotCircle} className='tw-text-xs tw-text-green-600' />
                             <div className='tw-flex-1 tw-border-solid tw-border-b tw-border-gray-400'></div>
-                            <p class="tw-text-sm tw-px-2">{item.range_time} giờ</p>
+                            <p className="tw-text-sm tw-px-2">{item.range_time} giờ</p>
 
                             <div className='tw-flex-1 tw-border-solid tw-border-b tw-border-gray-400'></div>
                             <FontAwesomeIcon icon={faDotCircle} className='tw-text-xs tw-text-red-500' />

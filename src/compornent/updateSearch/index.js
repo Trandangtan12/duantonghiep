@@ -84,6 +84,7 @@ const UpdateSearch = (props) => {
           provinceFilter={provinceFilter}
           handleChangeEndPoint={handleChangeEndPoint}
           handleChangeStartTime={handleChangeStartTime}
+          handleSearch={handleSearch}
           startDate={startDate}
           TODAY={TODAY}
         />}</>

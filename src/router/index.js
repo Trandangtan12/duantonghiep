@@ -91,10 +91,7 @@ const Routes = () => {
             </LayoutAdmin>
           </PrivateRouterAdmin>
           <Route>
-            <div className="tw-flex tw-w-full tw-flex-col tw-h-screen">
-              <Header />
-              
-              <div className="tw-flex tw-flex-grow">
+            
                 <LayoutWebsite>
                   <Switch>
                     <Route exact path="/" component={HomePages} />
@@ -113,9 +110,7 @@ const Routes = () => {
                     <Route exact path="*" component={PageNotFound} />
                   </Switch>
                 </LayoutWebsite>
-              </div>
-              <Footer />
-            </div>
+              
           </Route>
         </Switch>
       </Suspense>

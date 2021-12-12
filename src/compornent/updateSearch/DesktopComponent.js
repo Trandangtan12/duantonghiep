@@ -34,7 +34,7 @@ const DesktopComponent = (props) => {
                         onChange={handleChangeStartTime} dateFormat="dd/MM/yyyy" minDate={TODAY} />
                 </div>
             </div>
-            <button onClick={() => handleSearch()}
+            <button onClick={handleSearch}
                 className="tw-flex tw-flex-col tw-justify-center tw-ml-2 tw-items-center tw-h-12 tw-text-red-800 
        tw-bg-white tw-text-xl tw-px-4 tw-font-bold tw-rounded-lg tw-shadow-lg tw-mt-4"
             >

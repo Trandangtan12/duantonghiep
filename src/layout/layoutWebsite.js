@@ -1,12 +1,13 @@
 import React from 'react'
-
+import { isMobile } from 'mobile-device-detect';
+import MobileComponent from './MobileComponent'
+import DesktopComponent from "./DesktopComponent"
 
 const LayoutWebsite = ({children}) => {
     return (
-        <div className="container tw-w-full tw-mx-auto tw-bg-[#f4f5f4]">
-            {children}
-            
-        </div>
+      <>
+      {isMobile ? <MobileComponent children={children}/> : <DesktopComponent children={children}/>}
+      </>
     )
 }
 
