@@ -1,4 +1,5 @@
 import {
+  faCheck,
   faEdit,
   faMoneyCheck,
   faTimes,
@@ -24,6 +25,7 @@ import {
   DEPOSIT,
   listFilterStatus,
   OFFLINE,
+  DONE,
   REJECTED,
   WAITING_ACTIVE,
 } from "./utility";
@@ -56,6 +58,22 @@ const Order = () => {
       .set("ok", "Alright!")
       .set("notifier", "position", "top-right");
   };
+  const handleDoneTicket = (id) =>{
+    alertify
+    .confirm("Bạn có chắc chắn muốn cập nhật trạng thái vé xe ?", async function () {
+      const res = await BusesService.doneTicket(id);
+      if (res.status === 200) {
+        reloadActiveAPI();
+        alertify.success("Cập nhật thành công !");
+      } else {
+        alertify.warning("Có lỗi xảy ra");
+      }
+    })
+    .set({ title: "Cập nhật vé xe" })
+    .set("movable", false)
+    .set("ok", "Alright!")
+    .set("notifier", "position", "top-right");
+  }
   const handleDeleteTicket = async (id) => {
     const res = await BusesService.deleteTicket(id);
     if (res.status === 200 || res.status === 201) {
@@ -212,6 +230,12 @@ const Order = () => {
             <div className="tw-bg-yellow-400 tw-text-white">Đã đặt cọc</div>
           ),
         };
+        case DONE:
+          return {
+            render: (
+              <div className="tw-bg-green-600 tw-text-white">Đã hoàn hành</div>
+            ),
+          };
       default:
         return null;
     }
@@ -307,7 +331,7 @@ const Order = () => {
     },
     {
       Header: "Hành động",
-      maxWidth: 150,
+      maxWidth: 200,
       show: true,
       Cell: ({ original }) => {
         const isActiveTicket = original.status === ACTIVED;
@@ -325,6 +349,12 @@ const Order = () => {
                 className="tw-cursor-pointer tw-mr-2"
               >
                 <FontAwesomeIcon icon={faTrash} color="red" />
+              </span>
+              <span
+                onClick={() => handleDoneTicket(original.id)}
+                className="tw-cursor-pointer tw-mr-2"
+              >
+                <FontAwesomeIcon icon={faCheck} color="green" />
               </span>
               <span
                 onClick={() => handleRejectTicket(original.id)}
