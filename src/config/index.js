@@ -38,6 +38,7 @@ export const API_NEWS = "/news"
 
 export const API_SEARCH_TICKET = "/searchTK"
 
+export const API_RATING = "/rating"
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0
 }
@@ -124,7 +125,7 @@ export const NAV_LINK_LIST_ADMIN = [
     },
     {
         label: "Đánh giá",
-        href: "review",
+        href: "evaluate",
         icon: faStar
     },
     {

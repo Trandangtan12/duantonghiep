@@ -59,6 +59,17 @@ const News = () => {
       show: true,
     },
     {
+      Header: "Hình ảnh",
+      accessor: "image",
+      show: true,
+      maxHeight: 500,
+      Cell : ({original}) =>{
+        return <div className="tw-flex tw-justify-center">
+           <img src={original.image} width={100} />
+        </div>
+      }
+    },
+    {
       Header: "Tiêu đề",
       accessor: "name",
       show: true,
