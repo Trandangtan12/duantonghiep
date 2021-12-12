@@ -2,18 +2,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import alertify from "alertifyjs";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Input from "../../../../compornent/admin/input/Input";
 import DatePickerForm from "../../../../compornent/datePicker";
-import TextArea from "../../../../compornent/textarea";
 import TextEditor from "../../../../compornent/textEditor";
 import firebase from "../../../../firebase";
 import {
   actionGetAllBusesTypes,
-  actionGetService,
+  actionGetService
 } from "../../../../redux/actions/buses";
 import { getAllProvince } from "../../../../redux/actions/province";
 import { BusesService } from "../../../../service/productService";

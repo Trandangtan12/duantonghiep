@@ -17,7 +17,7 @@ const MobileComponent = () => {
         >
             <div className="tw-bg-green-100">
                 <div className="tw-w-11/12 tw-mx-auto tw-block tw-py-2">
-                    <div class="tw-flex tw-justify-between tw-items-center">
+                    <div className="tw-flex tw-justify-between tw-items-center">
                         <div>
                             <Link
                                 className="tw-text-gray-900 tw-no-underline hover:tw-no-underline tw-font-extrabold tw-text-xl"
@@ -32,7 +32,7 @@ const MobileComponent = () => {
                     </div>
                 </div>
             </div>
-            <nav id="header">
+            <nav id="header" className="tw-sticky tw-top-0">
             <div id="nav-content" className="tw-w-full">
               <ul className="list-reset tw-flex tw-justify-center">
                 {NAV_LINK_LIST.map((item) => (

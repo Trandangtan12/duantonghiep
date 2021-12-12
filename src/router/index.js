@@ -54,6 +54,7 @@ const Routes = () => {
   const NewsCreate = lazy(() => import("../pages/private/news/create/index"))
   const EditNews = lazy(() => import("../pages/private/news/edit/index"))
   const EditTicket = lazy(() => import("../pages/private/order/edit/index"))
+  const Evaluate = lazy(() => import("../pages/private/evaluate"))
 
   return (
     <Router>
@@ -86,15 +87,13 @@ const Routes = () => {
                 <Route exact  path="/admin/news/edit/:id" component={EditNews}/>
                 <Route exact  path="/admin/news/create" component={NewsCreate}/>
                 <Route exact  path="/admin/profile" component={Profile}/>
+                <Route exact  path="/admin/evaluate" component={Evaluate}/>
                 <Route exact path="*" component={PageNotFound} />
               </Switch>
             </LayoutAdmin>
           </PrivateRouterAdmin>
           <Route>
-            <div className="tw-flex tw-w-full tw-flex-col tw-h-screen">
-              <Header />
-              
-              <div className="tw-flex tw-flex-grow">
+            
                 <LayoutWebsite>
                   <Switch>
                     <Route exact path="/" component={HomePages} />
@@ -113,9 +112,7 @@ const Routes = () => {
                     <Route exact path="*" component={PageNotFound} />
                   </Switch>
                 </LayoutWebsite>
-              </div>
-              <Footer />
-            </div>
+              
           </Route>
         </Switch>
       </Suspense>
