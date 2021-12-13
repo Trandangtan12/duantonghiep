@@ -105,7 +105,7 @@ const DashBoard = () => {
       const res = await statisticalService.getDataBy30Day();
       if (res.status === 200) {
         const quantityData = res.data.map((_elt) => {
-          return _elt.qty_ticket;
+          return _elt.qty_ticket
         });
         const labelsDate = res.data.map((_elt) => {
           return _elt.ticket_date;
