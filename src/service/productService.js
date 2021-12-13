@@ -21,6 +21,7 @@ export const BusesService = {
   deleteBuses(id) {
     return HttpClient.delete(`${API_GET_BUSES}/${id}`);
   },
+  
   addBuses(buses) {
     return HttpClient.post(API_GET_BUSES, buses);
   },
@@ -126,6 +127,16 @@ export const BusesService = {
     return HttpClient.get(
       `${API_SEARCH}?startPointId=${start}&endPointId=${end}&date_active=${date_active}&start_time=${start_time}`
     );
+  },
+  deActivedBuses(id){
+    return HttpClient.put(`${API_GET_BUSES}/${id}`,{
+      status : "WAITING_ACTIVE"
+    })
+  },
+  activedBuses(id){
+    return HttpClient.put(`${API_GET_BUSES}/${id}`,{
+      status : "ACTIVED"
+    })
   }
   // successTicket(){
   //   return HttpClient.post(`${API_SEND_EMAIL}`, {
