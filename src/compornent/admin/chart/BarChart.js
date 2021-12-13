@@ -1,10 +1,10 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
-const BarChart = ({dataDefault}) => {
+const BarChart = ({dataDefault , labels}) => {
   console.log(dataDefault);
     const data = {
-        labels: ['Tháng một', 'Tháng hai', 'Tháng ba', 'Tháng tư', 'Tháng năm', 'Tháng sáu', 'Tháng bảy', 'Tháng tám', 'Tháng chín' , 'Tháng mười' ,'Tháng mười' , "Tháng mười hai"],
+        labels: labels,
         datasets: [
           {
             label: 'Thống kê',

@@ -19,38 +19,75 @@ import {
 import BarChart from "../../../compornent/admin/chart/BarChart";
 import { actionGetAllUsers } from "../../../redux/actions/user";
 import { statisticalService } from "../../../service/statistical";
+import { THIRTYDAY } from "./utility";
 const DashBoard = () => {
-  const [staticsticalData, setStaticsticalData] = useState([])
-  console.log(staticsticalData);
+  const [staticsticalData, setStaticsticalData] = useState([]);
+  const [labelsData, setLabelsData] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
+  const [dateDefault, setDateDefault] = useState({
+    label: "30 ngày",
+    value: "30ngay",
+  });
   const [endDate, setEndDate] = useState(new Date());
   const { avaibleUsers } = useSelector((state) => state.auth);
   const { availableOrder } = useSelector((state) => state.buses);
   const { availableBuses } = useSelector((state) => state.buses);
   const dateSelect = [
     {
-      label : "7 ngày",
-      value : "7ngay"
+      label: "7 ngày",
+      value: "7ngay",
     },
     {
-      label : "Tháng này",
-      value : "thangtruoc"
+      label: "30 ngày",
+      value: "30ngay",
     },
     {
-      label : "Tháng trước",
-      value : "thangtruoc"
+      label: "Tháng này",
+      value: "thangnay",
     },
     {
-      label : "360 ngày",
-      value : ""
-    }
-  ]
+      label: "Tháng trước",
+      value: "thangtruoc",
+    },
+    {
+      label: "360 ngày",
+      value: "",
+    },
+  ];
   const reducer = (previousValue, currentValue) =>
     previousValue + currentValue.totalPrice;
   const totalPrice = availableOrder.reduce(reducer, 0);
   const filterTicketPaymentSuccess = availableOrder.filter((_elt) => {
     return _elt.status === "ACTIVED";
   });
+  const handleChangeDate = async (original) => {
+    setDateDefault(original);
+    if (original.value === THIRTYDAY) {
+      const res = await statisticalService.getDataBy30Day();
+      if (res.status === 200) {
+        const quantityData = res.data.map((_elt) => {
+          return _elt.qty_ticket;
+        });
+        const labelsDate = res.data.map((_elt) => {
+          return _elt.ticket_date;
+        });
+        setLabelsData(labelsDate);
+        setStaticsticalData(quantityData);
+      }
+    } else {
+      const res = await statisticalService.getDataByAboutDay(original.value);
+      if (res.status === 200) {
+        const quantityData = res.data.map((_elt) => {
+          return _elt.qty_ticket;
+        });
+        const labelsDate = res.data.map((_elt) => {
+          return _elt.ticket_date;
+        });
+        setLabelsData(labelsDate);
+        setStaticsticalData(quantityData);
+      }
+    }
+  };
   const filterTicketRejected = availableOrder.filter((_elt) => {
     return _elt.status === "REJECTED";
   });
@@ -64,16 +101,20 @@ const DashBoard = () => {
     dispatch(actionGetAllBusesTypes());
     dispatch(actionGetTicket());
     dispatch(actionGetAllUsers());
-    const getStatistical = async() =>{
-      const res = await statisticalService.getDataBy30Day()
+    const getStatistical = async () => {
+      const res = await statisticalService.getDataBy30Day();
       if (res.status === 200) {
-        const quantityData = res.data.map(_elt =>{
-          return _elt.qty_ticket
-        })
-        setStaticsticalData(quantityData)
+        const quantityData = res.data.map((_elt) => {
+          return _elt.qty_ticket;
+        });
+        const labelsDate = res.data.map((_elt) => {
+          return _elt.ticket_date;
+        });
+        setLabelsData(labelsDate);
+        setStaticsticalData(quantityData);
       }
-    }
-    getStatistical()
+    };
+    getStatistical();
   }, []);
   return (
     <div>
@@ -216,19 +257,27 @@ const DashBoard = () => {
       </div>
 
       <div className="tw-flex tw-flex-wrap">
-        <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
+        <div className="tw-w-full lg:tw-w-12/12 tw-px-4">
           <div className="tw-relative tw-w-full tw-mb-3">
-            <DatePicker
+            <SelectForm
+              defaultValues={dateDefault}
+              options={dateSelect}
+              placeholder={"Chọn thời gian"}
+              onChange={(original) => handleChangeDate(original)}
+              // errors={errors}
+              // fieldName={pointDistrictId}
+            />
+            {/* <DatePicker
               className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"
               dateFormat="yyyy-MM-dd"
               selected={startDate}
               // onChange={(date) => handleChangeStartDateExport(date)}
-            />
+            /> */}
           </div>
         </div>
         <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
           <div className="tw-relative tw-w-full tw-mb-3">
-            <SelectForm
+            {/* <SelectForm
               options={dateSelect}
               placeholder={"Chọn thời gian"}
               // onChange={(original) =>
@@ -236,12 +285,12 @@ const DashBoard = () => {
               // }
               // errors={errors}
               // fieldName={pointDistrictId}
-            />
+            /> */}
           </div>
         </div>
       </div>
-     
-      <BarChart dataDefault={staticsticalData} />
+
+      <BarChart dataDefault={staticsticalData} labels={labelsData} />
     </div>
   );
 };
