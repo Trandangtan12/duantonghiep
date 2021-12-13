@@ -13,7 +13,6 @@ const DesktopComponent = ({ children }) => {
                     {children}
                 </div>
             </div>
-            <Footer />
         </div>
     )
 }

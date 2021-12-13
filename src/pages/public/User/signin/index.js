@@ -16,18 +16,21 @@ const SignIn = () => {
   const [error, setError] = useState("");
   const [redirectToRef, setRedirectToRef] = useState(false);
   const { user } = UserApi.isAuthenticated();
-  const onHandleSubmit = async (data, e) => {
+  const onHandleSubmit = async (dataUser, e) => {
     try {
       e.target.reset();
-      await UserApi.signin(data).then((dataUser) => {
+      const { data } = await UserApi.signin(dataUser)
+      if (data.code === 401) {
+        setError("Email chưa xác thực! Hãy vào hộp thư mail của bạn để xác nhận!")
+      } else if (data.code === 200) {
         dispatch({
           type: ACTION_LOGIN,
-          payload: dataUser.data,
+          payload: data,
         });
-        UserApi.authenticated(dataUser.data, () => {
+        UserApi.authenticated(data, () => {
           setRedirectToRef(true);
         });
-      });
+      }
     } catch (err) {
       setError(err.response.data.message);
     }
