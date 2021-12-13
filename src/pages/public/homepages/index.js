@@ -17,7 +17,6 @@ const HomePages = () => {
       />
       
           {isMobile ? <MobileComponent /> : <DesktopComponent />}
-       
     </>
   )
 };

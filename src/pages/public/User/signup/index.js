@@ -15,20 +15,26 @@ const SignUp = () => {
     const password = useRef({})
     password.current = watch("password")
     const [loading, setLoading] = useState("")
-    const onHandleSubmit = async (data, e) => {
+    const onHandleSubmit = async (dataUser, e) => {
         const newUser = {
-            ...data,
+            ...dataUser,
             gender: "Nam"
         }
         try {
-            await UserApi.signup(newUser)
-                .then(dataUser => {
-                    if (dataUser.data.error) {
-                        setError(dataUser.data.error);
-                    } else {
-                       setLoading("Đã gửi mail xác thực! Hãy vào hộp thư mail của bạn và xác nhận!!!")
-                    }
-                })
+            const {data} = await UserApi.signup(newUser)
+            if(data.error) {
+                setError(data.error)
+            } else {
+                setLoading("Đã gửi mail xác thực! Hãy vào hộp thư mail của bạn và xác nhận!!!")
+            }
+            // await UserApi.signup(newUser)
+            //     .then(dataUser => {
+            //         if (dataUser.data.error) {
+            //             setError(dataUser.data.error);
+            //         } else {
+            //            setLoading("Đã gửi mail xác thực! Hãy vào hộp thư mail của bạn và xác nhận!!!")
+            //         }
+            //     })
 
         } catch (err) {
             setError(err.response.data.message);

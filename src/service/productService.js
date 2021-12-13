@@ -36,9 +36,9 @@ export const BusesService = {
   getALlBusesType() {
     return HttpClient.get(`${API_GET_BUSES_TYPE}`);
   },
-  searchBuses(start, end, date_active) {
+  searchBuses(start, end) {
     return HttpClient.get(
-      `${API_SEARCH}?startPointId=${start}&endPointId=${end}&date_active=${date_active}`
+      `${API_SEARCH}?startPointId=${start}&endPointId=${end}`
     );
   },
   searchTicketCode(ticket_code) {

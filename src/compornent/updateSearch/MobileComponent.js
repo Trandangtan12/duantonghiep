@@ -53,11 +53,11 @@ const MobileComponent = (props) => {
                         // fieldName="startPointId"
                         />
                     </div>
-                    <div>
+                    {/* <div>
                         <p className="tw-text-white ">Ngày đi</p>
                         <DatePicker className="tw-p-2 tw-w-full tw-rounded-lg tw-bg-green-700 tw-text-white" selected={startDate}
                             onChange={handleChangeStartTime} dateFormat="dd/MM/yyyy" minDate={TODAY} />
-                    </div>
+                    </div> */}
                     <div>
                         <button onClick={handleSearch}
                             className="tw-flex tw-flex-col tw-justify-center tw-items-center 

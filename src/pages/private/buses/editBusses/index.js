@@ -94,7 +94,7 @@ const EditBusses = () => {
     setValue("start_time", startTime);
   };
   const handleChangeEndTime = (date) => {
-    const endTime = moment(date).format("H:mm");
+    const endTime = moment(date).format("HH:mm");
     setEndDate(date);
     setValue("end_time", endTime);
   };
@@ -461,7 +461,7 @@ const EditBusses = () => {
                         <DatePickerForm
                           startDate={endDate}
                           showTimeSelectOnly={false}
-                          // dateFormat="H:mm"
+                          // dateFormat="HH:mm"
                           onChange={(date) => {
                             handleChangeEndTime(date);
                           }}

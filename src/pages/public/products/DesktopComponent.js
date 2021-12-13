@@ -1,4 +1,5 @@
 import React from 'react'
+import Footer from '../../../compornent/footer'
 import ProductList from '../../../compornent/productPage/ProductList'
 import SearchFilter from '../../../compornent/productPage/searchFilter'
 import UpdateSearch from '../../../compornent/updateSearch'
@@ -78,6 +79,7 @@ const DesktopComponent = (props) => {
                 {/* } */}
 
             </div>
+            <Footer />
         </div>
     )
 }
