@@ -166,32 +166,12 @@ const DesktopComponent = (props) => {
               </div>
             </div>
           </div>
-          <div className="tw-w-[22rem] ">
-            <FormPayTicket product={product} handleOpenModal={handleOpenModal} />
-            {/* <div className="tw-rounded-lg tw-bg-white tw-p-3 tw-ml-5 tw-sticky tw-top-[1rem]">
-              <div className="tw-flex tw-justify-between ">
-                <h1 className="tw-font-bold tw-text-xl">Tổng thanh toán</h1>
-                <div>
-                  <span className="tw-font-bold tw-text-xl">
-                    {new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(product.price)}
-                  </span>
-                </div>
-              </div>
-              <div className="tw-flex tw-pt-12">
-                <button
-                  className="tw-w-full tw-p-2 tw-rounded-md tw-bg-red-600 tw-text-white"
-                  onClick={() => {
-                    handleOpenModal()
-                  }}
-                >
-                  Thanh toán ngay
-                </button>
-              </div>
-            </div> */}
+          <div className="tw-w-[23rem] ">
+            <FormPayTicket product={product} />
           </div>
         </div>
       </div>
-      <ModalGetInfoTicket id={id} isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} product={product} />
+      {/* <ModalGetInfoTicket id={id} isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} product={product} /> */}
       <Footer />
     </div>
   )

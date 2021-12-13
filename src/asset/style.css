@@ -1258,6 +1258,10 @@ video {
   width: 22rem;
 }
 
+.tw-w-24 {
+  width: 6rem;
+}
+
 .tw-w-60 {
   width: 15rem;
 }
@@ -1272,6 +1276,34 @@ video {
 
 .tw-w-\[50rem\] {
   width: 50rem;
+}
+
+.tw-w-20 {
+  width: 5rem;
+}
+
+.tw-w-16 {
+  width: 4rem;
+}
+
+.tw-w-2 {
+  width: 0.5rem;
+}
+
+.tw-w-32 {
+  width: 8rem;
+}
+
+.tw-w-\[25rem\] {
+  width: 25rem;
+}
+
+.tw-w-\[23rem\] {
+  width: 23rem;
+}
+
+.tw-w-\[24rem\] {
+  width: 24rem;
 }
 
 .tw-min-w-0 {

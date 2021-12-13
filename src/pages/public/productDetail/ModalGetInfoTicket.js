@@ -466,7 +466,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                     <div> {currentRadioValue === "OFFLINE" && qty >= 3 ||currentRadioValue === "OFFLINE" && sucess === true && TODAY !== startDate ?  `${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(depositPrice)}` : `${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(totalPrice)}`}
                     </div>
                   </div>
-                  <button type="submit" className="tw-w-full tw-mt-2 tw-bg-green-500 tw-p-3 tw-rounded-md tw-text-white">Xác nhận</button>
+                  <button type="submit" className="tw-w-full tw-mt-2 tw-bg-green-500 tw-p-3 tw-rounded-md tw-text-white">Đặt vé</button>
                 </form>
               </div>
             </Transition.Child>

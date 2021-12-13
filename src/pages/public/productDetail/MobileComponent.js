@@ -61,7 +61,26 @@ const MobileComponent = (props) => {
                         </div>
                     </div>
                     <div className="tw-w-full tw-fixed tw-bottom-0 tw-drop-shadow-2xl">
-                       
+                        <div className="tw-rounded-lg tw-bg-white tw-p-3">
+                            <div className="tw-flex tw-justify-between ">
+                                <h1 className="tw-font-bold tw-text-xl">Tổng thanh toán</h1>
+                                <div>
+                                    <span className="tw-font-bold tw-text-xl">
+                                        {new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(product.price)}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="tw-flex tw-pt-12">
+                                <button
+                                    className="tw-w-full tw-p-2 tw-rounded-md tw-bg-red-600 tw-text-white"
+                                    onClick={() => {
+                                        handleOpenModal()
+                                    }}
+                                >
+                                    Thanh toán ngay
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
