@@ -37,7 +37,7 @@ export const API_USER_ADMIN = "/userAdmin"
 export const API_NEWS = "/news"
 
 export const API_SEARCH_TICKET = "/searchTK"
-export const API_STATISTICAL = "loc_ve"
+export const API_STATISTICAL = "loc_ve_thang"
 
  export const API_STATISTICAL_DEFAULT = "loc_mac_dinh"
 export const API_RATING = "/rating"

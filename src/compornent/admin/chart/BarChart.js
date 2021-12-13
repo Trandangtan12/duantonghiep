@@ -7,10 +7,10 @@ const BarChart = ({dataDefault , labels}) => {
         labels: labels,
         datasets: [
           {
-            label: 'Thống kê',
+            label: 'Vé xe',
             fill: true,
             lineTension: 0.1,
-            backgroundColor: 'rgba(75,192,192,0.4)',
+            backgroundColor: '#059669',
             borderColor: 'rgba(75,192,192,1)',
             borderCapStyle: 'butt',
             borderDash: [],
