@@ -23,6 +23,7 @@ import { THIRTYDAY } from "./utility";
 const DashBoard = () => {
   const [staticsticalData, setStaticsticalData] = useState([]);
   const [labelsData, setLabelsData] = useState([]);
+  const [priceData, setPriceData] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [dateDefault, setDateDefault] = useState({
     label: "30 ngày",
@@ -32,7 +33,18 @@ const DashBoard = () => {
   const { avaibleUsers } = useSelector((state) => state.auth);
   const { availableOrder } = useSelector((state) => state.buses);
   const { availableBuses } = useSelector((state) => state.buses);
+  const [typeStatistical, setTypeStatistical] = useState(false)
+  const handleChangeStartDateExport = (date) => {
+    setStartDate(date);
+  };
+  const handleChangeEndDateExport = (date) => {
+    setEndDate(date);
+  };
   const dateSelect = [
+    {
+      label: "Hôm nay",
+      value: "homnay",
+    },
     {
       label: "7 ngày",
       value: "7ngay",
@@ -105,13 +117,17 @@ const DashBoard = () => {
       const res = await statisticalService.getDataBy30Day();
       if (res.status === 200) {
         const quantityData = res.data.map((_elt) => {
-          return _elt.qty_ticket
+          return _elt.qty_ticket;
         });
         const labelsDate = res.data.map((_elt) => {
           return _elt.ticket_date;
         });
+        const priceTotal = res.data.map((_elt) => {
+          return _elt.total_price;
+        });
         setLabelsData(labelsDate);
         setStaticsticalData(quantityData);
+        setPriceData(priceTotal);
       }
     };
     getStatistical();
@@ -256,9 +272,16 @@ const DashBoard = () => {
         </div>
       </div>
 
-      <div className="tw-flex tw-flex-wrap">
+      {
+        typeStatistical === false ?  <div className="tw-flex tw-flex-wrap">
         <div className="tw-w-full lg:tw-w-12/12 tw-px-4">
           <div className="tw-relative tw-w-full tw-mb-3">
+            <label
+              className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+              htmlfor="grid-password"
+            >
+              Thời gian thống kê
+            </label>
             <SelectForm
               defaultValues={dateDefault}
               options={dateSelect}
@@ -267,30 +290,58 @@ const DashBoard = () => {
               // errors={errors}
               // fieldName={pointDistrictId}
             />
-            {/* <DatePicker
-              className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"
-              dateFormat="yyyy-MM-dd"
-              selected={startDate}
-              // onChange={(date) => handleChangeStartDateExport(date)}
-            /> */}
           </div>
         </div>
         <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
           <div className="tw-relative tw-w-full tw-mb-3">
-            {/* <SelectForm
-              options={dateSelect}
-              placeholder={"Chọn thời gian"}
-              // onChange={(original) =>
-              //   onChangeDistrict(pointWardId, pointWardName, original)
-              // }
-              // errors={errors}
-              // fieldName={pointDistrictId}
-            /> */}
+          
+          </div>
+        </div>
+      </div> :
+      <div className="tw-flex tw-flex-wrap">
+        <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
+          <div className="tw-relative tw-w-full tw-mb-3">
+            <label
+              className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+              htmlfor="grid-password"
+            >
+              Từ ngày
+            </label>
+            <DatePicker
+              className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"
+              dateFormat="yyyy-MM-dd"
+              selected={startDate}
+              onChange={(date) => handleChangeStartDateExport(date)}
+            />
+          </div>
+        </div>
+        <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
+          <div className="tw-relative tw-w-full tw-mb-3">
+          <label
+              className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+              htmlfor="grid-password"
+            >
+              Đến ngày
+            </label>
+          <DatePicker
+              className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"
+              dateFormat="yyyy-MM-dd"
+              selected={startDate}
+              onChange={(date) => handleChangeStartDateExport(date)}
+            />
           </div>
         </div>
       </div>
+      }
+      <div className="tw-relative tw-w-full tw-mb-3 tw-flex tw-justify-end">
+           <button className="tw-w-[300px] tw-bg-green-600 tw-p-2 tw-rounded-lg active:tw-bg-gray-500 tw-text-white" onClick={() => setTypeStatistical(!typeStatistical)}>{!typeStatistical ? "Thống kê theo khoảng" : "Thống kê theo khoảng ngày"}</button>
+          </div>
 
-      <BarChart dataDefault={staticsticalData} labels={labelsData} />
+      <BarChart
+        dataDefault={staticsticalData}
+        dataPirce={priceData}
+        labels={labelsData}
+      />
     </div>
   );
 };
