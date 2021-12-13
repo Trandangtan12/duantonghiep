@@ -43,8 +43,8 @@ const DesktopComponent = (props) => {
   }
   const handleRemoveRating = async (id) => {
     try {
-      const {data} = await ratingService.deleteRating(id)
-      setRatingList(product.rating.filter(item => item.id !== data.id))
+      await ratingService.deleteRating(id)
+      setRatingList(ratingList?.filter(item => item.id !== id))
     } catch (error) {
       console.log(error);
     }
@@ -53,6 +53,7 @@ const DesktopComponent = (props) => {
   useEffect(() => {
     setRatingList(product.rating)
   }, [product.rating])
+  console.log(ratingList);
   return (
     <div className="">
       <div className="tw-bg-green-500 tw-h-[12rem]">
@@ -155,9 +156,9 @@ const DesktopComponent = (props) => {
                     {item.description}
                   </div>
                   <div className='tw-mt-1'>
-                    <p className='tw-text-xs tw-text-gray-400'><span className='tw-pr-2'>Đăng ngày {moment(item.rating_time).format("DD/MM/YYYY")}</span> 
-                    {user?.id === item?.user_id ? <span onClick={() => handleRemoveRating(item.id)} className='tw-px-2 hover:tw-underline hover:tw-text-green-500 tw-cursor-pointer tw-border-l tw-border-gray-400'>Xóa</span> : ""}
-                    
+                    <p className='tw-text-xs tw-text-gray-400'><span className='tw-pr-2'>Đăng ngày {moment(item.rating_time).format("DD/MM/YYYY")}</span>
+                      {user?.id === item?.user_id ? <span onClick={() => handleRemoveRating(item.id)} className='tw-px-2 hover:tw-underline hover:tw-text-green-500 tw-cursor-pointer tw-border-l tw-border-gray-400'>Xóa</span> : ""}
+
                     </p>
                   </div>
                 </div>
@@ -166,7 +167,7 @@ const DesktopComponent = (props) => {
             </div>
           </div>
           <div className="tw-w-[22rem] ">
-            <FormPayTicket  product={product} handleOpenModal={handleOpenModal}/>
+            <FormPayTicket product={product} handleOpenModal={handleOpenModal} />
             {/* <div className="tw-rounded-lg tw-bg-white tw-p-3 tw-ml-5 tw-sticky tw-top-[1rem]">
               <div className="tw-flex tw-justify-between ">
                 <h1 className="tw-font-bold tw-text-xl">Tổng thanh toán</h1>
