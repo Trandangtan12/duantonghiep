@@ -52,7 +52,7 @@ const SignIn = () => {
       if (userKey() === true) {
         return <Redirect to="admin/dashboard" />;
       } else {
-        // return <Redirect to="/" />;
+        return <Redirect to="/" />;
       }
     }
   };
