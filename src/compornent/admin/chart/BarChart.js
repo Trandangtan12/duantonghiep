@@ -1,13 +1,12 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
-const BarChart = ({dataDefault , labels}) => {
-  console.log(dataDefault);
+const BarChart = ({dataDefault , dataPirce , labels}) => {
     const data = {
         labels: labels,
         datasets: [
           {
-            label: 'Vé xe',
+            label: 'Tổng  vé xe',
             fill: true,
             lineTension: 0.1,
             backgroundColor: '#059669',
@@ -26,7 +25,12 @@ const BarChart = ({dataDefault , labels}) => {
             pointRadius: 1,
             pointHitRadius: 10,
             data: dataDefault
-          }
+          },
+          {
+            label: 'Tổng số tiền',
+            data: dataPirce,
+            backgroundColor: 'rgba(53, 162, 235, 0.5)',
+          },
         ]
       };
     

@@ -23,6 +23,7 @@ import { THIRTYDAY } from "./utility";
 const DashBoard = () => {
   const [staticsticalData, setStaticsticalData] = useState([]);
   const [labelsData, setLabelsData] = useState([]);
+  const [priceData, setPriceData] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [dateDefault, setDateDefault] = useState({
     label: "30 ngày",
@@ -33,6 +34,10 @@ const DashBoard = () => {
   const { availableOrder } = useSelector((state) => state.buses);
   const { availableBuses } = useSelector((state) => state.buses);
   const dateSelect = [
+    {
+      label: "Hôm nay",
+      value: "homnay",
+    },
     {
       label: "7 ngày",
       value: "7ngay",
@@ -105,13 +110,17 @@ const DashBoard = () => {
       const res = await statisticalService.getDataBy30Day();
       if (res.status === 200) {
         const quantityData = res.data.map((_elt) => {
-          return _elt.qty_ticket
+          return _elt.qty_ticket;
         });
         const labelsDate = res.data.map((_elt) => {
           return _elt.ticket_date;
         });
+        const priceTotal = res.data.map((_elt) => {
+          return _elt.total_price;
+        });
         setLabelsData(labelsDate);
         setStaticsticalData(quantityData);
+        setPriceData(priceTotal);
       }
     };
     getStatistical();
@@ -259,6 +268,12 @@ const DashBoard = () => {
       <div className="tw-flex tw-flex-wrap">
         <div className="tw-w-full lg:tw-w-12/12 tw-px-4">
           <div className="tw-relative tw-w-full tw-mb-3">
+            <label
+              className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
+              htmlfor="grid-password"
+            >
+              Thời gian thống kê
+            </label>
             <SelectForm
               defaultValues={dateDefault}
               options={dateSelect}
@@ -290,7 +305,11 @@ const DashBoard = () => {
         </div>
       </div>
 
-      <BarChart dataDefault={staticsticalData} labels={labelsData} />
+      <BarChart
+        dataDefault={staticsticalData}
+        dataPirce={priceData}
+        labels={labelsData}
+      />
     </div>
   );
 };

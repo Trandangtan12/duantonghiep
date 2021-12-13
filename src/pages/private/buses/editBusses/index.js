@@ -23,6 +23,7 @@ import ServiceSelect from "./components/ServiceSelect";
 import { InputNumberStyle } from "./utility";
 import { validationSchema } from "./hookFormConfig";
 const EditBusses = () => {
+  const _currentImage = "https://firebasestorage.googleapis.com/v0/b/headphone-899cc.appspot.com/o/buses%2F15928210953282.jpeg?alt=media&token=549e1411-9155-41a6-a6d3-f8e2e9ebaef8"
   const [fileName, setFileName] = useState("");
   const { id } = useParams();
   const [infoBusses, setInfoBusses] = useState({});
@@ -326,17 +327,17 @@ const EditBusses = () => {
                 <form onSubmit={handleSubmit(handleSubmitForm)}>
                   <div className="tw-mb-2 tw-flex tw-justify-between lg:tw-px-3 tw-px-3 tw-gap-2">
                     <div className="tw-w-full tw-flex tw-flex-wrap">
-                      <div className="tw-w-full lg:tw-w-4/12">
+                      <div className="tw-w-full lg:tw-w-5/12">
                         <img
                           src={`${
                             urlImage !== null
                               ? urlImage
-                              : "https://fakeimg.pl/370/"
+                              : _currentImage
                           }`}
                           className="tw-h-[339px]"
                         />
                       </div>
-                      <div className="lg:tw-w-8/12">
+                      <div className="lg:tw-w-7/12">
                         <div className="tw-py-20 tw-h-[339px] tw-bg-gray-300 tw-px-2">
                           <div className="tw-max-w-md tw-mx-auto tw-bg-white tw-rounded-lg tw-overflow-hidden md:tw-max-w-lg">
                             <div className="md:tw-flex">
