@@ -1282,6 +1282,14 @@ video {
   width: 50rem;
 }
 
+.tw-w-\[100px\] {
+  width: 100px;
+}
+
+.tw-w-\[300px\] {
+  width: 300px;
+}
+
 .tw-min-w-0 {
   min-width: 0px;
 }
@@ -2745,6 +2753,11 @@ video {
 .active\:tw-bg-pink-600:active {
   --tw-bg-opacity: 1;
   background-color: rgba(219, 39, 119, var(--tw-bg-opacity));
+}
+
+.active\:tw-bg-gray-500:active {
+  --tw-bg-opacity: 1;
+  background-color: rgba(100, 116, 139, var(--tw-bg-opacity));
 }
 
 @media (min-width: 640px) {

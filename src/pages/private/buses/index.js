@@ -1,4 +1,4 @@
-import { faEdit, faTrash } from "@fortawesome/fontawesome-free-solid";
+import { faEdit, faPowerOff, faTrash , faCheck } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import alertify from "alertifyjs";
 import React, { useEffect, useState } from "react";
@@ -16,6 +16,24 @@ const Buses = () => {
   const handleOpenModal = () => {
     setIsOpenModal(true);
   };
+  const getStatusBusses = (status) =>{
+    switch (status) {
+      case "ACTIVED":
+        return {
+          render: (
+            <div className="tw-bg-green-500 tw-text-white">Đang hoạt động</div>
+          ),
+        };
+      case "WAITING_ACTIVE":
+        return {
+          render: (
+            <div className="tw-bg-red-500 tw-text-white">Dừng hoạt động</div>
+          ),
+        };
+      default:
+        return null;
+    }
+  }
   const { availableBuses } = useSelector((state) => state.buses);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
 
@@ -35,6 +53,38 @@ const Buses = () => {
       .set("ok", "Alright!")
       .set("notifier", "position", "top-right");
   };
+  const handleOffBusses = (id) =>{
+    alertify
+      .confirm("Bạn có chắc chắn muốn dừng hoạt động chuyến xe ?", async function () {
+        const res = await BusesService.deActivedBuses(id);
+        if (res.status === 200) {
+          reloadActiveAPI();
+          alertify.success("Thao tác thành công !");
+        } else {
+          alertify.warning("Có lỗi xảy ra");
+        }
+      })
+      .set({ title: "Chuyến xe" })
+      .set("movable", false)
+      .set("ok", "Alright!")
+      .set("notifier", "position", "top-right");
+  }
+  const handleActivedBuses = (id) =>{
+    alertify
+    .confirm("Bạn có chắc chắn muốn dừng hoạt động chuyến xe ?", async function () {
+      const res = await BusesService.activedBuses(id);
+      if (res.status === 200) {
+        reloadActiveAPI();
+        alertify.success("Thao tác thành công !");
+      } else {
+        alertify.warning("Có lỗi xảy ra");
+      }
+    })
+    .set({ title: "Chuyến xe" })
+    .set("movable", false)
+    .set("ok", "Alright!")
+    .set("notifier", "position", "top-right");
+  }
   const dependencies = [availableBuses.length, dispatchDependency];
   const ExpandableTable = ({ data }) => {
     return (
@@ -150,7 +200,7 @@ const Buses = () => {
     {
       Header: "Số thứ tự",
       accessor: "id",
-      maxWidth: 80,
+      maxWidth: 30,
       maxHeight: 500,
       show: true,
       Cell: ({ original }) => {
@@ -200,6 +250,15 @@ const Buses = () => {
       },
     },
     {
+      Header: "Trạng thái",
+      accessor: "status",
+      maxHeight: 500,
+      show: true,
+      Cell: ({ original }) => {
+        return getStatusBusses(original.status).render
+      },
+    },
+    {
       Header: "Hành động",
       maxWidth: 100,
       Cell: ({ original }) => {
@@ -210,6 +269,13 @@ const Buses = () => {
             >
               <FontAwesomeIcon icon={faEdit} color="blue" />
             </button>
+            {
+              original.status === "ACTIVED" ?  <button onClick={() => handleOffBusses(original.id)}>
+              <FontAwesomeIcon icon={faPowerOff} color="red" />
+            </button> :   <button onClick={() => handleActivedBuses(original.id)}>
+              <FontAwesomeIcon icon={faCheck} color="green" />
+            </button>
+            }
             <button onClick={() => handleDeleteBuses(original.id)}>
               <FontAwesomeIcon icon={faTrash} color="red" />
             </button>

@@ -6,7 +6,7 @@ const BarChart = ({dataDefault , dataPirce , labels}) => {
         labels: labels,
         datasets: [
           {
-            label: 'Tổng  vé xe',
+            label: 'Tổng vé xe',
             fill: true,
             lineTension: 0.1,
             backgroundColor: '#059669',

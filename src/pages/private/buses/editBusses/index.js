@@ -20,7 +20,7 @@ import { ProvinceService } from "../../../../service/provinceService";
 import CarTypeSelecect from "./components/CarTypeSelecect";
 import LocationSelect from "./components/LocationSelect";
 import ServiceSelect from "./components/ServiceSelect";
-import { InputNumberStyle } from "./utility";
+import { ACTIVED, InputNumberStyle } from "./utility";
 import { validationSchema } from "./hookFormConfig";
 const EditBusses = () => {
   const _currentImage = "https://firebasestorage.googleapis.com/v0/b/headphone-899cc.appspot.com/o/buses%2F15928210953282.jpeg?alt=media&token=549e1411-9155-41a6-a6d3-f8e2e9ebaef8"

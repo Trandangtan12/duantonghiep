@@ -43,7 +43,6 @@ const Order = () => {
   const listTicketCancel = availableOrder.filter(_elt =>{
     return _elt.status === REJECTED
   })
-  console.log(listTicketCancel);
   const handleApprovalTicket = (id) => {
     alertify
       .confirm("Bạn có chắc chắn muốn thanh toán vé xe ?", async function () {
