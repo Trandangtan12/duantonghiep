@@ -1,0 +1,5 @@
+export const SEVENDAY = "7ngay"
+export const THIRTYDAY = "30ngay"
+export const THISMONTH = "thangnay"
+export const LASTMONTH = "thangtruoc"
+export const ONEYEAR = "360ngay"
