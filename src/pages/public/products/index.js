@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ProductList from "../../../compornent/productPage/ProductList";
-import SearchFilter from "../../../compornent/productPage/searchFilter";
-import UpdateSearch from "../../../compornent/updateSearch";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetBuses, actionSearchBuses } from '../../../redux/actions/buses';
 import { useParams } from "react-router";
@@ -11,15 +8,13 @@ import { isMobile } from 'mobile-device-detect';
 import MobileComponent from "./MobileComponent";
 import DesktopComponent from "./DesktopComponent";
 const Products = () => {
-    const { start, end, date } = useParams()
+    const { start, end } = useParams()
     const dispatch = useDispatch();
     const { availableSearch } = useSelector(state => state.buses);
     useEffect(() => {
-        dispatch(actionSearchBuses(start, end, date))
+        dispatch(actionSearchBuses(start, end))
         dispatch(actionGetBuses())
     }, [])
-
-
     const [time, setTime] = useState({
         minTime: moment("00:00", "HH:mm"),
         maxTime: moment("23:59", "HH:mm")

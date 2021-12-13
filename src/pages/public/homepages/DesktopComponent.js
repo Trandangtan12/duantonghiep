@@ -1,11 +1,12 @@
 import React from 'react'
 import BannerRow from "../../../compornent/BannerRow";
-import DatePickerForm from "../../../compornent/datePicker";
+import Footer from '../../../compornent/footer';
 import Introduce from '../../../compornent/HomePage/introduce';
 import QuestionTicker from "../../../compornent/HomePage/questionTicker";
 import SearchCars from '../../../compornent/searchCars';
 const DesktopComponent = () => {
     return (
+        <div>
         <section className="homePage tw-relative tw-flex tw-flex-col tw-w-full">
             <div className="homePageBg tw-hidden xl:tw-block tw-absolute tw-top-[-37rem] tw-left-[-10rem] tw-bg-green-600 
     tw-w-[69rem] tw-h-[60rem] tw-z-10 tw-rounded-[50%]"> </div>
@@ -19,10 +20,12 @@ const DesktopComponent = () => {
 
                 </div>
                 <Introduce />
-                <QuestionTicker />
+                {/* <QuestionTicker /> */}
             </section>
 
         </section>
+        <Footer />
+        </div>
     )
 }
 

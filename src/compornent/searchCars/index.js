@@ -1,5 +1,4 @@
 import alertify from "alertifyjs";
-import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -9,9 +8,9 @@ import { isMobile } from 'mobile-device-detect';
 import MobileComponent from "./MobileComponent";
 import DesktopComponent from "./DesktopComponent";
 const SearchCars = () => {
-  const TODAY = new Date()
+  // const TODAY = new Date()
   const [startPoint, setstartPoint] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
+  // const [startDate, setStartDate] = useState(new Date());
   const [endPoint, setEndPoint] = useState('');
   const dispatch = useDispatch();
   const history = useHistory()
@@ -25,9 +24,9 @@ const SearchCars = () => {
   const handleChangeStartPoint = (original) => {
     setstartPoint(original.value);
   };
-  const handleChangeStartTime = (date) => {
-    setStartDate(date);
-  };
+  // const handleChangeStartTime = (date) => {
+  //   setStartDate(date);
+  // };
   const handleChangeEndPoint = (original) => {
     setEndPoint(original.value);
   };
@@ -39,12 +38,11 @@ const SearchCars = () => {
         .set("notifier", "position", "top-right");
       return
     }
-    const date_active = moment(startDate).utc(true).format("YYYY-MM-DD")
-    history.push(`/product/start=${startPoint}/and/end=${endPoint}/and/date=${date_active}`)
+    history.push(`/product/start=${startPoint}/and/end=${endPoint}`)
     if (startPoint == null || endPoint == null) {
     } else {
-      dispatch(actionSearchBuses(startPoint, endPoint, date_active))
-      history.push(`/product/start=${startPoint}/and/end=${endPoint}/and/date=${date_active}`)
+      dispatch(actionSearchBuses(startPoint, endPoint))
+      history.push(`/product/start=${startPoint}/and/end=${endPoint}`)
     }
   }
   useEffect(() => {
@@ -55,22 +53,19 @@ const SearchCars = () => {
     <>
       {isMobile ?
         <MobileComponent handleSearch={handleSearch}
-          handleChangeStartTime={handleChangeStartTime}
+          // handleChangeStartTime={handleChangeStartTime}
           handleChangeStartPoint={handleChangeStartPoint}
           provinceFilter={provinceFilter}
           handleChangeEndPoint={handleChangeEndPoint}
-          TODAY={TODAY}
-          startDate={startDate}
+          // TODAY={TODAY}
+          // startDate={startDate}
         />
         :
         <DesktopComponent
           handleSearch={handleSearch}
-          handleChangeStartTime={handleChangeStartTime}
           handleChangeStartPoint={handleChangeStartPoint}
           provinceFilter={provinceFilter}
           handleChangeEndPoint={handleChangeEndPoint}
-          TODAY={TODAY}
-          startDate={startDate}
         />}
     </>
   );

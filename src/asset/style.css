@@ -758,6 +758,14 @@ video {
   top: 0.5rem;
 }
 
+.tw-bottom-\[-8rem\] {
+  bottom: -8rem;
+}
+
+.tw-bottom-\[1rem\] {
+  bottom: 1rem;
+}
+
 .tw-z-30 {
   z-index: 30;
 }
@@ -844,6 +852,11 @@ video {
   margin-right: 1.5rem;
 }
 
+.tw-my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .tw-my-6 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
@@ -854,19 +867,14 @@ video {
   margin-bottom: 1.25rem;
 }
 
-.tw-my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+.tw-mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .tw-my-auto {
   margin-top: auto;
   margin-bottom: auto;
-}
-
-.tw-mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
 }
 
 .tw-mb-20 {
@@ -1075,6 +1083,10 @@ video {
 
 .tw-h-full {
   height: 100%;
+}
+
+.tw-h-\[16rem\] {
+  height: 16rem;
 }
 
 .tw-h-\[21rem\] {
@@ -1603,6 +1615,10 @@ video {
   border-top-width: 1px;
 }
 
+.tw-border-l {
+  border-left-width: 1px;
+}
+
 .tw-border-solid {
   border-style: solid;
 }
@@ -1672,6 +1688,11 @@ video {
 .tw-border-black {
   --tw-border-opacity: 1;
   border-color: rgba(0, 0, 0, var(--tw-border-opacity));
+}
+
+.tw-border-gray-500 {
+  --tw-border-opacity: 1;
+  border-color: rgba(100, 116, 139, var(--tw-border-opacity));
 }
 
 .tw-bg-\[\#f4f5f4\] {
@@ -1963,6 +1984,10 @@ video {
   padding-left: 10px;
 }
 
+.tw-pr-4 {
+  padding-right: 1rem;
+}
+
 .tw-pt-4 {
   padding-top: 1rem;
 }
@@ -1989,10 +2014,6 @@ video {
 
 .tw-pb-\[5rem\] {
   padding-bottom: 5rem;
-}
-
-.tw-pr-4 {
-  padding-right: 1rem;
 }
 
 .tw-pt-6 {
@@ -2027,8 +2048,8 @@ video {
   padding-bottom: 0.5rem;
 }
 
-.tw-pl-4 {
-  padding-left: 1rem;
+.tw-pr-2 {
+  padding-right: 0.5rem;
 }
 
 .tw-text-left {
@@ -2303,6 +2324,11 @@ video {
 .tw-text-blue-400 {
   --tw-text-opacity: 1;
   color: rgba(96, 165, 250, var(--tw-text-opacity));
+}
+
+.tw-text-yellow-300 {
+  --tw-text-opacity: 1;
+  color: rgba(252, 211, 77, var(--tw-text-opacity));
 }
 
 .tw-no-underline {
@@ -2612,6 +2638,15 @@ video {
 .hover\:tw-text-green-700:hover {
   --tw-text-opacity: 1;
   color: rgba(4, 120, 87, var(--tw-text-opacity));
+}
+
+.hover\:tw-text-green-500:hover {
+  --tw-text-opacity: 1;
+  color: rgba(16, 185, 129, var(--tw-text-opacity));
+}
+
+.hover\:tw-underline:hover {
+  text-decoration: underline;
 }
 
 .hover\:tw-no-underline:hover {

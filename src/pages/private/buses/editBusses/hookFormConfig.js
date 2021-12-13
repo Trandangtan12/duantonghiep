@@ -1,7 +1,7 @@
 import moment from "moment";
 import * as Yup from "yup";
 const TODAY = moment().utc(true).format("YYYY-MM-DD")
-const TIME = moment().utc(true).format("H:mm")
+const TIME = moment().utc(true).format("HH:mm")
 export const initialValues = {
   name: "",
   price: "",

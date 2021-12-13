@@ -44,7 +44,7 @@ const UpdateSearch = (props) => {
   };
   const handleSearch = async () => {
 
-    const date_active = moment(startDate).utc(true).format("YYYY-MM-DD")
+    // const date_active = moment(startDate).utc(true).format("YYYY-MM-DD")
     if (startPoint == null || endPoint == null) {
       alertify.alert('Vui lòng chọn địa điểm').set({ title: "Thông báo" })
         .set("movable", false)
@@ -52,8 +52,8 @@ const UpdateSearch = (props) => {
         .set("notifier", "position", "top-right");
       return
     } else {
-      dispatch(actionSearchBuses(startPoint, endPoint, date_active))
-      history.push(`/product/start=${startPoint}/and/end=${endPoint}/and/date=${date_active}`)
+      dispatch(actionSearchBuses(startPoint, endPoint))
+      history.push(`/product/start=${startPoint}/and/end=${endPoint}`)
     }
   }
 

@@ -168,13 +168,13 @@ const NewBuses = () => {
   };
   const handleChangeStartTime = (date) => {
     const startDateConvert = moment(date).utc(true).format("YYYY-MM-DD");
-    const startTime = moment(date).utc(true).format("H:mm");
+    const startTime = moment(date).utc(true).format("HH:mm");
     setStartDate(date);
     setValue("date_active", startDateConvert);
     setValue("start_time", startTime);
   };
   const handleChangeEndTime = (date) => {
-    const endTime = moment(date).format("H:mm");
+    const endTime = moment(date).format("HH:mm");
     setEndDate(date);
     setValue("end_time", endTime);
   };
@@ -368,7 +368,7 @@ const NewBuses = () => {
                         <DatePickerForm
                           startDate={endDate}
                           showTimeSelectOnly={false}
-                          // dateFormat="H:mm"
+                          // dateFormat="HH:mm"
                           onChange={(date) => {
                             handleChangeEndTime(date);
                           }}

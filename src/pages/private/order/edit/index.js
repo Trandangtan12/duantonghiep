@@ -27,7 +27,7 @@ const EditTicket = () => {
   const handleChangeBusses = async (date) => {
     setStartDate(date);
     const dateBusses = moment(date).format("YYYY-MM-DD");
-    const timeBusses = moment(date).format("H:mm");
+    const timeBusses = moment(date).format("HH:mm");
     const resBusses = await BusesService.getBussesByTime(
       ticketInfo.buses.startPointId,
       ticketInfo.buses.endPointId,
