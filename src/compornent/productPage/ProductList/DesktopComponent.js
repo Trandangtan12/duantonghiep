@@ -19,16 +19,12 @@ const DesktopComponent = (props) => {
   const mapProduct = productFilter.map((item, index) => {
     return (
       <div key={index} className="tw-rounded-lg tw-bg-white tw-relative tw-p-3 tw-mb-3 hover:tw-shadow-2xl tw-transition tw-ease-in-out">
-        {item.status !== "ACTIVED" ?  <div className='tw-w-full tw-text-center tw-translate-y-[20%] tw-h-full tw-absolute'>
-          <p className='tw-text-xl tw-font-bold'>Chuyến {item.name}</p>
-          <p className='tw-text-xl tw-font-bold'>Tạm thời ngưng hoạt động</p>
-        </div> : null}
-       
-        <div className={`tw-flex tw-justify-between ${item.status !== "ACTIVED" ? "tw-opacity-10" : ""} `}>
+
+
+        <div className={`tw-flex tw-justify-between `}>
           <div className="tw-flex">
             <div className="tw-w-36 tw-h-36 tw-border tw-border-gray-200">
               {item.image == null ? <p className="tw-text-center tw-my-[40%] tw-text-sm">Không có ảnh</p> : <img src={item.image} className="tw-w-full tw-h-full tw-object-cover" alt="" />}
-
             </div>
 
             <div className="tw-ml-5">
@@ -52,14 +48,14 @@ const DesktopComponent = (props) => {
                 </svg>
                 <div className="tw-h-[4.625rem] tw-ml-3 tw-flex tw-flex-col tw-justify-between">
                   <div className="tw-flex">
-                    <span className="tw-text-xl tw-font-bold">{item.start_time}</span>
+                    <span className="tw-text-xl tw-font-bold">{item.start_time}h</span>
                     <div className="tw-flex tw-items-center tw-ml-1">
                       <FontAwesomeIcon className="tw-text-[0.25rem] tw-mx-1" icon={faCircle} />
                       <p className="tw-text-gray-500 tw-text-sm">{item.detailAddressStart}</p>
                     </div>
                   </div>
                   <div className="tw-flex">
-                    <span className="tw-text-xl tw-font-bold">{moment(item.end_time).format("HH:mm")}</span>
+                    <span className="tw-text-xl tw-font-bold">{item.end_time}h</span>
                     <div className="tw-flex tw-items-center tw-ml-1">
                       <FontAwesomeIcon className="tw-text-[0.25rem] tw-mx-1" icon={faCircle} />
                       <p className="tw-text-gray-500 tw-text-sm">{item.detailAddressEnd}</p>
@@ -67,25 +63,27 @@ const DesktopComponent = (props) => {
                   </div>
                 </div>
               </div>
-
+              <div className='tw-my-3'>
+          <p className='tw-mb-2 tw-font-bold'>Dịch vụ trên xe</p>
+          <p>{item.service.map(i => <span className='tw-p-2 tw-text-white tw-text-xs tw-rounded-md tw-mx-1 tw-bg-yellow-500'>{i.name}</span> )}</p>
+        </div>
             </div>
           </div>
 
-          <div className="tw-flex tw-flex-col tw-justify-between tw-items-center">
+          <div className="tw-flex tw-flex-col tw-justify-between tw-items-end">
             <p className="tw-text-2xl tw-font-black tw-text-green-700">{new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(item.price)}</p>
 
-            <div className="tw-text-center">
+            <div className="tw-text-right">
               <p className="tw-py-3 tw-text-gray-500">{item.seat_empty > 0 ? `Số ghế trống ${item.seat_empty}` : <span>Hết ghế</span>}</p>
-              {item.status !== "ACTIVED" ? <button className="tw-p-2 tw-bg-red-500 tw-text-white tw-rounded-lg">
-                Chọn chuyến
-              </button> :
+              {item.status !== "ACTIVED" ? <span className='tw-p-2 tw-bg-yellow-300 tw-rounded-md'>Tạm thời ngưng hoạt động</span> :
                 <Link to={`/productdetail/${item.id}`}>
-                  <button className="tw-p-2 tw-bg-red-500 tw-text-white tw-rounded-lg">
+                  <button className="tw-p-2 tw-bg-red-500 tw-text-white tw-rounded-md ">
                     Chọn chuyến
                   </button></Link>}
             </div>
           </div>
         </div>
+       
       </div>
     )
   }

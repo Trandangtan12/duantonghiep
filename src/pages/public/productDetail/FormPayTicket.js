@@ -212,14 +212,13 @@ const FormPayTicket = ({product}) => {
                 <input type="hidden" {...register("user_id")} defaultValue={user == null ? "" : user.id} />
                 <input type="hidden" {...register("status")} defaultValue="WAITING_ACTIVE" />
                 <div className='tw-my-3'>
-                    <div className='tw-my-2'>
+                    <div className='tw-my-2 tw-uppercase tw-text-xs tw-font-bold'>
                         <label>* Họ và tên </label>
                     </div>
-                    <div className='tw-my-2'>
+                    <div className='tw-my-2 '>
                         <input type="text"
                             className='tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-p-2'
                             defaultValue={user == null ? "" : user.name}
-                            placeholder="Tên hành khách"
                             {...register('customer_name', { required: true })}
 
                         />
@@ -230,10 +229,10 @@ const FormPayTicket = ({product}) => {
                 </div>
 
                 <div className='tw-my-3'>
-                    <div className='tw-my-2'>
+                    <div className='tw-my-2 tw-uppercase tw-text-xs tw-font-bold'>
                         <label>* Địa chỉ email </label>
                     </div>
-                    <div className='tw-my-2'>
+                    <div className='tw-my-2 '>
                         <input type="text"
                             className='tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-p-2'
                             defaultValue={user == null ? "" : user.email}
@@ -251,14 +250,13 @@ const FormPayTicket = ({product}) => {
                 </div>
 
                 <div className='tw-my-3'>
-                    <div className='tw-my-2'>
+                    <div className='tw-my-2 tw-uppercase tw-text-xs tw-font-bold'>
                         <label>* Số điện thoại </label>
                     </div>
-                    <div className='tw-my-2'>
+                    <div className='tw-my-2 '>
                         <input type="text"
                             className='tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-p-2'
                             defaultValue={user == null ? "" : user.phone_number}
-                            placeholder="Số điện thoại"
                             {...register('phone_number', {
                                 required: ("Bạn chưa điền số điện thoại!!!"), pattern: {
                                     value: /((09|03|07|08|05)+([0-9]{8})\b)/g,
@@ -273,14 +271,13 @@ const FormPayTicket = ({product}) => {
                 </div>
 
                 <div className='tw-my-3'>
-                    <div className='tw-my-2'>
+                    <div className='tw-my-2 tw-uppercase tw-text-xs tw-font-bold'>
                         <label>* Số CMND/CCCD </label>
                     </div>
                     <div className='tw-my-2'>
                         <input type="text"
                             className='tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-p-2'
                             defaultValue={user == null ? "" : user.identity_card}
-                            placeholder="Nhập số cmnd"
                             {...register('identity_card', {
                                 required: ("Bạn chưa nhập số cmnd!"), pattern: {
                                     value: /^(\d{9}|\d{12})$/,
