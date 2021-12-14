@@ -335,7 +335,7 @@ const Order = () => {
       maxWidth: 200,
       show: true,
       Cell: ({ original }) => {
-        const isActiveTicket = original.status === ACTIVED;
+        const isActiveTicket = original.status === ACTIVED || DONE
         return (
           <div>
             <div>
@@ -351,18 +351,22 @@ const Order = () => {
               >
                 <FontAwesomeIcon icon={faTrash} color="red" />
               </span>
-              <span
+              {
+                original.status !== DONE ?  <span
                 onClick={() => handleDoneTicket(original.id)}
                 className="tw-cursor-pointer tw-mr-2"
               >
                 <FontAwesomeIcon icon={faCheck} color="green" />
-              </span>
-              <span
+              </span> : null
+              }
+             {
+               original.status !== REJECTED ?   <span
                 onClick={() => handleRejectTicket(original.id)}
                 className="tw-cursor-pointer"
               >
                 <FontAwesomeIcon icon={faTimes} color="red" />
-              </span>
+              </span> : null
+             }
               <span className="tw-ml-2">
                 {isActiveTicket ? null : (
                   <span

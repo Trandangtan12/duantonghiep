@@ -71,7 +71,7 @@ const Buses = () => {
   }
   const handleActivedBuses = (id) =>{
     alertify
-    .confirm("Bạn có chắc chắn muốn dừng hoạt động chuyến xe ?", async function () {
+    .confirm("Bạn có chắc chắn muốn hoạt động chuyến xe ?", async function () {
       const res = await BusesService.activedBuses(id);
       if (res.status === 200) {
         reloadActiveAPI();
