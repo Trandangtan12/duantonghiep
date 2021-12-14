@@ -754,6 +754,10 @@ video {
   top: 1rem;
 }
 
+.tw-top-2 {
+  top: 0.5rem;
+}
+
 .tw-z-30 {
   z-index: 30;
 }
@@ -1272,6 +1276,10 @@ video {
 
 .tw-w-44 {
   width: 11rem;
+}
+
+.tw-w-\[15rem\] {
+  width: 15rem;
 }
 
 .tw-min-w-0 {
