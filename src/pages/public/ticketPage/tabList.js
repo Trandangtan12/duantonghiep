@@ -41,7 +41,7 @@ const TabList = () => {
         </Tab.List>
         <Tab.Panels className="tw-p-4">
             <Tab.Panel>
-              {listWaiting.map(items => <div className="tw-mb-3">
+              {listWaiting.length === 0 ? <div>Bạn chưa đặt chuyến nào</div> : listWaiting.map(items => <div className="tw-mb-3">
               <div className="tw-font-bold tw-pb-3">{items.buses.date_active}</div>
               <div className="tw-flex tw-justify-between tw-border tw-border-black tw-rounded-lg tw-p-4">
                 <div className="col">
@@ -58,7 +58,7 @@ const TabList = () => {
               )}
             </Tab.Panel>
             <Tab.Panel>
-            {listActived.map(items => <div className="tw-mb-3">
+            {listActived.length === 0 ? <div>Bạn chưa đặt chuyến nào</div> : listActived.map(items => <div className="tw-mb-3">
               <div className="tw-font-bold tw-pb-3">{items.buses.date_active}</div>
               <div className="tw-flex tw-justify-between tw-border tw-border-black tw-rounded-lg tw-p-4">
                 <div className="col">
@@ -75,7 +75,7 @@ const TabList = () => {
               )}
             </Tab.Panel>
             <Tab.Panel>
-            {listRejected.map(items => <div className="tw-mb-3">
+            {listRejected.length === 0 ? <div>Bạn chưa đặt chuyến nào</div> : listRejected.map(items => <div className="tw-mb-3">
               <div className="tw-font-bold tw-pb-3">{items.buses.date_active}</div>
               <div className="tw-flex tw-justify-between tw-border tw-border-black tw-rounded-lg tw-p-4">
                 <div className="col">
@@ -92,7 +92,7 @@ const TabList = () => {
               )}
             </Tab.Panel>
             <Tab.Panel>
-            {listDeposit.map(items => <div className="tw-mb-3">
+            {listDeposit.length === 0 ? <div>Bạn chưa đặt chuyến nào</div> : listDeposit.map(items => <div className="tw-mb-3">
               <div className="tw-font-bold tw-pb-3">{items.buses.date_active}</div>
               <div className="tw-flex tw-justify-between tw-border tw-border-black tw-rounded-lg tw-p-4">
                 <div className="col">
