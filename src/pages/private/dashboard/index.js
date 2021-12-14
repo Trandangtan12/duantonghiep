@@ -20,6 +20,7 @@ import BarChart from "../../../compornent/admin/chart/BarChart";
 import { actionGetAllUsers } from "../../../redux/actions/user";
 import { statisticalService } from "../../../service/statistical";
 import { THIRTYDAY } from "./utility";
+import moment from "moment";
 const DashBoard = () => {
   const [staticsticalData, setStaticsticalData] = useState([]);
   const [labelsData, setLabelsData] = useState([]);
@@ -74,6 +75,22 @@ const DashBoard = () => {
   });
   const handleChangeDate = async (original) => {
     setDateDefault(original);
+    if (original.value === "homnay") {
+      const TODAY = moment().format("YYYY-MM-DD")
+      console.log(TODAY);
+      const res = await statisticalService.getDataByAboutDate(TODAY,TODAY)
+      if (res.status === 200) {
+        const quantityData = res.data.map((_elt) => {
+          return _elt.qty_ticket;
+        });
+        const labelsDate = res.data.map((_elt) => {
+          return _elt.ticket_date;
+        });
+        setLabelsData(labelsDate);
+        setStaticsticalData(quantityData);
+      }
+      return
+    }
     if (original.value === THIRTYDAY) {
       const res = await statisticalService.getDataBy30Day();
       if (res.status === 200) {
@@ -86,6 +103,7 @@ const DashBoard = () => {
         setLabelsData(labelsDate);
         setStaticsticalData(quantityData);
       }
+      return
     } else {
       const res = await statisticalService.getDataByAboutDay(original.value);
       if (res.status === 200) {
@@ -100,9 +118,22 @@ const DashBoard = () => {
       }
     }
   };
-  const filterTicketRejected = availableOrder.filter((_elt) => {
-    return _elt.status === "REJECTED";
-  });
+  const handleStatisticalByAboutDate = async () =>{
+    const startCovert = moment(startDate).format("YYYY-MM-DD")
+    const endtCovert = moment(endDate).format("YYYY-MM-DD")
+
+  const res = await statisticalService.getDataByAboutDate(startCovert,endtCovert)
+  if (res.status === 200) {
+    const quantityData = res.data.map((_elt) => {
+      return _elt.qty_ticket;
+    });
+    const labelsDate = res.data.map((_elt) => {
+      return _elt.ticket_date;
+    });
+    setLabelsData(labelsDate);
+    setStaticsticalData(quantityData);
+  }
+  }
   const filterTicketWaiting = availableOrder.filter((_elt) => {
     return _elt.status === "WAITING_ACTIVE";
   });
@@ -299,7 +330,7 @@ const DashBoard = () => {
         </div>
       </div> :
       <div className="tw-flex tw-flex-wrap">
-        <div className="tw-w-full lg:tw-w-6/12 tw-px-4">
+        <div className="tw-w-full lg:tw-w-4/12 tw-px-4">
           <div className="tw-relative tw-w-full tw-mb-3">
             <label
               className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
@@ -315,7 +346,7 @@ const DashBoard = () => {
             />
           </div>
         </div>
-        <div className="tw-w-full lg:tw-w-6/12 tw-px-4 tw-mb-3">
+        <div className="tw-w-full lg:tw-w-4/12 tw-px-4 tw-mb-3">
           <div className="tw-relative tw-w-full tw-mb-3">
           <label
               className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
@@ -326,15 +357,21 @@ const DashBoard = () => {
           <DatePicker
               className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"
               dateFormat="yyyy-MM-dd"
-              selected={startDate}
-              onChange={(date) => handleChangeStartDateExport(date)}
+              selected={endDate}
+              minDate={startDate}
+              onChange={(date) => handleChangeEndDateExport(date)}
             />
+          </div>
+        </div>
+        <div className="tw-w-full lg:tw-w-4/12 tw-px-4 tw-mb-3">
+          <div className="tw-relative tw-w-full tw-mb-3">
+          <button className="tw-w-[300px] tw-bg-green-600 tw-p-2 tw-mt-7 tw-rounded-lg active:tw-bg-gray-500 tw-text-white" onClick={() => handleStatisticalByAboutDate()}>Thống kê</button>
           </div>
         </div>
       </div>
       }
       <div className="tw-relative tw-w-full tw-mb-3 tw-flex tw-justify-end">
-           <button className="tw-w-[300px] tw-bg-green-600 tw-p-2 tw-rounded-lg active:tw-bg-gray-500 tw-text-white" onClick={() => setTypeStatistical(!typeStatistical)}>{!typeStatistical ? "Thống kê theo khoảng" : "Thống kê theo khoảng ngày"}</button>
+           <button className="tw-w-[300px] tw-bg-green-600 tw-p-2 tw-rounded-lg active:tw-bg-gray-500 tw-text-white" onClick={() => setTypeStatistical(!typeStatistical)}>{!typeStatistical ? "Thống kê theo khoảng ngày" : "Thống kê theo khoảng"}</button>
           </div>
 
       <BarChart
