@@ -21,7 +21,7 @@ const DesktopComponent = (props) => {
   const averageRating = Math.round(sumRating / quantityRating)
   const checkRatingUser = ratingList?.filter(item => item?.user_id === user?.id).length
   const handleAddRating = async (value) => {
-    const data = {
+    const dataRating = {
       rating_point: star,
       description: value
     }
@@ -32,8 +32,8 @@ const DesktopComponent = (props) => {
         if (checkRatingUser >= 1) {
           alert("Bạn đã đánh giá chuyến này")
         } else {
-          const res = await ratingService.addRating(product.id, data)
-          setRatingList([res.data[0], ...product.rating])
+          const res = await ratingService.addRating(product.id, dataRating)
+          setRatingList([res.data[0], ...ratingList])
         }
 
       } catch (error) {
