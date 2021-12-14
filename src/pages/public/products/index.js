@@ -10,13 +10,15 @@ import DesktopComponent from "./DesktopComponent";
 const Products = () => {
     const { start, end } = useParams()
     const dispatch = useDispatch();
+    const NOW = new Date()
+    const nowHours = moment(NOW, "HH:mm")
     const { availableSearch } = useSelector(state => state.buses);
     useEffect(() => {
         dispatch(actionSearchBuses(start, end))
         dispatch(actionGetBuses())
     }, [])
     const [time, setTime] = useState({
-        minTime: moment("00:00", "HH:mm"),
+        minTime: nowHours,
         maxTime: moment("23:59", "HH:mm")
     })
     const [price, setPrice] = useState({
@@ -86,7 +88,7 @@ const Products = () => {
         if (!checkedMoning) {
             setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("06:00", "HH:mm") })
         } else {
-            setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
+            setTime({ minTime: nowHours, maxTime: moment("23:59", "HH:mm") })
         }
 
     }
@@ -98,7 +100,7 @@ const Products = () => {
         if (!checkedLunch) {
             setTime({ minTime: moment("06:01", "HH:mm"), maxTime: moment("12:00", "HH:mm") })
         } else {
-            setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
+            setTime({ minTime: nowHours, maxTime: moment("23:59", "HH:mm") })
         }
 
     }
@@ -110,7 +112,7 @@ const Products = () => {
         if (!checkedAfternoon) {
             setTime({ minTime: moment("12:01", "HH:mm"), maxTime: moment("18:00", "HH:mm") })
         } else {
-            setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
+            setTime({ minTime: nowHours, maxTime: moment("23:59", "HH:mm") })
         }
     }
     const handleCheckedNigth = () => {
@@ -121,7 +123,7 @@ const Products = () => {
         if (!checkedNigth) {
             setTime({ minTime: moment("18:01", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         } else {
-            setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
+            setTime({ minTime: nowHours, maxTime: moment("23:59", "HH:mm") })
         }
     }
     const ListError = () => {
@@ -141,7 +143,7 @@ const Products = () => {
         setCheckedLunch(false)
         setCheckedAfternoon(false)
         setCheckedNigth(false)
-        setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
+        setTime({ minTime: nowHours, maxTime: moment("23:59", "HH:mm") })
         setActiveFilter([])
     }
 
@@ -149,24 +151,28 @@ const Products = () => {
         && item.price <= price.value.max
         && item.seat_empty >= qtyFilter
         && moment(item.start_time, "HH:mm") >= moment("00:00", "HH:mm")
+        && moment(item.start_time, "HH:mm") >= nowHours
         && moment(item.start_time, "HH:mm") <= moment("06:00", "HH:mm"))
 
     const timeLunch = availableSearch.filter(item => item.price >= price.value.min
         && item.price <= price.value.max
         && item.seat_empty >= qtyFilter
         && moment(item.start_time, "HH:mm") >= moment("06:01", "HH:mm")
+        && moment(item.start_time, "HH:mm") >= nowHours
         && moment(item.start_time, "HH:mm") <= moment("12:00", "HH:mm"))
 
     const timeAfternoon = availableSearch.filter(item => item.price >= price.value.min
         && item.price <= price.value.max
         && item.seat_empty >= qtyFilter
         && moment(item.start_time, "HH:mm") >= moment("12:01", "HH:mm")
+        && moment(item.start_time, "HH:mm") >= nowHours
         && moment(item.start_time, "HH:mm") <= moment("18:00", "HH:mm"))
 
     const timeNight = availableSearch.filter(item => item.price >= price.value.min
         && item.price <= price.value.max
         && item.seat_empty >= qtyFilter
         && moment(item.start_time, "HH:mm") >= moment("18:01", "HH:mm")
+        && moment(item.start_time, "HH:mm") >= nowHours
         && moment(item.start_time, "HH:mm") <= moment("23:59", "HH:mm"))
     useEffect(() => {
         const fetchDistrictStart = async () => {

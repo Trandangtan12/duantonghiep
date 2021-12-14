@@ -17,7 +17,7 @@ const TabList = () => {
   return (
     <div className="tw-w-full sm:tw-px-0 tw-bg-white tw-rounded-lg">
       <Tab.Group>
-        <Tab.List className="tw-px-2 tw-border-b-2 tw-border-gray-100">
+        <Tab.List className="tw-px-2 tw-sticky tw-top-0 tw-bg-white tw-border-b-2 tw-border-gray-100">
             <Tab className={({ selected }) =>
             selected ? 'tw-mr-14 tw-py-4 tw-border-b-2 tw-border-black' : 'tw-mr-14 tw-py-4 tw-bg-white tw-text-black'
           }>

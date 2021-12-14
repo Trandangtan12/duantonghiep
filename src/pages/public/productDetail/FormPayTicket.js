@@ -320,7 +320,7 @@ const FormPayTicket = ({product}) => {
                                 />
                             </div>
                             <div>
-                                <label className="tw-uppercase tw-text-xs tw-font-bold tw-mb-5">
+                                <label className="tw-uppercase tw-text-xs tw-font-bold tw-mb-3">
                                     Đặt trước
                                 </label>
                             </div>
