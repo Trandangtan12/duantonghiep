@@ -754,10 +754,6 @@ video {
   top: 1rem;
 }
 
-.tw-top-2 {
-  top: 0.5rem;
-}
-
 .tw-z-30 {
   z-index: 30;
 }
@@ -1258,8 +1254,12 @@ video {
   width: 200px;
 }
 
-.tw-w-\[23rem\] {
-  width: 23rem;
+.tw-w-\[25rem\] {
+  width: 25rem;
+}
+
+.tw-w-44 {
+  width: 11rem;
 }
 
 .tw-w-60 {
@@ -1272,14 +1272,6 @@ video {
 
 .tw-w-\[50rem\] {
   width: 50rem;
-}
-
-.tw-w-44 {
-  width: 11rem;
-}
-
-.tw-w-\[15rem\] {
-  width: 15rem;
 }
 
 .tw-min-w-0 {
@@ -1363,12 +1355,6 @@ video {
           transform: var(--tw-transform);
 }
 
-.tw-translate-y-\[20\%\] {
-  --tw-translate-y: 20%;
-  -webkit-transform: var(--tw-transform);
-          transform: var(--tw-transform);
-}
-
 .tw--translate-x-80 {
   --tw-translate-x: -20rem;
   -webkit-transform: var(--tw-transform);
@@ -1412,6 +1398,10 @@ video {
 
 .tw-list-none {
   list-style-type: none;
+}
+
+.tw-list-disc {
+  list-style-type: disc;
 }
 
 .tw-appearance-none {
@@ -1773,6 +1763,16 @@ video {
   background-color: rgba(226, 232, 240, var(--tw-bg-opacity));
 }
 
+.tw-bg-yellow-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(245, 158, 11, var(--tw-bg-opacity));
+}
+
+.tw-bg-yellow-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(252, 211, 77, var(--tw-bg-opacity));
+}
+
 .tw-bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(244, 63, 94, var(--tw-bg-opacity));
@@ -1821,31 +1821,6 @@ video {
 .tw-bg-green-200 {
   --tw-bg-opacity: 1;
   background-color: rgba(167, 243, 208, var(--tw-bg-opacity));
-}
-
-.tw-bg-green-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
-}
-
-.tw-bg-yellow-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(252, 211, 77, var(--tw-bg-opacity));
-}
-
-.tw-bg-yellow-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(180, 83, 9, var(--tw-bg-opacity));
-}
-
-.tw-bg-yellow-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(217, 119, 6, var(--tw-bg-opacity));
-}
-
-.tw-bg-yellow-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(245, 158, 11, var(--tw-bg-opacity));
 }
 
 .tw-bg-opacity-30 {
@@ -2068,6 +2043,14 @@ video {
 
 .tw-pb-2 {
   padding-bottom: 0.5rem;
+}
+
+.tw-pl-4 {
+  padding-left: 1rem;
+}
+
+.tw-pl-2 {
+  padding-left: 0.5rem;
 }
 
 .tw-text-left {
@@ -2377,10 +2360,6 @@ video {
 
 .tw-opacity-80 {
   opacity: 0.8;
-}
-
-.tw-opacity-20 {
-  opacity: 0.2;
 }
 
 .tw-opacity-75 {

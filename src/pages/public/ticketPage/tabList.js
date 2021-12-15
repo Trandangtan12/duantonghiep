@@ -21,12 +21,12 @@ const TabList = () => {
             <Tab className={({ selected }) =>
             selected ? 'tw-mr-14 tw-py-4 tw-border-b-2 tw-border-black' : 'tw-mr-14 tw-py-4 tw-bg-white tw-text-black'
           }>
-             Chuyến sắp đi
+             Chuyến chưa thanh toán
             </Tab>
             <Tab className={({ selected }) =>
             selected ? 'tw-mr-14 tw-py-4 tw-border-b-2 tw-border-black ' : 'tw-mr-14 tw-py-4 tw-bg-white tw-text-black'
           }>
-             Chuyến đã đi
+             Chuyến đã thanh toán
             </Tab>
             <Tab className={({ selected }) =>
             selected ? 'tw-mr-14 tw-py-4 tw-border-b-2 tw-border-black' : 'tw-mr-14 tw-py-4 tw-bg-white tw-text-black'
@@ -37,6 +37,11 @@ const TabList = () => {
             selected ? 'tw-mr-14 tw-py-4 tw-border-b-2 tw-border-black' : 'tw-mr-14 tw-py-4 tw-bg-white tw-text-black'
           }>
               Đặt cọc
+            </Tab>
+            <Tab className={({ selected }) =>
+            selected ? 'tw-mr-14 tw-py-4 tw-border-b-2 tw-border-black' : 'tw-mr-14 tw-py-4 tw-bg-white tw-text-black'
+          }>
+              Chuyến đã đi
             </Tab>
         </Tab.List>
         <Tab.Panels className="tw-p-4">
