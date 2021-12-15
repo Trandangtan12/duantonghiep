@@ -65,7 +65,7 @@ const News = () => {
       maxHeight: 500,
       Cell : ({original}) =>{
         return <div className="tw-flex tw-justify-center">
-           <img src={original.image} width={100} />
+           <img src={original.image} width={70}  />
         </div>
       }
     },
