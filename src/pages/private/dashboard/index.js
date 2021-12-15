@@ -21,6 +21,7 @@ import { actionGetAllUsers } from "../../../redux/actions/user";
 import { statisticalService } from "../../../service/statistical";
 import { THIRTYDAY } from "./utility";
 import moment from "moment";
+import firebase from '../../../firebase'
 const DashBoard = () => {
   const [staticsticalData, setStaticsticalData] = useState([]);
   const [labelsData, setLabelsData] = useState([]);

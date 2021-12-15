@@ -24,9 +24,13 @@ const EditNews = () => {
   const [contentDefalut, setContentDefalut] = useState("");
   const [urlImage, setUrlImage] = useState("https://via.placeholder.com/300");
   const handleSubmitForm = async (data) => {
+    const newData = {
+      ...data,
+      image : urlImage
+    }
     alertify
       .confirm("Bạn có chắc chắn muốn cập nhật bài viết ?", async function () {
-        const res = await NewsService.updateNews(id, data);
+        const res = await NewsService.updateNews(id, newData);
         if (res.status === 200) {
           history.push("/admin/news");
           alertify.success("Cập nhật thành công");
