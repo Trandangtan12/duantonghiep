@@ -185,7 +185,7 @@ const DesktopComponent = (props) => {
               </div>
             </div>
           </div>
-          <div className="tw-w-[23rem] ">
+          <div className="tw-w-[25rem] ">
             <FormPayTicket product={product} />
           </div>
         </div>

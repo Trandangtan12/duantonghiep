@@ -7,8 +7,10 @@ import { useHistory } from 'react-router-dom'
 import { BusesService } from '../../../service/productService'
 import { UserApi } from '../../../service/userService'
 import ToggleButton from "react-toggle-button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationCircle } from '@fortawesome/fontawesome-free-solid'
 
-const FormPayTicket = ({product}) => {
+const FormPayTicket = ({ product }) => {
     const { user } = UserApi.isAuthenticated()
     const {
         register,
@@ -19,7 +21,8 @@ const FormPayTicket = ({product}) => {
     const [emp, setEmp] = useState();
     const [qty, setQty] = useState(1)
     const TODAY = new Date()
-    const addToday = moment(TODAY).add(1, "days")
+    const addToday = moment(TODAY)
+    const addWeek = moment(TODAY).add(1, "weeks")
     const addTodayFormat = moment(addToday).format("yyyy-MM-DD")
     const todayFormatMoment = new Date(addTodayFormat)
     const [startDate, setStartDate] = useState(todayFormatMoment);
@@ -28,6 +31,7 @@ const FormPayTicket = ({product}) => {
     const [sucess, setSucess] = useState(false)
     const totalPrice = product.price * qty;
     const depositPrice = Math.round(totalPrice * 0.3)
+    console.log("time", startDate >= addWeek);
     const Increase = () => {
 
         if (qty >= product.seat_empty) {
@@ -108,7 +112,7 @@ const FormPayTicket = ({product}) => {
 
             }
             else if (
-                currentRadioValue === "OFFLINE" && sucess === true) {
+                currentRadioValue === "OFFLINE" && startDate >= addWeek && sucess === true) {
                 localStorage.setItem('deposit', true)
                 localStorage.setItem('paymentMethod', "OFFLINE")
                 const ticket = {
@@ -137,7 +141,7 @@ const FormPayTicket = ({product}) => {
                 }
 
             }
-            else if (currentRadioValue === "ATM" && sucess === true) {
+            else if (currentRadioValue === "ATM" && startDate >= addWeek && sucess === true) {
                 localStorage.setItem('deposit', false)
                 localStorage.setItem('paymentMethod', "ATM")
                 const ticket = {
@@ -191,7 +195,7 @@ const FormPayTicket = ({product}) => {
         } catch (error) {
             console.log(error);
         }
-        
+
     }
     useEffect(() => {
         const seat_empty = product.seat_empty - 1
@@ -203,7 +207,7 @@ const FormPayTicket = ({product}) => {
                 <h1 className="tw-font-bold tw-text-xl">Tổng thanh toán</h1>
                 <div>
                     <span className="tw-font-bold tw-text-xl">
-                        {currentRadioValue === "OFFLINE" && qty >= 3 || currentRadioValue === "OFFLINE" && sucess === true && TODAY !== startDate ? <> {new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(depositPrice)}
+                        {currentRadioValue === "OFFLINE" && qty >= 3 || currentRadioValue === "OFFLINE" && sucess === true && startDate >= addWeek ? <> {new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(depositPrice)}
                             <span className='tw-text-sm'>(30%)</span> </> : `${new Intl.NumberFormat('vi', { currency: 'VND', style: 'currency', }).format(totalPrice)}`}
                     </span>
                 </div>
@@ -330,10 +334,11 @@ const FormPayTicket = ({product}) => {
                         </p>
                         <div className={`${sucess ? "tw-block" : "tw-hidden tw-p-0"}`}>
                             <ReactDatePicker
-                                className={`tw-p-2 tw-w-40 tw-border tw-border-gray-300`}
+                                className={`tw-p-2 tw-w-44 tw-border tw-border-gray-300`}
                                 onChange={(date) => setStartDate(date)}
                                 dateFormat="dd/MM/yyyy HH:mm"
                                 showTimeSelect
+
                                 minDate={todayFormatMoment}
                                 selected={startDate} />
                         </div>
@@ -352,7 +357,7 @@ const FormPayTicket = ({product}) => {
                 </div>
 
                 <div className='tw-my-3'>
-                    <div className='tw-my-2'>
+                    <div className='tw-my-2 tw-uppercase tw-text-xs tw-font-bold'>
                         <label>Chọn phương thức thanh toán </label>
                     </div>
                     <div className='tw-my-2'>
@@ -367,7 +372,7 @@ const FormPayTicket = ({product}) => {
                                     onChange={(e) => setCurrentRadioValue(e.target.value)}
                                     defaultChecked={currentRadioValue === "OFFLINE"} />
                                 <label for="OFFLINE" className='tw-text-sm'>
-                                    {qty >= 3 || sucess === true && TODAY !== startDate ? "Đặt cọc 30%" : "Thanh toán bằng tiền mặt"}
+                                    {qty >= 3 || startDate >= addWeek ? "Đặt cọc 30%" : "Thanh toán bằng tiền mặt"}
                                 </label></div>
 
                             <div>
@@ -383,6 +388,16 @@ const FormPayTicket = ({product}) => {
 
                         </div>
                     </div>
+                </div>
+
+                <div className='tw-my-3'>
+                    <div className='tw-my-2 tw-uppercase tw-text-xs tw-font-bold'>
+                        <label> <FontAwesomeIcon icon={faExclamationCircle} /> Những lưu ý trước khi đặt vé </label>
+                    </div>
+                    <ul className='tw-text-xs'>
+                        <li className='tw-pl-2'>- Nếu bạn đặt trước một tuần bạn phải đặt cọc 30% vé</li>
+                        <li className='tw-pl-2'>- Bạn phải nhập đúng địa chỉ email của bạn đang dùng</li>
+                    </ul>
                 </div>
 
                 <div className="tw-flex tw-mt-6">
