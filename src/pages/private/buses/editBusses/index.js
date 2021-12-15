@@ -194,7 +194,6 @@ const EditBusses = () => {
       .set("ok", "Alright!")
       .set("notifier", "position", "top-right");
   };
-  console.log(errors);
   useEffect(() => {
     dispatch(actionGetService());
     dispatch(actionGetAllBusesTypes());

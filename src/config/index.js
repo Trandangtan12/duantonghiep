@@ -41,6 +41,7 @@ export const API_STATISTICAL = "loc_ve_thang"
 
  export const API_STATISTICAL_DEFAULT = "loc_mac_dinh"
 export const API_RATING = "/rating"
+export const API_STATISTICAL_BY_ABOUT_DATE = "/loc_ve"
 export const isArrayEmpty = (arr) =>{
     return arr.length === 0
 }

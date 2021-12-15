@@ -43,9 +43,12 @@ const Evaluate = () => {
       show: true,
       Cell: ({ original }) => {
         return (
-         <span> {[...Array(Number(original.rating_point))].map((x, i) =>
-           <FontAwesomeIcon icon={faStar} color="#FFCC1D" />
-          )}</span>
+          <span>
+            {" "}
+            {[...Array(Number(original.rating_point))].map((x, i) => (
+              <FontAwesomeIcon icon={faStar} color="#FFCC1D" />
+            ))}
+          </span>
         );
       },
     },
@@ -57,12 +60,12 @@ const Evaluate = () => {
       show: true,
     },
     {
-        Header: "Tên khách hàng",
-        accessor: "user_name",
-        maxWidth: 200,
-        filterable: true,
-        show: true,
-      },
+      Header: "Tên khách hàng",
+      accessor: "user_name",
+      maxWidth: 200,
+      filterable: true,
+      show: true,
+    },
     {
       Header: "Thời gian đánh giá",
       accessor: "rating_time",
@@ -76,6 +79,9 @@ const Evaluate = () => {
   }, []);
   return (
     <div>
+      <div className="tw-mb-4">
+        <span className="tw-uppercase tw-text-2xl">Quản lý vé xe</span>
+      </div>
       <Table
         data={rating}
         columns={columns}
