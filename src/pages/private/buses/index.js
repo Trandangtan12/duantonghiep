@@ -154,7 +154,6 @@ const Buses = () => {
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Thời gian kết thúc</td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
-            {console.log(data.date_inactive)}
               {`${data.date_active} ${data.end_time}`}
             </td>
           </tr>
@@ -172,12 +171,6 @@ const Buses = () => {
               {data.service !== null || data.service !== 0
                 ? data.service.map((elt) => elt.name).join(", ")
                 : null}
-            </td>
-          </tr>
-          <tr className="tw-flex tw-flex-wrap tw-mb-4">
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">Số ghế trống</td>
-            <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
-              {data.seat_empty}
             </td>
           </tr>
           {/* <tr className="tw-flex tw-flex-wrap tw-mb-4">

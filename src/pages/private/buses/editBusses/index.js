@@ -177,11 +177,22 @@ const EditBusses = () => {
     resolver: yupResolver(validationSchema),
   });
   const handleSubmitForm = (data) => {
+    console.log(infoBusses);
     delete data.service;
-    // const seat_empty = data.seat - infoBusses.seat
+    let seat_empty
+    if(data.seat > infoBusses.seat){
+      seat_empty = data.seat - infoBusses.seat + infoBusses.seat_empty
+    }
+    if(data.seat === infoBusses.seat){
+      seat_empty = infoBusses.seat_empty
+    }
+    if(data.seat < infoBusses.seat){
+      seat_empty = 0
+    }
     alertify
       .confirm("Bạn có chắc chắn muốn cập nhật chuyến xe ?", async function () {
-        const newData = { ...data, seat_empty: 10 };
+        const newData = { ...data, seat_empty: seat_empty };
+        console.log(newData);
         const res = await BusesService.updateBusses(id, newData);
         if (res.status === 200) {
           alertify.set("notifier", "position", "bottom-right");
