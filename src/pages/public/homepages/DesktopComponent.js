@@ -14,8 +14,9 @@ const DesktopComponent = () => {
     tw-w-[72rem] tw-h-[60.3rem] tw-rounded-[50%]"> </div>
             <section className="tw-w-3/4 tw-mx-auto tw-mt-5 tw-z-10">
                 <h1 className="tw-text-white tw-font-bold tw-text-xl tw-mb-3">Tìm kiếm chuyến xe</h1>
-                <div className="tw-flex">
+                <div>
                     <SearchCars />
+                    
                     <BannerRow />
 
                 </div>

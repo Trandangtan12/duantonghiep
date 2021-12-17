@@ -21,8 +21,8 @@ const SignUp = () => {
             gender: "Nam"
         }
         try {
-            const {data} = await UserApi.signup(newUser)
-            if(data.error) {
+            const { data } = await UserApi.signup(newUser)
+            if (data.error) {
                 setError(data.error)
             } else {
                 setLoading("Đã gửi mail xác thực! Hãy vào hộp thư mail của bạn và xác nhận!!!")
@@ -83,7 +83,7 @@ const SignUp = () => {
                                     * Email
                                 </label>
                                 <input
-                                autoFocus="autofocus"
+                                    autoFocus="autofocus"
                                     {...register("email", {
                                         required: ("Bạn chưa điền email!!!"), pattern: {
                                             value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -94,45 +94,48 @@ const SignUp = () => {
                                     id=""
                                     className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500"
                                 />
-                                <span className="tw-text-red-500 tw-italic">{errors.email?.message}</span>
+                                <span className="tw-text-red-500 tw-text-xs">{errors.email?.message}</span>
                             </div>
 
                             <div className="tw-flex">
-                            <div className="tw-mb-6 tw-mr-4">
-                                <label
-                                    htmlFor="email"
-                                    className="tw-block tw-mb-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400"
-                                >
-                                    * Họ tên
-                                </label>
-                                <input
-                                    {...register("name", {
-                                        required: ("Bạn chưa điền Họ tên!!!")
-                                    })}
-                                    type="text"
-                                    name="name"
-                                    id=""
-                                    className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500"
-                                />
-                                <span className="tw-text-red-500 tw-italic">{errors.name?.message}</span>
-                            </div>
-                            <div className="tw-mb-6">
-                                <label
-                                    htmlFor="email"
-                                    className="tw-block tw-mb-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400"
-                                >
-                                    * Số điện thoại
-                                </label>
-                                <input
-                                    {...register("phone_number", {
-                                        required: ("Bạn chưa điền số điện thoại!!!")
-                                    })}
-                                    type="text"
-                                    id=""
-                                    className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500"
-                                />
-                                <span className="tw-text-red-500 tw-italic">{errors.phone_number?.message}</span>
-                            </div>
+                                <div className="tw-mb-6 tw-mr-4">
+                                    <label
+                                        htmlFor="email"
+                                        className="tw-block tw-mb-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400"
+                                    >
+                                        * Họ tên
+                                    </label>
+                                    <input
+                                        {...register("name", {
+                                            required: ("Bạn chưa điền Họ tên!!!")
+                                        })}
+                                        type="text"
+                                        name="name"
+                                        id=""
+                                        className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500"
+                                    />
+                                    <span className="tw-text-red-500 tw-text-xs">{errors.name?.message}</span>
+                                </div>
+                                <div className="tw-mb-6">
+                                    <label
+                                        htmlFor="email"
+                                        className="tw-block tw-mb-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400"
+                                    >
+                                        * Số điện thoại
+                                    </label>
+                                    <input
+                                        {...register("phone_number", {
+                                            required: ("Bạn chưa điền số điện thoại!!!"), pattern: {
+                                                value: /((09|03|07|08|05)+([0-9]{8})\b)/g,
+                                                message: 'Số điện thoại không hợp lệ',
+                                            },
+                                        })}
+                                        type="text"
+                                        id=""
+                                        className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500"
+                                    />
+                                    <span className="tw-text-red-500 tw-text-xs">{errors.phone_number?.message}</span>
+                                </div>
                             </div>
 
                             <div className="tw-mb-6">
@@ -144,11 +147,16 @@ const SignUp = () => {
                                 </label>
                                 <input
                                     type={showPassword ? "text" : "password"}
-                                    {...register("password", { required: ("Bạn chưa nhập mật khẩu!!!") })}
+                                    {...register("password", {
+                                        required: ("Bạn chưa nhập mật khẩu!!!"), pattern: {
+                                            value: /(^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$)/,
+                                            message: 'Tối thiểu tám ký tự, ít nhất một chữ cái và một số',
+                                        },
+                                    })}
                                     id=""
                                     className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500"
                                 />
-                                <span className="tw-text-red-500 tw-italic">{errors.password?.message}</span>
+                                <span className="tw-text-red-500 tw-text-xs">{errors.password?.message}</span>
 
                             </div>
                             <div className="tw-mb-6">
@@ -167,7 +175,7 @@ const SignUp = () => {
                                     id=""
                                     className="tw-w-full tw-px-3 tw-py-2 tw-placeholder-gray-300 tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring focus:tw-ring-indigo-100 focus:tw-border-indigo-300 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder-gray-500 dark:tw-border-gray-600 dark:focus:tw-ring-gray-900 dark:focus:tw-border-gray-500"
                                 />
-                                <span className="tw-text-red-500 tw-italic">{errors.re_password?.message}</span>
+                                <span className="tw-text-red-500 tw-text-xs">{errors.re_password?.message}</span>
                                 <div className="tw-mt-3 tw-flex tw-items-center">
                                     <input onClick={onShowPassword} type="checkbox" className="tw-mr-1" /><span className="tw-text-sm tw-text-gray-600 dark:tw-text-gray-400">Show password</span>
 

@@ -21,7 +21,7 @@ export const BusesService = {
   deleteBuses(id) {
     return HttpClient.delete(`${API_GET_BUSES}/${id}`);
   },
-  
+
   addBuses(buses) {
     return HttpClient.post(API_GET_BUSES, buses);
   },
@@ -49,7 +49,7 @@ export const BusesService = {
     return HttpClient.post("/ticket", data);
   },
   createVehicel(data) {
-    return HttpClient.post(`${API_GET_BUSES_TYPE}`, data );
+    return HttpClient.post(`${API_GET_BUSES_TYPE}`, data);
   },
   deleteVehicel(id) {
     return HttpClient.delete(`${API_GET_BUSES_TYPE}/${id}`);
@@ -64,7 +64,7 @@ export const BusesService = {
     return HttpClient.put(`${API_GET_SERVICE}/${id}`, service);
   },
   createService(data) {
-    return HttpClient.post(`${API_GET_SERVICE}`, data );
+    return HttpClient.post(`${API_GET_SERVICE}`, data);
   },
   getService(id) {
     return HttpClient.get(`${API_GET_SERVICE}/${id}`);
@@ -75,11 +75,11 @@ export const BusesService = {
   getAllOder() {
     return HttpClient.get(`${API_TICKET}`);
   },
-  getInfoTicket(id){
+  getInfoTicket(id) {
     return HttpClient.get(`${API_TICKET}/${id}`);
   },
-  updateTicket(id,data){
-    return HttpClient.put(`${API_TICKET}/${id}`,data);
+  updateTicket(id, data) {
+    return HttpClient.put(`${API_TICKET}/${id}`, data);
   },
   approvalTicket(id) {
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "ACTIVED" });
@@ -87,13 +87,13 @@ export const BusesService = {
   rejectTicket(id) {
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "REJECTED" });
   },
-  depositedTicket(id){
+  depositedTicket(id) {
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "DEPOSIT" });
   },
-  doneTicket(id){
+  doneTicket(id) {
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "DONE" });
   },
-  inActiveTicket(id){
+  inActiveTicket(id) {
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "WAITING_ACTIVE" });
   },
   deleteTicket(id) {
@@ -104,7 +104,7 @@ export const BusesService = {
       responseType: "arraybuffer",
     });
   },
-  exportAboutDays(startDate,endDate){
+  exportAboutDays(startDate, endDate) {
     return HttpClient.get(`${API_EXPORT}?from_date=${startDate}&to_date=${endDate}`, {
       responseType: "arraybuffer",
     });
@@ -123,19 +123,19 @@ export const BusesService = {
       bank_code: "NCB",
     });
   },
-  getBussesByTime(start,end,date_active,start_time){
+  getBussesByTime(start, end, date_active, start_time) {
     return HttpClient.get(
       `${API_SEARCH}?startPointId=${start}&endPointId=${end}&date_active=${date_active}&start_time=${start_time}`
     );
   },
-  deActivedBuses(id){
-    return HttpClient.put(`${API_GET_BUSES}/${id}`,{
-      status : "WAITING_ACTIVE"
+  deActivedBuses(id) {
+    return HttpClient.put(`${API_GET_BUSES}/${id}`, {
+      status: "WAITING_ACTIVE"
     })
   },
-  activedBuses(id){
-    return HttpClient.put(`${API_GET_BUSES}/${id}`,{
-      status : "ACTIVED"
+  activedBuses(id) {
+    return HttpClient.put(`${API_GET_BUSES}/${id}`, {
+      status: "ACTIVED"
     })
   }
   // successTicket(){

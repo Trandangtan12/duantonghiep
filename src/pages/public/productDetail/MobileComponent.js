@@ -60,7 +60,7 @@ const MobileComponent = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="tw-w-full tw-fixed tw-bottom-0 tw-drop-shadow-2xl">
+                    <div className="tw-w-full tw-fixed tw-bottom-[4.7rem] tw-drop-shadow-2xl">
                         <div className="tw-rounded-lg tw-bg-white tw-p-3">
                             <div className="tw-flex tw-justify-between ">
                                 <h1 className="tw-font-bold tw-text-xl">Tổng thanh toán</h1>

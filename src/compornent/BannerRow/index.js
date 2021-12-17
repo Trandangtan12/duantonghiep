@@ -1,48 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { actionGetNews } from '../../redux/actions/news'
 
 
 const BannerRow = () => {
-   
-    return (
-        <div className="tw-w-full tw-flex tw-flex-col">
-        <div className="bannerTicket tw-h-[12rem] tw-mb-4 tw-bg-white tw-rounded-lg tw-shadow-lg tw-p-5">
-        <h2 className="tw-text-xl tw-font-bold tw-mb-2 ">Phòng tránh covid 2019</h2>
-        {/* <p>The Last React Carousel You'll Ever Need!
-          This library is the port of jQuery slick library.</p> */}
+  const { news } = useSelector(state => state.news)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(actionGetNews())
+  }, [])
+  return (
+    <div className="tw-w-full tw-bg-white tw-mt-20 tw-rounded-lg ">
+      <h1 className='tw-px-10 tw-py-5 tw-text-xl tw-font-black tw-uppercase'>Bài viết mới của nhà xe SixLeaf</h1>
+      <div className='tw-flex tw-flex-1 tw-overflow-auto tw-p-5'>
+      <div className="tw-flex tw-flex-1 tw-max-w-max">
+        {news.map(item => <div className="tw-bg-white tw-w-[20.6rem] tw-rounded-lg tw-mx-5 tw-shadow-lg tw-flex tw-flex-col">
+          <div className="img">
+            <img src={item.image} alt="" className="tw-object-cover tw-rounded-t-lg tw-h-44 tw-w-full" />
           </div>
-
-
-          <div className="slideTicket tw-flex tw-h-[12rem]  ">
-      
-       <div className="tw-bg-white tw-w-full tw-rounded-lg tw-shadow-lg tw-mr-5 tw-flex tw-flex-col">
-        <div className="img">
-       <img src="https://gos3.ibcdn.com/cab3-new-1634741929.jpg" alt="" className="tw-object-cover tw-rounded-t-lg  tw-w-full"/>
-       </div>
-       <div className="text tw-px-2">
-        {/* <p className="tw-text-sm">The Last React Carousel You'll Ever Need!
-          This library is the port of jQuery slick library.</p> */}
+          <div className="text tw-p-6">
+            <p className="tw-text-lg">{item.name}</p>
           </div>
-       </div>
-
-
-       <div className="tw-bg-white tw-rounded-lg tw-w-full tw-shadow-lg tw-flex tw-flex-col">
-        <div className="img">
-       <img src="https://gos3.ibcdn.com/img-1623818080.jpg" alt="" className="tw-object-cover tw-rounded-t-lg  tw-w-full"/>
-       </div>
-       <div className="text tw-px-2">
-        {/* <p className="tw-text-sm">The Last React Carousel You'll Ever Need!
-          This library is the port of jQuery slick library.</p> */}
-          </div>
-       </div>
-
-          </div>
-
-          <div>
-
-            
-          </div>
+        </div>)}
+        
+        
+       
+        
       </div>
-    )
+      
+
+
+      </div>
+    </div>
+  )
 }
 
 export default BannerRow
