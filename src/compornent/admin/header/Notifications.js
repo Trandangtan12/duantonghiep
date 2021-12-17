@@ -15,10 +15,9 @@ const Notifications = () => {
         title: payload.notification.title,
         body: payload.notification.body,
       });
-      console.log(payload);
+
     })
     .catch((err) => console.log("failed: ", err));
-  console.log(notification);
   return (
     <>
       <Menu
