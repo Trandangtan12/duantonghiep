@@ -3,11 +3,11 @@ import {
   faCircle
 } from "@fortawesome/fontawesome-free-solid";
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const DesktopComponent = (props) => {
   const { productFilter } = props
+  const checkLocal = window.localStorage.hasOwnProperty("ticketLocal")
   const ListError = () => {
     return (<div className="tw-bg-white tw-p-5 tw-text-center">
       <img src="https://storage.googleapis.com/fe-production/images/route-no-schedule.png" alt="" />
@@ -75,11 +75,15 @@ const DesktopComponent = (props) => {
 
             <div className="tw-text-right">
               <p className="tw-py-3 tw-text-gray-500">{item.seat_empty > 0 ? `Số ghế trống ${item.seat_empty}` : <span>Hết ghế</span>}</p>
-              {item.status !== "ACTIVED" ? <span className='tw-p-2 tw-bg-yellow-300 tw-rounded-md'>Tạm thời ngưng hoạt động</span> :
-                <Link to={`/productdetail/${item.id}`}>
+              {/* {item.status !== "ACTIVED" ? <span className='tw-p-2 tw-bg-yellow-300 tw-rounded-md'>Tạm thời ngưng hoạt động</span> : */}
+                {checkLocal ? <button className="tw-p-2 tw-bg-gray-500 tw-text-white tw-rounded-md ">
+                    Gọi điện cho tổng đài
+                  </button> : <Link to={`/productdetail/${item.id}`}>
                   <button className="tw-p-2 tw-bg-red-500 tw-text-white tw-rounded-md ">
                     Chọn chuyến
                   </button></Link>}
+               
+              {/*  */}
             </div>
           </div>
         </div>

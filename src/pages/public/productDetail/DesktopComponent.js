@@ -53,7 +53,6 @@ const DesktopComponent = (props) => {
   useEffect(() => {
     setRatingList(product.rating)
   }, [product.rating])
-  console.log(ratingList);
   return (
     <div className="">
       <div className="tw-bg-green-500 tw-h-[12rem]">

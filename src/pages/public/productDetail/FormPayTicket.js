@@ -21,6 +21,7 @@ const FormPayTicket = ({ product }) => {
     const [emp, setEmp] = useState();
     const [qty, setQty] = useState(1)
     const TODAY = new Date()
+    const checkLocal = window.localStorage.hasOwnProperty("ticketLocal")
     const addToday = moment(TODAY)
     const addWeek = moment(TODAY).add(1, "weeks")
     const addTodayFormat = moment(addToday).format("yyyy-MM-DD")
@@ -31,7 +32,6 @@ const FormPayTicket = ({ product }) => {
     const [sucess, setSucess] = useState(false)
     const totalPrice = product.price * qty;
     const depositPrice = Math.round(totalPrice * 0.3)
-    console.log("time", startDate >= addWeek);
     const Increase = () => {
 
         if (qty >= product.seat_empty) {
@@ -59,7 +59,16 @@ const FormPayTicket = ({ product }) => {
                 ...data,
                 seat_empty: emp
             }
-            if (currentRadioValue === "OFFLINE" && qty < 3 && sucess !== true) {
+            const ticketLocal = {
+                id: data.id,
+                startTime: product.start_time,
+                endTime: product.end_time,
+                form: product.startPointName,
+                to: product.endPointName,
+                quantity: qty,
+                dateStart: product.date_active
+            }
+            if (currentRadioValue === "OFFLINE" && qty < 3 && startDate < addWeek) {
                 localStorage.setItem('deposit', false)
                 localStorage.setItem('paymentMethod', "OFFLINE")
                 const ticket = {
@@ -70,17 +79,14 @@ const FormPayTicket = ({ product }) => {
                     paymentMethod: currentRadioValue,
                     depositAmount: 0,
                 }
+
                 const resTicket = await BusesService.addTicket(ticket)
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
                     alert("Đặt vé thành công")
-                }
-                if (emp < 0) {
-                    alert("Hết ghế trống!!!")
-                } else {
-                    localStorage.setItem('ticket', JSON.stringify(resTicket.data))
                     history.push("/payment/success")
-                    await BusesService.updateBusses(product.id, updateBuses)
+                    localStorage.setItem('ticket', JSON.stringify(resTicket.data))
                 }
 
             } else if (currentRadioValue === "OFFLINE" && qty >= 3) {
@@ -99,6 +105,7 @@ const FormPayTicket = ({ product }) => {
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
                     alert("Đặt vé thành công")
+                    localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
                 }
                 const res = await BusesService.paymentTicket(depositPrice)
                 if (res.data.message === "success") {
@@ -128,6 +135,7 @@ const FormPayTicket = ({ product }) => {
                 const resTicket = await BusesService.addTicket(ticket)
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
                     alert("Đặt vé thành công")
                 }
                 const res = await BusesService.paymentTicket(depositPrice)
@@ -155,6 +163,7 @@ const FormPayTicket = ({ product }) => {
                 const resTicket = await BusesService.addTicket(ticket)
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
                     alert("Đặt vé thành công")
                 }
                 const res = await BusesService.paymentTicket(totalPrice)
@@ -180,6 +189,7 @@ const FormPayTicket = ({ product }) => {
                 const resTicket = await BusesService.addTicket(ticket)
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
                     alert("Đặt vé thành công")
                 }
                 const res = await BusesService.paymentTicket(totalPrice)
@@ -397,16 +407,25 @@ const FormPayTicket = ({ product }) => {
                     <ul className='tw-text-xs'>
                         <li className='tw-pl-2'>- Nếu bạn đặt trước một tuần bạn phải đặt cọc 30% vé</li>
                         <li className='tw-pl-2'>- Bạn phải nhập đúng địa chỉ email của bạn đang dùng</li>
+                        <li className='tw-pl-2'>- Nếu bạn đặt một lần mà chưa thanh toán đợi khoảng 10 phút sau thì bạn mới
+                            đặt lại được</li>
                     </ul>
                 </div>
 
                 <div className="tw-flex tw-mt-6">
-                    <button
-                        type="submit"
+                    {checkLocal ? <button
+                        type="button"
                         className="tw-w-full tw-p-2 tw-rounded-md tw-bg-red-600 tw-text-white"
                     >
-                        Đặt vé
-                    </button>
+                        Gọi điện cho tổng đài
+                    </button> :
+                        <button
+                            type="submit"
+                            className="tw-w-full tw-p-2 tw-rounded-md tw-bg-red-600 tw-text-white"
+                        >
+                            Đặt vé
+                        </button>}
+
                 </div>
             </form>
 

@@ -13,10 +13,12 @@ const SuccessPayment = () => {
       //đặt cọc
       if (paymentMethod === "OFFLINE" && deposit === 'true') {
         await BusesService.depositedTicket(ticket.id)
+        localStorage.removeItem('ticketLocal')
       }
       //atm
       else if(paymentMethod === "ATM"){
         await BusesService.approvalTicket(ticket.id);
+        localStorage.removeItem('ticketLocal')
       }   
       //tại chỗ
       else if(paymentMethod === "OFFLINE"){
