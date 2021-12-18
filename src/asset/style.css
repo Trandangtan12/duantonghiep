@@ -1175,6 +1175,14 @@ video {
   height: 10rem;
 }
 
+.tw-h-\[500px\] {
+  height: 500px;
+}
+
+.tw-h-\[470px\] {
+  height: 470px;
+}
+
 .tw-min-h-screen {
   min-height: 100vh;
 }
@@ -2175,6 +2183,10 @@ video {
   font-size: 2rem;
 }
 
+.tw-text-\[0\.7rem\] {
+  font-size: 0.7rem;
+}
+
 .tw-font-medium {
   font-weight: 500;
 }
@@ -3026,6 +3038,10 @@ video {
 
   .md\:tw-text-center {
     text-align: center;
+  }
+
+  .md\:tw-text-\[0\.7rem\] {
+    font-size: 0.7rem;
   }
 }
 
