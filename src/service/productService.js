@@ -96,6 +96,9 @@ export const BusesService = {
   inActiveTicket(id) {
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "WAITING_ACTIVE" });
   },
+  inWatingActiveTicket(id) {
+    return HttpClient.put(`${API_TICKET}/${id}`, { status: "UNCONFIMRED" });
+  },
   deleteTicket(id) {
     return HttpClient.delete(`${API_TICKET}/${id}`);
   },

@@ -36,6 +36,8 @@ export const API_USER_ADMIN = "/userAdmin"
 
 export const API_NEWS = "/news"
 
+export const API_NOTIFICATION = "/notification"
+
 export const API_SEARCH_TICKET = "/searchTK"
 export const API_STATISTICAL = "loc_ve_thang"
 

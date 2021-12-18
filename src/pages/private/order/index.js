@@ -26,6 +26,7 @@ import {
   listFilterStatus,
   OFFLINE,
   REJECTED,
+  UNCONFIMRED,
   WAITING_ACTIVE,
 } from "./utility";
 
@@ -34,6 +35,9 @@ const Order = () => {
   let [isOpen, setIsOpen] = useState(false);
   function openModal() {
     setIsOpen(true);
+  }
+  const sendEmail = async (id) =>{
+    await BusesService.sendEmail(id)
   }
   const [filterByDateData, setFilterByDateData] = useState([])
   const [filterByDateStatus, setfilterByDateStatus] = useState(false)
@@ -58,6 +62,23 @@ const Order = () => {
   }) : ticketDefault.filter((_elt) => {
     return _elt.status === REJECTED;
   });
+  const handleWaitingActiveTicket = (id) => {
+    alertify
+      .confirm("Bạn có chắc chắn muốn xác thực vé xe ?", async function () {
+        const res = await BusesService.approvalTicket(id);
+        if (res.status === 200) {
+          sendEmail(id)
+          reloadActiveAPI();
+          alertify.success("Cập nhât vé thành công !");
+        } else {
+          alertify.warning("Có lỗi xảy ra");
+        }
+      })
+      .set({ title: "Cập nhật vé xe" })
+      .set("movable", false)
+      .set("ok", "Alright!")
+      .set("notifier", "position", "top-right");
+  }
   const handleApprovalTicket = (id) => {
     alertify
       .confirm("Bạn có chắc chắn muốn thanh toán vé xe ?", async function () {
@@ -260,6 +281,12 @@ const Order = () => {
             <div className="tw-bg-green-600 tw-text-white">Đã hoàn hành</div>
           ),
         };
+        case UNCONFIMRED:
+          return {
+            render: (
+              <div className="tw-bg-[#FFE400] tw-text-white">Chờ xác nhận</div>
+            ),
+          };
       default:
         return null;
     }
@@ -394,6 +421,14 @@ const Order = () => {
                   <FontAwesomeIcon icon={faCheck} color="green" />
                 </span>
               ) : null}
+              {
+                original.status === UNCONFIMRED ?  <span
+                  onClick={() => handleWaitingActiveTicket(original.id)}
+                  className="tw-cursor-pointer tw-mr-2"
+                >
+                  <FontAwesomeIcon icon={faCheck} color="green" />
+                </span> : null
+              }
               {original.status !== REJECTED ? (
                 <span
                   onClick={() => handleRejectTicket(original.id, original)}

@@ -32,8 +32,7 @@ const SuccessPayment = () => {
       }   
       //tại chỗ
       else if(paymentMethod === "OFFLINE"){
-        await BusesService.inActiveTicket(ticket.id);
-        sendEmail()
+        await BusesService.inWatingActiveTicket(ticket.id)
         localStorage.removeItem('ticket')
         localStorage.removeItem('paymentMethod')
       }   
