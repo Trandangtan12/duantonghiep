@@ -26,15 +26,8 @@ const SignUp = () => {
                 setError(data.error)
             } else {
                 setLoading("Đã gửi mail xác thực! Hãy vào hộp thư mail của bạn và xác nhận!!!")
+                setTimeout(() => history.push("/signin"), 3000)
             }
-            // await UserApi.signup(newUser)
-            //     .then(dataUser => {
-            //         if (dataUser.data.error) {
-            //             setError(dataUser.data.error);
-            //         } else {
-            //            setLoading("Đã gửi mail xác thực! Hãy vào hộp thư mail của bạn và xác nhận!!!")
-            //         }
-            //     })
 
         } catch (err) {
             setError(err.response.data.message);
@@ -48,6 +41,7 @@ const SignUp = () => {
             setShowPassword(true)
         }
     }
+    
     return (
         <div>
             <div className="tw-flex tw-justify-center tw-bg-gray-100">

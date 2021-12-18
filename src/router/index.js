@@ -60,52 +60,35 @@ const Routes = () => {
   const Analytics = lazy(() => import("../pages/private/analytics"));
   const Order = lazy(() => import("../pages/private/order"));
   const NewBuses = lazy(() => import("../pages/private/buses/newBuses"));
-  const Products = lazy(() => import("../pages/public/products"));
-  const ProductDetail = lazy(() => import("../pages/public/productDetail"));
-  const SignIn = lazy(() => import("../pages/public/User/signin"));
-  const SignUp = lazy(() => import("../pages/public/User/signup"));
-  const UserDashBoard = lazy(() =>
-    import("../pages/public/User/UserDashboard")
-  );
-  const EditBusses = lazy(() => import("../pages/private/buses/editBusses"));
-  const PageNotFound = lazy(() => import("../pages/PageNotFound"));
-  const Ticket = lazy(() => import("../pages/public/ticketPage"));
-  const TicketSearch = lazy(() => import("../pages/public/searchTicket"));
-  const Service = lazy(() => import("../pages/private/service"));
-  const BusesType = lazy(() => import("../pages/private/vehicleType"));
-  const CretaeService = lazy(() =>
-    import("../pages/private/service/CreateSevice")
-  );
-  const EditService = lazy(() =>
-    import("../pages/private/service/EditService/EditService")
-  );
-  const CretaeVehicel = lazy(() =>
-    import("../pages/private/vehicleType/CreateVehicel/CreateVehicel")
-  );
-  const EditeVehicel = lazy(() =>
-    import("../pages/private/vehicleType/EditVehicel/EditVehical")
-  );
-  const Profile = lazy(() => import("../pages/private/profile"));
-  const Account = lazy(() => import("../pages/private/account"));
-  const SuccessPayment = lazy(() =>
-    import("../pages/public/paymentProgress/Success")
-  );
-  const FailPayment = lazy(() =>
-    import("../pages/public/paymentProgress/Fail")
-  );
-  const CreateTicket = lazy(() => import("../pages/private/order/create"));
-  const Permission = lazy(() =>
-    import("../pages/private/account/permission/index")
-  );
-  const CreatePermission = lazy(() =>
-    import("../pages/private/account/createPermission")
-  );
-  const News = lazy(() => import("../pages/private/news"));
-  const NewsCreate = lazy(() => import("../pages/private/news/create/index"));
-  const EditNews = lazy(() => import("../pages/private/news/edit/index"));
-  const EditTicket = lazy(() => import("../pages/private/order/edit/index"));
-  const Evaluate = lazy(() => import("../pages/private/evaluate"));
-
+  const Products = lazy(() => import("../pages/public/products"))
+  const ProductDetail = lazy(() => import("../pages/public/productDetail"))
+  const SignIn = lazy(() => import("../pages/public/User/signin"))
+  const SignUp = lazy(() => import("../pages/public/User/signup"))
+  const UserDashBoard = lazy(()=> import("../pages/public/User/UserDashboard"))
+  const EditBusses = lazy(() => import("../pages/private/buses/editBusses"))
+  const PageNotFound = lazy(() => import("../pages/PageNotFound"))
+  const Ticket = lazy(() => import("../pages/public/ticketPage"))
+  const TicketSearch = lazy(() => import("../pages/public/searchTicket"))
+  const Service = lazy(() => import("../pages/private/service"))
+  const BusesType = lazy(() => import("../pages/private/vehicleType"))
+  const CretaeService = lazy(() => import("../pages/private/service/CreateSevice"))
+  const EditService = lazy(() => import("../pages/private/service/EditService/EditService"))
+  const CretaeVehicel = lazy(() => import("../pages/private/vehicleType/CreateVehicel/CreateVehicel"))
+  const EditeVehicel = lazy(() => import("../pages/private/vehicleType/EditVehicel/EditVehical"))
+  const Profile = lazy(() => import("../pages/private/profile"))
+  const Account = lazy(() => import("../pages/private/account"))
+  const SuccessPayment = lazy(() => import("../pages/public/paymentProgress/Success"))
+  const FailPayment = lazy(() => import("../pages/public/paymentProgress/Fail"))
+  const CreateTicket = lazy(() => import("../pages/private/order/create"))
+  const Permission = lazy(() => import("../pages/private/account/permission/index"))
+  const CreatePermission = lazy(() => import("../pages/private/account/createPermission"))
+  const News = lazy(() => import("../pages/private/news"))
+  const NewsCreate = lazy(() => import("../pages/private/news/create/index"))
+  const EditNews = lazy(() => import("../pages/private/news/edit/index"))
+  const EditTicket = lazy(() => import("../pages/private/order/edit/index"))
+  const Evaluate = lazy(() => import("../pages/private/evaluate"))
+  const NewPage = lazy(() => import("../pages/public/newPages"))
+  const NewDetailPage = lazy(() => import("../pages/public/newsDetailPage"))
   return (
     <Router>
       <Suspense fallback={<Loading />}>
@@ -302,35 +285,28 @@ const Routes = () => {
             </LayoutAdmin>
           </PrivateRouterAdmin>
           <Route>
-            <LayoutWebsite>
-              <Switch>
-                <Route exact path="/" component={HomePages} />
-                <Route exact path="/contact" component={Contracts} />
-                <Route
-                  path="/product/start=:start/and/end=:end"
-                  component={Products}
-                />
-                <Route
-                  exact
-                  path="/productdetail/:id"
-                  component={ProductDetail}
-                />
-                <Route
-                  exact
-                  path="/payment/success"
-                  component={SuccessPayment}
-                />
-                <Route exact path="/payment/fail" component={FailPayment} />
-                <Route exact path="/signin" component={SignIn} />
-                <Route exact path="/signup" component={SignUp} />
-                <PrivateRouterPublic exact path="/user/dashbroad">
-                  <UserDashBoard />
-                </PrivateRouterPublic>
-                <Route exact path="/ticket" component={Ticket} />
-                <Route exact path="/ticket/search" component={TicketSearch} />
-                <Route exact path="*" component={PageNotFound} />
-              </Switch>
-            </LayoutWebsite>
+            
+                <LayoutWebsite>
+                  <Switch>
+                    <Route exact path="/" component={HomePages} />
+                    <Route exact path="/contact" component={Contracts} />
+                    <Route path="/product/start=:start/and/end=:end" component={Products}/>
+                    <Route exact path="/productdetail/:id" component={ProductDetail} />
+                    <Route exact path="/payment/success" component={SuccessPayment} />
+                    <Route exact path="/payment/fail" component={FailPayment} />
+                    <Route exact path="/signin" component={SignIn} />
+                    <Route exact path="/signup" component={SignUp} />
+                    <PrivateRouterPublic exact path="/user/dashbroad">
+                      <UserDashBoard/>
+                    </PrivateRouterPublic>
+                    <Route exact path="/page/news" component={NewPage} />
+                    <Route exact path="/page/newdetail/:id" component={NewDetailPage} />
+                    <Route exact path="/ticket" component={Ticket} />
+                    <Route exact path="/ticket/search" component={TicketSearch} />
+                    <Route exact path="*" component={PageNotFound} />
+                  </Switch>
+                </LayoutWebsite>
+              
           </Route>
         </Switch>
       </Suspense>
