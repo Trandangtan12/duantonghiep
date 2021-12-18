@@ -52,7 +52,7 @@ const FormPayTicket = ({ product }) => {
             }
         }
     }
-    const ticket = JSON.parse(localStorage.getItem("ticket"))
+    const ticket = JSON.parse(localStorage.getItem("ticketDetail"))
     const handlePayTicket = async (data) => {
         try {
             const updateBuses = {
@@ -82,7 +82,7 @@ const FormPayTicket = ({ product }) => {
                 }
                 const resTicket = await BusesService.addTicket(ticket)
                 if (resTicket.status === 201 || resTicket.status === 200) {
-                    localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketDetail', JSON.stringify(resTicket.data))
                     localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
                     history.push("/payment/success")
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))

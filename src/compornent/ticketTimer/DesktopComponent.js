@@ -5,7 +5,7 @@ const DesktopComponent = (props) => {
     const {timeTicket, pathname, localTicket, cancelTimeCountdown} = props
     return (
         <div>
-             {timeTicket && pathname !== `/productdetail/${localTicket().id}` && pathname !== "/payment/success" ?
+             {timeTicket && pathname !== "/ticket" && pathname !== `/productdetail/${localTicket().id}` && pathname !== "/payment/success" ?
                 <div className='tw-fixed tw-z-20 tw-mx-auto tw-bottom-[7rem] tw-right-0 tw-rounded-lg'>
                     <div className='tw-flex tw-justify-center'>
                         <div className='tw-bg-white tw-p-4 tw-my-auto tw-text-center tw-rounded-lg tw-shadow-xl'>

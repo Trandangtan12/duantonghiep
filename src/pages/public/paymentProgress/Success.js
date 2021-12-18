@@ -22,12 +22,14 @@ const SuccessPayment = () => {
         sendEmail()
         localStorage.removeItem('ticket')
         localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('ticketLocal')
       }
       //atm
       else if(paymentMethod === "ATM"){
         await BusesService.approvalTicket(ticket.id);
         sendEmail()
         localStorage.removeItem('ticket')
+        localStorage.removeItem('ticketLocal')
         localStorage.removeItem('paymentMethod')
       }   
       //tại chỗ

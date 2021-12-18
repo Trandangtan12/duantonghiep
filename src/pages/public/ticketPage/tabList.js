@@ -18,7 +18,8 @@ const TabList = () => {
   const listDeposit = availableOrder.filter(item => item.user_id == user.id && item.status == "DEPOSIT");
   const listDone = availableOrder.filter(item => item.user_id == user.id && item.status == "DONE");
   const listUnconfimed = availableOrder.filter(item => item.user_id == user.id && item.status == "UNCONFIMRED");
-  console.log(listWaiting);
+  console.log("Chưa thanh toán", listWaiting);
+  console.log("Chưa xác nhận", listUnconfimed);
   return (
     <div className="tw-w-full sm:tw-px-0 tw-bg-white tw-rounded-lg">
           {isMobile ? <TabListMobileComponent 
