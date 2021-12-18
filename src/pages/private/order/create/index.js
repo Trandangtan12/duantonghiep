@@ -11,6 +11,7 @@ import SelectForm from "../../../../compornent/selectForm";
 import TextArea from "../../../../compornent/textarea";
 import * as Yup from 'yup';
 import { ACTIVED, ATM, OFFLINE, WAITING_ACTIVE } from "../utility";
+import alertify from "alertifyjs";
 const CreateTicket = () => {
   const { user } = UserApi.isAuthenticated();
   const dispatch = useDispatch();
@@ -44,11 +45,19 @@ const CreateTicket = () => {
       paymentMethod :paymentMethodType === ACTIVED ? ATM : OFFLINE,
       totalPrice : totalPrice,
     };
-    const resTicket = await BusesService.addTicket(newData)   
-    if (resTicket.status === 201) {
-      await BusesService.sendEmail(resTicket.data.id)
-      history.push("/admin/order")
-    }
+    alertify
+    .confirm("Bạn có chắc chắn muốn tạo mơí vé xe ?", async function () {
+      const resTicket = await BusesService.addTicket(newData)   
+      if (resTicket.status === 201) {
+        await BusesService.sendEmail(resTicket.data.id)
+        history.push("/admin/order")
+      }
+    })
+    .set({ title: "Chuyến xe" })
+    .set("movable", false)
+    .set("ok", "Alright!")
+    .set("notifier", "position", "top-right");
+    
   };
   useEffect(() => {
     dispatch(actionGetBuses());

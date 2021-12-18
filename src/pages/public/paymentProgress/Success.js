@@ -5,7 +5,13 @@ import { useHistory } from "react-router";
 const SuccessPayment = () => {
   const history = useHistory()
   const ticket = JSON.parse(localStorage.getItem('ticket'))
+  const sendEmail = async () =>{
+    await BusesService.sendEmail(ticket.id)
+  }
   useEffect(() => {
+    if (ticket === undefined || ticket === null) {
+      history.push("/")
+    }
     const updateTicket = async () => {
       // lấy trạng thái đặt trước với phương thức thanh toán từ local 
       const deposit = localStorage.getItem("deposit")
@@ -13,23 +19,26 @@ const SuccessPayment = () => {
       //đặt cọc
       if (paymentMethod === "OFFLINE" && deposit === 'true') {
         await BusesService.depositedTicket(ticket.id)
-        localStorage.removeItem('ticketLocal')
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
       }
       //atm
       else if(paymentMethod === "ATM"){
         await BusesService.approvalTicket(ticket.id);
-        localStorage.removeItem('ticketLocal')
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
       }   
       //tại chỗ
       else if(paymentMethod === "OFFLINE"){
         await BusesService.inActiveTicket(ticket.id);
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
       }   
     };
-    const sendEmail = async () =>{
-      await BusesService.sendEmail(ticket.id)
-    }
     updateTicket();
-    sendEmail()
   }, []);
   return (
     <div>

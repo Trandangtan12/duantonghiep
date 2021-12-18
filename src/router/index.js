@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import loading from '../asset/images/loading-1.gif';
 import PrivateRouterAdmin from "../auth/privateRouterAdmin";
+import { UserApi } from '../service/userService'
 import PrivateRouterPublic from "../auth/privateRouterPublic";
 const Loading = () => {
   return (
@@ -16,6 +17,7 @@ const Loading = () => {
   );
 };
 const Routes = () => {
+  const {user} = UserApi.isAuthenticated()
   // const PrivateRouterAdmin = lazy(() => lazy("../auth/privateRouterAdmin"));
   const LayoutAdmin = lazy(() => import("../layout/layoutAdmin"));
   const LayoutWebsite = lazy(() => import("../layout/layoutWebsite"));
@@ -63,9 +65,14 @@ const Routes = () => {
           <PrivateRouterAdmin path="/admin/:path?">
             <LayoutAdmin>
               <Switch>
-                <Route exact path="/admin">
+              {
+                user.id === 3 ?  <Route exact path="/admin">
+                  <Redirect to="/admin/order" />
+                </Route> :   <Route exact path="/admin">
                   <Redirect to="/admin/dashboard" />
                 </Route>
+              }
+              
                 <Route exact  path="/admin/dashboard" component={Dashboard} />
                 <Route exact  path="/admin/buses" component={Buses} />
                 <Route exact  path="/admin/buses/create" component={NewBuses}/>

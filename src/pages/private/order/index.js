@@ -13,6 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Table from "../../../compornent/admin/table";
+import DatePickerForm from "../../../compornent/datePicker";
 import { IsoStringConvert, numberWithCommas } from "../../../config";
 import { actionGetTicket } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
@@ -34,20 +35,27 @@ const Order = () => {
   function openModal() {
     setIsOpen(true);
   }
+  const [filterByDateData, setFilterByDateData] = useState([])
+  const [filterByDateStatus, setfilterByDateStatus] = useState(false)
   const [isCancelTicket, setIsCancelTicket] = useState(false);
   const { availableOrder } = useSelector((state) => state.buses);
   const [ticketDefault, seTicketDefault] = useState([]);
   const [dispatchDependency, setDispatchAcitive] = useState(0);
   const dependencies = [
     availableOrder.length,
+    ticketDefault.length,
     history.location.pathname,
     dispatchDependency,
   ];
-  const [startDate, setStartDate] = useState(new Date());
-  const listTicketAvailable = availableOrder.filter((_elt) => {
-    return _elt.status !== REJECTED;
+  const [startDate, setStartDate] = useState();
+  const listTicketAvailable = filterByDateStatus ? filterByDateData.filter((_elt) => {
+    return _elt.status !== REJECTED
+  }) :  ticketDefault.filter((_elt) => {
+    return _elt.status !== REJECTED
   });
-  const listTicketCancel = availableOrder.filter((_elt) => {
+  const listTicketCancel =  filterByDateStatus ? filterByDateData.filter((_elt) => {
+    return _elt.status === REJECTED;
+  }) : ticketDefault.filter((_elt) => {
     return _elt.status === REJECTED;
   });
   const handleApprovalTicket = (id) => {
@@ -274,7 +282,7 @@ const Order = () => {
     {
       Header: "Mã vé",
       accessor: "ticket_code",
-      maxWidth: 100,
+      maxWidth: 70,
       filterable: true,
       show: true,
     },
@@ -294,13 +302,13 @@ const Order = () => {
     },
     {
       Header: "Số lựơng",
-      maxWidth: 100,
+      maxWidth: 70,
       accessor: "quantity",
       // filterable: true,
       show: true,
     },
     {
-      Header: "Số tiền",
+      Header: "Số tiền (VNĐ)",
       maxWidth: 130,
       accessor: "totalPrice",
       // filterable: true,
@@ -343,6 +351,15 @@ const Order = () => {
       show: true,
       Cell: ({ original }) => {
         return getPaymentMethod(original.paymentMethod).render;
+      },
+    },
+    {
+      Header: "Ngày đặt",
+      maxWidth: 280,
+      show: true,
+      // filterable: true,
+      Cell: ({ original }) => {
+        return <div>{IsoStringConvert(original.created_at)}</div>
       },
     },
     {
@@ -402,19 +419,21 @@ const Order = () => {
     },
   ]);
   const handleFilterTicketByDate = (date) => {
+    setfilterByDateStatus(true)
     setStartDate(date);
     const convertDate = moment(date).format("YYYY-MM-DD");
-    const ticketFilter = availableOrder.filter((_elt) => {
+    const ticketFilter = ticketDefault.filter((_elt) => {
       const createDateConvert = moment(_elt.create_at).format("YYYY-MM-DD");
       return createDateConvert === convertDate;
     });
-    seTicketDefault(ticketFilter);
+    setFilterByDateData(ticketFilter);
+    return
   };
   const dispatch = useDispatch();
   useEffect(() => {
     seTicketDefault(availableOrder);
     dispatch(actionGetTicket());
-  }, [...dependencies]);
+  }, [...dependencies , JSON.stringify(availableOrder)]);
   const reloadActiveAPI = () => {
     setDispatchAcitive((pre) => ++pre);
   };
@@ -449,21 +468,21 @@ const Order = () => {
           </button>
         </div>
       </div>
-      {/* <label
-        className="tw-block tw-uppercase text-blueGray-600 tw-text-xs tw-font-bold tw-mb-2"
-        htmlfor="grid-password"
-      >
-        Bộ lọc vé
-      </label> */}
-
-      {/* <div className="tw-flex tw-justify-between tw-mb-4">
-        <DatePicker
+      <div className="tw-flex tw-justify-between tw-items-center tw-mb-4">
+        <DatePickerForm
+        showTime={false}
           className="tw-w-full tw-py-2 tw-border-[1px] tw-border-gray-300 tw-font-bold tw-h-[47px] tw-pl-[10px] tw-rounded-md focus:tw-border-[0.5] focus:tw-border-green-600"
           dateFormat="yyyy-MM-dd"
-          selected={startDate}
+          startDate={startDate}
+          placeholderText={"Lọc vé theo ngày"}
           onChange={handleFilterTicketByDate}
         />
-      </div> */}
+        <div>
+        {
+        filterByDateStatus ?   <FontAwesomeIcon icon={faTimes} className="tw-text-[2rem] tw-ml-2 tw-cursor-pointer" color="red" onClick={() => setfilterByDateStatus(false)} /> : null
+        }
+        </div>
+      </div>
       {!isCancelTicket ? (
         <Table
           data={listTicketAvailable}
