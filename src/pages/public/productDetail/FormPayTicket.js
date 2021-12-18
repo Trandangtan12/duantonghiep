@@ -56,6 +56,7 @@ const FormPayTicket = ({ product }) => {
     const handlePayTicket = async (data) => {
         try {
             const updateBuses = {
+                ...product,
                 seat_empty: emp
             }
             const ticketLocal = {
@@ -65,6 +66,7 @@ const FormPayTicket = ({ product }) => {
                 to: product.endPointName,
                 quantity: qty,
                 dateStart: ticket?.date_ticket,
+               
             }
             if (currentRadioValue === "OFFLINE" && qty < 3 && startDate < addWeek) {
                 localStorage.setItem('deposit', false)
@@ -76,8 +78,8 @@ const FormPayTicket = ({ product }) => {
                     totalPrice: totalPrice,
                     paymentMethod: currentRadioValue,
                     depositAmount: 0,
+                    status: "UNCONFIMRED"
                 }
-
                 const resTicket = await BusesService.addTicket(ticket)
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
@@ -217,7 +219,6 @@ const FormPayTicket = ({ product }) => {
             </div>
             <form onSubmit={handleSubmit(handlePayTicket)}>
                 <input type="hidden" {...register("user_id")} defaultValue={user == null ? "" : user.id} />
-                <input type="hidden" {...register("status")} defaultValue="WAITING_ACTIVE" />
                 <div className='tw-my-3'>
                     <div className='tw-my-2 tw-uppercase tw-text-xs tw-font-bold'>
                         <label>* Họ và tên </label>

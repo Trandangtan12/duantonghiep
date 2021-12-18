@@ -17,6 +17,8 @@ const TabList = () => {
   const listRejected = availableOrder.filter(item => item.user_id == user.id && item.status == "REJECTED");
   const listDeposit = availableOrder.filter(item => item.user_id == user.id && item.status == "DEPOSIT");
   const listDone = availableOrder.filter(item => item.user_id == user.id && item.status == "DONE");
+  const listUnconfimed = availableOrder.filter(item => item.user_id == user.id && item.status == "UNCONFIMRED");
+  console.log(listWaiting);
   return (
     <div className="tw-w-full sm:tw-px-0 tw-bg-white tw-rounded-lg">
           {isMobile ? <TabListMobileComponent 
@@ -25,6 +27,7 @@ const TabList = () => {
           listRejected={listRejected}
           listDeposit={listDeposit}
           listDone={listDone}
+          listUnconfimed={listUnconfimed}
           /> : 
           <TabListDesktopComponent 
           listWaiting={listWaiting}
@@ -32,6 +35,7 @@ const TabList = () => {
           listRejected={listRejected}
           listDeposit={listDeposit}
           listDone={listDone}
+          listUnconfimed={listUnconfimed}
           />}
     </div>
   );

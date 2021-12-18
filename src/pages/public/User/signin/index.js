@@ -27,6 +27,7 @@ const SignIn = () => {
           type: ACTION_LOGIN,
           payload: data,
         });
+        localStorage.removeItem("ticketLocal")
         UserApi.authenticated(data, () => {
           setRedirectToRef(true);
         });
