@@ -20,14 +20,14 @@ const TicketTimer = () => {
     }
     const { pathname } = useLocation();
     const [timeTicket, setTimeTicket] = useState(false)
-    const ticket = JSON.parse(localStorage.getItem('ticket'))
+    const ticket = JSON.parse(localStorage.getItem('ticketDetail'))
     const cancelTimeCountdown = async () => {
         const question = window.confirm("Bạn chắc chắn muốn hủy vé?")
         if (question) {
             setTimeTicket(false)
             localStorage.removeItem("ticketLocal")
             try {
-                await BusesService.rejectTicket(ticket.id)
+                await BusesService.rejectTicket(ticket?.id)
             } catch (error) {
                 console.log(error);
             }

@@ -4,6 +4,7 @@ import { Tab } from "@headlessui/react";
 
 const TabListDesktopComponent = (props) => {
     const { listWaiting, listActived, listRejected, listDeposit, listDone, listUnconfimed } = props
+    console.log(listUnconfimed);
     return (
         <div>
             <Tab.Group>
