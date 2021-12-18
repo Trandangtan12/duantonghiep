@@ -90,7 +90,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
             Danh mục quản lý
           </h2>
           <ul className="tw-mt-3">
-            {user && checkIsManagement() ? (
+            {  checkIsManagement() ? (
               <li
                 className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
                 hover:tw-rounded-lg last:tw-mb-0 ${
@@ -118,7 +118,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
 
             {/* =====1===== */}
 
-            {user && checkIsManagement() ? (
+            {  checkIsManagement() ? (
               <li
                 className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
                 hover:tw-rounded-lg last:tw-mb-0 ${
@@ -145,7 +145,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
             ) : null}
 
             {/* =====2===== */}
-            {user && checkIsManagement() ? (
+            {  checkIsManagement() ? (
               <li
                 className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
                 hover:tw-rounded-lg last:tw-mb-0 ${
@@ -172,7 +172,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
             ) : null}
 
             {/* =====3====== */}
-            {user && checkIsManagement() ? (
+            {  checkIsManagement() ? (
               <li
                 className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
                 hover:tw-rounded-lg last:tw-mb-0 ${
@@ -199,7 +199,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
             ) : null}
 
             {/* =====4==== */}
-            {user && checkIsManagement() ? (
+            {  checkIsManagement() ? (
               <li
                 className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
                 hover:tw-rounded-lg last:tw-mb-0 ${
@@ -226,7 +226,7 @@ function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
             ) : null}
 
             {/* =====5===== */}
-            {user && checkIsManagement() ? (
+            {  checkIsManagement() ? (
               <li
                 className={`px-3 tw-py-2 tw-rounded-lg hover:tw-transition hover:tw-duration-2000  tw-mb-0.5 tw-font-bold hover:tw-bg-green-500
                 hover:tw-rounded-lg last:tw-mb-0 ${
