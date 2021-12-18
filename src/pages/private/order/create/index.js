@@ -58,6 +58,7 @@ const CreateTicket = () => {
       if (resTicket.status === 201) {
         await BusesService.sendEmail(resTicket.data.id)
         history.push("/admin/order")
+        alertify.success("Thêm vé xe thành công !");
       }
     })
     .set({ title: "Chuyến xe" })
