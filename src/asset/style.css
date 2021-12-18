@@ -2159,6 +2159,22 @@ video {
   letter-spacing: -0.01em;
 }
 
+.tw-text-\[50px\] {
+  font-size: 50px;
+}
+
+.tw-text-\[0\.5rem\] {
+  font-size: 0.5rem;
+}
+
+.tw-text-\[1rem\] {
+  font-size: 1rem;
+}
+
+.tw-text-\[2rem\] {
+  font-size: 2rem;
+}
+
 .tw-font-medium {
   font-weight: 500;
 }
