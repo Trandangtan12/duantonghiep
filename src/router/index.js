@@ -55,7 +55,8 @@ const Routes = () => {
   const EditNews = lazy(() => import("../pages/private/news/edit/index"))
   const EditTicket = lazy(() => import("../pages/private/order/edit/index"))
   const Evaluate = lazy(() => import("../pages/private/evaluate"))
-
+  const NewPage = lazy(() => import("../pages/public/newPages"))
+  const NewDetailPage = lazy(() => import("../pages/public/newsDetailPage"))
   return (
     <Router>
       <Suspense fallback={<Loading />}>
@@ -107,6 +108,8 @@ const Routes = () => {
                     <PrivateRouterPublic exact path="/user/dashbroad">
                       <UserDashBoard/>
                     </PrivateRouterPublic>
+                    <Route exact path="/page/news" component={NewPage} />
+                    <Route exact path="/page/newdetail/:id" component={NewDetailPage} />
                     <Route exact path="/ticket" component={Ticket} />
                     <Route exact path="/ticket/search" component={TicketSearch} />
                     <Route exact path="*" component={PageNotFound} />

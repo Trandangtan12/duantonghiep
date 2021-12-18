@@ -24,7 +24,7 @@ export const UserApi = {
        }
     },
     isAuthenticated() {
-        if(typeof window == "undefined"){
+        if(typeof window === "undefined"){
             return false;
         }
         if(localStorage.getItem("user")){
@@ -33,14 +33,6 @@ export const UserApi = {
             return false
         }
     },
-    // updateUser(id , user){
-    //     return HttpClient.put(`${API_UPDATE_USER}/${id}`, user , {
-    //         headers : {
-    //             Authorization : 'Bearer' + this.isAuthenticated().accessToken
-    //         }
-            
-    //     })
-    // },
     getUser(){
         return HttpClient.get(`${API_UPDATE_USER}`)
     },

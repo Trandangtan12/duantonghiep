@@ -9,7 +9,6 @@ import { UserApi } from '../../../service/userService'
 import ToggleButton from "react-toggle-button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from '@fortawesome/fontawesome-free-solid'
-
 const FormPayTicket = ({ product }) => {
     const { user } = UserApi.isAuthenticated()
     const {
@@ -53,20 +52,19 @@ const FormPayTicket = ({ product }) => {
             }
         }
     }
+    const ticket = JSON.parse(localStorage.getItem("ticket"))
     const handlePayTicket = async (data) => {
         try {
             const updateBuses = {
-                ...data,
                 seat_empty: emp
             }
             const ticketLocal = {
-                id: data.id,
+                id: product.id,
                 startTime: product.start_time,
-                endTime: product.end_time,
                 form: product.startPointName,
                 to: product.endPointName,
                 quantity: qty,
-                dateStart: product.date_active
+                dateStart: ticket?.date_ticket,
             }
             if (currentRadioValue === "OFFLINE" && qty < 3 && startDate < addWeek) {
                 localStorage.setItem('deposit', false)
@@ -84,7 +82,6 @@ const FormPayTicket = ({ product }) => {
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
                     localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
-                    alert("Đặt vé thành công")
                     history.push("/payment/success")
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
                 }
@@ -104,7 +101,6 @@ const FormPayTicket = ({ product }) => {
                 const resTicket = await BusesService.addTicket(ticket)
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
-                    alert("Đặt vé thành công")
                     localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
                 }
                 const res = await BusesService.paymentTicket(depositPrice)
@@ -136,7 +132,6 @@ const FormPayTicket = ({ product }) => {
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
                     localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
-                    alert("Đặt vé thành công")
                 }
                 const res = await BusesService.paymentTicket(depositPrice)
                 if (res.data.message === "success") {
@@ -164,7 +159,6 @@ const FormPayTicket = ({ product }) => {
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
                     localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
-                    alert("Đặt vé thành công")
                 }
                 const res = await BusesService.paymentTicket(totalPrice)
                 if (res.data.message === "success") {
@@ -190,7 +184,6 @@ const FormPayTicket = ({ product }) => {
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
                     localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
-                    alert("Đặt vé thành công")
                 }
                 const res = await BusesService.paymentTicket(totalPrice)
                 if (res.data.message === "success") {
@@ -232,7 +225,7 @@ const FormPayTicket = ({ product }) => {
                     <div className='tw-my-2 '>
                         <input type="text"
                             className='tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-p-2'
-                            defaultValue={user == null ? "" : user.name}
+                            defaultValue={user == null ? ticket?.customer_name : user.name}
                             {...register('customer_name', { required: true })}
 
                         />
@@ -249,7 +242,7 @@ const FormPayTicket = ({ product }) => {
                     <div className='tw-my-2 '>
                         <input type="text"
                             className='tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-p-2'
-                            defaultValue={user == null ? "" : user.email}
+                            defaultValue={user == null ? ticket?.email : user.email}
                             {...register('email', {
                                 required: ("Bạn chưa điền email!!!"), pattern: {
                                     value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -270,7 +263,7 @@ const FormPayTicket = ({ product }) => {
                     <div className='tw-my-2 '>
                         <input type="text"
                             className='tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-p-2'
-                            defaultValue={user == null ? "" : user.phone_number}
+                            defaultValue={user == null ? ticket?.phone_number : user.phone_number}
                             {...register('phone_number', {
                                 required: ("Bạn chưa điền số điện thoại!!!"), pattern: {
                                     value: /((09|03|07|08|05)+([0-9]{8})\b)/g,
@@ -291,7 +284,7 @@ const FormPayTicket = ({ product }) => {
                     <div className='tw-my-2'>
                         <input type="text"
                             className='tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-p-2'
-                            defaultValue={user == null ? "" : user.identity_card}
+                            defaultValue={user == null ? ticket?.identity_card : user.identity_card}
                             {...register('identity_card', {
                                 required: ("Bạn chưa nhập số cmnd!"), pattern: {
                                     value: /^(\d{9}|\d{12})$/,
@@ -407,13 +400,13 @@ const FormPayTicket = ({ product }) => {
                     <ul className='tw-text-xs'>
                         <li className='tw-pl-2'>- Nếu bạn đặt trước một tuần bạn phải đặt cọc 30% vé</li>
                         <li className='tw-pl-2'>- Bạn phải nhập đúng địa chỉ email của bạn đang dùng</li>
-                        <li className='tw-pl-2'>- Nếu bạn đặt một lần mà chưa thanh toán đợi khoảng 10 phút sau thì bạn mới
-                            đặt lại được</li>
+                        <li className='tw-pl-2'>- Khi bạn đặt vé không thanh toán qua VNPAY bạn hãy gọi số <span className='tw-text-red-500 tw-text-sm tw-font-bold'>19001910</span> để 
+                        xác nhận giữ vé</li>
                     </ul>
                 </div>
 
                 <div className="tw-flex tw-mt-6">
-                    {checkLocal ? <button
+                    {checkLocal && currentRadioValue === "OFFLINE" && qty < 3 && startDate < addWeek ? <button
                         type="button"
                         className="tw-w-full tw-p-2 tw-rounded-md tw-bg-red-600 tw-text-white"
                     >
