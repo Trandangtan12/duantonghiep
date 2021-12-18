@@ -42,7 +42,7 @@ const TabListDesktopComponent = (props) => {
                 </Tab.List>
                 <Tab.Panels className="tw-p-4">
                     <Tab.Panel>
-                        {listUnconfimed.length === 0 ? <div>Bạn chưa đặt chuyến nào</div> : listWaiting.map(items => <div className="tw-mb-3">
+                        {listUnconfimed.length === 0 ? <div> Bạn chưa đặt chuyến nào</div> : listUnconfimed.map(items => <div className="tw-mb-3">
                             <div className="tw-font-bold tw-pb-3">{items.buses.date_active}</div>
                             <div className="tw-flex tw-justify-between tw-border tw-border-black tw-rounded-lg tw-p-4">
                                 <div className="col">
@@ -54,6 +54,10 @@ const TabListDesktopComponent = (props) => {
                                 <div className="col">
                                     <p className="tw-bg-yellow-400 tw-text-black tw-p-1">Chưa xác nhận</p>
                                 </div>
+                            </div>
+                            <div className='tw-flex tw-mt-2'>
+                                <button className='tw-w-full tw-p-4 tw-border tw-border-black'>Hủy</button>
+                                <button className='tw-w-full tw-p-4 tw-border tw-border-black'>Gọi điện qua số 19001910</button>
                             </div>
                         </div>
                         )}

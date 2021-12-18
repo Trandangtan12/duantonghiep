@@ -23,7 +23,7 @@ const TicketTimer = () => {
     const ticket = JSON.parse(localStorage.getItem('ticketDetail'))
     const cancelTimeCountdown = async () => {
         const question = window.confirm("Bạn chắc chắn muốn hủy vé?")
-        if (question) {
+        if (question && ticket?.status === "UNCONFIMRED") {
             setTimeTicket(false)
             localStorage.removeItem("ticketLocal")
             try {
