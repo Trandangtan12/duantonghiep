@@ -293,7 +293,7 @@ const FormPayTicket = ({ product }) => {
                             className='tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-p-2'
                             defaultValue={user == null ? "" : user.identity_card}
                             {...register('identity_card', {
-                                required: ("Bạn chưa nhập số cmnd!"), pattern: {
+                                pattern: {
                                     value: /^(\d{9}|\d{12})$/,
                                     message: "Số cmnd/cccd không hợp lệ"
                                 }

@@ -12,6 +12,10 @@ const CreatePermission = () => {
   const { availableRole } = useSelector((state) => state.role);
   const history = useHistory()
   const [permissionListSelect, setPermissionListSelect] = useState([]);
+  const isCustomer = {
+    name : "Khách hàng",
+    label : ""
+  }
   const roleSuggesstion =
     availableRole !== undefined
       ? availableRole.map((_elt) => {
