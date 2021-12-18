@@ -350,7 +350,7 @@ const Order = () => {
       maxWidth: 200,
       show: true,
       Cell: ({ original }) => {
-        const isActiveTicket = original.status === ACTIVED || DONE;
+        const isActiveTicket = original.status === ACTIVED || original.status === DONE;
         return (
           <div>
             <div>
