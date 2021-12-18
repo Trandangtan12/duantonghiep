@@ -39,7 +39,7 @@ const HeaderAdmin = ({ sidebarOpen, setSidebarOpen }) => {
           {/* Header: Right side */}
           <div className="tw-flex tw-items-center">
           {/* <SearchBox/> */}
-            {/* <Notifications/> */}
+            <Notifications/>
             <UserMenu/>
           </div>
         </div>

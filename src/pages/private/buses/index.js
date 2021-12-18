@@ -9,6 +9,7 @@ import Table from "../../../compornent/admin/table";
 import { IsoStringConvert, numberWithCommas } from "../../../config";
 import { actionGetBuses } from "../../../redux/actions/buses";
 import { BusesService } from "../../../service/productService";
+import { BUSES_STATUS_FILTER } from "./utility";
 const Buses = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -241,6 +242,24 @@ const Buses = () => {
       accessor: "status",
       maxHeight: 500,
       show: true,
+      filterable: true,
+      Filter: ({ filter, onChange }) => {
+        return (
+          <select
+            onChange={(e) => {
+              onChange(e.target.value);
+            }}
+            value={filter ? filter.value : ""}
+          >
+            <option value="">Tất cả</option>
+            {BUSES_STATUS_FILTER.map((elt) => (
+              <option key={elt.type} value={elt.type}>
+                {elt.name}
+              </option>
+            ))}
+          </select>
+        );
+      },
       Cell: ({ original }) => {
         return getStatusBusses(original.status).render
       },
