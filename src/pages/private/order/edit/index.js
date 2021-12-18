@@ -35,9 +35,12 @@ const EditTicket = () => {
       timeBusses
     );
     if (resBusses.status === 200) {
-      const busesArr = resBusses.data.map(_elt =>{
+      const busesFilter = resBusses.data.filter(elt =>{
+        return elt.seat_empty > 0
+      })
+      const busesArr = busesFilter.map(_elt =>{
         return {
-          label : _elt.name,
+          label : `${_elt.name} - (${_elt?.seat_empty} ghế trống)`,
           value : _elt.id,
           price : _elt.price
         }
