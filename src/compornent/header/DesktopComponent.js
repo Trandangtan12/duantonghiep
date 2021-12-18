@@ -12,11 +12,8 @@ import {
 const DesktopComponent = () => {
     return (
          <header
-      className="header tw-relative tw-box-border tw-font-sans 
-    tw-z-30 tw-leading-normal tw-rounded-none tw-bg-white
-    tw-shadow-md tw-tracking-norma"
-    >
-    
+      className="header tw-relative tw-box-border tw-font-sans tw-z-30 tw-leading-normal tw-rounded-none tw-bg-white
+                 tw-shadow-md tw-tracking-norma">
       <div className="tw-flex tw-justify-between tw-items-center tw-w-11/12 tw-mx-auto">
         <div className="tw-flex tw-flex-row tw-items-center tw-mt-0 tw-py-3">
           <div className="tw-w-[9rem] tw-block">

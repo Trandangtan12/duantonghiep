@@ -10,15 +10,13 @@ import DesktopComponent from "./DesktopComponent";
 const Products = () => {
     const { start, end } = useParams()
     const dispatch = useDispatch();
-    const NOW = new Date()
-    const nowHours = moment(NOW, "HH:mm")
     const { availableSearch } = useSelector(state => state.buses);
     useEffect(() => {
         dispatch(actionSearchBuses(start, end))
         dispatch(actionGetBuses())
     }, [])
     const [time, setTime] = useState({
-        minTime: nowHours,
+        minTime: moment("00:00", "HH:mm"),
         maxTime: moment("23:59", "HH:mm")
     })
     const [price, setPrice] = useState({
@@ -64,7 +62,6 @@ const Products = () => {
             && moment(item.start_time, "HH:mm") >= time.minTime
             && moment(item.start_time, "HH:mm") <= time.maxTime
             && activeFilter.includes(item.startDistrict_name) || activeFilter.includes(item.endDistrict_name)
-
         )
     }
     const onChange = (data) => {
@@ -88,7 +85,7 @@ const Products = () => {
         if (!checkedMoning) {
             setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("06:00", "HH:mm") })
         } else {
-            setTime({ minTime: nowHours, maxTime: moment("23:59", "HH:mm") })
+            setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
 
     }
@@ -100,7 +97,7 @@ const Products = () => {
         if (!checkedLunch) {
             setTime({ minTime: moment("06:01", "HH:mm"), maxTime: moment("12:00", "HH:mm") })
         } else {
-            setTime({ minTime: nowHours, maxTime: moment("23:59", "HH:mm") })
+            setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
 
     }
@@ -112,7 +109,7 @@ const Products = () => {
         if (!checkedAfternoon) {
             setTime({ minTime: moment("12:01", "HH:mm"), maxTime: moment("18:00", "HH:mm") })
         } else {
-            setTime({ minTime: nowHours, maxTime: moment("23:59", "HH:mm") })
+            setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
     }
     const handleCheckedNigth = () => {
@@ -123,19 +120,10 @@ const Products = () => {
         if (!checkedNigth) {
             setTime({ minTime: moment("18:01", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         } else {
-            setTime({ minTime: nowHours, maxTime: moment("23:59", "HH:mm") })
+            setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
     }
-    const ListError = () => {
-        return (<div className="tw-bg-white tw-p-5 tw-flex tw-flex-col tw-justify-center tw-items-center">
-            <div>
-                <img src="https://storage.googleapis.com/fe-production/images/route-no-schedule.png" alt="" />
-            </div>
-            <div>
-                <p className="tw-font-bold tw-text-xl">Không có chuyến xe nào</p>
-            </div>
-        </div>)
-    }
+   
     const onRemoveChange = () => {
         setPrice({ ...price, value: { min: 0, max: 2000000 } })
         setQtyFilter(1)
@@ -143,7 +131,7 @@ const Products = () => {
         setCheckedLunch(false)
         setCheckedAfternoon(false)
         setCheckedNigth(false)
-        setTime({ minTime: nowHours, maxTime: moment("23:59", "HH:mm") })
+        setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         setActiveFilter([])
     }
 
@@ -151,28 +139,24 @@ const Products = () => {
         && item.price <= price.value.max
         && item.seat_empty >= qtyFilter
         && moment(item.start_time, "HH:mm") >= moment("00:00", "HH:mm")
-        && moment(item.start_time, "HH:mm") >= nowHours
         && moment(item.start_time, "HH:mm") <= moment("06:00", "HH:mm"))
 
     const timeLunch = availableSearch.filter(item => item.price >= price.value.min
         && item.price <= price.value.max
         && item.seat_empty >= qtyFilter
         && moment(item.start_time, "HH:mm") >= moment("06:01", "HH:mm")
-        && moment(item.start_time, "HH:mm") >= nowHours
         && moment(item.start_time, "HH:mm") <= moment("12:00", "HH:mm"))
 
     const timeAfternoon = availableSearch.filter(item => item.price >= price.value.min
         && item.price <= price.value.max
         && item.seat_empty >= qtyFilter
         && moment(item.start_time, "HH:mm") >= moment("12:01", "HH:mm")
-        && moment(item.start_time, "HH:mm") >= nowHours
         && moment(item.start_time, "HH:mm") <= moment("18:00", "HH:mm"))
 
     const timeNight = availableSearch.filter(item => item.price >= price.value.min
         && item.price <= price.value.max
         && item.seat_empty >= qtyFilter
         && moment(item.start_time, "HH:mm") >= moment("18:01", "HH:mm")
-        && moment(item.start_time, "HH:mm") >= nowHours
         && moment(item.start_time, "HH:mm") <= moment("23:59", "HH:mm"))
     useEffect(() => {
         const fetchDistrictStart = async () => {

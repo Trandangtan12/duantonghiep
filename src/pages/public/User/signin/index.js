@@ -27,6 +27,7 @@ const SignIn = () => {
           type: ACTION_LOGIN,
           payload: data,
         });
+        localStorage.removeItem("ticketLocal")
         UserApi.authenticated(data, () => {
           setRedirectToRef(true);
         });
@@ -42,7 +43,7 @@ const SignIn = () => {
       if (user.hasOwnProperty('roles') === false) {
         return undefined
       } else {
-        const userRole = user.roles.every(item => item.id === 1 || item.id === 2)
+        const userRole = user.roles.every(item => item.id === 1 || item.id === 2 || item.id === 3)
         return userRole
       }
     }

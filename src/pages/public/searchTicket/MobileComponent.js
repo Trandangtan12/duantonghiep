@@ -1,8 +1,11 @@
 import React from 'react'
+import Header from "../../../compornent/header"
 
 const MobileComponent = (props) => {
     const { handleSearch, addSearch, availableSearchTicket, setAddSearch } = props
     return (
+        <div className="tw-flex tw-w-full tw-flex-col tw-h-screen">
+            <Header />
         <div className="tw-w-full tw-px-2">
             <div className="tw-rounded-lg tw-my-4 tw-bg-white tw-py-2 tw-px-4 tw-mx-auto">
                 <div className="tw-w-full">
@@ -37,6 +40,7 @@ const MobileComponent = (props) => {
 
                 </div>)}
             </div>
+        </div>
         </div>
     )
 }
