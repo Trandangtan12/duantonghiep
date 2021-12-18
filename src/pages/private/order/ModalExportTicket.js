@@ -77,7 +77,7 @@ const ModalExportTicket = ({ isOpen, setIsOpen }) => {
               leaveFrom="tw-opacity-100 tw-scale-100"
               leaveTo="tw-opacity-0 tw-scale-95"
             >
-              <div className="tw-inline-block tw-w-full tw-max-w-md tw-p-6 tw-my-8 tw-overflow-hidden tw-text-left tw-align-middle tw-transition-all tw-transform tw-bg-white tw-shadow-xl tw-rounded-2xl tw-h-[450px] tw-border-[1px] tw-border-green-600 ">
+              <div className="tw-inline-block tw-w-full tw-max-w-md tw-p-6 tw-my-8 tw-overflow-hidden tw-text-left tw-align-middle tw-items-center tw-transition-all tw-transform tw-bg-white tw-shadow-xl tw-rounded-2xl tw-h-[470px] tw-border-[1px] tw-border-green-600 ">
                 <Dialog.Title
                   as="h3"
                   className="tw-text-lg tw-font-medium tw-leading-6 tw-text-green-600 tw-uppercase tw-mb-5"

@@ -33,6 +33,9 @@ export const UserApi = {
             return false
         }
     },
+    // updateUser(id , user){
+    //     return HttpClient.put(`${API_UPDATE_USER}/${id}`, user)
+    // },
     getUser(){
         return HttpClient.get(`${API_UPDATE_USER}`)
     },

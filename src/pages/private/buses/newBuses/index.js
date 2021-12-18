@@ -175,7 +175,7 @@ const NewBuses = () => {
     setValue("start_time", startTime);
   };
   const handleChangeEndTime = (date) => {
-    const endTime = moment(date).format("HH:mm");
+    const endTime = moment(date).toISOString();
     setEndDate(date);
     setValue("end_time", endTime);
   };

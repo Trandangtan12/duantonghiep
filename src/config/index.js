@@ -77,6 +77,10 @@ export const IsoStringConvert = (date) =>{
     return moment(date).utc(true).format("YYYY-MM-DD H:mm")
 }
 
+export const IsoStringConvertToTime = (date) =>{
+    return moment(date).utc(true).format("H:mm")
+}
+
 export const MENU_BOTTOM_LIST = [
     {
         label: "Trang chủ",

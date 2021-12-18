@@ -7,7 +7,6 @@ import { getAllRating } from "../../../redux/actions/rating";
 const Evaluate = () => {
   const dispatch = useDispatch();
   const { rating } = useSelector((state) => state.rating);
-  console.log(rating);
   const ExpandableTable = ({ data }) => {
     return (
       <table
@@ -80,7 +79,7 @@ const Evaluate = () => {
   return (
     <div>
       <div className="tw-mb-4">
-        <span className="tw-uppercase tw-text-2xl">Quản lý vé xe</span>
+        <span className="tw-uppercase tw-text-2xl">Quản lý đánh giá</span>
       </div>
       <Table
         data={rating}

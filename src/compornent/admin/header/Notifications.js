@@ -2,20 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import { faBell } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Menu, Transition } from "@headlessui/react";
-import {getToken , onMessageListener} from "../../../firebase";
+import { getToken, onMessageListener } from "../../../firebase";
 const Notifications = () => {
   const [isTokenFound, setTokenFound] = useState(false);
   getToken(setTokenFound);
   const [show, setShow] = useState(false);
-  const [notification, setNotification] = useState({title: '', body: ''});
-  useEffect(() => {
-    onMessageListener().then(payload => {
+  const [notification, setNotification] = useState({ title: "", body: "" });
+  onMessageListener()
+    .then((payload) => {
       setShow(true);
-      setNotification({title: payload.notification.title, body: payload.notification.body})
-      console.log(payload);
-    }).catch(err => console.log('failed: ', err));
-  }, [notification])
-  console.log(notification);
+      setNotification({
+        title: payload.notification.title,
+        body: payload.notification.body,
+      });
+
+    })
+    .catch((err) => console.log("failed: ", err));
   return (
     <>
       <Menu
@@ -41,9 +43,8 @@ const Notifications = () => {
         >
           <Menu.Items className="tw-origin-top-right tw-absolute tw-right-0 tw-mt-2 tw-w-56 tw-rounded-md tw-shadow-lg tw-bg-white tw-ring-1 tw-ring-black tw-ring-opacity-5 focus:tw-outline-none tw-min-h-[200px]">
             <div className="tw-py-1">
-              {
-                notification.title
-              }
+              {isTokenFound && <h1> {notification.title} </h1>}
+              {!isTokenFound && <h1> {notification.body} </h1>}
             </div>
           </Menu.Items>
         </Transition>

@@ -51,7 +51,11 @@ const SignIn = () => {
     if (redirectToRef) {
       if (userKey() === true) {
         return <Redirect to="admin/dashboard" />;
-      } else {
+      }
+      if (user.id === 3) {
+        return <Redirect to="admin/order" />;
+      }
+      else {
         return <Redirect to="/" />;
       }
     }

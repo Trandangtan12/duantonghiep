@@ -22,7 +22,7 @@ const Account = () => {
   const { avaibleUsers } = useSelector((state) => state.auth);
   const [columns, setColumns] = useState([
     {
-      Header: "Id",
+      Header: "Số tài khoản",
       accessor: "id",
       maxWidth: 60,
       filterable: true,

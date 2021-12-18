@@ -11,6 +11,7 @@ import SelectForm from "../../../../compornent/selectForm";
 import TextArea from "../../../../compornent/textarea";
 import * as Yup from 'yup';
 import { ACTIVED, ATM, OFFLINE, WAITING_ACTIVE } from "../utility";
+import alertify from "alertifyjs";
 const CreateTicket = () => {
   const { user } = UserApi.isAuthenticated();
   const dispatch = useDispatch();
@@ -25,15 +26,22 @@ const CreateTicket = () => {
     };
   });
   const validationSchema = Yup.object().shape({
-    buses_id : Yup.string().required()
+    buses_id : Yup.string().required("Vui lòng không để trống"),
+    customer_name : Yup.string().required("Vui lòng không để trống"),
+    email : Yup.string().required("Vui lòng không để trống"),
+    quantity : Yup.string().required("Vui lòng không để trống"),
+    phone_number : Yup.string().required("Vui lòng không để trống"),
+    identity_card : Yup.string().matches(/^(\d{9}|\d{12})$/ , "Vui lòng nhập đúng định dạng"),
   })
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
+  console.log(errors);
   const history = useHistory();
   const handleAddTicket = async (data) => {
     const totalPrice = busesSelect.price * data.quantity 
@@ -44,11 +52,20 @@ const CreateTicket = () => {
       paymentMethod :paymentMethodType === ACTIVED ? ATM : OFFLINE,
       totalPrice : totalPrice,
     };
-    const resTicket = await BusesService.addTicket(newData)   
-    if (resTicket.status === 201) {
-      await BusesService.sendEmail(resTicket.data.id)
-      history.push("/admin/order")
-    }
+    alertify
+    .confirm("Bạn có chắc chắn muốn tạo mơí vé xe ?", async function () {
+      const resTicket = await BusesService.addTicket(newData)   
+      if (resTicket.status === 201) {
+        await BusesService.sendEmail(resTicket.data.id)
+        history.push("/admin/order")
+        alertify.success("Thêm vé xe thành công !");
+      }
+    })
+    .set({ title: "Chuyến xe" })
+    .set("movable", false)
+    .set("ok", "Alright!")
+    .set("notifier", "position", "top-right");
+    
   };
   useEffect(() => {
     dispatch(actionGetBuses());
@@ -61,12 +78,12 @@ const CreateTicket = () => {
             <div className="tw-relative tw-flex tw-flex-col tw-min-w-0 tw-break-words tw-w-full tw-mb-6 tw-shadow-lg tw-rounded-lg bg-blueGray-100 tw-border-0">
               <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-px-6 tw-py-6 ">
                 <div className="tw-text-center tw-flex tw-justify-between">
-                <span className="tw-uppercase tw-text-2xl">Cập nhật vé xe</span>
+                <span className="tw-uppercase tw-text-2xl">Thêm vé xe</span>
                   <button
                     className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
                     type="button"
                     onClick={() => {
-                      history.push("/admin/buses");
+                      history.push("/admin/order");
                     }}
                   >
                     Quay lại
@@ -165,6 +182,7 @@ const CreateTicket = () => {
                           closeMenuOnSelect={false}
                           onChange={(original) => {
                             setBusesSelect(original);
+                            setValue("buses_id", original.value)
                           }}
                           placeholder={"Chọn chuyến xe"}
                           className="tw-border-[1px] tw-rounded-md tw-border-green-600"

@@ -13,8 +13,13 @@ const FailPayment = () => {
     }
   }
   useEffect(() => {
+    if (ticket === undefined || ticket === null) {
+      history.push("/")
+    }
     const updateTicket = async () => {
       await BusesService.rejectTicket(ticket.id);
+      localStorage.removeItem('ticket')
+      localStorage.removeItem('paymentMethod')
     };
     updateTicket();
   }, []);
