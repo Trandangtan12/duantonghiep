@@ -1,5 +1,6 @@
 import {
   faCheck,
+  faCheckCircle,
   faEdit,
   faMoneyCheck,
   faTimes,
@@ -62,12 +63,17 @@ const Order = () => {
   }) : ticketDefault.filter((_elt) => {
     return _elt.status === REJECTED;
   });
-  const handleWaitingActiveTicket = (id) => {
+  const handleWaitingActiveTicket = (id, original) => {
     alertify
       .confirm("Bạn có chắc chắn muốn xác thực vé xe ?", async function () {
-        const res = await BusesService.approvalTicket(id);
+        const res = await BusesService.inActiveTicket(id);
         if (res.status === 200) {
           sendEmail(id)
+          const newBuses = { ...original.buses, status: original.buses.status , seat_empty : original.buses.seat_empty - original.quantity };
+          await BusesService.updateBusses(
+            original.buses.id,
+            newBuses
+          );
           reloadActiveAPI();
           alertify.success("Cập nhât vé thành công !");
         } else {
@@ -413,17 +419,17 @@ const Order = () => {
                 </span>
               ) : null}
 
-              {original.status !== DONE ? (
+              {original.status !== DONE &&  original.status !== UNCONFIMRED  ? (
                 <span
                   onClick={() => handleDoneTicket(original.id)}
                   className="tw-cursor-pointer tw-mr-2"
                 >
-                  <FontAwesomeIcon icon={faCheck} color="green" />
+                  <FontAwesomeIcon icon={faCheckCircle} color="green" />
                 </span>
               ) : null}
               {
                 original.status === UNCONFIMRED ?  <span
-                  onClick={() => handleWaitingActiveTicket(original.id)}
+                  onClick={() => handleWaitingActiveTicket(original.id , original)}
                   className="tw-cursor-pointer tw-mr-2"
                 >
                   <FontAwesomeIcon icon={faCheck} color="green" />
