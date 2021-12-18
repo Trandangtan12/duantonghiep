@@ -50,7 +50,12 @@ const EditTicket = () => {
     }
   };
   const validationSchema = Yup.object().shape({
-    buses_id: Yup.string().required(),
+    buses_id : Yup.string().required("Vui lòng không để trống"),
+    customer_name : Yup.string().required("Vui lòng không để trống"),
+    email : Yup.string().required("Vui lòng không để trống"),
+    quantity : Yup.string().required("Vui lòng không để trống"),
+    phone_number : Yup.string().required("Vui lòng không để trống"),
+    identity_card : Yup.string().matches(/^(\d{9}|\d{12})$/ , "Vui lòng nhập đúng định dạng"),
   });
   const {
     register,
@@ -76,6 +81,7 @@ const EditTicket = () => {
       if (resTicket.status === 200) {
         await BusesService.sendEmail(ticketInfo.id);
         history.push("/admin/order");
+        alertify.success("Cập nhật thành công !");
       }
     })
     .set({ title: "Chuyến xe" })
@@ -96,16 +102,18 @@ const EditTicket = () => {
         setValue("identity_card", resInfo.data.identity_card);
         setValue("phone_number", resInfo.data.phone_number);
         setValue("quantity", resInfo.data.quantity);
+        setValue("buses_id", resInfo.data.buses_id);
+        setPaymentMethodType(resInfo.data.status)
         const busesDefault = {
           label: resInfo.data.buses.name,
           value: resInfo.data.buses.id,
           price: resInfo.data.buses.price,
         };
         setValueBusesDefault(busesDefault);
+        setBusesSelect(busesDefault)
       }
     };
     getInfoTicket();
-    console.log(ticketInfo?.buses?.startPointId);
     const reSearch = async () =>{
       const resSearch = await BusesService.searchBuses(ticketInfo?.buses?.startPointId ,  ticketInfo?.buses?.endPointId)
       const avaibleBussesSuggesstion = availableBuses.map((_elt) => {

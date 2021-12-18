@@ -443,7 +443,7 @@ const Order = () => {
         <span className="tw-uppercase tw-text-2xl tw-mb-3">Quản lý vé xe</span>
         <div className="tw-mb-4 tw-flex">
           <button
-            className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150 sm:tw-text-[0.4rem] md:tw-text-[0.4rem]"
+            className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
             type="button"
             onClick={() => setIsCancelTicket(!isCancelTicket)}
           >
@@ -451,7 +451,7 @@ const Order = () => {
           </button>
           {availableOrder.length !== 0 ? (
             <button
-              className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none foc us:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150 sm:tw-text-[0.4rem] md:tw-text-[0.4rem]"
+              className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none foc us:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
               type="button"
               onClick={() => openModal()}
               disabled={availableOrder.length === 0 ? true : false}
@@ -460,7 +460,7 @@ const Order = () => {
             </button>
           ) : null}
           <button
-            className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150 sm:tw-text-[0.4rem] md:tw-text-[0.4rem]"
+            className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
             type="button"
             onClick={() => history.push("/admin/order/create")}
           >

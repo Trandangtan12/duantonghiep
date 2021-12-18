@@ -34,12 +34,7 @@ export const UserApi = {
         }
     },
     // updateUser(id , user){
-    //     return HttpClient.put(`${API_UPDATE_USER}/${id}`, user , {
-    //         headers : {
-    //             Authorization : 'Bearer' + this.isAuthenticated().accessToken
-    //         }
-            
-    //     })
+    //     return HttpClient.put(`${API_UPDATE_USER}/${id}`, user)
     // },
     getUser(){
         return HttpClient.get(`${API_UPDATE_USER}`)
