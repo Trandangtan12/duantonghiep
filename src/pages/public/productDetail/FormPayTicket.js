@@ -70,7 +70,7 @@ const FormPayTicket = ({ product }) => {
             }
             if (currentRadioValue === "OFFLINE" && qty < 3 && startDate < addWeek) {
                 localStorage.setItem('deposit', false)
-                localStorage.setItem("reservation", true)
+                localStorage.setItem("reservation", false)
                 localStorage.setItem('paymentMethod', "OFFLINE")
                 const ticket = {
                     ...data,
@@ -89,8 +89,39 @@ const FormPayTicket = ({ product }) => {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
                 }
 
-            } else if (currentRadioValue === "OFFLINE" && qty >= 3) {
+            } else if (currentRadioValue === "OFFLINE" && qty >= 3  && startDate < addWeek) {
                 localStorage.setItem('deposit', true)
+                localStorage.setItem('reservation', false)
+                localStorage.setItem('paymentMethod', "OFFLINE")
+                const ticket = {
+                    ...data,
+                    buses_id: product.id,
+                    quantity: qty,
+                    totalPrice: totalPrice,
+                    paymentMethod: currentRadioValue,
+                    status: "UNCONFIMRED",
+                    depositAmount: depositPrice,
+                }
+                const resTicket = await BusesService.addTicket(ticket)
+                if (resTicket.status === 201 || resTicket.status === 200) {
+                    localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketDetail', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
+                }
+                const res = await BusesService.paymentTicket(depositPrice)
+                if (res.data.message === "success") {
+                    window.location.href = res.data.data
+                }
+                if (emp < 0) {
+                    alert("Hết ghế trống!!!")
+                } else {
+                    await BusesService.updateBusses(product.id, updateBuses)
+                }
+
+            }
+            else if (currentRadioValue === "OFFLINE" && qty >= 3  && startDate >= addWeek || currentRadioValue === "ATM" && qty >= 3  && startDate >= addWeek) {
+                localStorage.setItem('deposit', false)
+                localStorage.setItem('reservation', true)
                 localStorage.setItem('paymentMethod', "OFFLINE")
                 const ticket = {
                     ...data,
@@ -122,7 +153,7 @@ const FormPayTicket = ({ product }) => {
                 currentRadioValue === "OFFLINE" && startDate >= addWeek && sucess === true) {
                 localStorage.setItem('deposit', true)
                 localStorage.setItem('paymentMethod', "OFFLINE")
-                localStorage.setItem("reservation", false)
+                localStorage.setItem("reservation", true)
                 const ticket = {
                     ...data,
                     buses_id: product.id,

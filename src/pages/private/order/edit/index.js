@@ -5,6 +5,7 @@ import { BusesService } from "../../../../service/productService";
 import { UserApi } from "../../../../service/userService";
 import Input from "../../../../compornent/admin/input/Input";
 import { useDispatch, useSelector } from "react-redux";
+
 import { actionGetBuses } from "../../../../redux/actions/buses";
 import SelectForm from "../../../../compornent/selectForm";
 import TextArea from "../../../../compornent/textarea";
@@ -27,12 +28,10 @@ const EditTicket = () => {
   const [busesSelect, setBusesSelect] = useState();
   const handleChangeBusses = async (date) => {
     setStartDate(date);
-    const dateBusses = moment(date).format("YYYY-MM-DD");
     const timeBusses = moment(date).format("HH:mm");
     const resBusses = await BusesService.getBussesByTime(
       ticketInfo.buses.startPointId,
       ticketInfo.buses.endPointId,
-      dateBusses,
       timeBusses
     );
     if (resBusses.status === 200) {
@@ -226,6 +225,8 @@ const EditTicket = () => {
                     </label>
                     <DatePickerForm
                       startDate={startDate}
+                      showTimeSelectOnly={true}
+                      dateFormat="h:mm"
                       onChange={(date) => {
                         handleChangeBusses(date);
                       }}
