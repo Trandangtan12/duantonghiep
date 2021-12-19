@@ -186,9 +186,10 @@ const Buses = () => {
   }
   const [columns, setColumns] = useState([
     {
-      Header: "Số thứ tự",
+      Header: "Mã xe",
       accessor: "id",
-      maxWidth: 30,
+      maxWidth: 80,
+      filterable: true,
       maxHeight: 500,
       show: true,
       Cell: ({ original }) => {
@@ -200,6 +201,7 @@ const Buses = () => {
       accessor: "image",
       show: true,
       maxHeight: 500,
+      maxWidth : 100,
       Cell: ({ original }) => {
         return (
           <div className="tw-flex tw-justify-center">
@@ -211,6 +213,7 @@ const Buses = () => {
     {
       Header: "Tên chuyên xe",
       accessor: "name",
+      filterable: true,
       show: true,
       Cell: ({ original }) => {
         return <span title={original.name}>{original.name}</span>;
