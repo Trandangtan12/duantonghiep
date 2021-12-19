@@ -34,6 +34,7 @@ const Routes = () => {
       }
     }
   };
+  console.log(userKey());
   const isUserStaff = () => {
     if (user === undefined) {
       return undefined;
@@ -111,7 +112,7 @@ const Routes = () => {
                   exact
                   path="/admin/dashboard"
                   render={() => {
-                    return user && user?.id === 3 ? (
+                    return user?.id === 3 ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <Dashboard />
@@ -119,7 +120,7 @@ const Routes = () => {
                   }}
                 />
                 <Route exact path="/admin/buses"  render={() => {
-                    return user && user?.id === 3 ? (
+                    return  user?.id === 3 ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <Buses />

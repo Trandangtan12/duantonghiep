@@ -16,27 +16,96 @@ const SuccessPayment = () => {
       // lấy trạng thái đặt trước với phương thức thanh toán từ local 
       const deposit = localStorage.getItem("deposit")
       const paymentMethod = localStorage.getItem("paymentMethod")
-      //đặt cọc
-      if (paymentMethod === "OFFLINE" && deposit === 'true') {
-        await BusesService.depositedTicket(ticket?.id)
+      const reservation = localStorage.getItem("reservation")
+      // đặt cọc
+      if (paymentMethod === "OFFLINE" && reservation === 'true' && deposit === 'true') {
+        await BusesService.reservationTicket(ticket?.id)
         sendEmail()
         localStorage.removeItem('ticket')
         localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
         localStorage.removeItem('ticketLocal')
+        return
       }
-      //atm
-      else if(paymentMethod === "ATM"){
+      if (paymentMethod === "ATM" && reservation === 'true') {
+        const data = {
+          status : "RESERVATION",
+          depositAmount : ticket?.totalPrice
+        }
+        await BusesService.updateTicket(ticket?.id, data)
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('ticketLocal')
+        localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
+        return
+      }
+      //atm deposit
+      else if(paymentMethod === "ATM" && deposit === 'true' && reservation === 'false'){
+        await BusesService.depositedTicket(ticket?.id);
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
+        localStorage.removeItem('ticketLocal')
+        return
+      }
+      // offline deposit 
+      else if(paymentMethod === "OFFLINE" && deposit === 'true' && reservation === 'false'){
+        await BusesService.depositedTicket(ticket?.id);
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
+        localStorage.removeItem('ticketLocal')
+        return
+      }
+      /// atm desposit  reservation
+      else if(paymentMethod === "OFFLINE" && deposit === 'false' && reservation === 'true'){
+        await BusesService.reservationTicket(ticket?.id);
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
+        localStorage.removeItem('ticketLocal')
+        return
+      }
+       else if(paymentMethod === "ATM" && deposit === 'false' && reservation === 'true'){
+        const data = {
+          status : "RESERVATION",
+          depositAmount : ticket?.totalPrice
+        }
+        await BusesService.updateTicket(ticket?.id, data)
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
+        localStorage.removeItem('ticketLocal')
+        return
+      }
+      // atm
+      else if(paymentMethod === "ATM" && deposit === 'false' && reservation === 'false'){
         await BusesService.approvalTicket(ticket?.id);
         sendEmail()
         localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
         localStorage.removeItem('ticketLocal')
-        localStorage.removeItem('paymentMethod')
-      }   
-      //tại chỗ
-      else if(paymentMethod === "OFFLINE"){
+        return
+      }
+      // offline
+      else if(paymentMethod === "OFFLINE"  && deposit === 'false' && reservation === 'false' ){
         await BusesService.inWatingActiveTicket(ticket?.id)
-        localStorage.removeItem('ticket')
-        localStorage.removeItem('paymentMethod')
+        // localStorage.removeItem('ticket')
+        // localStorage.removeItem('paymentMethod')
+        return
       }   
     };
     updateTicket();
