@@ -5,7 +5,6 @@ import { Menu, Transition } from '@headlessui/react'
 import { useHistory } from 'react-router';
 const UserMenu = () => {
   const account = localStorage.getItem('user') !== undefined ?  JSON.parse(localStorage.getItem('user')) : null
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const history = useHistory()
   const handleLogOut = () =>{
     localStorage.removeItem('user')
