@@ -20,7 +20,6 @@ const UserMenuClient = () => {
       }
     }
   }
-  console.log(userKey());
   useEffect(() => {
     user && setIsLogged(true)
   }, [pathname, isLogged])

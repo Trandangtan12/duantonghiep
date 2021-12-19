@@ -6,7 +6,7 @@ const SuccessPayment = () => {
   const history = useHistory()
   const ticket = JSON.parse(localStorage.getItem('ticket'))
   const sendEmail = async () =>{
-    await BusesService.sendEmail(ticket.id)
+    await BusesService.sendEmail(ticket?.id)
   }
   useEffect(() => {
     if (ticket === undefined || ticket === null) {
@@ -18,61 +18,91 @@ const SuccessPayment = () => {
       const paymentMethod = localStorage.getItem("paymentMethod")
       const reservation = localStorage.getItem("reservation")
       // đặt cọc
-      if (paymentMethod === "OFFLINE" && reservation === 'true') {
-        await BusesService.reservationTicket(ticket.id)
+      if (paymentMethod === "OFFLINE" && reservation === 'true' && deposit === 'true') {
+        await BusesService.reservationTicket(ticket?.id)
         sendEmail()
         localStorage.removeItem('ticket')
         localStorage.removeItem('paymentMethod')
         localStorage.removeItem('deposit')
         localStorage.removeItem('reservation')
+        localStorage.removeItem('ticketLocal')
         return
       }
       if (paymentMethod === "ATM" && reservation === 'true') {
         const data = {
           status : "RESERVATION",
-          depositAmount : ticket.totalPrice
+          depositAmount : ticket?.totalPrice
         }
-        await BusesService.updateTicket(ticket.id, data)
+        await BusesService.updateTicket(ticket?.id, data)
         sendEmail()
         localStorage.removeItem('ticket')
+        localStorage.removeItem('ticketLocal')
         localStorage.removeItem('paymentMethod')
         localStorage.removeItem('deposit')
         localStorage.removeItem('reservation')
         return
       }
       //atm deposit
-      else if(paymentMethod === "ATM" && deposit === 'true'){
-        await BusesService.depositedTicket(ticket.id);
+      else if(paymentMethod === "ATM" && deposit === 'true' && reservation === 'false'){
+        await BusesService.depositedTicket(ticket?.id);
         sendEmail()
         localStorage.removeItem('ticket')
         localStorage.removeItem('paymentMethod')
         localStorage.removeItem('deposit')
         localStorage.removeItem('reservation')
+        localStorage.removeItem('ticketLocal')
         return
       }
       // offline deposit 
-      else if(paymentMethod === "ATM" && deposit === 'true'){
-        await BusesService.depositedTicket(ticket.id);
+      else if(paymentMethod === "OFFLINE" && deposit === 'true' && reservation === 'false'){
+        await BusesService.depositedTicket(ticket?.id);
         sendEmail()
         localStorage.removeItem('ticket')
         localStorage.removeItem('paymentMethod')
         localStorage.removeItem('deposit')
         localStorage.removeItem('reservation')
+        localStorage.removeItem('ticketLocal')
+        return
+      }
+      /// atm desposit  reservation
+      else if(paymentMethod === "OFFLINE" && deposit === 'false' && reservation === 'true'){
+        await BusesService.reservationTicket(ticket?.id);
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
+        localStorage.removeItem('ticketLocal')
+        return
+      }
+       else if(paymentMethod === "ATM" && deposit === 'false' && reservation === 'true'){
+        const data = {
+          status : "RESERVATION",
+          depositAmount : ticket?.totalPrice
+        }
+        await BusesService.updateTicket(ticket?.id, data)
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
+        localStorage.removeItem('ticketLocal')
         return
       }
       // atm
       else if(paymentMethod === "ATM" && deposit === 'false' && reservation === 'false'){
-        await BusesService.approvalTicket(ticket.id);
+        await BusesService.approvalTicket(ticket?.id);
         sendEmail()
         localStorage.removeItem('ticket')
         localStorage.removeItem('paymentMethod')
         localStorage.removeItem('deposit')
         localStorage.removeItem('reservation')
+        localStorage.removeItem('ticketLocal')
         return
       }
       // offline
       else if(paymentMethod === "OFFLINE"  && deposit === 'false' && reservation === 'false' ){
-        await BusesService.inWatingActiveTicket(ticket.id)
+        await BusesService.inWatingActiveTicket(ticket?.id)
         // localStorage.removeItem('ticket')
         // localStorage.removeItem('paymentMethod')
         return

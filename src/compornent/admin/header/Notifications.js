@@ -11,7 +11,7 @@ const Notifications = () => {
    const getNotification = async () =>{
      const res = await NotificationService.getAllNotification()
      if (res.status === 200) {
-       setAvailableNotification(res.data)
+       setAvailableNotification(res.data || [])
      }
    }
    getNotification()

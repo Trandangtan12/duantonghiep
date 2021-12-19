@@ -52,7 +52,7 @@ const FormPayTicket = ({ product }) => {
             }
         }
     }
-    const ticket = JSON.parse(localStorage.getItem("ticket"))
+    const ticket = JSON.parse(localStorage.getItem("ticketDetail"))
     const handlePayTicket = async (data) => {
         try {
             const updateBuses = {
@@ -70,6 +70,7 @@ const FormPayTicket = ({ product }) => {
             }
             if (currentRadioValue === "OFFLINE" && qty < 3 && startDate < addWeek) {
                 localStorage.setItem('deposit', false)
+                localStorage.setItem("reservation", false)
                 localStorage.setItem('paymentMethod', "OFFLINE")
                 const ticket = {
                     ...data,
@@ -82,14 +83,15 @@ const FormPayTicket = ({ product }) => {
                 }
                 const resTicket = await BusesService.addTicket(ticket)
                 if (resTicket.status === 201 || resTicket.status === 200) {
-                    localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketDetail', JSON.stringify(resTicket.data))
                     localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
                     history.push("/payment/success")
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
                 }
 
-            } else if (currentRadioValue === "OFFLINE" && qty >= 3) {
+            } else if (currentRadioValue === "OFFLINE" && qty >= 3  && startDate < addWeek) {
                 localStorage.setItem('deposit', true)
+                localStorage.setItem('reservation', false)
                 localStorage.setItem('paymentMethod', "OFFLINE")
                 const ticket = {
                     ...data,
@@ -97,12 +99,43 @@ const FormPayTicket = ({ product }) => {
                     quantity: qty,
                     totalPrice: totalPrice,
                     paymentMethod: currentRadioValue,
-                    status: "WAITING_ACTIVE",
+                    status: "UNCONFIMRED",
                     depositAmount: depositPrice,
                 }
                 const resTicket = await BusesService.addTicket(ticket)
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketDetail', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
+                }
+                const res = await BusesService.paymentTicket(depositPrice)
+                if (res.data.message === "success") {
+                    window.location.href = res.data.data
+                }
+                if (emp < 0) {
+                    alert("Hết ghế trống!!!")
+                } else {
+                    await BusesService.updateBusses(product.id, updateBuses)
+                }
+
+            }
+            else if (currentRadioValue === "OFFLINE" && qty >= 3  && startDate >= addWeek || currentRadioValue === "ATM" && qty >= 3  && startDate >= addWeek) {
+                localStorage.setItem('deposit', false)
+                localStorage.setItem('reservation', true)
+                localStorage.setItem('paymentMethod', "OFFLINE")
+                const ticket = {
+                    ...data,
+                    buses_id: product.id,
+                    quantity: qty,
+                    totalPrice: totalPrice,
+                    paymentMethod: currentRadioValue,
+                    status: "UNCONFIMRED",
+                    depositAmount: depositPrice,
+                }
+                const resTicket = await BusesService.addTicket(ticket)
+                if (resTicket.status === 201 || resTicket.status === 200) {
+                    localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketDetail', JSON.stringify(resTicket.data))
                     localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
                 }
                 const res = await BusesService.paymentTicket(depositPrice)
@@ -120,19 +153,21 @@ const FormPayTicket = ({ product }) => {
                 currentRadioValue === "OFFLINE" && startDate >= addWeek && sucess === true) {
                 localStorage.setItem('deposit', true)
                 localStorage.setItem('paymentMethod', "OFFLINE")
+                localStorage.setItem("reservation", true)
                 const ticket = {
                     ...data,
                     buses_id: product.id,
                     quantity: qty,
                     totalPrice: totalPrice,
                     paymentMethod: currentRadioValue,
-                    status: "WAITING_ACTIVE",
+                    status: "UNCONFIMRED",
                     depositAmount: depositPrice,
                     reservationTime: startDate
                 }
                 const resTicket = await BusesService.addTicket(ticket)
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketDetail', JSON.stringify(resTicket.data))
                     localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
                 }
                 const res = await BusesService.paymentTicket(depositPrice)
@@ -148,6 +183,7 @@ const FormPayTicket = ({ product }) => {
             }
             else if (currentRadioValue === "ATM" && startDate >= addWeek && sucess === true) {
                 localStorage.setItem('deposit', false)
+                localStorage.setItem("reservation", false)
                 localStorage.setItem('paymentMethod', "ATM")
                 const ticket = {
                     ...data,
@@ -155,11 +191,13 @@ const FormPayTicket = ({ product }) => {
                     quantity: qty,
                     totalPrice: totalPrice,
                     paymentMethod: currentRadioValue,
+                    status: "UNCONFIMRED",
                     reservationTime: startDate
                 }
                 const resTicket = await BusesService.addTicket(ticket)
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketDetail', JSON.stringify(resTicket.data))
                     localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
                 }
                 const res = await BusesService.paymentTicket(totalPrice)
@@ -174,17 +212,20 @@ const FormPayTicket = ({ product }) => {
             }
             else {
                 localStorage.setItem('deposit', false)
+                localStorage.setItem("reservation", false)
                 localStorage.setItem('paymentMethod', "ATM")
                 const ticket = {
                     ...data,
                     quantity: qty,
                     totalPrice: totalPrice,
                     paymentMethod: currentRadioValue,
+                    status: "UNCONFIMRED",
                     buses_id: product.id
                 }
                 const resTicket = await BusesService.addTicket(ticket)
                 if (resTicket.status === 201 || resTicket.status === 200) {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
+                    localStorage.setItem('ticketDetail', JSON.stringify(resTicket.data))
                     localStorage.setItem('ticketLocal', JSON.stringify(ticketLocal))
                 }
                 const res = await BusesService.paymentTicket(totalPrice)
@@ -403,6 +444,7 @@ const FormPayTicket = ({ product }) => {
                         <li className='tw-pl-2'>- Bạn phải nhập đúng địa chỉ email của bạn đang dùng</li>
                         <li className='tw-pl-2'>- Khi bạn đặt vé không thanh toán qua VNPAY bạn hãy gọi số <span className='tw-text-red-500 tw-text-sm tw-font-bold'>19001910</span> để 
                         xác nhận giữ vé</li>
+                        <li className='tw-pl-2'>- Trẻ em dưới 12 tuổi được giảm 50% vé</li>
                     </ul>
                 </div>
 

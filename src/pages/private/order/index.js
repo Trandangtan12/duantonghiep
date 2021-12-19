@@ -77,6 +77,7 @@ const Order = () => {
           );
           reloadActiveAPI();
           alertify.success("Cập nhât vé thành công !");
+          localStorage.removeItem("ticketLocal")
         } else {
           alertify.warning("Có lỗi xảy ra");
         }
@@ -93,6 +94,7 @@ const Order = () => {
         if (res.status === 200) {
           reloadActiveAPI();
           alertify.success("Thanh toán thành công !");
+          localStorage.removeItem("ticketLocal")
         } else {
           alertify.warning("Có lỗi xảy ra");
         }
@@ -111,6 +113,7 @@ const Order = () => {
           if (res.status === 200) {
             reloadActiveAPI();
             alertify.success("Cập nhật thành công !");
+            localStorage.removeItem("ticketLocal")
           } else {
             alertify.warning("Có lỗi xảy ra");
           }
@@ -120,12 +123,15 @@ const Order = () => {
       .set("movable", false)
       .set("ok", "Alright!")
       .set("notifier", "position", "top-right");
+      
   };
   const handleDeleteTicket = async (id) => {
     const res = await BusesService.deleteTicket(id);
     if (res.status === 200 || res.status === 201) {
       reloadActiveAPI();
       alertify.success("Xoá thành công !");
+      localStorage.removeItem("ticketLocal")
+
     } else {
       alertify.warning("Có lỗi xảy ra");
     }
@@ -134,6 +140,7 @@ const Order = () => {
     alertify
       .confirm("Bạn có chắc chắn muốn huỷ vé xe ?", async function () {
         const res = await BusesService.rejectTicket(id);
+        
         if (res.status === 200) {
           const newBuses = { ...original.buses, status: original.buses.status , seat_empty : original.buses.seat_empty +  original.quantity };
           await BusesService.updateBusses(
@@ -141,6 +148,7 @@ const Order = () => {
             newBuses
           );
           alertify.success("Hủy vé thành công !");
+          localStorage.removeItem("ticketLocal")
         } else {
           alertify.warning("Có lỗi xảy ra");
         }
@@ -258,7 +266,7 @@ const Order = () => {
       </table>
     );
   };
-  const getStatus = (status) => {
+  const getStatus = (status , ticket) => {
     switch (status) {
       case ACTIVED:
         return {
@@ -294,10 +302,10 @@ const Order = () => {
               <div className="tw-bg-[#FFE400] tw-text-white">Chờ xác nhận</div>
             ),
           };
-          case RESERVATION:
+          case "RESERVATION":
             return {
               render: (
-                <div className="tw-bg-[#FFE400] tw-text-white">Đặt trước</div>
+                <div className="tw-bg-[#FFE400] tw-text-white">Đặt trước {ticket.paymentMethod === ATM ? <FontAwesomeIcon icon={faMoneyCheck} color="#3d8116" /> : null}</div>
               ),
             };
       default:
@@ -382,7 +390,7 @@ const Order = () => {
       },
       Cell: ({ original }) => {
         const status = original.status;
-        return getStatus(status).render;
+        return getStatus(status , original).render;
       },
     },
     {

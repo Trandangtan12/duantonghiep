@@ -1,9 +1,11 @@
 import React from 'react'
 import { Tab } from "@headlessui/react";
+import { BusesService } from '../../../service/productService';
 
 
 const TabListDesktopComponent = (props) => {
-    const { listWaiting, listActived, listRejected, listDeposit, listDone, listUnconfimed } = props
+    const { listWaiting, cancelTicket, listActived, listRejected, listDeposit, listDone, listUnconfimed } = props
+   
     return (
         <div>
             <Tab.Group>
@@ -41,7 +43,7 @@ const TabListDesktopComponent = (props) => {
                 </Tab.List>
                 <Tab.Panels className="tw-p-4">
                     <Tab.Panel>
-                        {listUnconfimed.length === 0 ? <div>Bạn chưa đặt chuyến nào</div> : listWaiting.map(items => <div className="tw-mb-3">
+                        {listUnconfimed.length === 0 ? <div> Bạn chưa đặt chuyến nào</div> : listUnconfimed.map(items => <div className="tw-mb-3">
                             <div className="tw-font-bold tw-pb-3">{items.buses.date_active}</div>
                             <div className="tw-flex tw-justify-between tw-border tw-border-black tw-rounded-lg tw-p-4">
                                 <div className="col">
@@ -53,6 +55,10 @@ const TabListDesktopComponent = (props) => {
                                 <div className="col">
                                     <p className="tw-bg-yellow-400 tw-text-black tw-p-1">Chưa xác nhận</p>
                                 </div>
+                            </div>
+                            <div className='tw-flex tw-mt-2'>
+                                <button onClick={() => cancelTicket(items.id)} className='tw-w-full tw-rounded-lg tw-text-red-600 tw-p-4 tw-mr-2 tw-border tw-border-black'>Hủy</button>
+                                <button className='tw-w-full tw-rounded-lg tw-text-green-600 tw-p-4 tw-border tw-border-black'>Gọi điện qua số 19001910</button>
                             </div>
                         </div>
                         )}
