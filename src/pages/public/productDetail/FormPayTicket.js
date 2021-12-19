@@ -259,7 +259,7 @@ const FormPayTicket = ({ product }) => {
                 </div>
             </div>
             <form onSubmit={handleSubmit(handlePayTicket)}>
-                <input type="hidden" {...register("user_id")} defaultValue={user == null ? "" : user.id} />
+                <input type="hidden" {...register("user_id")} defaultValue={user == null ? "" : user?.id} />
                 <div className='tw-my-3'>
                     <div className='tw-my-2 tw-uppercase tw-text-xs tw-font-bold'>
                         <label>* Họ và tên </label>
@@ -326,7 +326,7 @@ const FormPayTicket = ({ product }) => {
                     <div className='tw-my-2'>
                         <input type="text"
                             className='tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-p-2'
-                            defaultValue={user == null ? ticket?.identity_card : user.identity_card}
+                            defaultValue={user == null ? ticket?.identity_card : user?.identity_card}
                             {...register('identity_card', {
                                 pattern: {
                                     value: /^(\d{9}|\d{12})$/,

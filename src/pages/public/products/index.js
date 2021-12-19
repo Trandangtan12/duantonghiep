@@ -14,7 +14,7 @@ const Products = () => {
     const { availableSearch } = useSelector(state => state.buses);
     const { availableOrder } = useSelector(state => state.buses);
     const { user } = UserApi.isAuthenticated()
-    const listUnconfimed = availableOrder.filter(item => item.user_id == user.id && item.status == "UNCONFIMRED");
+    const listUnconfimed = availableOrder.filter(item => item?.user_id == user?.id && item?.status == "UNCONFIMRED");
     useEffect(() => {
         dispatch(actionSearchBuses(start, end))
         dispatch(actionGetBuses())

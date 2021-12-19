@@ -53,7 +53,7 @@ const SignIn = () => {
       if (userKey() === true) {
         return <Redirect to="admin/dashboard" />;
       }
-      if (user.id === 3) {
+      if (user?.id === 3) {
         return <Redirect to="admin/order" />;
       }
       else {

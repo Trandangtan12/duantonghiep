@@ -21,14 +21,14 @@ const Profile = () => {
     defaultValues: {profileDetail },
   });
   const handleChangeInfoAcount = async (data) => {
-    const res = await UserApi.updateInfoUser(account.user.id, data);
+    const res = await UserApi.updateInfoUser(account?.user?.id, data);
     if (res.status === 200) {
       console.log(res.data);
     }
   };
   useEffect(() => {
     const getInfoUser = async () => {
-      const res = await UserApi.getInfoUser(account.user.id)
+      const res = await UserApi.getInfoUser(account?.user?.id)
       if(res.status === 200){
         console.log(res.data);
         setProfileDetail(res.data[0])
