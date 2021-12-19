@@ -27,6 +27,7 @@ import {
   listFilterStatus,
   OFFLINE,
   REJECTED,
+  RESERVATION,
   UNCONFIMRED,
   WAITING_ACTIVE,
 } from "./utility";
@@ -197,14 +198,14 @@ const Order = () => {
               {data.buses.endPointName}
             </td>
           </tr>
-          <tr className="tw-flex tw-flex-wrap tw-mb-4">
+          {/* <tr className="tw-flex tw-flex-wrap tw-mb-4">
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
               Ngày đặt
             </td>
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4">
               {IsoStringConvert(data.buses.created_at)}
             </td>
-          </tr>
+          </tr> */}
           <tr className="tw-flex tw-flex-wrap tw-mb-4">
             <td className="tw-w-full lg:tw-w-[500px] tw-px-4 tw-font-bold">
               Số CMND
@@ -293,6 +294,12 @@ const Order = () => {
               <div className="tw-bg-[#FFE400] tw-text-white">Chờ xác nhận</div>
             ),
           };
+          case RESERVATION:
+            return {
+              render: (
+                <div className="tw-bg-[#FFE400] tw-text-white">Đặt trước</div>
+              ),
+            };
       default:
         return null;
     }
@@ -400,7 +407,7 @@ const Order = () => {
       maxWidth: 200,
       show: true,
       Cell: ({ original }) => {
-        const isActiveTicket = original.status === ACTIVED || original.status === DONE;
+        const isActiveTicket = original.status === ACTIVED || original.status === DONE || original.status === UNCONFIMRED
         return (
           <div>
             <div>
@@ -419,7 +426,7 @@ const Order = () => {
                 </span>
               ) : null}
 
-              {original.status !== DONE &&  original.status !== UNCONFIMRED  ? (
+              {original.status !== DONE &&  original.status !== UNCONFIMRED  &&  original.status !== REJECTED  ? (
                 <span
                   onClick={() => handleDoneTicket(original.id)}
                   className="tw-cursor-pointer tw-mr-2"
@@ -444,7 +451,7 @@ const Order = () => {
                 </span>
               ) : null}
               <span className="tw-ml-2">
-                {isActiveTicket ? null : (
+                {isActiveTicket || original?.depositAmount === original.totalPrice  ? null : (
                   <span
                     onClick={() => handleApprovalTicket(original.id)}
                     className="tw-cursor-pointer"

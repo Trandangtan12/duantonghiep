@@ -16,25 +16,66 @@ const SuccessPayment = () => {
       // lấy trạng thái đặt trước với phương thức thanh toán từ local 
       const deposit = localStorage.getItem("deposit")
       const paymentMethod = localStorage.getItem("paymentMethod")
-      //đặt cọc
-      if (paymentMethod === "OFFLINE" && deposit === 'true') {
-        await BusesService.depositedTicket(ticket.id)
+      const reservation = localStorage.getItem("reservation")
+      // đặt cọc
+      if (paymentMethod === "OFFLINE" && reservation === 'true') {
+        await BusesService.reservationTicket(ticket.id)
         sendEmail()
         localStorage.removeItem('ticket')
         localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
+        return
       }
-      //atm
-      else if(paymentMethod === "ATM"){
+      if (paymentMethod === "ATM" && reservation === 'true') {
+        const data = {
+          status : "RESERVATION",
+          depositAmount : ticket.totalPrice
+        }
+        await BusesService.updateTicket(ticket.id, data)
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
+        return
+      }
+      //atm deposit
+      else if(paymentMethod === "ATM" && deposit === 'true'){
+        await BusesService.depositedTicket(ticket.id);
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
+        return
+      }
+      // offline deposit 
+      else if(paymentMethod === "ATM" && deposit === 'true'){
+        await BusesService.depositedTicket(ticket.id);
+        sendEmail()
+        localStorage.removeItem('ticket')
+        localStorage.removeItem('paymentMethod')
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
+        return
+      }
+      // atm
+      else if(paymentMethod === "ATM" && deposit === 'false' && reservation === 'false'){
         await BusesService.approvalTicket(ticket.id);
         sendEmail()
         localStorage.removeItem('ticket')
         localStorage.removeItem('paymentMethod')
-      }   
-      //tại chỗ
-      else if(paymentMethod === "OFFLINE"){
+        localStorage.removeItem('deposit')
+        localStorage.removeItem('reservation')
+        return
+      }
+      // offline
+      else if(paymentMethod === "OFFLINE"  && deposit === 'false' && reservation === 'false' ){
         await BusesService.inWatingActiveTicket(ticket.id)
-        localStorage.removeItem('ticket')
-        localStorage.removeItem('paymentMethod')
+        // localStorage.removeItem('ticket')
+        // localStorage.removeItem('paymentMethod')
+        return
       }   
     };
     updateTicket();

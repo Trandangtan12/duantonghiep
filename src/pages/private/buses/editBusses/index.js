@@ -177,11 +177,13 @@ const EditBusses = () => {
     resolver: yupResolver(validationSchema),
   });
   const handleSubmitForm = (data) => {
-    console.log(infoBusses);
     delete data.service;
     let seat_empty
     if(data.seat > infoBusses.seat){
-      seat_empty = data.seat - infoBusses.seat + infoBusses.seat_empty
+      seat_empty = data.seat - infoBusses.seat
+    }
+    if(infoBusses.seat === 0){
+      seat_empty = data.seat
     }
     if(data.seat === infoBusses.seat){
       seat_empty = infoBusses.seat_empty
