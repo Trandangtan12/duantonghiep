@@ -42,7 +42,7 @@ const NewsDetailPage = () => {
                                 <h2 className="tw-font-medium title-font tw-mt-4 tw-text-gray-900 tw-text-lg">
                                     Người viết {newDetail?.user?.name}
                                 </h2>
-                                <div className="tw-w-12 tw-h-1 tw-bg-indigo-500 tw-rounded tw-mt-2 tw-mb-4" />
+                                <div className="tw-w-12 tw-h-1 tw-bg-green-500 tw-rounded tw-mt-2 tw-mb-4" />
                                 <p className="tw-text-base">
                                     Ngày tạo {moment(newDetail?.created_at).format("DD/mm/yyyy")}
                                 </p>

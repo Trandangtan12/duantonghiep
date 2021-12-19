@@ -1,15 +1,12 @@
+import alertify from "alertifyjs";
 import moment from "moment";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import ToggleButton from "react-toggle-button";
 import { BusesService } from "../../../service/productService";
 import { UserApi } from "../../../service/userService";
-import ToggleButton from "react-toggle-button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationCircle } from "@fortawesome/fontawesome-free-solid";
-import alertify from "alertifyjs";
 const FormPayTicket = ({ product }) => {
   const { user } = UserApi.isAuthenticated();
   const {
@@ -242,6 +239,7 @@ const FormPayTicket = ({ product }) => {
         }
       }
     } catch (error) {
+      console.log(error);
     }
   };
   useEffect(() => {
@@ -455,7 +453,9 @@ const FormPayTicket = ({ product }) => {
                 showTimeSelect
                 minDate={todayFormatMoment}
                 selected={startDate}
+                maxDate={moment(product.date_inactive, "dd/MM/yyyy")}
               />
+              {/* <span>{moment(product.date_inactive, "DD/MM/yyyy") === moment(startDate, "DD/MM/yyyy") ? "Tạm dừng hoạt động" : ""}</span> */}
             </div>
           </div>
         </div>
@@ -506,32 +506,6 @@ const FormPayTicket = ({ product }) => {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="tw-my-3">
-          <div className="tw-my-2 tw-uppercase tw-text-xs tw-font-bold">
-            <label>
-              {" "}
-              <FontAwesomeIcon icon={faExclamationCircle} /> Những lưu ý trước
-              khi đặt vé{" "}
-            </label>
-          </div>
-          <ul className="tw-text-xs">
-            <li className="tw-pl-2">
-              - Nếu bạn đặt trước một tuần bạn phải đặt cọc 30% vé
-            </li>
-            <li className="tw-pl-2">
-              - Bạn phải nhập đúng địa chỉ email của bạn đang dùng
-            </li>
-            <li className="tw-pl-2">
-              - Khi bạn đặt vé không thanh toán qua VNPAY bạn hãy gọi số{" "}
-              <span className="tw-text-red-500 tw-text-sm tw-font-bold">
-                19001910
-              </span>{" "}
-              để xác nhận giữ vé
-            </li>
-            <li className="tw-pl-2">- Trẻ em dưới 5 tuổi được miễn phí vé</li>
-          </ul>
         </div>
 
         <div className="tw-flex tw-mt-6">
