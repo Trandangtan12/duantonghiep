@@ -6,7 +6,7 @@ const SuccessPayment = () => {
   const history = useHistory()
   const ticket = JSON.parse(localStorage.getItem('ticket'))
   const sendEmail = async () =>{
-    await BusesService.sendEmail(ticket.id)
+    await BusesService.sendEmail(ticket?.id)
   }
   useEffect(() => {
     if (ticket === undefined || ticket === null) {
@@ -18,7 +18,7 @@ const SuccessPayment = () => {
       const paymentMethod = localStorage.getItem("paymentMethod")
       //đặt cọc
       if (paymentMethod === "OFFLINE" && deposit === 'true') {
-        await BusesService.depositedTicket(ticket.id)
+        await BusesService.depositedTicket(ticket?.id)
         sendEmail()
         localStorage.removeItem('ticket')
         localStorage.removeItem('paymentMethod')
@@ -26,7 +26,7 @@ const SuccessPayment = () => {
       }
       //atm
       else if(paymentMethod === "ATM"){
-        await BusesService.approvalTicket(ticket.id);
+        await BusesService.approvalTicket(ticket?.id);
         sendEmail()
         localStorage.removeItem('ticket')
         localStorage.removeItem('ticketLocal')
@@ -34,7 +34,7 @@ const SuccessPayment = () => {
       }   
       //tại chỗ
       else if(paymentMethod === "OFFLINE"){
-        await BusesService.inWatingActiveTicket(ticket.id)
+        await BusesService.inWatingActiveTicket(ticket?.id)
         localStorage.removeItem('ticket')
         localStorage.removeItem('paymentMethod')
       }   
