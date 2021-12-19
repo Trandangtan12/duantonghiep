@@ -24,7 +24,7 @@ const NewPages = () => {
                             <p className="tw-leading-relaxed">
                                {/* {item.dé} */}
                             </p>
-                            <Link to={`newdetail/${item.id}`} className="tw-text-indigo-500 tw-inline-flex tw-items-center tw-mt-4">
+                            <Link to={`newdetail/${item.id}`} className="tw-text-green-500 tw-inline-flex tw-items-center tw-mt-4">
                                 Xem chi tiết
                                 <svg
                                     className="tw-w-4 tw-h-4 tw-ml-2"
