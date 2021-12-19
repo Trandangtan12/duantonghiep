@@ -90,11 +90,17 @@ export const BusesService = {
   depositedTicket(id) {
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "DEPOSIT" });
   },
+  reservationTicket(id) {
+    return HttpClient.put(`${API_TICKET}/${id}`, { status: "RESERVATION" });
+  },
   doneTicket(id) {
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "DONE" });
   },
   inActiveTicket(id) {
     return HttpClient.put(`${API_TICKET}/${id}`, { status: "WAITING_ACTIVE" });
+  },
+  inWatingActiveTicket(id) {
+    return HttpClient.put(`${API_TICKET}/${id}`, { status: "UNCONFIMRED" });
   },
   deleteTicket(id) {
     return HttpClient.delete(`${API_TICKET}/${id}`);
@@ -123,9 +129,9 @@ export const BusesService = {
       bank_code: "NCB",
     });
   },
-  getBussesByTime(start, end, date_active, start_time) {
+  getBussesByTime(start, end, start_time) {
     return HttpClient.get(
-      `${API_SEARCH}?startPointId=${start}&endPointId=${end}&date_active=${date_active}&start_time=${start_time}`
+      `${API_SEARCH}?startPointId=${start}&endPointId=${end}&start_time=${start_time}`
     );
   },
   deActivedBuses(id) {

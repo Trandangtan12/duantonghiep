@@ -18,6 +18,8 @@ export const API_GET_BUSES_TYPE = '/cartypes'
 
 export const API_UPDATE_USER = "/userAdmin"
 
+export const API_USERS = "/users"
+
 export const API_SEARCH = '/search'
 
 export const API_TICKET = "/ticket"
@@ -35,6 +37,8 @@ export const API_ROLE = "/role"
 export const API_USER_ADMIN = "/userAdmin"
 
 export const API_NEWS = "/news"
+
+export const API_NOTIFICATION = "/notification"
 
 export const API_SEARCH_TICKET = "/searchTK"
 export const API_STATISTICAL = "loc_ve_thang"
@@ -54,8 +58,8 @@ const { faAddressBook } = iconRegular
 //==============href NAV MENU=============
 export const NAV_LINK_LIST = [
     {
-        label: "Về chúng tôi",
-        link: "/new",
+        label: "Chính sách",
+        link: "/about",
         icon: faAddressCard
     },
     {
@@ -70,7 +74,7 @@ export const NAV_LINK_LIST = [
     },
     {
         label: "Tin tức",
-        link: "/new",
+        link: "/page/news",
         icon: faNewspaper
     }
 ]
@@ -80,6 +84,12 @@ export const isEmptyObject = () =>{
 }
 export const IsoStringConvert = (date) =>{
     return moment(date).utc(true).format("YYYY-MM-DD H:mm")
+}
+
+
+
+export const IsoStringConvertToTime = (date) =>{
+    return moment(date).utc(true).format("H:mm")
 }
 
 export const MENU_BOTTOM_LIST = [
@@ -94,8 +104,9 @@ export const MENU_BOTTOM_LIST = [
         link: "/ticket"
     },
     {
-        label: "Ưu đãi",
-        icon: faPercent
+        label: "Tra cứu vé xe",
+        icon: faSearch,
+        link: "/ticket/search"
     },
     {
         label: "Hồ sơ",

@@ -29,7 +29,8 @@ const DesktopComponent = (props) => {
         handleCheckedNigth,
         onChangeFilterCheckBox,
         products,
-        productFilter
+        productFilter,
+        listUnconfimed
     } = props
     return (
         <div>
@@ -74,6 +75,7 @@ const DesktopComponent = (props) => {
                        checkedAfternoon={checkedAfternoon}
                        checkedNigth={checkedNigth}
                        timeFilter={time}
+                       listUnconfimed={listUnconfimed}
                     />
                 </div>
                 {/* } */}

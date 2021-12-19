@@ -95,7 +95,7 @@ const EditBusses = () => {
     setValue("start_time", startTime);
   };
   const handleChangeEndTime = (date) => {
-    const endTime = moment(date).format("HH:mm");
+    const endTime = moment(date).utc(true).toISOString();
     setEndDate(date);
     setValue("end_time", endTime);
   };
@@ -178,10 +178,22 @@ const EditBusses = () => {
   });
   const handleSubmitForm = (data) => {
     delete data.service;
-    // const seat_empty = data.seat - infoBusses.seat
+    let seat_empty
+    if(data.seat > infoBusses.seat){
+      seat_empty = data.seat - infoBusses.seat
+    }
+    if(infoBusses.seat === 0){
+      seat_empty = data.seat
+    }
+    if(data.seat === infoBusses.seat){
+      seat_empty = infoBusses.seat_empty
+    }
+    if(data.seat < infoBusses.seat){
+      seat_empty = 0
+    }
     alertify
       .confirm("Bạn có chắc chắn muốn cập nhật chuyến xe ?", async function () {
-        const newData = { ...data, seat_empty: 10 };
+        const newData = { ...data, seat_empty: seat_empty };
         const res = await BusesService.updateBusses(id, newData);
         if (res.status === 200) {
           alertify.set("notifier", "position", "bottom-right");
@@ -217,7 +229,10 @@ const EditBusses = () => {
         reset(res.data);
         const date = `${res.data.date_active} ${res.data.start_time}`;
         const d = new Date(date);
+        const endDateConvert = moment(res?.data?.end_time).utc(false).format("YYYY-MM-DD H:mm")
+        const endDateInitial = new Date(endDateConvert)
         setStartDate(d);
+        setEndDate(endDateInitial)
         const districtsResStart = await ProvinceService.getDistrict(
           res.data.startPointId
         );
@@ -365,7 +380,7 @@ const EditBusses = () => {
                                     <div className="tw-flex tw-justify-between tw-items-center tw-text-gray-400">
                                       {" "}
                                       <span>
-                                        Accepted file type:.img only
+                                        Tải lên tệp tin định dạng : .img, .png, jpeg 
                                       </span>{" "}
                                       <span className="tw-flex tw-items-center ">
                                         <i className="fa fa-lock tw-mr-1" />{" "}
@@ -443,6 +458,8 @@ const EditBusses = () => {
                         </label>
                         <DatePickerForm
                           startDate={startDate}
+                          dateFormat="H:mm"
+                          showTimeSelectOnly={true}
                           onChange={(date) => {
                             handleChangeStartTime(date);
                           }}
@@ -460,8 +477,8 @@ const EditBusses = () => {
                         </label>
                         <DatePickerForm
                           startDate={endDate}
-                          showTimeSelectOnly={false}
-                          // dateFormat="HH:mm"
+                          showTimeSelectOnly={true}
+                          dateFormat="H:mm"
                           onChange={(date) => {
                             handleChangeEndTime(date);
                           }}

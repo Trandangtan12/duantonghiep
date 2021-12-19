@@ -5,6 +5,8 @@ export const ATM = "ATM"
 export const OFFLINE = "OFFLINE"
 export const DEPOSIT = "DEPOSIT"
 export const DONE = "DONE"
+export const UNCONFIMRED = "UNCONFIMRED"
+export const RESERVATION = "RESERVATION"
 export const listFilterStatus = [
     {
         type : ACTIVED , 
@@ -25,6 +27,10 @@ export const listFilterStatus = [
     {
         type : DONE , 
         name : "Đã hoành thành"
+    },
+    {
+        type : UNCONFIMRED , 
+        name : "Chờ xác nhận"
     }
 ]
 

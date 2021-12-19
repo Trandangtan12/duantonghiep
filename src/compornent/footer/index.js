@@ -1,4 +1,7 @@
 import React from "react";
+import logo from '../../asset/images/tour-bus.png';
+// import chplay from '../../asset/images/chplay.png'
+import appstore from '../../asset/images/store.png'
 
 const Footer = () => {
   return (
@@ -8,12 +11,16 @@ const Footer = () => {
       <div className="container tw-px-5 tw-py-24 tw-mx-auto tw-flex md:tw-items-center lg:tw-items-start md:tw-flex-row md:tw-flex-nowrap tw-flex-wrap tw-flex-col">
         <div className="tw-w-64 tw-flex-shrink-0 md:tw-mx-0 tw-mx-auto tw-text-center md:tw-text-left">
           <a className="tw-flex title-font tw-font-medium tw-items-center md:tw-justify-start tw-justify-center tw-text-gray-900">
-            <svg xmlns="http://www.w3.org/2000/svg" className="tw-w-10 tw-h-10 tw-text-white tw-p-2 tw-bg-red-700 tw-rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-            </svg>
-            <span className="tw-ml-3 tw-text-xl tw-text-white">DEV</span>
+          <span className="tw-ml-3 tw-text-xl tw-text-white">
+              <img src={logo} width="50" className="tw-rounded-lg" />
+            </span>
+            <p className="tw-mt-2 tw-text-sm tw-text-white tw-font-bold tw-text-2xl">Nhà xe six leaf</p>
           </a>
-          <p className="tw-mt-2 tw-text-sm tw-text-white">Air plant banjo lyft occupy retro adaptogen indego</p>
+          <div>
+          <h3 className="tw-text-white tw-text-2xl tw-mt-2 tw-mb-2">Tải ứng dụng tại: </h3>
+            {/* <img src={chplay} alt="" className="tw-mb-2 tw-rounded-lg" /> */}
+            <img src={appstore} alt=""  className="tw-mb-2 tw-rounded-lg"/>
+          </div>
         </div>
         <div className="tw-flex-grow tw-flex tw-flex-wrap md:tw-pl-20 tw--mb-10 md:tw-mt-0 tw-mt-10 md:tw-text-left tw-text-center">
           <div className="lg:tw-w-1/4 md:tw-w-1/2 tw-w-full tw-px-4">
@@ -63,21 +70,26 @@ const Footer = () => {
             </nav>
           </div>
           <div className="lg:tw-w-1/4 md:tw-w-1/2 tw-w-full tw-px-4">
-            <h2 className="title-font tw-font-bold tw-text-white tw-tracking-widest text-md tw-mb-3">Chứng nhận</h2>
-            <nav className="tw-list-none tw-mb-10">
+            <h2 className="title-font tw-font-bold tw-text-white tw-tracking-widest text-md tw-mb-3">Thông tin hữu ích</h2>
+            <nav className="tw-list-none tw-mb-10 tw-text-sm">
               <li>
-              <img src="https://storage.googleapis.com/fe-production/images/Home/certificate0.png" alt="" />
-                {/* <a className="tw-text-white hover:tw-text-red-300" href="#">First Link</a> */}
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Tin tức nhà xe</a>
               </li>
               <li>
-              <img src="https://storage.googleapis.com/fe-production/images/Home/certificate1.png" alt="" />
-                {/* <a className="tw-text-white hover:tw-text-red-300" href="#">Second Link</a> */}
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Chương trình khuyến mãi</a>
               </li>
-              <li className="tw-my-3">
-              <img src="https://storage.googleapis.com/fe-production/images/dangkybocongthuong.png" alt="" />
-                {/* <a className="tw-text-white hover:tw-text-red-300" href="#">Third Link</a> */}
+              <li>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Thông tin tuyển dụng</a>
               </li>
-             
+              <li>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Câu hỏi thường gặp</a>
+              </li>
+              <li>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Hệ thống phòng vé</a>
+              </li>
+              <li>
+                <a className="tw-text-white hover:tw-text-red-300" href="#">Câu hỏi thường gặp</a>
+              </li>
             </nav>
           </div>
           <div className="lg:tw-w-1/4 md:tw-w-1/2 tw-w-full tw-px-4">
@@ -98,7 +110,6 @@ const Footer = () => {
              
             </nav>
           </div>
-         
         </div>
       </div>
       <div className="tw-bg-green-700">

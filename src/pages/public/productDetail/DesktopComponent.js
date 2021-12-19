@@ -64,7 +64,7 @@ const DesktopComponent = (props) => {
                 {product.detailAddressStart} - {product.detailAddressEnd}
               </span>{" "}
               | <span>Thời gian khởi hành {product.date}</span> -{" "}
-              <span>{product.start_time}</span>
+              <span>{ product.start_time}</span>
             </p>
           </div>
         </div>
@@ -103,7 +103,7 @@ const DesktopComponent = (props) => {
                     
                   </div>
                   <div className="tw-flex">
-                    <span className="tw-text-xl tw-font-bold">{product.end_time}h</span>
+                    <span className="tw-text-xl tw-font-bold">{moment(product.end_time).format("HH:mm") }h</span>
                    
                   </div>
                 </div>

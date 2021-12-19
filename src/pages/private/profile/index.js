@@ -18,19 +18,20 @@ const Profile = () => {
     formState: { errors },
     setValue,
   } = useForm({
-    defaultValues: { ...account.user },
+    defaultValues: {profileDetail },
   });
   const handleChangeInfoAcount = async (data) => {
-    // const res = await UserApi.updateUser(account.user.id, data);
-    // if (res.status === 200) {
-    //   console.log(res.data);
-    // }
+    const res = await UserApi.updateInfoUser(account.user.id, data);
+    if (res.status === 200) {
+      console.log(res.data);
+    }
   };
   useEffect(() => {
     const getInfoUser = async () => {
-      const res = await UserApi.getUser(account.user.id)
+      const res = await UserApi.getInfoUser(account.user.id)
       if(res.status === 200){
-        setProfileDetail(res.data)
+        console.log(res.data);
+        setProfileDetail(res.data[0])
       }
     };
     getInfoUser()
@@ -97,7 +98,7 @@ const Profile = () => {
                 {...register("phone_number")}
               />
             </p>
-            <div className="tw-pt-12 tw-pb-8">
+            {/* <div className="tw-pt-12 tw-pb-8">
               {!changeInfo ? (
                 <button
                   className="tw-bg-green-700 hover:tw-bg-green-900 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded-full"
@@ -118,7 +119,7 @@ const Profile = () => {
                   Cập nhật
                 </button>
               )}
-            </div>
+            </div> */}
             <div className="tw-mt-6 tw-pb-16 lg:tw-pb-0 tw-w-4/5 lg:tw-w-full tw-mx-auto tw-flex tw-flex-wrap tw-items-center tw-justify-between">
               <a
                 className="link"

@@ -175,7 +175,7 @@ const NewBuses = () => {
     setValue("start_time", startTime);
   };
   const handleChangeEndTime = (date) => {
-    const endTime = moment(date).format("HH:mm");
+    const endTime = moment(date).utc(true).toISOString();
     setEndDate(date);
     setValue("end_time", endTime);
   };
@@ -273,7 +273,7 @@ const NewBuses = () => {
                                     <div className="tw-flex tw-justify-between tw-items-center tw-text-gray-400">
                                       {" "}
                                       <span>
-                                        Accepted file type:.img only
+                                      Tải lên tệp tin định dạng : .img, .png, jpeg 
                                       </span>{" "}
                                       <span className="tw-flex tw-items-center ">
                                         <i className="fa fa-lock tw-mr-1" />{" "}
@@ -351,6 +351,8 @@ const NewBuses = () => {
                         </label>
                         <DatePickerForm
                           startDate={startDate}
+                          dateFormat="H:mm"
+                          showTimeSelectOnly={true}
                           onChange={(date) => {
                             handleChangeStartTime(date);
                           }}
@@ -368,8 +370,8 @@ const NewBuses = () => {
                         </label>
                         <DatePickerForm
                           startDate={endDate}
-                          showTimeSelectOnly={false}
-                          // dateFormat="HH:mm"
+                          showTimeSelectOnly={true}
+                          dateFormat="H:mm"
                           onChange={(date) => {
                             handleChangeEndTime(date);
                           }}

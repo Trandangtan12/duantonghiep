@@ -4,7 +4,9 @@ import UserMenu from "./header/UserMenu";
 import { SearchBox } from "./header/SearchBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHandPeace } from "@fortawesome/fontawesome-free-solid";
+import { UserApi } from "../../service/userService";
 const HeaderAdmin = ({ sidebarOpen, setSidebarOpen }) => {
+  const { user } = UserApi.isAuthenticated();
   return (
     <header className="tw-sticky tw-top-0 tw-bg-white tw-border-b  tw-border-gray-200 tw-z-30 tw-shadow-md">
       <div className="tw-px-4 sm:tw-px-6 lg:tw-px-8">
@@ -30,7 +32,7 @@ const HeaderAdmin = ({ sidebarOpen, setSidebarOpen }) => {
               </svg>
             </button>
             <span>
-              Xin chào quản trị viên <FontAwesomeIcon  icon={faHandPeace} className="tw-text-gray-800"/>
+            { `Xin chào, ${user.name}`}  <FontAwesomeIcon  icon={faHandPeace} className="tw-text-green-600"/>
             </span>
           </div>
 

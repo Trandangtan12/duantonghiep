@@ -6,10 +6,12 @@ import MobileComponent from './MobileComponent';
 import DesktopComponent from './DesktopComponent';
 
 const ProductList = (props) => {
-  const { products, productFilter } = props
+  const { products, productFilter, listUnconfimed } = props
+  console.log(listUnconfimed.length);
   return (
     <>
-    {isMobile ? <MobileComponent productFilter={productFilter}/> : <DesktopComponent productFilter={productFilter}/>}
+    {isMobile ? <MobileComponent listUnconfimed={listUnconfimed} productFilter={productFilter}/> : 
+    <DesktopComponent listUnconfimed={listUnconfimed} productFilter={productFilter}/>}
     </>
   )
   

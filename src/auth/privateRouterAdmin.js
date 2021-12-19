@@ -16,9 +16,10 @@ const PrivateRouterAdmin = ({children}) => {
           }
         }
       }
+      const isStaffTicket = user && user?.id === 3
     return (
         <Route render={()=>{
-            return user && userKey() === true ? children : <Redirect to={{pathname: '/signin'}} />
+            return user && userKey() === true || isStaffTicket ? children : <Redirect to={{pathname: '/'}} />
         }}/>
     )
 }
