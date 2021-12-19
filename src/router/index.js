@@ -209,7 +209,7 @@ const Routes = () => {
                   exact
                   path="/admin/vehicel-type/edit/:id"
                   render={() => {
-                    return user && user?.id === 3 ? (
+                    return  user?.id === 3 ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <EditeVehicel />

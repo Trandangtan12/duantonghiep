@@ -10,12 +10,12 @@ const TabList = () => {
   const { availableOrder } = useSelector(state => state.buses)
   const dispatch = useDispatch()
   const { user } = UserApi.isAuthenticated()
-  const listWaiting = availableOrder.filter(item => item.user_id == user.id && item.status == "WAITING_ACTIVE");
-  const listActived = availableOrder.filter(item => item.user_id == user.id && item.status == "ACTIVED");
-  const listRejected = availableOrder.filter(item => item.user_id == user.id && item.status == "REJECTED");
-  const listDeposit = availableOrder.filter(item => item.user_id == user.id && item.status == "DEPOSIT");
-  const listDone = availableOrder.filter(item => item.user_id == user.id && item.status == "DONE");
-  const listUnconfimed = availableOrder.filter(item => item.user_id == user.id && item.status == "UNCONFIMRED");
+  const listWaiting = availableOrder.filter(item => item.user_id == user?.id && item.status == "WAITING_ACTIVE");
+  const listActived = availableOrder.filter(item => item.user_id == user?.id && item.status == "ACTIVED");
+  const listRejected = availableOrder.filter(item => item.user_id == user?.id && item.status == "REJECTED");
+  const listDeposit = availableOrder.filter(item => item.user_id == user?.id && item.status == "DEPOSIT");
+  const listDone = availableOrder.filter(item => item.user_id == user?.id && item.status == "DONE");
+  const listUnconfimed = availableOrder.filter(item => item?.user_id == user?.id && item?.status == "UNCONFIMRED");
   const reloadActiveAPI = () => {
     setDispatchAcitive((pre) => ++pre);
   };
