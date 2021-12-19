@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PaymentNotSuccess from "../../../asset/images/declined.png";
 import User from "../../../asset/images/group.png";
-import Money from "../../../asset/images/money.png";
+import Money from "../../../asset/images/newspaper.png";
 import Succes from "../../../asset/images/payment.png";
 import Ticket from "../../../asset/images/tickets.png";
 import Buses from "../../../asset/images/tour-bus.png";
@@ -21,6 +21,7 @@ import { actionGetAllUsers } from "../../../redux/actions/user";
 import { statisticalService } from "../../../service/statistical";
 import { THIRTYDAY } from "./utility";
 import moment from "moment";
+import { actionGetNews } from "../../../redux/actions/news";
 const DashBoard = () => {
   const [staticsticalData, setStaticsticalData] = useState([]);
   const [labelsData, setLabelsData] = useState([]);
@@ -34,6 +35,8 @@ const DashBoard = () => {
   const { avaibleUsers } = useSelector((state) => state.auth);
   const { availableOrder } = useSelector((state) => state.buses);
   const { availableBuses } = useSelector((state) => state.buses);
+  const { news } = useSelector((state) => state.news);
+  console.log(news);
   const [typeStatistical, setTypeStatistical] = useState(false)
   const handleChangeStartDateExport = (date) => {
     setStartDate(date);
@@ -144,6 +147,7 @@ const DashBoard = () => {
     dispatch(actionGetAllBusesTypes());
     dispatch(actionGetTicket());
     dispatch(actionGetAllUsers());
+    dispatch(actionGetNews());
     const getStatistical = async () => {
       const res = await statisticalService.getDataBy30Day();
       if (res.status === 200) {
@@ -177,10 +181,10 @@ const DashBoard = () => {
               </div>
               <div className="tw-flex-1 tw-text-right md:tw-text-center">
                 <h5 className="tw-font-bold tw-uppercase tw-text-white">
-                  Tổng số tiền đã giao dich
+                  Tổng số bài viết
                 </h5>
                 <h3 className="tw-font-bold tw-text-3xl tw-text-white">
-                  {numberWithCommas(totalPrice)} Vnđ
+                  {news.length} Bài viết
                   <span className="tw-text-green-500">
                     <i className="fas fa-caret-up" />
                   </span>

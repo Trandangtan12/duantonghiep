@@ -1,4 +1,4 @@
-import { faUser } from '@fortawesome/fontawesome-free-solid';
+import { faSignOutAlt, faUser } from '@fortawesome/fontawesome-free-solid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Menu, Transition } from '@headlessui/react'
@@ -9,6 +9,7 @@ const UserMenu = () => {
   const history = useHistory()
   const handleLogOut = () =>{
     localStorage.removeItem('user')
+    localStorage.removeItem('ticketLocal')
     history.push("/signin")
   }
   return (
@@ -37,11 +38,12 @@ const UserMenu = () => {
                       active ? 'tw-bg-green-600 tw-text-white' : 'tw-text-gray-900'
                     } group tw-flex tw-rounded-md tw-items-center tw-w-full tw-px-2 tw-py-2 tw-text-sm`}
                   >
+                  <FontAwesomeIcon icon={faUser} className='tw-text-green-600 tw-mr-2' />
                   Thông tin tài khoản                   
                   </button>
                 )}
               </Menu.Item>
-              <Menu.Item>
+              {/* <Menu.Item>
                 {({ active }) => (
                   <button
                     className={`${
@@ -51,7 +53,7 @@ const UserMenu = () => {
                   Đổi mật khẩu                 
                   </button>
                 )}
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -60,6 +62,7 @@ const UserMenu = () => {
                     } group tw-flex tw-rounded-md tw-items-center tw-w-full tw-px-2 tw-py-2 tw-text-sm`}
                     onClick={() => handleLogOut()}
                   >
+                      <FontAwesomeIcon icon={faSignOutAlt} className='tw-text-green-600 tw-mr-2' />
                   Đăng xuất             
                   </button>
                 )}
