@@ -226,7 +226,7 @@ const EditTicket = () => {
                     <DatePickerForm
                       startDate={startDate}
                       showTimeSelectOnly={true}
-                      dateFormat="h:mm"
+                      dateFormat="H:mm"
                       onChange={(date) => {
                         handleChangeBusses(date);
                       }}
