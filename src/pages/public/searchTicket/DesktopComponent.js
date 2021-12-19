@@ -11,7 +11,7 @@ const DesktopComponent = (props) => {
                         type="text" />
                 </div>
                 <div className="tw-w-60">
-                    <button className="tw-w-full" className="tw-border tw-border-green-500 tw-w-full tw-py-4 tw-px-2 tw-bg-green-500" type="button" onClick={() => handleSearch(addSearch)}>Tìm kiếm</button>
+                    <button className="tw-w-full" className="tw-border tw-border-green-500 tw-w-full tw-py-4 tw-px-2 tw-bg-green-500 tw-text-white" type="button" onClick={() => handleSearch(addSearch)}>Tìm kiếm</button>
                 </div>
             </div>
             <div >

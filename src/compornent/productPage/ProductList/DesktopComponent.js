@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   faCircle
 } from "@fortawesome/fontawesome-free-solid";
@@ -6,9 +6,13 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IsoStringConvert } from '../../../config';
 import moment from 'moment';
+import { actionGetAllBusesTypes } from '../../../redux/actions/buses';
+import { useDispatch, useSelector } from 'react-redux';
 
 const DesktopComponent = (props) => {
+  const { availableBusesTypes } = useSelector((state) => state.buses);
   const { productFilter, listUnconfimed } = props
+  const dispatch = useDispatch()
   const checkLocal = window.localStorage.hasOwnProperty("ticketLocal")
   const ListError = () => {
     return (<div className="tw-bg-white tw-p-5 tw-text-center">
@@ -16,6 +20,9 @@ const DesktopComponent = (props) => {
       <p className="tw-font-bold tw-text-xl">Không có chuyến nào để hiển thị</p>
     </div>)
   }
+  useEffect(() => {
+    dispatch(actionGetAllBusesTypes());
+  }, []);
   const mapProduct = productFilter.map((item, index) => {
     return (
       <div key={index} className="tw-rounded-lg tw-bg-white tw-relative tw-p-3 tw-mb-3 hover:tw-shadow-2xl tw-transition tw-ease-in-out">
@@ -31,6 +38,7 @@ const DesktopComponent = (props) => {
               <div className="tw-mb-3 tw-flex tw-justify-bet">
                 <div>
                   <h3 className="tw-font-bold">{item.name}</h3>
+                  <p className="tw-text-sm tw-text-gray-500">{availableBusesTypes.find(_elt => _elt.id === item.cartype_id )?.name}</p>
                   <p className="tw-text-sm tw-text-gray-500">{item.seat} ghế</p>
                 </div>
               </div>
@@ -48,14 +56,14 @@ const DesktopComponent = (props) => {
                 </svg>
                 <div className="tw-h-[4.625rem] tw-ml-3 tw-flex tw-flex-col tw-justify-between">
                   <div className="tw-flex">
-                    <span className="tw-text-xl tw-font-bold">{item.start_time}h</span>
+                    <span className="tw-text-xl tw-font-bold">{item.start_time}</span>
                     <div className="tw-flex tw-items-center tw-ml-1">
                       <FontAwesomeIcon className="tw-text-[0.25rem] tw-mx-1" icon={faCircle} />
                       <p className="tw-text-gray-500 tw-text-sm">{item.detailAddressStart}</p>
                     </div>
                   </div>
                   <div className="tw-flex">
-                    <span className="tw-text-xl tw-font-bold">{moment(item.end_time).format("HH:mm")}h</span>
+                    <span className="tw-text-xl tw-font-bold">{moment(item.end_time).format("HH:mm")}</span>
                     <div className="tw-flex tw-items-center tw-ml-1">
                       <FontAwesomeIcon className="tw-text-[0.25rem] tw-mx-1" icon={faCircle} />
                       <p className="tw-text-gray-500 tw-text-sm">{item.detailAddressEnd}</p>

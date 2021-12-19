@@ -425,14 +425,14 @@ const Order = () => {
               >
                 <FontAwesomeIcon icon={faEdit} color="blue" />
               </span>
-              {original.status === REJECTED ? (
+              {/* {original.status === REJECTED ? (
                 <span
                   onClick={() => handleDeleteTicket(original.id)}
                   className="tw-cursor-pointer tw-mr-2"
                 >
                   <FontAwesomeIcon icon={faTrash} color="red" />
                 </span>
-              ) : null}
+              ) : null} */}
 
               {original.status !== DONE &&  original.status !== UNCONFIMRED  &&  original.status !== REJECTED  ? (
                 <span

@@ -171,7 +171,7 @@ const SignUp = () => {
                                 />
                                 <span className="tw-text-red-500 tw-text-xs">{errors.re_password?.message}</span>
                                 <div className="tw-mt-3 tw-flex tw-items-center">
-                                    <input onClick={onShowPassword} type="checkbox" className="tw-mr-1" /><span className="tw-text-sm tw-text-gray-600 dark:tw-text-gray-400">Show password</span>
+                                    <input onClick={onShowPassword} type="checkbox" className="tw-mr-1" /><span className="tw-text-sm tw-text-gray-600 dark:tw-text-gray-400">Hiển thị mật khẩu</span>
 
                                 </div>
                             </div>
