@@ -34,6 +34,7 @@ const DesktopComponent = (props) => {
         } else {
           const res = await ratingService.addRating(product.id, dataRating)
           setRatingList([res.data[0], ...ratingList])
+          setWordRaing("")
         }
 
       } catch (error) {
@@ -58,7 +59,7 @@ const DesktopComponent = (props) => {
       <div className="tw-bg-green-500 tw-h-[12rem]">
         <div className="tw-w-3/4 tw-mx-auto">
           <div className="tw-text-white">
-            <h1 className="tw-py-5 tw-text-xl tw-font-bold">{product.name} {product.startPointName} - {product.endPointName}</h1>
+            <h1 className="tw-py-5 tw-text-xl tw-font-bold">{product.name}</h1>
             <p className="tw-text-xl">
               <span className=" tw-font-bold">
                 {product.detailAddressStart} - {product.detailAddressEnd}
@@ -167,7 +168,7 @@ const DesktopComponent = (props) => {
                 </div>
                 {user === undefined ? <div className='tw-my-3'>Hãy <Link className='tw-text-green-500' to="/signin">đăng nhập</Link> để đánh giá!</div> :
                   <div className='tw-my-3'>
-                    <textarea onChange={(e) => setWordRaing(e.target.value)} placeholder='Viết đánh giá...'
+                    <textarea value={wordRating} onChange={(e) => setWordRaing(e.target.value)} placeholder='Viết đánh giá...'
                       className='tw-w-full tw-h-20 tw-p-3 tw-rounded-lg tw-border tw-border-gray-300'></textarea>
                     <button onClick={() => handleAddRating(wordRating)} className='tw-bg-green-500 tw-text-white tw-rounded-lg tw-text-right 
                    tw-my-2 tw-px-4 tw-py-1'>Gửi</button>

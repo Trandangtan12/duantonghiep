@@ -239,7 +239,6 @@ const FormPayTicket = ({ product }) => {
         }
       }
     } catch (error) {
-      console.log(error);
     }
   };
   useEffect(() => {

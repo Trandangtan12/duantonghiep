@@ -123,10 +123,10 @@ const SignIn = () => {
                 />
                 <span className="tw-text-red-500 tw-italic">{errors.password?.message}</span>
                 <div className="tw-mt-3 tw-flex tw-items-center">
-                  <input onClick={onShowPassword} type="checkbox" className="tw-mr-1" /><span className="tw-text-sm tw-text-gray-600 dark:tw-text-gray-400">Show password</span>
+                  <input onClick={onShowPassword} type="checkbox" className="tw-mr-1" /><span className="tw-text-sm tw-text-gray-600 dark:tw-text-gray-400">Hiển thị mật khẩu</span>
                 </div>
               </div>
-              <div className="tw-mb-6">
+              <div className="tw-mb-6 ">
                 <button
                   type="submit"
                   className="tw-w-full tw-px-3 tw-py-4 tw-text-white tw-bg-green-600 tw-rounded-md hover:tw-bg-green-700 focus:tw-outline-none tw-duration-100 tw-ease-in-out"
@@ -135,10 +135,10 @@ const SignIn = () => {
                 </button>
               </div>
               <div className="tw-mb-6">
-                <p>
-                  Bạn khum có tài khoản? Hãy{" "}
+                <p className="tw-text-center">
+                  Bạn không có tài khoản? Hãy{" "}
                   <Link className="tw-text-green-500" to="/signup">
-                    Đăng ký ^^
+                    Đăng ký ngay
                   </Link>
                 </p>
               </div>
