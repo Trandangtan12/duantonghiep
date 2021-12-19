@@ -25,8 +25,8 @@ const MobileComponent = (props) => {
 
                         </div>
                     </div>
-                    <p className='tw-rounded-lg tw-shadow-xl tw-text-xs tw-text-red-500 tw-my-2 tw-p-2 tw-bg-white'>
-                        Gọi số 19001009 để giữ vé hoặc <Link to={`/productdetail/${localTicket().id}`}><span className='tw-text-green-500 tw-underline'>thanh toán qua VNPAY</span></Link>  </p>
+                    <p className='tw-rounded-lg tw-text-center tw-shadow-xl tw-text-xs tw-text-red-500 tw-my-2 tw-p-2 tw-bg-white'>
+                        Gọi số 19001009 để giữ vé hoặc <Link to={`/productdetail/${localTicket().id}`}><span className='tw-text-green-500 tw-underline'>đặt lại</span></Link>  </p>
                 </div> : null}
         </div>
     )

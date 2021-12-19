@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faWindowClose } from '@fortawesome/fontawesome-free-solid';
 
 const TabListMobileComponent = (props) => {
-    const { listWaiting, listActived, listRejected, listDeposit, listDone } = props
+    const { listWaiting, listUnconfimed, listActived, listRejected, listDeposit, listDone } = props
     const [state, setState] = useState(false);
     return (
         <div>
@@ -54,7 +54,7 @@ const TabListMobileComponent = (props) => {
                             <h1 className='tw-text-center'>Vé chưa xác nhận</h1>
                         </div>
                         <div className="tw-p-4">
-                            {listWaiting.length === 0 ? <div>Bạn chưa đặt chuyến nào</div> : listWaiting.map(items => <div className="tw-mb-3">
+                            {listUnconfimed.length === 0 ? <div>Bạn chưa đặt chuyến nào</div> : listUnconfimed.map(items => <div className="tw-mb-3">
                                 <div className="tw-font-bold tw-pb-3">{items.buses.date_active}</div>
                                 <div className="tw-flex tw-justify-between tw-border tw-border-black tw-rounded-lg tw-p-4">
                                     <div className="col">

@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionGetBuses, actionSearchBuses } from '../../../redux/actions/buses';
+import { actionGetBuses, actionGetTicket, actionSearchBuses } from '../../../redux/actions/buses';
 import { useParams } from "react-router";
 import moment from "moment";
 import { ProvinceService } from "../../../service/provinceService";
 import { isMobile } from 'mobile-device-detect';
 import MobileComponent from "./MobileComponent";
 import DesktopComponent from "./DesktopComponent";
+import { UserApi } from "../../../service/userService";
 const Products = () => {
     const { start, end } = useParams()
     const dispatch = useDispatch();
     const { availableSearch } = useSelector(state => state.buses);
+    const { availableOrder } = useSelector(state => state.buses);
+    const { user } = UserApi.isAuthenticated()
+    const listUnconfimed = availableOrder.filter(item => item.user_id == user.id && item.status == "UNCONFIMRED");
     useEffect(() => {
         dispatch(actionSearchBuses(start, end))
         dispatch(actionGetBuses())
+        dispatch(actionGetTicket())
     }, [])
     const [time, setTime] = useState({
         minTime: moment("00:00", "HH:mm"),
@@ -123,7 +128,7 @@ const Products = () => {
             setTime({ minTime: moment("00:00", "HH:mm"), maxTime: moment("23:59", "HH:mm") })
         }
     }
-   
+
     const onRemoveChange = () => {
         setPrice({ ...price, value: { min: 0, max: 2000000 } })
         setQtyFilter(1)
@@ -199,7 +204,7 @@ const Products = () => {
 
     return (
         <>
-            
+
             {isMobile ? <MobileComponent
                 activeFilter={activeFilter}
                 districtStart={districtStart}
@@ -226,7 +231,6 @@ const Products = () => {
                 handleCheckedAfternoon={handleCheckedAfternoon}
                 handleCheckedNigth={handleCheckedNigth}
                 onChangeFilterCheckBox={onChangeFilterCheckBox}
-
                 products={availableSearch}
                 productFilter={filterProduct}
                 price={price}
@@ -236,7 +240,9 @@ const Products = () => {
                 checkedAfternoon={checkedAfternoon}
                 checkedNigth={checkedNigth}
                 timeFilter={time}
+                listUnconfimed={listUnconfimed}
             /> : <DesktopComponent
+                listUnconfimed={listUnconfimed}
                 activeFilter={activeFilter}
                 districtStart={districtStart}
                 districtEnd={districtEnd}
