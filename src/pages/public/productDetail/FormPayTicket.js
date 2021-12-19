@@ -66,7 +66,7 @@ const FormPayTicket = ({ product }) => {
                 to: product.endPointName,
                 quantity: qty,
                 dateStart: ticket?.date_ticket,
-               
+
             }
             if (currentRadioValue === "OFFLINE" && qty < 3 && startDate < addWeek) {
                 localStorage.setItem('deposit', false)
@@ -89,7 +89,7 @@ const FormPayTicket = ({ product }) => {
                     localStorage.setItem('ticket', JSON.stringify(resTicket.data))
                 }
 
-            } else if (currentRadioValue === "OFFLINE" && qty >= 3  && startDate < addWeek) {
+            } else if (currentRadioValue === "OFFLINE" && qty >= 3 && startDate < addWeek) {
                 localStorage.setItem('deposit', true)
                 localStorage.setItem('reservation', false)
                 localStorage.setItem('paymentMethod', "OFFLINE")
@@ -119,7 +119,7 @@ const FormPayTicket = ({ product }) => {
                 }
 
             }
-            else if (currentRadioValue === "OFFLINE" && qty >= 3  && startDate >= addWeek || currentRadioValue === "ATM" && qty >= 3  && startDate >= addWeek) {
+            else if (currentRadioValue === "OFFLINE" && qty >= 3 && startDate >= addWeek || currentRadioValue === "ATM" && qty >= 3 && startDate >= addWeek) {
                 localStorage.setItem('deposit', false)
                 localStorage.setItem('reservation', true)
                 localStorage.setItem('paymentMethod', "OFFLINE")
@@ -383,9 +383,11 @@ const FormPayTicket = ({ product }) => {
                                 onChange={(date) => setStartDate(date)}
                                 dateFormat="dd/MM/yyyy HH:mm"
                                 showTimeSelect
-
                                 minDate={todayFormatMoment}
-                                selected={startDate} />
+                                selected={startDate}
+                                maxDate={moment(product.date_inactive, "dd/MM/yyyy")}
+                            />
+                            {/* <span>{moment(product.date_inactive, "DD/MM/yyyy") === moment(startDate, "DD/MM/yyyy") ? "Tạm dừng hoạt động" : ""}</span> */}
                         </div>
 
                     </div>
@@ -435,18 +437,7 @@ const FormPayTicket = ({ product }) => {
                     </div>
                 </div>
 
-                <div className='tw-my-3'>
-                    <div className='tw-my-2 tw-uppercase tw-text-xs tw-font-bold'>
-                        <label> <FontAwesomeIcon icon={faExclamationCircle} /> Những lưu ý trước khi đặt vé </label>
-                    </div>
-                    <ul className='tw-text-xs'>
-                        <li className='tw-pl-2'>- Nếu bạn đặt trước một tuần bạn phải đặt cọc 30% vé</li>
-                        <li className='tw-pl-2'>- Bạn phải nhập đúng địa chỉ email của bạn đang dùng</li>
-                        <li className='tw-pl-2'>- Khi bạn đặt vé không thanh toán qua VNPAY bạn hãy gọi số <span className='tw-text-red-500 tw-text-sm tw-font-bold'>19001910</span> để 
-                        xác nhận giữ vé</li>
-                        <li className='tw-pl-2'>- Trẻ em dưới 5 tuổi được miễn phí vé</li>
-                    </ul>
-                </div>
+
 
                 <div className="tw-flex tw-mt-6">
                     {checkLocal && currentRadioValue === "OFFLINE" && qty < 3 && startDate < addWeek ? <button
