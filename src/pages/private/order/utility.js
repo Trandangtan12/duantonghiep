@@ -17,10 +17,6 @@ export const listFilterStatus = [
         name : "Chưa thanh toán"
     },
     {
-        type : REJECTED , 
-        name : "Huỷ vé"
-    },
-    {
         type : DEPOSIT , 
         name : "Đã đặt cọc"
     },
@@ -31,6 +27,10 @@ export const listFilterStatus = [
     {
         type : UNCONFIMRED , 
         name : "Chờ xác nhận"
+    },
+    {
+        type : RESERVATION , 
+        name : "Đặt trước"
     }
 ]
 

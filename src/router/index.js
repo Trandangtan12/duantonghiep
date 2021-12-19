@@ -24,32 +24,32 @@ const Routes = () => {
     if (user === undefined) {
       return undefined;
     } else {
-      if (user.hasOwnProperty("roles") === false) {
-        return undefined;
-      } else {
-        const userRole = user.roles.every(
-          (item) => item.id === 1
-        );
-        return userRole;
-      }
+      const userRole = user.roles.every(
+        (item) => item.id === 1
+      );
+      return userRole;
     }
   };
-  console.log(userKey());
   const isUserStaff = () => {
     if (user === undefined) {
       return undefined;
     } else {
-      if (user.hasOwnProperty("roles") === false) {
-        return undefined;
-      } else {
-        const userRole = user.roles.every(
-          (item) => item.id === 2
-        );
-        return userRole;
-      }
+      const userRole = user.roles.every(
+        (item) => item.id === 2
+      );
+      return userRole;
     }
   };
-  // const PrivateRouterAdmin = lazy(() => lazy("../auth/privateRouterAdmin"));
+  const isUserStaffTicket = () => {
+    if (user === undefined) {
+      return undefined;
+    } else {
+      const userRole = user.roles.every(
+        (item) => item.id === 3
+      );
+      return userRole;
+    }
+  };
   const LayoutAdmin = lazy(() => import("../layout/layoutAdmin"));
   const LayoutWebsite = lazy(() => import("../layout/layoutWebsite"));
   const HomePages = lazy(() => import("../pages/public/homepages"));
@@ -98,53 +98,22 @@ const Routes = () => {
           <PrivateRouterAdmin path="/admin/:path?">
             <LayoutAdmin>
               <Switch>
-                {user?.id === 3 ? (
-                  <Route exact path="/admin">
-                    <Redirect to="/admin/order" />
-                  </Route>
-                ) : (
-                  <Route exact path="/admin">
+              <Route exact path="/admin">
                     <Redirect to="/admin/dashboard" />
-                  </Route>
-                )}
-
+              </Route>
                 <Route
                   exact
                   path="/admin/dashboard"
-                  render={() => {
-                    return user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <Dashboard />
-                    );
-                  }}
+                  component={Dashboard}
                 />
-                <Route exact path="/admin/buses"  render={() => {
-                    return  user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <Buses />
-                    );
-                  }} />
-                <Route exact path="/admin/buses/create"  render={() => {
-                    return user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <NewBuses />
-                    );
-                  }}  />
+                <Route exact path="/admin/buses" component={Buses} />
+                <Route exact path="/admin/buses/create"  component={NewBuses}  />
                 <Route
                   exact
                   path="/admin/buses/edit/:id"
                   component={EditBusses}
                 />
-                <Route exact path="/admin/analytics"  render={() => {
-                    return user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <Analytics />
-                    );
-                  }} />
+                <Route exact path="/admin/analytics" component={Analytics}  />
                 <Route exact path="/admin/order" component={Order} />
                 <Route
                   exact
@@ -155,133 +124,48 @@ const Routes = () => {
                   exact
                   path="/admin/order/edit/:id"
                   component={EditTicket}
-                />
-                <Route exact path="/admin/service"    render={() => {
-                    return user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <Service />
-                    );
-                  }} />
+                /> 
+                <Route exact path="/admin/service" component={Service} />
                 <Route
                   exact
                   path="/admin/service/create"
-                  render={() => {
-                    return user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <CretaeService />
-                    );
-                  }}
+                 component={CretaeService}
                 />
                 <Route
                   exact
                   path="/admin/service/edit/:id"
-                  render={() => {
-                    return user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <EditService />
-                    );
-                  }}
+                component={EditService}
                 />
                 <Route exact path="/admin/vehicel-type"
-                 render={() => {
-                    return user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <BusesType />
-                    );
-                  }}
+              component={BusesType}
                />
                 <Route
                   exact
                   path="/admin/vehicel-type/create"
-                  render={() => {
-                    return  user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <CretaeVehicel />
-                    );
-                  }}
+                 component={CretaeVehicel}
                 />
                 <Route
                   exact
                   path="/admin/vehicel-type/edit/:id"
-                  render={() => {
-                    return  user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <EditeVehicel />
-                    );
-                  }}
+               component={EditeVehicel}
                 />
-                <Route exact path="/admin/account"  render={() => {
-                    return  userKey() ? (
-                      <Account/>
-                    ) : user?.id === 3 ?  <Redirect to="/admin/order" /> : isUserStaff() ?   <Redirect to="/admin/dashboard" /> : (
-                      <Redirect to="/admin/order" />
-                    );
-                  }}  />
+                <Route exact path="/admin/account" component={Account} />
                 <Route
                   exact
                   path="/admin/account/permission/create"
-                  render={() => {
-                    return  user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <CreatePermission />
-                    );
-                  }}
+                 component={CreatePermission}
                 />
                 <Route
                   exact
                   path="/admin/account/permission/:id"
-                  render={() => {
-                    return user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <Permission />
-                    );
-                  }}
+                 component={Permission}
                 />
-                <Route exact path="/admin/news"  render={() => {
-                    return  user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <News />
-                    );
-                  }}  />
+                <Route exact path="/admin/news" component={News} />
                 <Route exact path="/admin/news/edit/:id" 
-                 render={() => {
-                    return user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <EditNews />
-                    );
-                  }} />
-                <Route exact path="/admin/news/create"   render={() => {
-                    return  user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <NewsCreate />
-                    );
-                  }} />
+               component={EditNews} />
+                <Route exact path="/admin/news/create"  component={NewsCreate}/>
                 <Route exact path="/admin/profile" component={Profile} />
-                <Route exact path="/admin/evaluate"    render={() => {
-                    return  user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <Evaluate />
-                    );
-                  }} />
-                <Route exact path="/admin/news/create"   render={() => {
-                    return  user?.id === 3 ? (
-                      <Redirect to="/admin/order" />
-                    ) : (
-                      <Evaluate />
-                    );
-                  }} />
+                <Route exact path="/admin/evaluate"   component={Evaluate} />
                 <Route exact path="*" component={PageNotFound} />
               </Switch>
             </LayoutAdmin>
