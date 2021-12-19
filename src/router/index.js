@@ -89,6 +89,7 @@ const Routes = () => {
   const Evaluate = lazy(() => import("../pages/private/evaluate"))
   const NewPage = lazy(() => import("../pages/public/newPages"))
   const NewDetailPage = lazy(() => import("../pages/public/newsDetailPage"))
+  const AboutPage = lazy(() => import("../pages/public/aboutPage"))
   return (
     <Router>
       <Suspense fallback={<Loading />}>
@@ -301,6 +302,7 @@ const Routes = () => {
                     </PrivateRouterPublic>
                     <Route exact path="/page/news" component={NewPage} />
                     <Route exact path="/page/newdetail/:id" component={NewDetailPage} />
+                    <Route exact path="/about" component={AboutPage} />
                     <Route exact path="/ticket" component={Ticket} />
                     <Route exact path="/ticket/search" component={TicketSearch} />
                     <Route exact path="*" component={PageNotFound} />

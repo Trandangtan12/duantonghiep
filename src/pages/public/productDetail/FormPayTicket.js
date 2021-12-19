@@ -122,7 +122,7 @@ const FormPayTicket = ({ product }) => {
                 currentRadioValue === "OFFLINE" && startDate >= addWeek && sucess === true) {
                 localStorage.setItem('deposit', true)
                 localStorage.setItem('paymentMethod', "OFFLINE")
-                localStorage.setItem("reservation", false)
+                localStorage.setItem("reservation", true)
                 const ticket = {
                     ...data,
                     buses_id: product.id,
@@ -413,7 +413,7 @@ const FormPayTicket = ({ product }) => {
                         <li className='tw-pl-2'>- Bạn phải nhập đúng địa chỉ email của bạn đang dùng</li>
                         <li className='tw-pl-2'>- Khi bạn đặt vé không thanh toán qua VNPAY bạn hãy gọi số <span className='tw-text-red-500 tw-text-sm tw-font-bold'>19001910</span> để 
                         xác nhận giữ vé</li>
-                        <li className='tw-pl-2'>- Trẻ em dưới 12 tuổi được giảm 50% vé</li>
+                        <li className='tw-pl-2'>- Trẻ em dưới 5 tuổi được miễn phí vé</li>
                     </ul>
                 </div>
 

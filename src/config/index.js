@@ -56,6 +56,11 @@ const { faAddressBook } = iconRegular
 //==============href NAV MENU=============
 export const NAV_LINK_LIST = [
     {
+        label: "Chính sách",
+        link: "/about",
+        icon: faAddressCard
+    },
+    {
         label: "Tra cứu vé xe",
         link: "/ticket/search",
         icon: faSearch

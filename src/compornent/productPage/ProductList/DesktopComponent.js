@@ -5,9 +5,10 @@ import {
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IsoStringConvert } from '../../../config';
+import moment from 'moment';
 
 const DesktopComponent = (props) => {
-  const { productFilter } = props
+  const { productFilter, listUnconfimed } = props
   const checkLocal = window.localStorage.hasOwnProperty("ticketLocal")
   const ListError = () => {
     return (<div className="tw-bg-white tw-p-5 tw-text-center">
@@ -54,7 +55,7 @@ const DesktopComponent = (props) => {
                     </div>
                   </div>
                   <div className="tw-flex">
-                    <span className="tw-text-xl tw-font-bold">{IsoStringConvert(item.end_time)}h</span>
+                    <span className="tw-text-xl tw-font-bold">{moment(item.end_time).format("HH:mm")}h</span>
                     <div className="tw-flex tw-items-center tw-ml-1">
                       <FontAwesomeIcon className="tw-text-[0.25rem] tw-mx-1" icon={faCircle} />
                       <p className="tw-text-gray-500 tw-text-sm">{item.detailAddressEnd}</p>
@@ -75,7 +76,7 @@ const DesktopComponent = (props) => {
             <div className="tw-text-right">
               <p className="tw-py-3 tw-text-gray-500">{item.seat_empty > 0 ? `Số ghế trống ${item.seat_empty}` : <span>Hết ghế</span>}</p>
               {item.status !== "ACTIVED" ? <span className='tw-p-2 tw-bg-yellow-300 tw-rounded-md'>Tạm thời ngưng hoạt động</span> :
-                checkLocal ? <button className="tw-p-2 tw-bg-gray-500 tw-text-white tw-rounded-md ">
+                checkLocal && listUnconfimed.length >= 1 ? <button className="tw-p-2 tw-bg-gray-500 tw-text-white tw-rounded-md ">
                     Gọi điện cho tổng đài
                   </button> : <Link to={`/productdetail/${item.id}`}>
                   <button className="tw-p-2 tw-bg-red-500 tw-text-white tw-rounded-md ">
