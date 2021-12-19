@@ -24,29 +24,30 @@ const Routes = () => {
     if (user === undefined) {
       return undefined;
     } else {
-      if (user.hasOwnProperty("roles") === false) {
-        return undefined;
-      } else {
-        const userRole = user.roles.every(
-          (item) => item.id === 1
-        );
-        return userRole;
-      }
+      const userRole = user?.roles.every(
+        (item) => item.id === 1
+      );
+      return userRole;
     }
   };
-  console.log(userKey());
   const isUserStaff = () => {
     if (user === undefined) {
       return undefined;
     } else {
-      if (user.hasOwnProperty("roles") === false) {
-        return undefined;
-      } else {
-        const userRole = user.roles.every(
-          (item) => item.id === 2
-        );
-        return userRole;
-      }
+      const userRole = user?.roles.every(
+        (item) => item.id === 2
+      );
+      return userRole;
+    }
+  };
+  const isUserStaffTicket = () => {
+    if (user === undefined) {
+      return undefined;
+    } else {
+      const userRole = user?.roles.every(
+        (item) => item.id === 3
+      );
+      return userRole;
     }
   };
   // const PrivateRouterAdmin = lazy(() => lazy("../auth/privateRouterAdmin"));
@@ -98,21 +99,15 @@ const Routes = () => {
           <PrivateRouterAdmin path="/admin/:path?">
             <LayoutAdmin>
               <Switch>
-                {user?.id === 3 ? (
-                  <Route exact path="/admin">
-                    <Redirect to="/admin/order" />
-                  </Route>
-                ) : (
-                  <Route exact path="/admin">
+              <Route exact path="/admin">
                     <Redirect to="/admin/dashboard" />
-                  </Route>
-                )}
+              </Route>
 
                 <Route
                   exact
                   path="/admin/dashboard"
                   render={() => {
-                    return user?.id === 3 ? (
+                    return !userKey() || !isUserStaffTicket ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <Dashboard />
@@ -120,14 +115,14 @@ const Routes = () => {
                   }}
                 />
                 <Route exact path="/admin/buses"  render={() => {
-                    return  user?.id === 3 ? (
+                    return  isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <Buses />
                     );
                   }} />
                 <Route exact path="/admin/buses/create"  render={() => {
-                    return user?.id === 3 ? (
+                    return isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <NewBuses />
@@ -139,7 +134,7 @@ const Routes = () => {
                   component={EditBusses}
                 />
                 <Route exact path="/admin/analytics"  render={() => {
-                    return user?.id === 3 ? (
+                    return isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <Analytics />
@@ -157,7 +152,7 @@ const Routes = () => {
                   component={EditTicket}
                 />
                 <Route exact path="/admin/service"    render={() => {
-                    return user?.id === 3 ? (
+                    return isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <Service />
@@ -167,7 +162,7 @@ const Routes = () => {
                   exact
                   path="/admin/service/create"
                   render={() => {
-                    return user?.id === 3 ? (
+                    return isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <CretaeService />
@@ -178,7 +173,7 @@ const Routes = () => {
                   exact
                   path="/admin/service/edit/:id"
                   render={() => {
-                    return user?.id === 3 ? (
+                    return isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <EditService />
@@ -187,7 +182,7 @@ const Routes = () => {
                 />
                 <Route exact path="/admin/vehicel-type"
                  render={() => {
-                    return user?.id === 3 ? (
+                    return isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <BusesType />
@@ -198,7 +193,7 @@ const Routes = () => {
                   exact
                   path="/admin/vehicel-type/create"
                   render={() => {
-                    return  user?.id === 3 ? (
+                    return  isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <CretaeVehicel />
@@ -209,7 +204,7 @@ const Routes = () => {
                   exact
                   path="/admin/vehicel-type/edit/:id"
                   render={() => {
-                    return  user?.id === 3 ? (
+                    return  isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <EditeVehicel />
@@ -219,7 +214,7 @@ const Routes = () => {
                 <Route exact path="/admin/account"  render={() => {
                     return  userKey() ? (
                       <Account/>
-                    ) : user?.id === 3 ?  <Redirect to="/admin/order" /> : isUserStaff() ?   <Redirect to="/admin/dashboard" /> : (
+                    ) : isUserStaffTicket() ?  <Redirect to="/admin/order" /> : isUserStaff() ?   <Redirect to="/admin/dashboard" /> : (
                       <Redirect to="/admin/order" />
                     );
                   }}  />
@@ -227,7 +222,7 @@ const Routes = () => {
                   exact
                   path="/admin/account/permission/create"
                   render={() => {
-                    return  user?.id === 3 ? (
+                    return  isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <CreatePermission />
@@ -238,7 +233,7 @@ const Routes = () => {
                   exact
                   path="/admin/account/permission/:id"
                   render={() => {
-                    return user?.id === 3 ? (
+                    return isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <Permission />
@@ -246,7 +241,7 @@ const Routes = () => {
                   }}
                 />
                 <Route exact path="/admin/news"  render={() => {
-                    return  user?.id === 3 ? (
+                    return  isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <News />
@@ -254,14 +249,14 @@ const Routes = () => {
                   }}  />
                 <Route exact path="/admin/news/edit/:id" 
                  render={() => {
-                    return user?.id === 3 ? (
+                    return isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <EditNews />
                     );
                   }} />
                 <Route exact path="/admin/news/create"   render={() => {
-                    return  user?.id === 3 ? (
+                    return  isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <NewsCreate />
@@ -269,14 +264,14 @@ const Routes = () => {
                   }} />
                 <Route exact path="/admin/profile" component={Profile} />
                 <Route exact path="/admin/evaluate"    render={() => {
-                    return  user?.id === 3 ? (
+                    return  isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <Evaluate />
                     );
                   }} />
                 <Route exact path="/admin/news/create"   render={() => {
-                    return  user?.id === 3 ? (
+                    return  isUserStaffTicket() ? (
                       <Redirect to="/admin/order" />
                     ) : (
                       <Evaluate />

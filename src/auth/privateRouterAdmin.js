@@ -11,15 +11,15 @@ const PrivateRouterAdmin = ({children}) => {
           if(user.hasOwnProperty('roles') === false) {
             return undefined
           } else {
-            const userRole = user.roles.every(item => item.id === 1 || item.id === 2)
+            const userRole = user.roles.every(item => item.id === 1 || item.id === 2 || item.id === 3 )
             return userRole
           }
         }
       }
-      const isStaffTicket = user && user?.id === 3
+      // const isStaffTicket = user && user?.id === 3
     return (
         <Route render={()=>{
-            return user && userKey() === true || isStaffTicket ? children : <Redirect to={{pathname: '/'}} />
+            return user && userKey() === true ? children : <Redirect to={{pathname: '/'}} />
         }}/>
     )
 }

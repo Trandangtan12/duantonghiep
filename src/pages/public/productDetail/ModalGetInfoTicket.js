@@ -267,7 +267,7 @@ const ModalGetInfoTicket = ({ isOpen, setIsOpenModal, product }) => {
                 </div>
                
                 <form onSubmit={handleSubmit(handlePayTicket)}>
-                <input type="hidden" {...register("user_id")} defaultValue={user == null ? "" : user.id} />
+                <input type="hidden" {...register("user_id")} defaultValue={user == null ? "" : user?.id} />
                 <input type="hidden" {...register("status")} defaultValue="WAITING_ACTIVE" />
                 <div className='tw-my-3'>
                     <div className='tw-my-2 tw-uppercase tw-text-xs tw-font-bold'>
