@@ -18,6 +18,8 @@ export const API_GET_BUSES_TYPE = '/cartypes'
 
 export const API_UPDATE_USER = "/userAdmin"
 
+export const API_USERS = "/users"
+
 export const API_SEARCH = '/search'
 
 export const API_TICKET = "/ticket"
@@ -78,6 +80,8 @@ export const isEmptyObject = () =>{
 export const IsoStringConvert = (date) =>{
     return moment(date).utc(true).format("YYYY-MM-DD H:mm")
 }
+
+
 
 export const IsoStringConvertToTime = (date) =>{
     return moment(date).utc(true).format("H:mm")

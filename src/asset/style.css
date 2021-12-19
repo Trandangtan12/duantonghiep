@@ -1355,6 +1355,10 @@ video {
   width: 20px;
 }
 
+.tw-w-\[400px\] {
+  width: 400px;
+}
+
 .tw-min-w-0 {
   min-width: 0px;
 }
@@ -2257,6 +2261,18 @@ video {
 
 .tw-text-\[2rem\] {
   font-size: 2rem;
+}
+
+.tw-text-\[0\.5rem\] {
+  font-size: 0.5rem;
+}
+
+.tw-text-\[0\.7rem\] {
+  font-size: 0.7rem;
+}
+
+.tw-text-\[0\.8rem\] {
+  font-size: 0.8rem;
 }
 
 .tw-font-medium {
