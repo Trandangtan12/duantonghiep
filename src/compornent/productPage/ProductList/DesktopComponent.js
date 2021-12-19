@@ -9,7 +9,6 @@ import moment from 'moment';
 
 const DesktopComponent = (props) => {
   const { productFilter, listUnconfimed } = props
-  console.log(listUnconfimed.length);
   const checkLocal = window.localStorage.hasOwnProperty("ticketLocal")
   const ListError = () => {
     return (<div className="tw-bg-white tw-p-5 tw-text-center">

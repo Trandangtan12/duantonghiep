@@ -1,17 +1,17 @@
 import {
-    faSuitcase,
-    faUser
-  } from "@fortawesome/fontawesome-free-solid";
-  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-  import React, { useEffect, useState } from "react";
-  import { Link, useHistory, useLocation } from "react-router-dom";
-  import { MENU_BOTTOM_LIST, NAV_LINK_LIST } from "../../config";
-  import NavMobile from "../navMobile";
-  import UserMenuClient from "./UserMenuClient";
+  faSuitcase,
+  faUser
+} from "@fortawesome/fontawesome-free-solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { MENU_BOTTOM_LIST, NAV_LINK_LIST } from "../../config";
+import NavMobile from "../navMobile";
+import UserMenuClient from "./UserMenuClient";
 
-const DesktopComponent = () => {
-    return (
-         <header
+const DesktopComponent = ({ listUnconfimed }) => {
+  return (
+    <header
       className="header tw-relative tw-box-border tw-font-sans tw-z-30 tw-leading-normal tw-rounded-none tw-bg-white
                  tw-shadow-md tw-tracking-norma">
       <div className="tw-flex tw-justify-between tw-items-center tw-w-11/12 tw-mx-auto">
@@ -57,19 +57,20 @@ const DesktopComponent = () => {
         </div>
         <div className="tw-block tw-w-64">
           <div className="tw-flex tw-items-center tw-justify-between">
-            <div className="tw-text-[#777777] tw-font-bold ">
+            <div className="tw-text-center">
               <Link to="/ticket">
-                <FontAwesomeIcon icon={faSuitcase} /> Vé của tôi
+                <p className="tw-text-[#777777] tw-font-bold"><FontAwesomeIcon icon={faSuitcase} /> Vé của tôi</p>
+                <p className="tw-text-xs tw-text-red-500">{listUnconfimed.length >= 1 ? "(Hãy xác nhận vé)" : null} </p>
               </Link>
             </div>
-           
+
             <UserMenuClient />
           </div>
         </div>
       </div>
-     
+
     </header>
-    )
+  )
 }
 
 export default DesktopComponent
