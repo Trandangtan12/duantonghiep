@@ -12,7 +12,7 @@ import SelectForm from "../../../../compornent/selectForm";
 import TextArea from "../../../../compornent/textarea";
 import DatePickerForm from "../../../../compornent/datePicker";
 import * as Yup from "yup";
-import { ACTIVED, ATM, OFFLINE, WAITING_ACTIVE } from "../utility";
+import { ACTIVED, ATM, OFFLINE, RESERVATION, WAITING_ACTIVE } from "../utility";
 import alertify from "alertifyjs";
 import moment from "moment";
 const CreateTicket = () => {
@@ -22,10 +22,8 @@ const CreateTicket = () => {
   const [paymentMethodType, setPaymentMethodType] = useState(WAITING_ACTIVE);
   const { availableBuses } = useSelector((state) => state.buses);
   const [depositStatus, setDepositStatus] = useState(false)
-  console.log(depositStatus);
   const [hidden, setHidden] = useState(false);
   const [timeDeposit, setTimeDeposit] = useState('');
-  console.log(timeDeposit);
   const [startDate, setStartDate] = useState(new Date());
   const [busesSelect, setBusesSelect] = useState();
   const avaibleBussesSuggesstion = availableBuses.map((_elt) => {
@@ -63,9 +61,9 @@ const CreateTicket = () => {
       status: paymentMethodType,
       paymentMethod: paymentMethodType === ACTIVED ? ATM : OFFLINE,
       totalPrice: totalPrice,
-      reservationTime : depositStatus ? timeDeposit : null 
+      reservationTime : depositStatus ? timeDeposit : null ,
+      status : depositStatus ? RESERVATION : WAITING_ACTIVE
     };
-    console.log(newData);
     alertify
       .confirm("Bạn có chắc chắn muốn tạo mơí vé xe ?", async function () {
         const resTicket = await BusesService.addTicket(newData);

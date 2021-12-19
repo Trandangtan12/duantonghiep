@@ -2,9 +2,19 @@ import { faStar } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 import Table from "../../../compornent/admin/table";
 import { getAllRating } from "../../../redux/actions/rating";
 const Evaluate = () => {
+  const TableStyled = styled.div`
+  .rt-th:first-child {
+    display: none;
+  }
+  .rt-td:first-child {
+    display: none;
+  }
+`;
   const dispatch = useDispatch();
   const { rating } = useSelector((state) => state.rating);
   const ExpandableTable = ({ data }) => {
@@ -33,6 +43,11 @@ const Evaluate = () => {
       maxWidth: 100,
       filterable: true,
       show: true,
+      Cell : ({original}) =>{
+        return  <Link to={`/productdetail/${original.buses_id}`}>
+          <span>{original.buses_id}</span>
+        </Link>
+      }
     },
     {
       Header: "Đánh giá",
@@ -81,11 +96,14 @@ const Evaluate = () => {
       <div className="tw-mb-4">
         <span className="tw-uppercase tw-text-2xl">Quản lý đánh giá</span>
       </div>
+      <TableStyled>
       <Table
         data={rating}
         columns={columns}
         ExpandableTable={ExpandableTable}
       />
+      </TableStyled>
+      
     </div>
   );
 };
