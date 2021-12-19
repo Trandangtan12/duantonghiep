@@ -94,7 +94,7 @@ const Notifications = () => {
                   </Link>
                 ))
               ) : (
-                <span>Bạn không có thông báo</span>
+                <span className="tw-text-center">Bạn không có thông báo</span>
               )}
             </Menu.Items>
           </Transition>
