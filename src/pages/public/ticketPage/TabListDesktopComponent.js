@@ -1,10 +1,11 @@
 import React from 'react'
 import { Tab } from "@headlessui/react";
+import { BusesService } from '../../../service/productService';
 
 
 const TabListDesktopComponent = (props) => {
-    const { listWaiting, listActived, listRejected, listDeposit, listDone, listUnconfimed } = props
-    console.log(listUnconfimed);
+    const { listWaiting, cancelTicket, listActived, listRejected, listDeposit, listDone, listUnconfimed } = props
+   
     return (
         <div>
             <Tab.Group>
@@ -56,8 +57,8 @@ const TabListDesktopComponent = (props) => {
                                 </div>
                             </div>
                             <div className='tw-flex tw-mt-2'>
-                                <button className='tw-w-full tw-p-4 tw-border tw-border-black'>Hủy</button>
-                                <button className='tw-w-full tw-p-4 tw-border tw-border-black'>Gọi điện qua số 19001910</button>
+                                <button onClick={() => cancelTicket(items.id)} className='tw-w-full tw-rounded-lg tw-text-red-600 tw-p-4 tw-mr-2 tw-border tw-border-black'>Hủy</button>
+                                <button className='tw-w-full tw-rounded-lg tw-text-green-600 tw-p-4 tw-border tw-border-black'>Gọi điện qua số 19001910</button>
                             </div>
                         </div>
                         )}

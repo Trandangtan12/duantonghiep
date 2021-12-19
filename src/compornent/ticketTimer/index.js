@@ -21,9 +21,10 @@ const TicketTimer = () => {
     const { pathname } = useLocation();
     const [timeTicket, setTimeTicket] = useState(false)
     const ticket = JSON.parse(localStorage.getItem('ticketDetail'))
+    const checkLocal = window.localStorage.hasOwnProperty("ticketLocal")
     const cancelTimeCountdown = async () => {
         const question = window.confirm("Bạn chắc chắn muốn hủy vé?")
-        if (question && ticket?.status === "UNCONFIMRED") {
+        if (question && ticket?.status === "UNCONFIMRED" ) {
             setTimeTicket(false)
             localStorage.removeItem("ticketLocal")
             try {
@@ -37,7 +38,7 @@ const TicketTimer = () => {
 
     }
     useEffect(() => {
-        localTicket() && setTimeTicket(true)
+        checkLocal && setTimeTicket(true)
     }, [pathname])
     return (
         <>
@@ -46,11 +47,13 @@ const TicketTimer = () => {
                 pathname={pathname}
                 localTicket={localTicket}
                 cancelTimeCountdown={cancelTimeCountdown}
+                checkLocal={checkLocal}
             /> : <DesktopComponent
                 timeTicket={timeTicket}
                 pathname={pathname}
                 localTicket={localTicket}
                 cancelTimeCountdown={cancelTimeCountdown}
+                checkLocal={checkLocal}
             />}
 
 
