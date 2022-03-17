@@ -60,7 +60,6 @@ const DesktopComponent = ({ listUnconfimed }) => {
             <div className="tw-text-center">
               <Link to="/ticket">
                 <p className="tw-text-[#777777] tw-font-bold"><FontAwesomeIcon icon={faSuitcase} /> Vé của tôi</p>
-                <p className="tw-text-xs tw-text-red-500">{listUnconfimed.length >= 1 ? "(Hãy xác nhận vé)" : null} </p>
               </Link>
             </div>
 
