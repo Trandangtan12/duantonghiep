@@ -9,7 +9,7 @@ import { IsoStringConvert } from "../../../config";
 import { actionGetAllUsers } from "../../../redux/actions/user";
 
 const Account = () => {
-  const history = useHistory()
+  const history = useHistory();
   const TableStyled = styled.div`
     .rt-th:first-child {
       display: none;
@@ -48,9 +48,9 @@ const Account = () => {
       accessor: "email",
       filterable: true,
       show: true,
-      Cell : ({original}) =>{
-        return <span title={original.email}>{original.email}</span>
-      }
+      Cell: ({ original }) => {
+        return <span title={original.email}>{original.email}</span>;
+      },
     },
     {
       Header: "Giới tính",
@@ -78,11 +78,20 @@ const Account = () => {
       Header: "Hành động",
       show: true,
       Cell: ({ original }) => {
-        return <div>
-        {
-          original.id !== 1 ?    <FontAwesomeIcon icon={faEdit} color="blue" className="tw-cursor-pointer" onClick={()=> history.push(`/admin/account/permission/${original.id}`)} />  : null
-        }
-        </div>
+        return (
+          <div>
+            {original.id !== 1 ? (
+              <FontAwesomeIcon
+                icon={faEdit}
+                color="blue"
+                className="tw-cursor-pointer"
+                onClick={() =>
+                  history.push(`/admin/account/permission/${original.id}`)
+                }
+              />
+            ) : null}
+          </div>
+        );
       },
     },
   ]);
@@ -118,7 +127,7 @@ const Account = () => {
     <TableStyled>
       <div className="tw-rounded-t tw-bg-white tw-mb-0 tw-py-6 ">
         <div className="tw-text-center tw-flex tw-justify-between">
-        <span className="tw-uppercase tw-text-2xl">Quản lý tài khoản</span>
+          <span className="tw-uppercase tw-text-2xl">Quản lý tài khoản</span>
           <button
             className="tw-bg-green-600 tw-text-white active:tw-bg-pink-600 tw-font-bold tw-uppercase tw-text-xs tw-px-4 tw-py-2 tw-rounded tw-shadow hover:tw-shadow-md tw-outline-none focus:tw-outline-none tw-mr-1 tw-ease-linear tw-transition-all tw-duration-150"
             type="button"
